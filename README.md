@@ -58,8 +58,8 @@ https://nchanard.github.io/Genomic2DTK/
 ### A. Variables  
 **Names**  
 Variable names must be written according to the camelCase convention. ***i.e.*** entirely in lower case except for the first letters of the second and subsequent words.
-After the name of a variable try to put an extension separated by a dot. This extension informs about the object class of the variable. The extension must be- written entirely in lower case and must be an abbreviation. For variables that have several possible object classes you could separate the extensions by an   underscore.  
--   
+After the name of a variable try to put an extension separated by a dot. This extension informs about the object class of the variable. The extension must be written entirely in lower case and must be an abbreviation. For variables that have several possible object classes, you could separate the extensions by an underscore.  
+  
 **Extensions**  
 - .chr \<character> ...  
 - .pth \<character> File path  
