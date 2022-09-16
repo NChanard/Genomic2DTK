@@ -21,8 +21,8 @@ ggAPA(
   heatmap.col = NULL,
   na.col = "#F2F2F2",
   colorScale.chr = "linear",
-  bias.num = 0.8,
-  paletteLength.nmb = 51
+  bias.num = 1,
+  paletteLength.num = 51
 )
 }
 \arguments{
@@ -58,9 +58,9 @@ ggAPA(
 
 \item{colorScale.chr}{<character> :  shape of color scale on of "linear" or "density" based. (Default "linear")}
 
-\item{bias.num}{<numeric> : bias of color scale see grDevices::colorRampPalette (Default 0.8)}
+\item{bias.num}{<numeric> : a positive number.  Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
 
-\item{paletteLength.nmb}{<numeric> : The number of color in the palette. (Default 51)}
+\item{paletteLength.num}{<numeric> : The number of color in the palette. (Default 51)}
 }
 \value{
 A ggplot object.

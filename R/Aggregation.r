@@ -37,7 +37,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 matrices.lst <- matrices.lst[!is.na(names(matrices.lst))]
             # Convert sparse matrix in dense matrix and convert 0 in NA if rm0.bln is TRUE
                 if(rm0.bln){
-                    matrices.lst %<>% lapply(.,
+                    matrices.lst %<>% lapply(
                         function(mat.spm){
                             mat.mtx <- mat.spm %>% as.matrix
                             mat.mtx[mat.mtx==0] <- NA
@@ -45,7 +45,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                         }
                     )
                 }else{
-                    matrices.lst %<>% lapply(.,as.matrix)
+                    matrices.lst %<>% lapply(as.matrix)
                 }
             #
             return(matrices.lst)
@@ -59,7 +59,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
         matDim.num <- attributes(matrices.lst)$matriceDim
         totMtx.num  <- length(matrices.lst)
         attributes.lst <- attributes(matrices.lst)
-        if("names" %in% names(attributes.lst)){attributes.lst %<>%. [-which(names(.)=="names")]}
+        if("names" %in% names(attributes.lst)){attributes.lst <- attributes.lst[-which(names(attributes.lst)=="names")]}
     # Differential Function
         if(!is.function(diff.fun) && !is.null(ctrlMatrices.lst)){
             diff.fun <- dplyr::case_when(
@@ -67,7 +67,8 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(diff.fun) %in% c("/","ratio")                         ~ "function(mat.mtx,ctrl.mtx){mat.mtx / ctrl.mtx}",
                 tolower(diff.fun) %in% c("log2","log2-","log2/","log2ratio")  ~ "function(mat.mtx,ctrl.mtx){log2(mat.mtx) - log2(ctrl.mtx)}",
                 TRUE                                                          ~ "function(mat.mtx,ctrl.mtx){log2(mat.mtx+1) - log2(ctrl.mtx+1)}"
-                ) %>% DataTK::WrapFunction(.)
+                )
+            diff.fun <- DataTK::WrapFunction(diff.fun)
         }
     # Aggregation Function
         if(!is.function(agg.fun)){
@@ -75,26 +76,27 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(agg.fun) %in% c("50%","median")     ~ "function(pxl){stats::median(pxl,na.rm=TRUE)}",
                 tolower(agg.fun) %in% c("+","sum")          ~ "function(pxl){sum(pxl,na.rm=TRUE)}",
                 TRUE                                        ~ "function(pxl){mean(pxl,na.rm=TRUE)}"
-                ) %>% DataTK::WrapFunction(.)
+                )
+            agg.fun <- DataTK::WrapFunction(agg.fun)
         }
     # Prepare Matrix List
         if(is.null(minDist.num)){minDist.num<-NA}
         if(is.null(maxDist.num)){maxDist.num<-NA}
-        matrices.lst %<>% .PrepareMtxList(matrices.lst=., minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln)
+        matrices.lst <- .PrepareMtxList(matrices.lst=matrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln)
     # Aggregate
-        agg.mtx <- matrices.lst %>% simplify2array %>% apply(.,1:2,agg.fun)
+        agg.mtx <-  apply(simplify2array(matrices.lst),1:2,agg.fun)
         gc()
     # Differential Case else Return
         if(!is.null(ctrlMatrices.lst)){
             # Prepare Matrix List
-                ctrlMatrices.lst %<>% .PrepareMtxList(matrices.lst=., minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln)
+                ctrlMatrices.lst <- .PrepareMtxList(matrices.lst=ctrlMatrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln)
             # Aggregate
-                aggCtrl.mtx <- ctrlMatrices.lst %>% simplify2array %>% apply(.,1:2,agg.fun)
+                aggCtrl.mtx <- apply(simplify2array(ctrlMatrices.lst),1:2,agg.fun)
                 gc()
             # Scale mat on Ctrl median
                 if(scaleCorrection.bln){
                     if(is.null(correctionArea.lst) || sum(unlist(correctionArea.lst) > matDim.num)){
-                        correctionArea.lst <- round(matDim.num*0.3) %>% list(i=seq_len(.), j=(matDim.num-.+1):matDim.num)
+                        correctionArea.lst <- list(i=seq_len(round(matDim.num*0.3)), j=(matDim.num-round(matDim.num*0.3)+1):matDim.num)
                     }
                     correctionValue.num <- stats::median(aggCtrl.mtx[correctionArea.lst[[1]],correctionArea.lst[[2]]])-stats::median(agg.mtx[correctionArea.lst[[1]],correctionArea.lst[[2]]])
                     aggCorrected.mtx <- agg.mtx+correctionValue.num
@@ -104,8 +106,8 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 }
             # Stat compare
                 if(statCompare.bln){
-                    mtx.nlst <- matrices.lst %>% lapply(.,c) %>% simplify2array
-                    ctrlMtx.nlst <- ctrlMatrices.lst %>% lapply(.,c) %>% simplify2array
+                    mtx.nlst <- matrices.lst %>% lapply(c) %>% simplify2array
+                    ctrlMtx.nlst <- ctrlMatrices.lst %>% lapply(c) %>% simplify2array
                     pval.mtx <- lapply(seq_len(dim(mtx.nlst)[[1]]),function(ndx){
                         WT.vec <- mtx.nlst[ndx,]
                         KD.vec <- ctrlMtx.nlst[ndx,]
@@ -137,7 +139,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     aggCorrectedDelta.mtx <- NULL
                 }
             # Aggregation of differential list
-                aggDiff.mtx <- diffmatrices.lst %>% simplify2array %>% apply(.,1:2,agg.fun)
+                aggDiff.mtx <- apply(simplify2array(diffmatrices.lst),1:2,agg.fun)
                 gc()
             # Filter aggregated differential by pval.mtx
                 if(statCompare.bln){
@@ -150,7 +152,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 }
             # Return
                 aggDiff.mtx %>%
-                    DevTK::AddAttr(., overwrite.bln=TRUE, attribute.lst=c(
+                    DevTK::AddAttr(overwrite.bln=TRUE, attribute.lst=c(
                         totalMatrixNumber = totMtx.num,
                         filteredMatrixNumber = length(matrices.lst),
                         minimalDistance = minDist.num,
@@ -170,10 +172,10 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                         )),
                         attributes.lst
                     )) %>%
-                    return(.)
+                    return(.data)
         }else{
             agg.mtx %>% 
-                DevTK::AddAttr(., attribute.lst=c(
+                DevTK::AddAttr(attribute.lst=c(
                     totalMatrixNumber = totMtx.num ,
                     filteredMatrixNumber = length(matrices.lst),
                     minimalDistance = minDist.num,
@@ -182,6 +184,6 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     zeroRemoved = rm0.bln,
                     attributes.lst
                 )) %>%
-                return(.)
+                return(.data)
     }
 }

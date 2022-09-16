@@ -17,8 +17,8 @@
 #' @param heatmap.col <character> : Heatmap color list. If null automaticaly compute. (Default NULL)
 #' @param na.col <character> : color of NA values. (Default "#F2F2F2")
 #' @param colorScale.chr <character> :  shape of color scale on of "linear" or "density" based. (Default "linear")
-#' @param bias.num <numeric> : bias of color scale see grDevices::colorRampPalette (Default 0.8)
-#' @param paletteLength.nmb <numeric> : The number of color in the palette. (Default 51)
+#' @param bias.num <numeric> : a positive number.  Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)
+#' @param paletteLength.num <numeric> : The number of color in the palette. (Default 51)
 #' @return A ggplot object.
 
 ggAPA = function(
@@ -38,8 +38,8 @@ ggAPA = function(
         heatmap.col=NULL, # Heatmap color list. If null automaticaly compute
         na.col="#F2F2F2", # color of NA values
         colorScale.chr="linear",# or "density" ; shape of color scale
-        bias.num=0.8, # bias of color scale see colorRampPalette
-        paletteLength.nmb = 51
+        bias.num=1, # bias of color scale see colorRampPalette
+        paletteLength.num = 51
     ){
         #############
         # Trimming
@@ -52,14 +52,11 @@ ggAPA = function(
                 if(is.null(trimPrct.num)){trimPrct.num <- 0}
                 if(trimPrct.num!=0 || !is.null(minBoundary.num) || !is.null(maxBoundary.num)){
                     bounds.num_vec <- vec.num %>%
-                        StatTK::QtlThreshold(., prct.num=trimPrct.num, bounds.chr=bounds.chr) %>%
-                        magrittr::set_names(NULL) %>%
-                        list(., list(minBoundary.num, maxBoundary.num)) %>%
-                        purrr::transpose(.) %>% {c(.[1] %>%
-                        unlist %>%
-                        max(., na.rm=TRUE), .[2] %>%
-                        unlist %>% min(., na.rm=TRUE))} %>%
-                        suppressWarnings
+                        StatTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) %>%
+                        magrittr::set_names(NULL)
+                    bounds.num_lst <- list(bounds.num_vec, list(minBoundary.num, maxBoundary.num))
+                    bounds.num_lst <- DataTK::TransposeList(bounds.num_lst)
+                    bounds.num_vec <- c(max(unlist(bounds.num_lst[1]),na.rm=TRUE),min(unlist(bounds.num_lst[2]), na.rm=TRUE))
                 }else{
                     bounds.num_vec <- NULL
                 }
@@ -88,7 +85,7 @@ ggAPA = function(
                     min.num=minBoundary.num,
                     center.num=center.num,
                     max.num=maxBoundary.num,
-                    n.num=paletteLength.nmb,
+                    n.num=paletteLength.num,
                     method.chr=colorScale.chr
                 )
                 minBoundary.num <- min(colBreaks.num)
@@ -98,21 +95,17 @@ ggAPA = function(
         # Colors
         #############
             if(is.null(heatmap.col)){
-                blues.pal <- grDevices::colorRampPalette(colors=rev(RColorBrewer::brewer.pal(9, 'YlGnBu')), space='Lab',interpolate='spline',bias=bias.num)
-                reds.pal <- grDevices::colorRampPalette(colors=RColorBrewer::brewer.pal(9, 'YlOrRd'), space='Lab',interpolate='spline',bias=bias.num)
                 heatmap.col <- dplyr::case_when(
-                    !is.null(center.num) && max(colBreaks.num)<=center.num  ~ blues.pal(paletteLength.nmb),
-                    !is.null(center.num) && center.num<=min(colBreaks.num)  ~ reds.pal(paletteLength.nmb),
-                    TRUE                                                    ~ c(blues.pal(floor((paletteLength.nmb-1)/2)),"#FFFFD8",reds.pal(ceiling((paletteLength.nmb-1)/2)))
+                    !is.null(center.num) && max(colBreaks.num)<=center.num  ~ rev(ColorTK::YlGnBu(paletteLength.num=paletteLength.num,bias=bias.num)),
+                    !is.null(center.num) && center.num<=min(colBreaks.num)  ~ ColorTK::YlOrRd(paletteLength.num=paletteLength.num,bias=bias.num ),
+                    TRUE                                                    ~ c(rev(ColorTK::YlGnBu(paletteLength.num=floor((paletteLength.num-1)/2),bias=bias.num)), "#FFFFD8", ColorTK::YlOrRd(paletteLength.num=ceiling((paletteLength.num-1)/2), bias=bias.num))
                 )
-            }else if(length(heatmap.col)!=paletteLength.nmb){
-                heatmap.col <- grDevices::colorRampPalette(colors=heatmap.col, space='Lab', interpolate='spline', bias=bias.num)(paletteLength.nmb)    
             }
         #############
         # Raster
         #############
-            ggplot2::ggplot(DataTK::MeltSpm(apa.mtx), ggplot2::aes(j, i)) +
-                ggplot2::geom_raster(ggplot2::aes(fill=x)) + 
+            ggplot2::ggplot(DataTK::MeltSpm(apa.mtx), ggplot2::aes(.data$j, .data$i)) +
+                ggplot2::geom_raster(ggplot2::aes(fill=.data$x)) + 
                 ggplot2::scale_fill_gradientn(colours=heatmap.col, values=StatTK::MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
                 ggplot2::scale_y_reverse(breaks=seq_along(colnames(apa.mtx)), labels=colnames(apa.mtx)) +
                 ggplot2::scale_x_continuous(breaks=seq_along(rownames(apa.mtx)), labels=rownames(apa.mtx)) +
@@ -122,5 +115,5 @@ ggAPA = function(
                     axis.line.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank(),
                     legend.title=ggplot2::element_blank()
                 ) %>%
-            return(.)
+            return(.data)
 }

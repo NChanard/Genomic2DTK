@@ -40,7 +40,8 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                 operation.fun == "sum"                          ~ "function(x){sum(x,na.rm=TRUE)}",
                 operation.fun == "mean"                         ~ "function(x){mean(x,na.rm=TRUE)}",
                 TRUE                                            ~ "function(x){mean(x,na.rm=TRUE)}"
-                ) %>% DataTK::WrapFunction(.)
+                )
+            operation.fun <- DataTK::WrapFunction(operation.fun)
         }
     # Define extraction function
         matriceDim.num = attributes(matrices.lst)$matriceDim
@@ -100,7 +101,8 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("R","RIGHT")           ~ list(center.chr, second.chr),
                     toupper(area.fun) %in% c("D","DONUT")           ~ list(donut.chr             ),
                     TRUE                                            ~ list(center.chr, center.chr)
-                ) %>% paste(collapse=",") %>% paste0("function(matrice.mtx){ matrice.mtx[",.,"] }" ) %>%  DataTK::WrapFunction(.)
+                ) %>% paste(collapse=",")
+                area.fun <-  DataTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
         }else if(!is.function(area.fun) && attributes(matrices.lst)$referencePoint == "rf"){
             shiftFactor = attributes(matrices.lst)$shiftFactor
             # Compute rows and cols index
@@ -162,7 +164,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                                 expand.grid(botDonut.num,leftDonut.num),
                                 expand.grid(botDonut.num,widthDonut.num),
                                 expand.grid(botDonut.num,rightDonut.num)
-                            ) %>% dplyr::filter(Var1>=1 & Var2<=matriceDim.num & Var1<=Var2)
+                            ) %>% dplyr::filter(.data$Var1>=1 & .data$Var2<=matriceDim.num & .data$Var1<=.data$Var2)
                         donutRows.chr =  paste(donutCoord.dtf[,1],collapse=",")
                         donutCols.chr =  paste(donutCoord.dtf[,2],collapse=",")
                         donut.chr = paste0("cbind(  c(", donutRows.chr,")  ,  c(",donutCols.chr,")  )")
@@ -180,29 +182,29 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("R","RIGHT")         && R.lgk  ~ list(anchor.chr   , second.chr   ),
                     toupper(area.fun) %in% c("D","DONUT")         && D.lgk  ~ list(donut.chr                   ),
                     TRUE                                                    ~ list(anchor.chr   , bait.chr     )
-                ) %>% paste(collapse=",") %>% paste0("function(matrice.mtx){ matrice.mtx[",.,"] }" ) %>%  DataTK::WrapFunction(.)   
+                ) %>% paste(collapse=",")
+                area.fun <- DataTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))   
         }
     # Compute quantif
         quantif.num = lapply(matrices.lst, function(mtx){ 
-            mtxQuantif.num <- mtx %>%
-                area.fun(.) %>%
-                operation.fun(.) %>%
-                magrittr::set_names(., NULL)
+            mtxQuantif.num <- operation.fun(area.fun(mtx)) %>%
+                magrittr::set_names(NULL)
             rownames(mtxQuantif.num) <- NULL
             colnames(mtxQuantif.num) <- NULL
             return(mtxQuantif.num)
         })
     # Get Names
         if(!is.null(name.chr)){
-            names.chr_lst <- attributes(matrices.lst)$interactions %>%
-                S4Vectors::mcols(.) %>%
+            names.chr_lst <- S4Vectors::mcols(attributes(matrices.lst)$interactions) %>%
                 data.frame %>%
-                dplyr::arrange(factor(submatrix.name, levels=names(quantif.num))) %>% dplyr::pull(name.chr)
+                dplyr::arrange(factor(.data$submatrix.name, levels=names(quantif.num))) %>% dplyr::pull(name.chr)
         } else {
             names.chr_lst <- names(quantif.num)
         }
     # Repeted Index if names.chr_lst is a nested List
-        repeted.ndx <- names.chr_lst %>% lapply(.,length) %>% magrittr::set_names(seq_along(.)) %>% rep(names(.),.) %>% as.numeric
+        lengths.num <- names.chr_lst %>% lapply(length)
+        lengths.num <- lengths.num %>% magrittr::set_names(seq_along(lengths.num)) 
+        repeted.ndx <- rep(names(lengths.num),lengths.num) %>% as.numeric
     # Add attributes
         quantif.num[repeted.ndx] %>%
             magrittr::set_names(unlist(names.chr_lst )) %>% 
@@ -212,5 +214,5 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                 operation = operation.fun,
                 area = area.fun,
                 duplicated = which(duplicated(repeted.ndx))
-            )) %>% return(.y)
+            )) %>% return(.data)
 }
