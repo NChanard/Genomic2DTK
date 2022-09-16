@@ -14,7 +14,7 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
         if(is.function(target.lst[[target.ndx]])){
             lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr], target.lst[[target.ndx]]) %>% unlist %>% which
         }else if(is.character(target.lst[[target.ndx]])){
-            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr],function(columnElement){intersect(as.character(columnElement),target.lst[[columnName.chr]]) %>% length %>% as.logical %>% return(.)}) %>% unlist %>% which
+            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr],function(columnElement){intersect(as.character(columnElement),target.lst[[columnName.chr]]) %>% length %>% as.logical %>% return(.data)}) %>% unlist %>% which
         }else if(inherits(target.lst[[target.ndx]],"GRanges")){
             GenomicRanges::findOverlaps(InteractionSet::anchors(interarctions.gni)[[columnName.chr]],target.lst[[target.ndx]])@from
         }else if(inherits(target.lst[[target.ndx]],"GInteractions")){
@@ -32,9 +32,9 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
     }
     if(!is.null(matrices.lst)){
         matrices.lst[interarctions.ndx] %>%
-            DevTK::AddAttr(var.any=. ,attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) %>%
-            DevTK::AddAttr(var.any=. ,attribute.lst=attributes(matrices.lst)) %>%
-            return(.)
+            DevTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) %>%
+            DevTK::AddAttr(attribute.lst=attributes(matrices.lst)) %>%
+            return(.data)
     }else{
         return(interarctions.ndx)
     }

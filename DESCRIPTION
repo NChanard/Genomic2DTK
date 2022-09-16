@@ -8,7 +8,6 @@ Description: Set of genomic interaction analysis tools.
 Depends:
     R (>= 4.1)
 Imports:
-    BiocGenerics,
     ColorTK,
     DataTK,
     DevTK,
@@ -18,7 +17,6 @@ Imports:
     GenomicRanges,
     GenomicTK,
     ggplot2,
-    grDevices,
     gridExtra,
     InteractionSet,
     IRanges,
@@ -26,24 +24,23 @@ Imports:
     Matrix,
     methods,
     parallel,
-    plyr,
-    purrr,
-    RColorBrewer,
+    rlang,
     S4Vectors,
     stats,
     StatTK,
-    stringr,
     tibble,
     tidyr,
-    tidyselect,
-    viridisLite
+    tidyselect
 Suggests:
+    GenomicED,
+    rmarkdown,
     knitr,
     kableExtra
 Remotes:
     NChanard/ColorTK,
     NChanard/DataTK,
     NChanard/DevTK,
+    NChanard/GenomicED,
     NChanard/GenomicTK,
     NChanard/StatTK
 VignetteBuilder:

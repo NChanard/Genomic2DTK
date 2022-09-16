@@ -66,13 +66,13 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
     }
     pairs.gni <- do.call(c,pairs.gni_lst)
     pairs.gni$anchor2.constraint <- NULL
-    S4Vectors::mcols(pairs.gni) %<>% as.data.frame %>% dplyr::rename(constraint=anchor1.constraint)
-    names(S4Vectors::mcols(pairs.gni))%<>% gsub("anchor2.", "bait.",.) %>%gsub("anchor1.", "anchor.",.)
+    S4Vectors::mcols(pairs.gni) %<>% as.data.frame %>% dplyr::rename(constraint=.data$anchor1.constraint)
+    names(S4Vectors::mcols(pairs.gni)) <- gsub("anchor1.", "anchor.",gsub("anchor2.", "bait.",names(S4Vectors::mcols(pairs.gni))))
     S4Vectors::mcols(pairs.gni)$name <- paste0(S4Vectors::mcols(pairs.gni)$anchor.bin,"_",S4Vectors::mcols(pairs.gni)$bait.bin)
     S4Vectors::mcols(pairs.gni)$orientation <- (pairs.gni == InteractionSet::swapAnchors(pairs.gni))
     S4Vectors::mcols(pairs.gni)$submatrix.name <- S4Vectors::mcols(pairs.gni)$name
     S4Vectors::mcols(pairs.gni)$submatrix.name[!S4Vectors::mcols(pairs.gni)$orientation] <- paste0(S4Vectors::mcols(pairs.gni)$bait.bin[!S4Vectors::mcols(pairs.gni)$orientation],"_",S4Vectors::mcols(pairs.gni)$anchor.bin[!S4Vectors::mcols(pairs.gni)$orientation])
-    S4Vectors::mcols(pairs.gni) %<>% as.data.frame %>% dplyr::select(name,constraint,distance,orientation,submatrix.name,anchor.bin,anchor.name,bait.bin,bait.name,tidyselect::starts_with("anchor"), tidyselect::starts_with("bait")) 
-    names(pairs.gni) = S4Vectors::mcols(pairs.gni)$name
+    S4Vectors::mcols(pairs.gni) %<>% as.data.frame %>% dplyr::select(.data$name,.data$constraint,.data$distance,.data$orientation,.data$submatrix.name,.data$anchor.bin,.data$anchor.name,.data$bait.bin,.data$bait.name,tidyselect::starts_with("anchor"), tidyselect::starts_with("bait")) 
+    names(pairs.gni) <- S4Vectors::mcols(pairs.gni)$name
     return(pairs.gni)
 }

@@ -77,6 +77,7 @@ ___
 ## Library
 ```{r, eval = TRUE}
 library(Genomic2DTK)
+library(GenomicED)
 ```
 
 ## Data
@@ -1445,7 +1446,7 @@ colnames(diffAggreg.mtx) = c(rep("",33),rep("*",2),rep("",31),rep("*",2),rep("",
 ## Plots
 Below you could see the ggAPA function that create a ggplot object (ggplot2::geom_raster)  
 
-### Classic
+<!-- ### Classic -->
 ```{r, fig.dim = c(7,7)}
 ggAPA(
     apa.mtx   = aggreg.mtx,
@@ -1561,7 +1562,7 @@ here is an option to change the color of heatmap and color of NA values.
 ggAPA(
     apa.mtx     = aggreg.mtx,
     title.chr   = "APA",
-    heatmap.col = viridisLite::viridis(6),
+    heatmap.col = ColorTK::viridis(6),
     na.col      = "black"
 )
 ```
@@ -1584,7 +1585,7 @@ ggplot2::labs(
 
 Here is an all in one function that plot the matrix (and all matrices in attributes if it's a differential aggregation) with different options and put it in a pdf. 
 ```{r, eval = FALSE}
-DrawAPA(
+PlotAPA(
     apa.mtx                  = diffAggreg.mtx,
     out.dir                  = getwd(),
     fileName.chr             = "my_file_name",
