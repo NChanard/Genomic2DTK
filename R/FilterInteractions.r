@@ -6,7 +6,6 @@
 #' @param target.lst <List>: a nammed list that describe the target.
 #' @param selection.fun <function>: A function that described how the target must be cross. (Defaul intersection of all targets)
 #' @return A list of elements index or a filtred matrices list with attributes updates.
-
 FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.lst=NULL, selection.fun=function(){Reduce(intersect,interarctions.ndx_lst)}) {
     if(!is.null(matrices.lst) && !is.null(attributes(matrices.lst)$interactions)){interarctions.gni <- attributes(matrices.lst)$interactions}
     interarctions.ndx_lst <- lapply(seq_along(target.lst), function(target.ndx){
@@ -21,11 +20,12 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
             InteractionSet::findOverlaps(interarctions.gni,target.lst[[target.ndx]])@from
         }
     }) %>% magrittr::set_names(names(target.lst))
-    attach(interarctions.ndx_lst)
-    on.exit(detach(interarctions.ndx_lst))
     if(length(target.lst)==1){
         interarctions.ndx <- unlist(interarctions.ndx_lst)
     }else if(!is.null(selection.fun)){
+        for(target.ndx in seq_along(interarctions.ndx_lst)){
+           assign(names(interarctions.ndx_lst)[target.ndx], interarctions.ndx_lst[[target.ndx]], envir = parent.frame())
+        }
         interarctions.ndx <- selection.fun()
     }else{
         return(interarctions.ndx_lst)
