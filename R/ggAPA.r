@@ -4,7 +4,7 @@
 #' @param apa.mtx <matrix> : The matrix to plot. (Default NULL)
 #' @param title.chr <character> : The title of plot. (Default NULL)
 #' @param trimPrct.num <numeric> : A number between 0 and 100 that give the percentage of trimming. (Default 0)
-#' @param bounds.chr <character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see StatTK::QtlThreshold. (Default "both")
+#' @param bounds.chr <character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see SuperTK::QtlThreshold. (Default "both")
 #' @param minBoundary.num <numeric> : Minimal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)
 #' @param center.num <numeric> : Center value of Heatmap, force color range. If Null automaticaly find. (Default NULL)
 #' @param maxBoundary.num <numeric> : Maximal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)
@@ -25,7 +25,7 @@ ggAPA = function(
         apa.mtx = NULL,
         title.chr = NULL,
         trimPrct.num=0, # NULL or [0-100]. Percentage of trimming
-        bounds.chr="both", # inferior, bot # which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see StatTK::QtlThreshold
+        bounds.chr="both", # inferior, bot # which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see SuperTK::QtlThreshold
         minBoundary.num=NULL, # Minimal value of Heatmap, force color range. If Null automaticaly find
         center.num=NULL, # Center value of Heatmap, force color range.  If Null automaticaly find
         maxBoundary.num=NULL, # Maximal value of Heatmap, force color range.  If Null automaticaly find
@@ -52,16 +52,16 @@ ggAPA = function(
                 if(is.null(trimPrct.num)){trimPrct.num <- 0}
                 if(trimPrct.num!=0 || !is.null(minBoundary.num) || !is.null(maxBoundary.num)){
                     bounds.num_vec <- vec.num %>%
-                        StatTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) %>%
+                        SuperTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) %>%
                         magrittr::set_names(NULL)
                     bounds.num_lst <- list(bounds.num_vec, list(minBoundary.num, maxBoundary.num))
-                    bounds.num_lst <- DataTK::TransposeList(bounds.num_lst)
+                    bounds.num_lst <- SuperTK::TransposeList(bounds.num_lst)
                     bounds.num_vec <- c(max(unlist(bounds.num_lst[1]),na.rm=TRUE),min(unlist(bounds.num_lst[2]), na.rm=TRUE))
                 }else{
                     bounds.num_vec <- NULL
                 }
                 if(!is.null(bounds.num_vec)){
-                    apa.mtx <- StatTK::TrimOutliers(x.num=apa.mtx,tresholds.num=bounds.num_vec, clip.bln=TRUE)
+                    apa.mtx <- SuperTK::TrimOutliers(x.num=apa.mtx,tresholds.num=bounds.num_vec, clip.bln=TRUE)
                     vec.num <- c(apa.mtx)
                 }
         #############
@@ -69,7 +69,7 @@ ggAPA = function(
         #############
             if (blurPass.num){
                 for(i in seq_len(blurPass.num)){
-                    apa.mtx <- StatTK::BoxBlur(mat.mtx=apa.mtx, sd=blurSd.num, box.num=blurBox.num, boxSize.num=blurSize.num)
+                    apa.mtx <- SuperTK::BoxBlur(mat.mtx=apa.mtx, sd=blurSd.num, box.num=blurBox.num, boxSize.num=blurSize.num)
                 }
                 if(!is.null(lowerTri.num)){
                     apa.mtx[lower.tri(apa.mtx, diag=FALSE)] <- lowerTri.num
@@ -80,7 +80,7 @@ ggAPA = function(
         # Breaks
         #############    
             if(is.null(colBreaks.num)){
-                colBreaks.num <- StatTK::BreakVector(
+                colBreaks.num <- SuperTK::BreakVector(
                     x.num=vec.num,
                     min.num=minBoundary.num,
                     center.num=center.num,
@@ -96,17 +96,17 @@ ggAPA = function(
         #############
             if(is.null(heatmap.col)){
                 heatmap.col <- dplyr::case_when(
-                    !is.null(center.num) && max(colBreaks.num)<=center.num  ~ rev(ColorTK::YlGnBu(paletteLength.num=paletteLength.num,bias=bias.num)),
-                    !is.null(center.num) && center.num<=min(colBreaks.num)  ~ ColorTK::YlOrRd(paletteLength.num=paletteLength.num,bias=bias.num ),
-                    TRUE                                                    ~ c(rev(ColorTK::YlGnBu(paletteLength.num=floor((paletteLength.num-1)/2),bias=bias.num)), "#FFFFD8", ColorTK::YlOrRd(paletteLength.num=ceiling((paletteLength.num-1)/2), bias=bias.num))
+                    !is.null(center.num) && max(colBreaks.num)<=center.num  ~ rev(SuperTK::YlGnBu(paletteLength.num=paletteLength.num,bias=bias.num)),
+                    !is.null(center.num) && center.num<=min(colBreaks.num)  ~ SuperTK::YlOrRd(paletteLength.num=paletteLength.num,bias=bias.num ),
+                    TRUE                                                    ~ c(rev(SuperTK::YlGnBu(paletteLength.num=floor((paletteLength.num-1)/2),bias=bias.num)), "#FFFFD8", SuperTK::YlOrRd(paletteLength.num=ceiling((paletteLength.num-1)/2), bias=bias.num))
                 )
             }
         #############
         # Raster
         #############
-            ggplot2::ggplot(DataTK::MeltSpm(apa.mtx), ggplot2::aes(.data$j, .data$i)) +
+            ggplot2::ggplot(SuperTK::MeltSpm(apa.mtx), ggplot2::aes(.data$j, .data$i)) +
                 ggplot2::geom_raster(ggplot2::aes(fill=.data$x)) + 
-                ggplot2::scale_fill_gradientn(colours=heatmap.col, values=StatTK::MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
+                ggplot2::scale_fill_gradientn(colours=heatmap.col, values=SuperTK::MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
                 ggplot2::scale_y_reverse(breaks=seq_along(colnames(apa.mtx)), labels=colnames(apa.mtx)) +
                 ggplot2::scale_x_continuous(breaks=seq_along(rownames(apa.mtx)), labels=rownames(apa.mtx)) +
                 ggplot2::labs(title=title.chr, y=dimnames(apa.mtx)[[2]], x=dimnames(apa.mtx)[[2]]) +

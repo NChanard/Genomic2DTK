@@ -75,7 +75,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             start.tim <- Sys.time()
             if(cores.num==1){
                 binnedFeature.gnr_lst <- lapply(seq_len(subJobLenght.num),function(row.ndx){
-                    if(verbose.bln){DevTK::ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
+                    if(verbose.bln){SuperTK::ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] %>% unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] %>% unlist(use.names=FALSE)
                     subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
@@ -93,7 +93,6 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(subBinnedFeature.gnr)
                 })
                 parallel::stopCluster(parCl)
-                DevTK::KillZombies()
             }
             binnedFeature.gnr <- GenomicTK::MergeGRanges(binnedFeature.gnr_lst, sort.bln=FALSE, reduce.bln=FALSE)
             binnedFeature.gnr$bln <- 1
@@ -108,7 +107,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
 
         binnedIndex.gnr <- binnedFeature.lst %>% lapply("[[", "binnedFeature.gnr") %>% GenomicTK::MergeGRanges(sort.bln=FALSE, reduce.bln=FALSE)
         featureMetadata.lst_dtf <- binnedFeature.lst %>% lapply("[[", "featureMetadata.dtf")
-        S4Vectors::mcols(binnedIndex.gnr) <- DataTK::BindFillRows(featureMetadata.lst_dtf)
+        S4Vectors::mcols(binnedIndex.gnr) <- SuperTK::BindFillRows(featureMetadata.lst_dtf)
         ids.lst <- binnedIndex.gnr$name
         dupplicatedIds.lst <- unique(ids.lst[duplicated(ids.lst)])
         idDuplicated.ndx <- which(ids.lst %in% dupplicatedIds.lst)
@@ -123,7 +122,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             jobLenght.num <- nrow(binnedIndexDuplicated.tbl)
             if(cores.num==1){
                 binnedIndexDuplicated.lst <- lapply(seq_len(jobLenght.num), function(row.ndx){
-                    if(verbose.bln){DevTK::ShowLoading(start.tim, row.ndx, jobLenght.num)}
+                    if(verbose.bln){SuperTK::ShowLoading(start.tim, row.ndx, jobLenght.num)}
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
                     row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
                     col.lst <- lapply(seq_along(row),function(col.ndx){
@@ -162,7 +161,6 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(.data)
                 })
                 parallel::stopCluster(parCl)
-                DevTK::KillZombies()
             }
             binnedIndexDuplicated.tbl <- dplyr::bind_rows(binnedIndexDuplicated.lst)
             binnedIndex.gnr <- rbind(binnedIndexDuplicated.tbl, binnedIndexNoDuplicated.tbl) %>% data.frame %>% methods::as("GRanges")

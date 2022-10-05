@@ -68,7 +68,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(diff.fun) %in% c("log2","log2-","log2/","log2ratio")  ~ "function(mat.mtx,ctrl.mtx){log2(mat.mtx) - log2(ctrl.mtx)}",
                 TRUE                                                          ~ "function(mat.mtx,ctrl.mtx){log2(mat.mtx+1) - log2(ctrl.mtx+1)}"
                 )
-            diff.fun <- DataTK::WrapFunction(diff.fun)
+            diff.fun <- SuperTK::WrapFunction(diff.fun)
         }
     # Aggregation Function
         if(!is.function(agg.fun)){
@@ -77,7 +77,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(agg.fun) %in% c("+","sum")          ~ "function(pxl){sum(pxl,na.rm=TRUE)}",
                 TRUE                                        ~ "function(pxl){mean(pxl,na.rm=TRUE)}"
                 )
-            agg.fun <- DataTK::WrapFunction(agg.fun)
+            agg.fun <- SuperTK::WrapFunction(agg.fun)
         }
     # Prepare Matrix List
         if(is.null(minDist.num)){minDist.num<-NA}
@@ -152,7 +152,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 }
             # Return
                 aggDiff.mtx %>%
-                    DevTK::AddAttr(overwrite.bln=TRUE, attribute.lst=c(
+                    SuperTK::AddAttr(overwrite.bln=TRUE, attribute.lst=c(
                         totalMatrixNumber = totMtx.num,
                         filteredMatrixNumber = length(matrices.lst),
                         minimalDistance = minDist.num,
@@ -175,7 +175,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     return(.data)
         }else{
             agg.mtx %>% 
-                DevTK::AddAttr(attribute.lst=c(
+                SuperTK::AddAttr(attribute.lst=c(
                     totalMatrixNumber = totMtx.num ,
                     filteredMatrixNumber = length(matrices.lst),
                     minimalDistance = minDist.num,

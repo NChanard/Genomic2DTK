@@ -32,7 +32,7 @@ ggAPA(
 
 \item{trimPrct.num}{<numeric> : A number between 0 and 100 that give the percentage of trimming. (Default 0)}
 
-\item{bounds.chr}{<character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see StatTK::QtlThreshold. (Default "both")}
+\item{bounds.chr}{<character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see SuperTK::QtlThreshold. (Default "both")}
 
 \item{minBoundary.num}{<numeric> : Minimal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
 

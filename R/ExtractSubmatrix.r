@@ -69,7 +69,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
         # Resize Features according reference Points
             referencePoint.chr %<>% tolower
             if (referencePoint.chr =="rf"){
-                cis.lgk <- DataTK::ReduceRun(
+                cis.lgk <- SuperTK::ReduceRun(
                     GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$first),
                     GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$second),
                     reduceFun.chr="paste",sep="_") %>%
@@ -114,7 +114,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
         # Filt Duplicated Submatrix before extraction
             featureNoDup.gni <- featureFilt.gni[!duplicated(featureFilt.gni$submatrix.name)]
         # Order according Chromosomes combinaison
-            chromosomesCombinaison.rle <- DataTK::ReduceRun(
+            chromosomesCombinaison.rle <- SuperTK::ReduceRun(
                 GenomeInfoDb::seqnames(InteractionSet::anchors(featureNoDup.gni)$first),
                 GenomeInfoDb::seqnames(InteractionSet::anchors(featureNoDup.gni)$second),
                 reduceFun.chr="paste",sep="_") 
@@ -158,7 +158,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                 subJobLenght.num <- length(combinaisonStart.ndx:combinaisonEnd.ndx)
                 if(cores.num==1){
                     tempSubmatrix.spm_lst <- lapply(seq_len(subJobLenght.num),function(range.ndx){
-                        if(verbose.bln){DevTK::ShowLoading(start.tim, range.ndx+(combinaison.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
+                        if(verbose.bln){SuperTK::ShowLoading(start.tim, range.ndx+(combinaison.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
                         if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
@@ -172,11 +172,11 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
                         } 
                         if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm %<>% DataTK::ResizeMatrix(c(matriceDim.num,matriceDim.num))
+                            mat.spm %<>% SuperTK::ResizeMatrix(c(matriceDim.num,matriceDim.num))
                         }
                         if(abs(gap.num) < matriceDim.num ){
                             if(abs(gap.num)>0){
-                                mat.spm <- DataTK::PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
+                                mat.spm <- SuperTK::PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
                             }
                             mat.spm[lower.tri(mat.spm)] <- NA
                             if(abs(gap.num)>0){
@@ -202,11 +202,11 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
                         } 
                         if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm %<>% DataTK::ResizeMatrix(c(matriceDim.num,matriceDim.num))
+                            mat.spm %<>% SuperTK::ResizeMatrix(c(matriceDim.num,matriceDim.num))
                         }
                         if(abs(gap.num) < matriceDim.num ){
                             if(abs(gap.num)>0){
-                                mat.spm <- DataTK::PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
+                                mat.spm <- SuperTK::PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
                             }
                             mat.spm[lower.tri(mat.spm)] <- NA
                             if(abs(gap.num)>0){
@@ -216,8 +216,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         return(as.matrix(mat.spm))
                     })
                     parallel::stopCluster(parCl)
-                    DevTK::KillZombies()
-                    if(verbose.bln){DevTK::ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
+                    if(verbose.bln){SuperTK::ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
                 }
                 return(tempSubmatrix.spm_lst)
             })) %>%
