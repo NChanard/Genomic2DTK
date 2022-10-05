@@ -50,12 +50,25 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Standard.html">Standard</a>
+  </div>
+</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/NChanard/Genomic2DTK/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -70,9 +83,9 @@
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to Genomic2DTK</h1>
                         <h4 data-toc-skip class="author">Nicolas Chanard</h4>
             
-            <h4 data-toc-skip class="date">2022-09-16</h4>
+            <h4 data-toc-skip class="date">2022-10-05</h4>
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/NChanard/Genomic2DTK/blob/HEAD/vignettes/Genomic2DTK.Rmd" class="external-link"><code>vignettes/Genomic2DTK.Rmd</code></a></small>
       <div class="d-none name"><code>Genomic2DTK.Rmd</code></div>
     </div>
 
@@ -124,8 +137,8 @@ pre[class] {
 <h3 id="library">Library<a class="anchor" aria-label="anchor" href="#library"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">Genomic2DTK</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">GenomicED</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/Genomic2DTK/" class="external-link">Genomic2DTK</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
@@ -829,7 +842,8 @@ active
 <span><span class="co">#&gt;</span></span></code></pre></div>
 <p>See <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html" class="external-link">InteractionSet</a> package for more details on ContactMatrix objects and see <a href="https://cran.r-project.org/web/packages/Matrix/Matrix.pdf" class="external-link">Matrix</a> package for more details on sparse matrices formats.<br>
 If the element name is 2L_2R so, the Bin that make up the 2L and 2R sequences would be represented on the contact map (sparse matrix) by lines and columns respectively.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>HiC_ctrl.cmx_lst<span class="sc">$</span>[[<span class="st">"2L_2L"</span>]]<span class="sc">@</span>matrix[<span class="dv">6</span><span class="sc">:</span><span class="dv">15</span>,<span class="dv">6</span><span class="sc">:</span><span class="dv">15</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">[[</span><span class="st">"2L_2L"</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">matrix</span><span class="op">[</span><span class="fl">101</span><span class="op">:</span><span class="fl">110</span>,<span class="fl">101</span><span class="op">:</span><span class="fl">110</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
@@ -837,385 +851,385 @@ View
 <th style="text-align:left;">
 </th>
 <th style="text-align:center;">
-bin 6
+bin 101
 </th>
 <th style="text-align:center;">
-bin 7
+bin 102
 </th>
 <th style="text-align:center;">
-bin 8
+bin 103
 </th>
 <th style="text-align:center;">
-bin 9
+bin 104
 </th>
 <th style="text-align:center;">
-bin 10
+bin 105
 </th>
 <th style="text-align:center;">
-bin 11
+bin 106
 </th>
 <th style="text-align:center;">
-bin 12
+bin 107
 </th>
 <th style="text-align:center;">
-bin 13
+bin 108
 </th>
 <th style="text-align:center;">
-bin 14
+bin 109
 </th>
 <th style="text-align:center;">
-bin 15
+bin 110
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-bin 6
+bin 101
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.9
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+2.2
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-bin 7
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
+0.0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 8
+bin 102
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+1.6
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+1.3
 </td>
 <td style="text-align:center;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-bin 9
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
-</td>
-<td style="text-align:center;">
-0
+0.0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 10
+bin 103
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+2.1
 </td>
 <td style="text-align:center;">
-0
+2.1
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 11
+bin 104
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+3.6
 </td>
 <td style="text-align:center;">
-0
+0.9
 </td>
 <td style="text-align:center;">
-0
+2.1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 12
+bin 105
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+2.3
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+3.3
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 13
+bin 106
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 14
+bin 107
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+2.3
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-bin 15
+bin 108
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.6
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bin 109
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
-0
+0.0
 </td>
 <td style="text-align:center;">
 0
 </td>
 <td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
 0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bin 110
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+1.7
 </td>
 </tr>
 </tbody>
@@ -1641,7 +1655,7 @@ Then we select only TSS with no Beaf peak on same Bin.
 
 
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">TssNoBeaf.ndx</span> <span class="op">&lt;-</span> <span class="fu">DevTK</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DevTK/man/NotIn.html" class="external-link">NotIn</a></span><span class="op">(</span><span class="va">Tss.gnr_ndx</span><span class="op">$</span><span class="va">bin</span>,<span class="va">Beaf.gnr_ndx</span><span class="op">$</span><span class="va">bin</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">TssNoBeaf.ndx</span> <span class="op">&lt;-</span> <span class="fu">DevTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/DevTK/reference/NotIn.html" class="external-link">NotIn</a></span><span class="op">(</span><span class="va">Tss.gnr_ndx</span><span class="op">$</span><span class="va">bin</span>,<span class="va">Beaf.gnr_ndx</span><span class="op">$</span><span class="va">bin</span><span class="op">)</span></span>
 <span><span class="va">TssNoBeaf.gnr_ndx</span> <span class="op">&lt;-</span> <span class="va">Tss.gnr_ndx</span><span class="op">[</span><span class="va">TssNoBeaf.ndx</span>,<span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
@@ -2408,12 +2422,12 @@ strand
 </tr>
 </tbody>
 </table></details>
-So we can Bin the GRanges with the <code><a href="https://rdrr.io/pkg/GenomicTK/man/BinGRanges.html" class="external-link">GenomicTK::BinGRanges</a></code> function at the HiC Resolution to keep metadata.
+So we can Bin the GRanges with the <code><a href="https://nchanard.github.io/GenomicTK/reference/BinGRanges.html" class="external-link">GenomicTK::BinGRanges</a></code> function at the HiC Resolution to keep metadata.
 
 
 
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tad_Border_Binnned.gnr</span> <span class="op">&lt;-</span> <span class="fu">GenomicTK</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicTK/man/BinGRanges.html" class="external-link">BinGRanges</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">tad_Border_Binnned.gnr</span> <span class="op">&lt;-</span> <span class="fu">GenomicTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/GenomicTK/reference/BinGRanges.html" class="external-link">BinGRanges</a></span><span class="op">(</span></span>
 <span>  gRange.gnr  <span class="op">=</span> <span class="va">tad_Border.gnr</span>,</span>
 <span>  binSize.int <span class="op">=</span> <span class="va">binSize.num</span>,</span>
 <span>  verbose.bln <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -4505,13 +4519,13 @@ NA
 <span><span class="co">#&gt;     x[which(x == 0)] &lt;- NA</span></span>
 <span><span class="co">#&gt;     mean(x, na.rm = TRUE)</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55c1d47701f8&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x5584f0ba1878&gt;</span></span>
 <span><span class="co">#&gt; attr(,"area")</span></span>
 <span><span class="co">#&gt; function (matrice.mtx) </span></span>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     matrice.mtx[33:35, 67:69]</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55c1d82d8718&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5584eef1c520&gt;</span></span></code></pre></div>
 <p>In order to print quantifications use <code>c</code> function to avoid the attributes printing.</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span></span>
@@ -5241,7 +5255,7 @@ Beaf32_15
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
-<span>    heatmap.col <span class="op">=</span> <span class="fu">ColorTK</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ColorTK/man/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,</span>
+<span>    heatmap.col <span class="op">=</span> <span class="fu">ColorTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/ColorTK/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,</span>
 <span>    na.col      <span class="op">=</span> <span class="st">"black"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-151-1.png" width="672"></p>
