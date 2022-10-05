@@ -23,7 +23,7 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
         start.tim <- Sys.time()
         if(verbose.bln){cat("\n")}
         pairs.gni_lst <- lapply(seq_len(jobLength.num), function(constraint.ndx){
-            if(verbose.bln){DevTK::ShowLoading(start.tim, constraint.ndx,jobLength.num)}
+            if(verbose.bln){SuperTK::ShowLoading(start.tim, constraint.ndx,jobLength.num)}
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
             subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr$constraint == commonConstraint.chr)]
             subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr$constraint == commonConstraint.chr)]
@@ -62,7 +62,6 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             return(subPairs.gni)
             }) 
         parallel::stopCluster(parCl)
-        DevTK::KillZombies()
     }
     pairs.gni <- do.call(c,pairs.gni_lst)
     pairs.gni$anchor2.constraint <- NULL

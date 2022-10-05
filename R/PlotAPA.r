@@ -20,7 +20,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             }) 
         data.tbl <- dplyr::bind_rows(data.lst_tbl)
         if(is.null(colour.col)){
-            colour.col <- ColorTK::Hue(length(data.lst)) %>% magrittr::set_names(names(data.lst))
+            colour.col <- SuperTK::Hue(length(data.lst)) %>% magrittr::set_names(names(data.lst))
         }
         plot.gp <- ggplot2::ggplot(data.tbl, ggplot2::aes(x=.data$value, fill=.data$class, colour=.data$class)) + 
             ggplot2::geom_density(alpha=0.1) +
@@ -39,7 +39,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         if(differential.bln){
             heatmap.col = NULL
         }else{
-            heatmap.col = ColorTK::viridis(255)
+            heatmap.col = SuperTK::viridis(255)
         }
     # Plot
         # Auto Scale
@@ -95,7 +95,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(attributes(apa.mtx)$matrices$pVal) && sum(!is.na(attributes(apa.mtx)$matrices$pVal))>=3){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$pVal,
-                    heatmap.col=ColorTK::YlOrRd(9),
+                    heatmap.col=SuperTK::YlOrRd(9),
                     title.chr = "-log10(p.values)"
                 ) + ggplot2::labs(subtitle="scale (auto), center()")
             }else{
@@ -177,7 +177,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         # Control + Auto Scale
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 title.chr="Agregation control"
             ) + ggplot2::labs(subtitle="scale (auto)")
             print(plot.gp)
@@ -185,7 +185,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(trimPrct.num) && 0<trimPrct.num){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
-                    heatmap.col=ColorTK::viridis(51),
+                    heatmap.col=SuperTK::viridis(51),
                     trimPrct.num=trimPrct.num,
                     title.chr="Agregation control"
                 ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%)"))
@@ -195,7 +195,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(minConditionBoundary.num) || !is.null(maxConditionBoundary.num)){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
-                    heatmap.col=ColorTK::viridis(51),
+                    heatmap.col=SuperTK::viridis(51),
                     minBoundary.num=minConditionBoundary.num,
                     maxBoundary.num=maxConditionBoundary.num,
                     title.chr="Agregation control"
@@ -205,7 +205,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         # Condition + Auto Scale
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$agg, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 title.chr="Agregation"
             ) + ggplot2::labs(subtitle="scale (auto)")
             print(plot.gp)
@@ -213,7 +213,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(trimPrct.num) && 0<trimPrct.num){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$agg, 
-                    heatmap.col=ColorTK::viridis(51),
+                    heatmap.col=SuperTK::viridis(51),
                     trimPrct.num=trimPrct.num,
                     title.chr="Agregation"
                 ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%)"))
@@ -223,7 +223,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(minConditionBoundary.num) || !is.null(maxConditionBoundary.num)){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$agg, 
-                    heatmap.col=ColorTK::viridis(51),
+                    heatmap.col=SuperTK::viridis(51),
                     minBoundary.num=minConditionBoundary.num,
                     maxBoundary.num=maxConditionBoundary.num,
                     title.chr="Agregation"
@@ -233,7 +233,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         # Corrected condition + Auto Scale
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 title.chr="Agregation corrected"
             ) + ggplot2::labs(subtitle="scale (auto)")
             print(plot.gp)
@@ -241,7 +241,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(trimPrct.num) && 0<trimPrct.num){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                    heatmap.col=ColorTK::viridis(51),
+                    heatmap.col=SuperTK::viridis(51),
                     trimPrct.num=trimPrct.num,
                     title.chr="Agregation corrected"
                 ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%)"))
@@ -251,7 +251,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             if(!is.null(minConditionBoundary.num) || !is.null(maxConditionBoundary.num)){
                 plot.gp <- Genomic2DTK::ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                    heatmap.col=ColorTK::viridis(51),
+                    heatmap.col=SuperTK::viridis(51),
                     minBoundary.num=minConditionBoundary.num,
                     maxBoundary.num=maxConditionBoundary.num,
                     title.chr="Agregation corrected"
@@ -259,13 +259,13 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                 print(plot.gp)
             }
         # Grouped Scale(Condition & Control)
-            colBreaks.num <- StatTK::BreakVector(
+            colBreaks.num <- SuperTK::BreakVector(
                 x.num=c(c(attributes(apa.mtx)$matrices$agg), c(attributes(apa.mtx)$matrices$aggCtrl)),
                 n.num=51)
         # Control + Grouped Scale(with Condition)
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 colBreaks.num=colBreaks.num,
                 title.chr="Agregation control"
             ) + ggplot2::labs(subtitle="scale (grouped with condition)")
@@ -273,19 +273,19 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         # Condition + Grouped Scale(with Control)
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$agg, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 colBreaks.num=colBreaks.num,
                 title.chr="Agregation"
             ) + ggplot2::labs(subtitle="scale (grouped with control)")
             print(plot.gp)
         # Grouped Scale(Corrected condition & Control)
-            colBreaks.num <- StatTK::BreakVector(
+            colBreaks.num <- SuperTK::BreakVector(
                 x.num=c(c(attributes(apa.mtx)$matrices$aggCorrected), c(attributes(apa.mtx)$matrices$aggCtrl)),
                 n.num=51)
         # Control + Grouped Scale(with corrected condition)
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 colBreaks.num=colBreaks.num,
                 title.chr="Agregation control"
             ) + ggplot2::labs(subtitle="scale (grouped with condition corrected)")
@@ -293,7 +293,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         # Corrected condition + Grouped Scale(with Control)
             plot.gp <- Genomic2DTK::ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                heatmap.col=ColorTK::viridis(51),
+                heatmap.col=SuperTK::viridis(51),
                 colBreaks.num=colBreaks.num,
                 title.chr="Agregation corrected"
             ) + ggplot2::labs(subtitle="scale (grouped with control)")
@@ -302,7 +302,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
 
             plot.gp <- .ggDensity(
                 data.lst=list(differential=stats::na.omit(c(apa.mtx))),
-                colour.col=ColorTK::Hue(3)[[1]],
+                colour.col=SuperTK::Hue(3)[[1]],
                 title.chr="Agregation of differential matrices density")
             print(plot.gp)
 
@@ -312,13 +312,13 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             )
             plot.gp <- .ggDensity(
                 data.lst=data.lst,
-                colour.col=ColorTK::Hue(3)[2:3],
+                colour.col=SuperTK::Hue(3)[2:3],
                 title.chr="Condition and control densities")
             print(plot.gp)
             
             plot.gp <- .ggDensity(
                 data.lst=list(deltaCorrected=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrectedDelta))),
-                colour.col=ColorTK::Hue(3)[[1]],
+                colour.col=SuperTK::Hue(3)[[1]],
                 title.chr="Differential of corrected agregated matrices density")
             print(plot.gp)
 
@@ -328,7 +328,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             )
             plot.gp <- .ggDensity(
                 data.lst=data.lst,
-                colour.col=ColorTK::Hue(3)[2:3],
+                colour.col=SuperTK::Hue(3)[2:3],
                 title.chr="Condition corrected and control densities")
             print(plot.gp)
     }
@@ -337,13 +337,13 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             attr.ndx <- apa.mtx %>%
                 attributes %>%
                 names %>%
-                DevTK::NotIn(c("dim","matrices","interactions", "dimnames"))
+                SuperTK::NotIn(c("dim","matrices","interactions", "dimnames"))
             attr.lst <- attributes(apa.mtx)[attr.ndx]
             attr.lst$aggregationMethod <- function(pxl){pxl[is.na(pxl)]<-0;mean(pxl,na.rm=TRUE)}
             attr1.ndx <- attr.lst %>%
                 lapply(class) %>%
                 unlist %>%
-                DevTK::NotIn(c("matrix", "list","GInteractions","function")) 
+                SuperTK::NotIn(c("matrix", "list","GInteractions","function")) 
             attr1.lst <- attr.lst[attr1.ndx] %>%
                         lapply(as.character) %>%
                         unlist

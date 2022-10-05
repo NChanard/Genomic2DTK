@@ -1,7 +1,0 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.6
-pkgdown_sha: ~
-articles:
-  Genomic2DTK: Genomic2DTK.html
-last_built: 2022-09-16T12:09Z
-

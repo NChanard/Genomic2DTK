@@ -41,7 +41,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                 operation.fun == "mean"                         ~ "function(x){mean(x,na.rm=TRUE)}",
                 TRUE                                            ~ "function(x){mean(x,na.rm=TRUE)}"
                 )
-            operation.fun <- DataTK::WrapFunction(operation.fun)
+            operation.fun <- SuperTK::WrapFunction(operation.fun)
         }
     # Define extraction function
         matriceDim.num = attributes(matrices.lst)$matriceDim
@@ -102,7 +102,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("D","DONUT")           ~ list(donut.chr             ),
                     TRUE                                            ~ list(center.chr, center.chr)
                 ) %>% paste(collapse=",")
-                area.fun <-  DataTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
+                area.fun <-  SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
         }else if(!is.function(area.fun) && attributes(matrices.lst)$referencePoint == "rf"){
             shiftFactor = attributes(matrices.lst)$shiftFactor
             # Compute rows and cols index
@@ -183,7 +183,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("D","DONUT")         && D.lgk  ~ list(donut.chr                   ),
                     TRUE                                                    ~ list(anchor.chr   , bait.chr     )
                 ) %>% paste(collapse=",")
-                area.fun <- DataTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))   
+                area.fun <- SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))   
         }
     # Compute quantif
         quantif.num = lapply(matrices.lst, function(mtx){ 
@@ -208,7 +208,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
     # Add attributes
         quantif.num[repeted.ndx] %>%
             magrittr::set_names(unlist(names.chr_lst )) %>% 
-            DevTK::AddAttr(c(
+            SuperTK::AddAttr(c(
                 attributes(matrices.lst),
                 interactions = attributes(matrices.lst)$interactions[repeted.ndx],
                 operation = operation.fun,

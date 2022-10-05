@@ -32,8 +32,8 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
     }
     if(!is.null(matrices.lst)){
         matrices.lst[interarctions.ndx] %>%
-            DevTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) %>%
-            DevTK::AddAttr(attribute.lst=attributes(matrices.lst)) %>%
+            SuperTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) %>%
+            SuperTK::AddAttr(attribute.lst=attributes(matrices.lst)) %>%
             return(.data)
     }else{
         return(interarctions.ndx)

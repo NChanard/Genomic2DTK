@@ -233,16 +233,16 @@ HiC_ctrl.cmx_lst[["2L_2L"]]@matrix %>% str
 See [InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html) package for more details on ContactMatrix objects and see [Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf) package for more details on sparse matrices formats.  
 If the element name is 2L_2R so, the Bin that make up the 2L and 2R sequences would be represented on the contact map (sparse matrix) by lines and columns respectively.  
 ```{r, eval = FALSE}
-HiC_ctrl.cmx_lst$[["2L_2L"]]@matrix[6:15,6:15]
+HiC_ctrl.cmx_lst[["2L_2L"]]@matrix[101:110,101:110]
 ```
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-HiC_ctrl.cmx_lst$`2L_2L`@matrix[6:15,6:15] %>%
+HiC_ctrl.cmx_lst[["2L_2L"]]@matrix[101:110,101:110] %>%
   as.matrix %>%
   as.data.frame(.) %>%
-  magrittr::set_colnames(.,paste0("bin ",6:15)) %>%
-  magrittr::set_rownames(.,paste0("bin ", 6:15)) %>%
+  magrittr::set_colnames(.,paste0("bin ",101:110)) %>%
+  magrittr::set_rownames(.,paste0("bin ",101:110)) %>%
   knitr::kable(., align = "cccccccccc", digits = 1)
 ```
 </details>  

@@ -24,7 +24,7 @@ GnpToCm <- function(hic.gnp=NULL, res.num=NULL, chromSize.dtf=NULL, verbose.bln=
             )
         names(genome.gnr) <- genome.gnr$name
     # Combinaison present in bedpe
-        chromosomesCombinaison.rle = DataTK::ReduceRun(GenomicRanges::seqnames(hic.gnp@first),GenomicRanges::seqnames(hic.gnp@second),reduce.fun="paste",sep="_")
+        chromosomesCombinaison.rle = SuperTK::ReduceRun(GenomicRanges::seqnames(hic.gnp@first),GenomicRanges::seqnames(hic.gnp@second),reduce.fun="paste",sep="_")
         chromosomesCombinaison.chr = S4Vectors::runValue(chromosomesCombinaison.rle)
     # Combinaison present in bedpe
         chromosomesCombinaison.chr <- unique(paste0(hic.gnp@first@seqnames, "_", hic.gnp@second@seqnames))
@@ -45,7 +45,7 @@ GnpToCm <- function(hic.gnp=NULL, res.num=NULL, chromSize.dtf=NULL, verbose.bln=
             start.tim <- Sys.time()
             if(verbose.bln){cat("\n")}
             hic.cmx_lst <- lapply(seq_len(jobLenght.num),function(combin.ndx){
-                if(verbose.bln){DevTK::ShowLoading(start.tim,combin.ndx,jobLenght.num)}
+                if(verbose.bln){SuperTK::ShowLoading(start.tim,combin.ndx,jobLenght.num)}
                 combin.lst <- chromosomesCombinaison.chr[[combin.ndx]] %>%
                     strsplit("_") %>%
                     unlist
@@ -136,10 +136,9 @@ GnpToCm <- function(hic.gnp=NULL, res.num=NULL, chromSize.dtf=NULL, verbose.bln=
                 return(hic.cmx)
             })
             parallel::stopCluster(parCl)
-            DevTK::KillZombies()
         }
         hic.cmx_lst %>%
         magrittr::set_names(chromosomesCombinaison.chr) %>%
-        DevTK::AddAttr(list(resolution=res.num, chromSize = chromSize.tbl, matricesKind=attributes.tbl )) %>%
+        SuperTK::AddAttr(list(resolution=res.num, chromSize = chromSize.tbl, matricesKind=attributes.tbl )) %>%
         return(.data)
 }
