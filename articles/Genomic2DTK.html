@@ -83,7 +83,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to Genomic2DTK</h1>
                         <h4 data-toc-skip class="author">Nicolas Chanard</h4>
             
-            <h4 data-toc-skip class="date">2022-10-05</h4>
+            <h4 data-toc-skip class="date">2022-10-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/NChanard/Genomic2DTK/blob/HEAD/vignettes/Genomic2DTK.Rmd" class="external-link"><code>vignettes/Genomic2DTK.Rmd</code></a></small>
       <div class="d-none name"><code>Genomic2DTK.Rmd</code></div>
@@ -762,9 +762,9 @@ active
 <p>We complete the data with 2L and 2R chromosome sizes and HiC map resolution.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span><span class="op">=</span><span class="fl">23513712</span>, <span class="st">'2R'</span><span class="op">=</span><span class="fl">25286936</span><span class="op">)</span></span>
-<span><span class="va">chromSize.dtf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  seqnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span>
-<span>  seqlengths<span class="op">=</span><span class="va">seqlengths.num</span></span>
+<span><span class="va">chromSize.dtf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span>
+<span>  seqlengths <span class="op">=</span> <span class="va">seqlengths.num</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">binSize.num</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></code></pre></div>
 <hr>
@@ -829,7 +829,7 @@ active
 <span><span class="co">#&gt; [1] "Matrix"</span></span>
 <span><span class="co">#&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">[[</span><span class="st">"2L_2L"</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">matrix</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">str</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">[[</span><span class="st">"2L_2L"</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formal class 'dgCMatrix' [package "Matrix"] with 6 slots</span></span>
 <span><span class="co">#&gt;   ..@ i       : int [1:617185] 73 74 75 75 74 77 78 78 79 73 ...</span></span>
 <span><span class="co">#&gt;   ..@ p       : int [1:23515] 0 0 0 0 0 0 0 0 0 0 ...</span></span>
@@ -1335,7 +1335,7 @@ bin 110
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf.gnr_ndx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span>
 <span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">GRanges.gnr</span><span class="op">)</span>, </span>
-<span>  constraint.gnr        <span class="op">=</span> <span class="va">Tad.gnr</span>,                </span>
+<span>  constraint.gnr        <span class="op">=</span> <span class="va">Tad.gnr</span>,</span>
 <span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
 <span>  binSize.int           <span class="op">=</span> <span class="va">binSize.num</span>,</span>
 <span>  method.chr            <span class="op">=</span> <span class="st">"max"</span>,</span>
@@ -1655,7 +1655,7 @@ Then we select only TSS with no Beaf peak on same Bin.
 
 
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">TssNoBeaf.ndx</span> <span class="op">&lt;-</span> <span class="fu">DevTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/DevTK/reference/NotIn.html" class="external-link">NotIn</a></span><span class="op">(</span><span class="va">Tss.gnr_ndx</span><span class="op">$</span><span class="va">bin</span>,<span class="va">Beaf.gnr_ndx</span><span class="op">$</span><span class="va">bin</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">TssNoBeaf.ndx</span> <span class="op">&lt;-</span> <span class="fu">SuperTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/DevTK/reference/NotIn.html" class="external-link">NotIn</a></span><span class="op">(</span><span class="va">Tss.gnr_ndx</span><span class="op">$</span><span class="va">bin</span>,<span class="va">Beaf.gnr_ndx</span><span class="op">$</span><span class="va">bin</span><span class="op">)</span></span>
 <span><span class="va">TssNoBeaf.gnr_ndx</span> <span class="op">&lt;-</span> <span class="va">Tss.gnr_ndx</span><span class="op">[</span><span class="va">TssNoBeaf.ndx</span>,<span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
@@ -1822,15 +1822,154 @@ FBgn0031219
 <h3 id="pairing">Pairing<a class="anchor" aria-label="anchor" href="#pairing"></a>
 </h3>
 <p>Now we have two genomic features indexed on genome and we want search all putative Beaf-TSS pairs that share a same constraint (i.e: that are in the same Tad). The first element of the pair (beaf) is called <strong>Anchors</strong> and the second one (TSS) is called <strong>Bait</strong>. So a pair is always in order <strong>Anchors-Bait</strong> (as A is before B).</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Beaf_VS_TssNoBeaf.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SearchPairs.html">SearchPairs</a></span><span class="op">(</span></span>
-<span>    indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf.gnr_ndx</span>,</span>
-<span>    indexBait.gnr   <span class="op">=</span> <span class="va">TssNoBeaf.gnr_ndx</span>,</span>
-<span>    minDist.num     <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>    maxDist.num     <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    cores.num       <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    verbose.bln     <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span>    <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Beaf_VS_TssNoBeaf.gni <span class="ot">&lt;-</span> <span class="fu">SearchPairs</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">indexAnchor.gnr =</span> Beaf.gnr_ndx,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">indexBait.gnr   =</span> TssNoBeaf.gnr_ndx,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">minDist.num     =</span> <span class="cn">NULL</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">maxDist.num     =</span> <span class="cn">NULL</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cores.num       =</span> <span class="dv">1</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose.bln     =</span> <span class="cn">TRUE</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.72 %   </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a> <span class="fl">1.44</span> %   Resting time<span class="sc">:</span> <span class="fl">4.69</span>  secs </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a> <span class="fl">2.16</span> %   Resting time<span class="sc">:</span> <span class="fl">6.79</span>  secs </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a> <span class="fl">2.88</span> %   Resting time<span class="sc">:</span> <span class="fl">7.02</span>  secs </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a> <span class="fl">3.60</span> %   Resting time<span class="sc">:</span> <span class="fl">7.20</span>  secs </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a> <span class="fl">4.32</span> %   Resting time<span class="sc">:</span> <span class="fl">7.37</span>  secs </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a> <span class="fl">5.04</span> %   Resting time<span class="sc">:</span> <span class="fl">7.45</span>  secs </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a> <span class="fl">5.76</span> %   Resting time<span class="sc">:</span> <span class="fl">7.60</span>  secs </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a> <span class="fl">6.47</span> %   Resting time<span class="sc">:</span> <span class="fl">10.48</span> secs </span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a> <span class="fl">7.19</span> %   Resting time<span class="sc">:</span> <span class="fl">10.17</span> secs </span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a> <span class="fl">7.91</span> %   Resting time<span class="sc">:</span> <span class="fl">9.88</span>  secs </span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a> <span class="fl">8.63</span> %   Resting time<span class="sc">:</span> <span class="fl">9.65</span>  secs </span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a> <span class="fl">9.35</span> %   Resting time<span class="sc">:</span> <span class="fl">9.44</span>  secs </span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a> <span class="fl">10.07</span> %  Resting time<span class="sc">:</span> <span class="fl">9.27</span>  secs </span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a> <span class="fl">10.79</span> %  Resting time<span class="sc">:</span> <span class="fl">9.13</span>  secs </span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a> <span class="fl">11.51</span> %  Resting time<span class="sc">:</span> <span class="fl">8.99</span>  secs </span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a> <span class="fl">12.23</span> %  Resting time<span class="sc">:</span> <span class="fl">8.84</span>  secs </span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a> <span class="fl">12.95</span> %  Resting time<span class="sc">:</span> <span class="fl">8.73</span>  secs </span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a> <span class="fl">13.67</span> %  Resting time<span class="sc">:</span> <span class="fl">8.58</span>  secs </span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a> <span class="fl">14.39</span> %  Resting time<span class="sc">:</span> <span class="fl">8.46</span>  secs </span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a> <span class="fl">15.11</span> %  Resting time<span class="sc">:</span> <span class="fl">8.38</span>  secs </span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a> <span class="fl">15.83</span> %  Resting time<span class="sc">:</span> <span class="fl">8.30</span>  secs </span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a> <span class="fl">16.55</span> %  Resting time<span class="sc">:</span> <span class="fl">8.19</span>  secs </span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a> <span class="fl">17.27</span> %  Resting time<span class="sc">:</span> <span class="fl">8.08</span>  secs </span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a> <span class="fl">17.99</span> %  Resting time<span class="sc">:</span> <span class="fl">7.96</span>  secs </span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a> <span class="fl">18.71</span> %  Resting time<span class="sc">:</span> <span class="fl">7.87</span>  secs </span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a> <span class="fl">19.42</span> %  Resting time<span class="sc">:</span> <span class="fl">7.76</span>  secs </span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a> <span class="fl">20.14</span> %  Resting time<span class="sc">:</span> <span class="fl">7.66</span>  secs </span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a> <span class="fl">20.86</span> %  Resting time<span class="sc">:</span> <span class="fl">7.56</span>  secs </span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a> <span class="fl">21.58</span> %  Resting time<span class="sc">:</span> <span class="fl">7.47</span>  secs </span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a> <span class="fl">22.30</span> %  Resting time<span class="sc">:</span> <span class="fl">8.06</span>  secs </span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a> <span class="fl">23.02</span> %  Resting time<span class="sc">:</span> <span class="fl">7.94</span>  secs </span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a> <span class="fl">23.74</span> %  Resting time<span class="sc">:</span> <span class="fl">7.85</span>  secs </span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a> <span class="fl">24.46</span> %  Resting time<span class="sc">:</span> <span class="fl">7.75</span>  secs </span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a> <span class="fl">25.18</span> %  Resting time<span class="sc">:</span> <span class="fl">7.65</span>  secs </span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a> <span class="fl">25.90</span> %  Resting time<span class="sc">:</span> <span class="fl">7.54</span>  secs </span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a> <span class="fl">26.62</span> %  Resting time<span class="sc">:</span> <span class="fl">7.43</span>  secs </span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a> <span class="fl">27.34</span> %  Resting time<span class="sc">:</span> <span class="fl">7.33</span>  secs </span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a> <span class="fl">28.06</span> %  Resting time<span class="sc">:</span> <span class="fl">7.24</span>  secs </span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a> <span class="fl">28.78</span> %  Resting time<span class="sc">:</span> <span class="fl">7.15</span>  secs </span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a> <span class="fl">29.50</span> %  Resting time<span class="sc">:</span> <span class="fl">7.06</span>  secs </span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a> <span class="fl">30.22</span> %  Resting time<span class="sc">:</span> <span class="fl">6.97</span>  secs </span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a> <span class="fl">30.94</span> %  Resting time<span class="sc">:</span> <span class="fl">6.89</span>  secs </span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a> <span class="fl">31.65</span> %  Resting time<span class="sc">:</span> <span class="fl">6.80</span>  secs </span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a> <span class="fl">32.37</span> %  Resting time<span class="sc">:</span> <span class="fl">6.73</span>  secs </span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a> <span class="fl">33.09</span> %  Resting time<span class="sc">:</span> <span class="fl">6.64</span>  secs </span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a> <span class="fl">33.81</span> %  Resting time<span class="sc">:</span> <span class="fl">6.56</span>  secs </span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a> <span class="fl">34.53</span> %  Resting time<span class="sc">:</span> <span class="fl">6.47</span>  secs </span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a> <span class="fl">35.25</span> %  Resting time<span class="sc">:</span> <span class="fl">6.38</span>  secs </span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a> <span class="fl">35.97</span> %  Resting time<span class="sc">:</span> <span class="fl">6.30</span>  secs </span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a> <span class="fl">36.69</span> %  Resting time<span class="sc">:</span> <span class="fl">6.22</span>  secs </span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a> <span class="fl">37.41</span> %  Resting time<span class="sc">:</span> <span class="fl">6.14</span>  secs </span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a> <span class="fl">38.13</span> %  Resting time<span class="sc">:</span> <span class="fl">6.37</span>  secs </span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a> <span class="fl">38.85</span> %  Resting time<span class="sc">:</span> <span class="fl">6.28</span>  secs </span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a> <span class="fl">39.57</span> %  Resting time<span class="sc">:</span> <span class="fl">6.18</span>  secs </span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a> <span class="fl">40.29</span> %  Resting time<span class="sc">:</span> <span class="fl">6.09</span>  secs </span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a> <span class="fl">41.01</span> %  Resting time<span class="sc">:</span> <span class="fl">6.00</span>  secs </span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a> <span class="fl">41.73</span> %  Resting time<span class="sc">:</span> <span class="fl">5.91</span>  secs </span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a> <span class="fl">42.45</span> %  Resting time<span class="sc">:</span> <span class="fl">5.82</span>  secs </span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a> <span class="fl">43.17</span> %  Resting time<span class="sc">:</span> <span class="fl">5.73</span>  secs </span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a> <span class="fl">43.88</span> %  Resting time<span class="sc">:</span> <span class="fl">5.65</span>  secs </span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a> <span class="fl">44.60</span> %  Resting time<span class="sc">:</span> <span class="fl">5.56</span>  secs </span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a> <span class="fl">45.32</span> %  Resting time<span class="sc">:</span> <span class="fl">5.48</span>  secs </span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a> <span class="fl">46.04</span> %  Resting time<span class="sc">:</span> <span class="fl">5.40</span>  secs </span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a> <span class="fl">46.76</span> %  Resting time<span class="sc">:</span> <span class="fl">5.31</span>  secs </span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a> <span class="fl">47.48</span> %  Resting time<span class="sc">:</span> <span class="fl">5.23</span>  secs </span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a> <span class="fl">48.20</span> %  Resting time<span class="sc">:</span> <span class="fl">5.15</span>  secs </span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a> <span class="fl">48.92</span> %  Resting time<span class="sc">:</span> <span class="fl">5.06</span>  secs </span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a> <span class="fl">49.64</span> %  Resting time<span class="sc">:</span> <span class="fl">4.99</span>  secs </span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a> <span class="fl">50.36</span> %  Resting time<span class="sc">:</span> <span class="fl">4.91</span>  secs </span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a> <span class="fl">51.08</span> %  Resting time<span class="sc">:</span> <span class="fl">4.83</span>  secs </span>
+<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a> <span class="fl">51.80</span> %  Resting time<span class="sc">:</span> <span class="fl">4.76</span>  secs </span>
+<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a> <span class="fl">52.52</span> %  Resting time<span class="sc">:</span> <span class="fl">4.69</span>  secs </span>
+<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a> <span class="fl">53.24</span> %  Resting time<span class="sc">:</span> <span class="fl">4.61</span>  secs </span>
+<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a> <span class="fl">53.96</span> %  Resting time<span class="sc">:</span> <span class="fl">4.53</span>  secs </span>
+<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a> <span class="fl">54.68</span> %  Resting time<span class="sc">:</span> <span class="fl">4.63</span>  secs </span>
+<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a> <span class="fl">55.40</span> %  Resting time<span class="sc">:</span> <span class="fl">4.55</span>  secs </span>
+<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a> <span class="fl">56.12</span> %  Resting time<span class="sc">:</span> <span class="fl">4.47</span>  secs </span>
+<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a> <span class="fl">56.83</span> %  Resting time<span class="sc">:</span> <span class="fl">4.38</span>  secs </span>
+<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a> <span class="fl">57.55</span> %  Resting time<span class="sc">:</span> <span class="fl">4.30</span>  secs </span>
+<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a> <span class="fl">58.27</span> %  Resting time<span class="sc">:</span> <span class="fl">4.23</span>  secs </span>
+<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a> <span class="fl">58.99</span> %  Resting time<span class="sc">:</span> <span class="fl">4.14</span>  secs </span>
+<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a> <span class="fl">59.71</span> %  Resting time<span class="sc">:</span> <span class="fl">4.06</span>  secs </span>
+<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a> <span class="fl">60.43</span> %  Resting time<span class="sc">:</span> <span class="fl">3.98</span>  secs </span>
+<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a> <span class="fl">61.15</span> %  Resting time<span class="sc">:</span> <span class="fl">3.90</span>  secs </span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a> <span class="fl">61.87</span> %  Resting time<span class="sc">:</span> <span class="fl">3.83</span>  secs </span>
+<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a> <span class="fl">62.59</span> %  Resting time<span class="sc">:</span> <span class="fl">3.75</span>  secs </span>
+<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a> <span class="fl">63.31</span> %  Resting time<span class="sc">:</span> <span class="fl">3.67</span>  secs </span>
+<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a> <span class="fl">64.03</span> %  Resting time<span class="sc">:</span> <span class="fl">3.59</span>  secs </span>
+<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a> <span class="fl">64.75</span> %  Resting time<span class="sc">:</span> <span class="fl">3.52</span>  secs </span>
+<span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a> <span class="fl">65.47</span> %  Resting time<span class="sc">:</span> <span class="fl">3.44</span>  secs </span>
+<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a> <span class="fl">66.19</span> %  Resting time<span class="sc">:</span> <span class="fl">3.36</span>  secs </span>
+<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a> <span class="fl">66.91</span> %  Resting time<span class="sc">:</span> <span class="fl">3.29</span>  secs </span>
+<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a> <span class="fl">67.63</span> %  Resting time<span class="sc">:</span> <span class="fl">3.21</span>  secs </span>
+<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a> <span class="fl">68.35</span> %  Resting time<span class="sc">:</span> <span class="fl">3.14</span>  secs </span>
+<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a> <span class="fl">69.06</span> %  Resting time<span class="sc">:</span> <span class="fl">3.06</span>  secs </span>
+<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a> <span class="fl">69.78</span> %  Resting time<span class="sc">:</span> <span class="fl">2.99</span>  secs </span>
+<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a> <span class="fl">70.50</span> %  Resting time<span class="sc">:</span> <span class="fl">2.99</span>  secs </span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a> <span class="fl">71.22</span> %  Resting time<span class="sc">:</span> <span class="fl">2.92</span>  secs </span>
+<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a> <span class="fl">71.94</span> %  Resting time<span class="sc">:</span> <span class="fl">2.84</span>  secs </span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a> <span class="fl">72.66</span> %  Resting time<span class="sc">:</span> <span class="fl">2.76</span>  secs </span>
+<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a> <span class="fl">73.38</span> %  Resting time<span class="sc">:</span> <span class="fl">2.68</span>  secs </span>
+<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a> <span class="fl">74.10</span> %  Resting time<span class="sc">:</span> <span class="fl">2.61</span>  secs </span>
+<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a> <span class="fl">74.82</span> %  Resting time<span class="sc">:</span> <span class="fl">2.53</span>  secs </span>
+<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a> <span class="fl">75.54</span> %  Resting time<span class="sc">:</span> <span class="fl">2.46</span>  secs </span>
+<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a> <span class="fl">76.26</span> %  Resting time<span class="sc">:</span> <span class="fl">2.38</span>  secs </span>
+<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a> <span class="fl">76.98</span> %  Resting time<span class="sc">:</span> <span class="fl">2.31</span>  secs </span>
+<span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a> <span class="fl">77.70</span> %  Resting time<span class="sc">:</span> <span class="fl">2.23</span>  secs </span>
+<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a> <span class="fl">78.42</span> %  Resting time<span class="sc">:</span> <span class="fl">2.16</span>  secs </span>
+<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a> <span class="fl">79.14</span> %  Resting time<span class="sc">:</span> <span class="fl">2.09</span>  secs </span>
+<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a> <span class="fl">79.86</span> %  Resting time<span class="sc">:</span> <span class="fl">2.01</span>  secs </span>
+<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a> <span class="fl">80.58</span> %  Resting time<span class="sc">:</span> <span class="fl">1.94</span>  secs </span>
+<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a> <span class="fl">81.29</span> %  Resting time<span class="sc">:</span> <span class="fl">1.86</span>  secs </span>
+<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a> <span class="fl">82.01</span> %  Resting time<span class="sc">:</span> <span class="fl">1.79</span>  secs </span>
+<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a> <span class="fl">82.73</span> %  Resting time<span class="sc">:</span> <span class="fl">1.72</span>  secs </span>
+<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a> <span class="fl">83.45</span> %  Resting time<span class="sc">:</span> <span class="fl">1.64</span>  secs </span>
+<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a> <span class="fl">84.17</span> %  Resting time<span class="sc">:</span> <span class="fl">1.57</span>  secs </span>
+<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a> <span class="fl">84.89</span> %  Resting time<span class="sc">:</span> <span class="fl">1.50</span>  secs </span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a> <span class="fl">85.61</span> %  Resting time<span class="sc">:</span> <span class="fl">1.43</span>  secs </span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a> <span class="fl">86.33</span> %  Resting time<span class="sc">:</span> <span class="fl">1.35</span>  secs </span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a> <span class="fl">87.05</span> %  Resting time<span class="sc">:</span> <span class="fl">1.31</span>  secs </span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a> <span class="fl">87.77</span> %  Resting time<span class="sc">:</span> <span class="fl">1.24</span>  secs </span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a> <span class="fl">88.49</span> %  Resting time<span class="sc">:</span> <span class="fl">1.16</span>  secs </span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a> <span class="fl">89.21</span> %  Resting time<span class="sc">:</span> <span class="fl">1.09</span>  secs </span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a> <span class="fl">89.93</span> %  Resting time<span class="sc">:</span> <span class="fl">1.01</span>  secs </span>
+<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a> <span class="fl">90.65</span> %  Resting time<span class="sc">:</span> <span class="fl">0.94</span>  secs </span>
+<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a> <span class="fl">91.37</span> %  Resting time<span class="sc">:</span> <span class="fl">0.87</span>  secs </span>
+<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a> <span class="fl">92.09</span> %  Resting time<span class="sc">:</span> <span class="fl">0.80</span>  secs </span>
+<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a> <span class="fl">92.81</span> %  Resting time<span class="sc">:</span> <span class="fl">0.72</span>  secs </span>
+<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a> <span class="fl">93.53</span> %  Resting time<span class="sc">:</span> <span class="fl">0.65</span>  secs </span>
+<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a> <span class="fl">94.24</span> %  Resting time<span class="sc">:</span> <span class="fl">0.58</span>  secs </span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a> <span class="fl">94.96</span> %  Resting time<span class="sc">:</span> <span class="fl">0.50</span>  secs </span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a> <span class="fl">95.68</span> %  Resting time<span class="sc">:</span> <span class="fl">0.43</span>  secs </span>
+<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a> <span class="fl">96.40</span> %  Resting time<span class="sc">:</span> <span class="fl">0.36</span>  secs </span>
+<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a> <span class="fl">97.12</span> %  Resting time<span class="sc">:</span> <span class="fl">0.29</span>  secs </span>
+<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a> <span class="fl">97.84</span> %  Resting time<span class="sc">:</span> <span class="fl">0.21</span>  secs </span>
+<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a> <span class="fl">98.56</span> %  Resting time<span class="sc">:</span> <span class="fl">0.14</span>  secs </span>
+<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a> <span class="fl">99.28</span> %  Resting time<span class="sc">:</span> <span class="fl">0.07</span>  secs </span>
+<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a> <span class="fl">100.00</span> % Resting time<span class="sc">:</span> <span class="fl">0.00</span>  secs </span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
@@ -1850,7 +1989,7 @@ Metadata
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Name
+Names
 </div>
 </th>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
@@ -2251,8 +2390,8 @@ active
 <code class="sourceCode R"><span><span class="va">tad_Border.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu">GenomicRanges</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/intra-range-methods.html" class="external-link">resize</a></span><span class="op">(</span><span class="va">Tad.gnr</span>, <span class="fl">1</span>, <span class="st">"start"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">GenomicRanges</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/intra-range-methods.html" class="external-link">resize</a></span><span class="op">(</span><span class="va">Tad.gnr</span>, <span class="fl">1</span>,  <span class="st">"end"</span> <span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Probably some end of TADs are found next to some beginning of other TADs. In other words, these genomic locations are found on the same bin.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tad_Border.gnr</span></span></code></pre></div>
@@ -2941,7 +3080,7 @@ Tad_2, Tad_3
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>First, let’s look the GInteractions columns names (metadata of interactions attributes of our matrices list)</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu">mcols</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu">S4Vectors</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here a look of</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span></span></code></pre></div>
@@ -2964,7 +3103,7 @@ Metadata
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Name
+Names
 </div>
 </th>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
@@ -3776,8 +3915,8 @@ active
 <span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span>
 <span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span>
 <span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="va">str</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 4</span></span>
 <span><span class="co">#&gt;  $ anchor.Beaf.name: int [1:3] 1 3 4</span></span>
 <span><span class="co">#&gt;  $ bait.Tss.name   : int [1:3] 1 2 3</span></span>
@@ -3792,8 +3931,8 @@ active
 <span>  matrices.lst      <span class="op">=</span> <span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span>
 <span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="va">str</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 4</span></span>
 <span><span class="co">#&gt;  $ anchor.Beaf.name: int [1:3] 1 3 4</span></span>
 <span><span class="co">#&gt;  $ bait.Tss.name   : int [1:3] 1 2 3</span></span>
@@ -3809,62 +3948,63 @@ active
 <h4 id="set-theory-functions">Set theory functions<a class="anchor" aria-label="anchor" href="#set-theory-functions"></a>
 </h4>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"D"</span>,<span class="st">"G"</span><span class="op">)</span></span>
-<span><span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"G"</span><span class="op">)</span></span>
-<span><span class="va">c</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"F"</span>,<span class="st">"C"</span>,<span class="st">"G"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"D"</span>,<span class="st">"G"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>,<span class="st">"G"</span><span class="op">)</span></span>
+<span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"F"</span>,<span class="st">"C"</span>,<span class="st">"G"</span><span class="op">)</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Which is common to A, B and C</li>
 </ol>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "G"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "G"</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Which is in A and/or B and/or C</li>
 </ol>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">union</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">union</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "A" "B" "C" "D" "E" "F" "G"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "A" "B" "C" "D" "E" "F" "G"</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Which is only in A</li>
 </ol>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">setdiff</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">setdiff</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "D"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "D"</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Which is common in A with B, and not in C</li>
 </ol>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "B"</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>What is common in A with B, plus all that is present in C</li>
 </ol>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "A" "B" "C" "F" "G"</span></span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>What is common in C with all elements present in A and B</li>
 </ol>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "A" "C" "G"</span></span></code></pre></div>
 <ol start="7" style="list-style-type: decimal">
 <li>Everything that is present in A and B but not in C</li>
 </ol>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "B" "D" "E"</span></span></code></pre></div>
 <ol start="8" style="list-style-type: decimal">
 <li>Which is present only once</li>
 </ol>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">.</span>,<span class="va">.</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">sort</span></span>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">d</span>,<span class="va">d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "D" "E" "F"</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -3873,7 +4013,7 @@ active
 <p>We will select which is in anchor.Beaf.name, bait.Tss.name and distance, but not in name</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">selection.fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span>, <span class="va">bait.Tss.name</span> ,<span class="va">distance</span><span class="op">)</span> <span class="op">)</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span>, <span class="va">bait.Tss.name</span> ,<span class="va">distance</span><span class="op">)</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span></code></pre></div>
 </div>
@@ -3896,8 +4036,8 @@ active
 <span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span>
 <span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span>
 <span>  selection.fun     <span class="op">=</span> <span class="va">selection.fun</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="va">str</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  int 3</span></span></code></pre></div>
 <p>names of 4th interaction is:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
@@ -3924,8 +4064,8 @@ active
 </h3>
 <p>For exemple, we want to filter the 10th first elements, so we target the 10 first names</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">first10_target.lst</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  submatrix.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">first100_target.lst</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  submatrix.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="ginteraction-filtration-2">GInteraction filtration<a class="anchor" aria-label="anchor" href="#ginteraction-filtration-2"></a>
@@ -3933,89 +4073,107 @@ active
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/FilterInteractions.html">FilterInteractions</a></span><span class="op">(</span></span>
 <span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span>
-<span>  target.lst        <span class="op">=</span> <span class="va">first10_target.lst</span>,</span>
+<span>  target.lst        <span class="op">=</span> <span class="va">first100_target.lst</span>,</span>
 <span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">str</span></span>
-<span><span class="co">#&gt;  Named int [1:10] 1 2 3 4 5 6 7 8 9 10</span></span>
-<span><span class="co">#&gt;  - attr(*, "names")= chr [1:10] "submatrix.name1" "submatrix.name2" "submatrix.name3" "submatrix.name4" ...</span></span></code></pre></div>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  Named int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span><span class="co">#&gt;  - attr(*, "names")= chr [1:100] "submatrix.name1" "submatrix.name2" "submatrix.name3" "submatrix.name4" ...</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="matrices-list-filtration-2">Matrices list filtration<a class="anchor" aria-label="anchor" href="#matrices-list-filtration-2"></a>
 </h4>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FilterInteractions.html">FilterInteractions</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FilterInteractions.html">FilterInteractions</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
-<span>  target.lst    <span class="op">=</span> <span class="va">first10_target.lst</span>,</span>
+<span>  target.lst    <span class="op">=</span> <span class="va">first100_target.lst</span>,</span>
 <span>  selection.fun <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span></span>
-<span><span class="co">#&gt; GInteractions object with 10 interactions and 15 metadata columns:</span></span>
-<span><span class="co">#&gt;                 seqnames1       ranges1     seqnames2       ranges2 |</span></span>
-<span><span class="co">#&gt;                     &lt;Rle&gt;     &lt;IRanges&gt;         &lt;Rle&gt;     &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77        2L   73001-74000 ---        2L   76001-77000 |</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107        2L 114001-115000 ---        2L 106001-107000 |</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107        2L 120001-121000 ---        2L 106001-107000 |</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117        2L 120001-121000 ---        2L 116001-117000 |</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268        2L 273001-274000 ---        2L 267001-268000 |</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268        2L 277001-278000 ---        2L 267001-268000 |</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279        2L 273001-274000 ---        2L 278001-279000 |</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320        2L 305001-306000 ---        2L 319001-320000 |</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422        2L 470001-471000 ---        2L 421001-422000 |</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422        2L 471001-472000 ---        2L 421001-422000 |</span></span>
-<span><span class="co">#&gt;                          name  constraint  distance orientation submatrix.name</span></span>
-<span><span class="co">#&gt;                   &lt;character&gt; &lt;character&gt; &lt;integer&gt;   &lt;logical&gt;    &lt;character&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77   2L:74_2L:77       Tad_1      3000        TRUE    2L:74_2L:77</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107 2L:115_2L:107       Tad_3      8000       FALSE  2L:107_2L:115</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107 2L:121_2L:107       Tad_3     14000       FALSE  2L:107_2L:121</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117 2L:121_2L:117       Tad_3      4000       FALSE  2L:117_2L:121</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268 2L:274_2L:268      Tad_10      6000       FALSE  2L:268_2L:274</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268 2L:278_2L:268      Tad_10     10000       FALSE  2L:268_2L:278</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279 2L:274_2L:279      Tad_10      5000        TRUE  2L:274_2L:279</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320 2L:306_2L:320      Tad_13     14000        TRUE  2L:306_2L:320</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422 2L:471_2L:422      Tad_17     49000       FALSE  2L:422_2L:471</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422 2L:472_2L:422      Tad_17     50000       FALSE  2L:422_2L:472</span></span>
-<span><span class="co">#&gt;                  anchor.bin   anchor.name    bait.bin     bait.name</span></span>
-<span><span class="co">#&gt;                 &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77       2L:74   2L:74:Tad_1       2L:77   2L:77:Tad_1</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107      2L:115  2L:115:Tad_3      2L:107  2L:107:Tad_3</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107      2L:121  2L:121:Tad_3      2L:107  2L:107:Tad_3</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117      2L:121  2L:121:Tad_3      2L:117  2L:117:Tad_3</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268      2L:274 2L:274:Tad_10      2L:268 2L:268:Tad_10</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268      2L:278 2L:278:Tad_10      2L:268 2L:268:Tad_10</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279      2L:274 2L:274:Tad_10      2L:279 2L:279:Tad_10</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320      2L:306 2L:306:Tad_13      2L:320 2L:320:Tad_13</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422      2L:471 2L:471:Tad_17      2L:422 2L:422:Tad_17</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422      2L:472 2L:472:Tad_17      2L:422 2L:422:Tad_17</span></span>
-<span><span class="co">#&gt;                 anchor.Beaf.score anchor.Beaf.name anchor.Beaf.bln</span></span>
-<span><span class="co">#&gt;                         &lt;numeric&gt;           &lt;list&gt;       &lt;numeric&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77               205         Beaf32_8               1</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107              1707        Beaf32_14               1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107               484        Beaf32_15               1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117               484        Beaf32_15               1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268               210        Beaf32_39               1</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268              1641        Beaf32_41               1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279               210        Beaf32_39               1</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320                52        Beaf32_48               1</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422                37        Beaf32_62               1</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422                37        Beaf32_62               1</span></span>
-<span><span class="co">#&gt;                 bait.Tss.class           bait.Tss.name bait.Tss.bln</span></span>
-<span><span class="co">#&gt;                    &lt;character&gt;                  &lt;list&gt;    &lt;numeric&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77       inactive             FBgn0031214            1</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107         active FBgn0026787,FBgn0005278            1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107         active FBgn0026787,FBgn0005278            1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117         active             FBgn0031219            1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268       inactive             FBgn0031239            1</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268       inactive             FBgn0031239            1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279         active             FBgn0086855            1</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320       inactive             FBgn0031248            1</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422         active             FBgn0031253            1</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422         active             FBgn0031253            1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span></span>
+<span><span class="co">#&gt; GInteractions object with 100 interactions and 15 metadata columns:</span></span>
+<span><span class="co">#&gt;                     seqnames1           ranges1     seqnames2           ranges2</span></span>
+<span><span class="co">#&gt;                         &lt;Rle&gt;         &lt;IRanges&gt;         &lt;Rle&gt;         &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;         2L:74_2L:77        2L       73001-74000 ---        2L       76001-77000</span></span>
+<span><span class="co">#&gt;       2L:115_2L:107        2L     114001-115000 ---        2L     106001-107000</span></span>
+<span><span class="co">#&gt;       2L:121_2L:107        2L     120001-121000 ---        2L     106001-107000</span></span>
+<span><span class="co">#&gt;       2L:121_2L:117        2L     120001-121000 ---        2L     116001-117000</span></span>
+<span><span class="co">#&gt;       2L:274_2L:268        2L     273001-274000 ---        2L     267001-268000</span></span>
+<span><span class="co">#&gt;                 ...       ...               ... ...       ...               ...</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12498        2L 12514001-12515000 ---        2L 12497001-12498000</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12498        2L 12515001-12516000 ---        2L 12497001-12498000</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12508        2L 12514001-12515000 ---        2L 12507001-12508000</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12508        2L 12515001-12516000 ---        2L 12507001-12508000</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12509        2L 12514001-12515000 ---        2L 12508001-12509000</span></span>
+<span><span class="co">#&gt;                     |              name  constraint  distance orientation</span></span>
+<span><span class="co">#&gt;                     |       &lt;character&gt; &lt;character&gt; &lt;integer&gt;   &lt;logical&gt;</span></span>
+<span><span class="co">#&gt;         2L:74_2L:77 |       2L:74_2L:77       Tad_1      3000        TRUE</span></span>
+<span><span class="co">#&gt;       2L:115_2L:107 |     2L:115_2L:107       Tad_3      8000       FALSE</span></span>
+<span><span class="co">#&gt;       2L:121_2L:107 |     2L:121_2L:107       Tad_3     14000       FALSE</span></span>
+<span><span class="co">#&gt;       2L:121_2L:117 |     2L:121_2L:117       Tad_3      4000       FALSE</span></span>
+<span><span class="co">#&gt;       2L:274_2L:268 |     2L:274_2L:268      Tad_10      6000       FALSE</span></span>
+<span><span class="co">#&gt;                 ... .               ...         ...       ...         ...</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12498 | 2L:12515_2L:12498     Tad_310     17000       FALSE</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12498 | 2L:12516_2L:12498     Tad_310     18000       FALSE</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12508 | 2L:12515_2L:12508     Tad_310      7000       FALSE</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12508 | 2L:12516_2L:12508     Tad_310      8000       FALSE</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12509 | 2L:12515_2L:12509     Tad_310      6000       FALSE</span></span>
+<span><span class="co">#&gt;                        submatrix.name  anchor.bin      anchor.name    bait.bin</span></span>
+<span><span class="co">#&gt;                           &lt;character&gt; &lt;character&gt;      &lt;character&gt; &lt;character&gt;</span></span>
+<span><span class="co">#&gt;         2L:74_2L:77       2L:74_2L:77       2L:74      2L:74:Tad_1       2L:77</span></span>
+<span><span class="co">#&gt;       2L:115_2L:107     2L:107_2L:115      2L:115     2L:115:Tad_3      2L:107</span></span>
+<span><span class="co">#&gt;       2L:121_2L:107     2L:107_2L:121      2L:121     2L:121:Tad_3      2L:107</span></span>
+<span><span class="co">#&gt;       2L:121_2L:117     2L:117_2L:121      2L:121     2L:121:Tad_3      2L:117</span></span>
+<span><span class="co">#&gt;       2L:274_2L:268     2L:268_2L:274      2L:274    2L:274:Tad_10      2L:268</span></span>
+<span><span class="co">#&gt;                 ...               ...         ...              ...         ...</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12498 2L:12498_2L:12515    2L:12515 2L:12515:Tad_310    2L:12498</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12498 2L:12498_2L:12516    2L:12516 2L:12516:Tad_310    2L:12498</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12508 2L:12508_2L:12515    2L:12515 2L:12515:Tad_310    2L:12508</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12508 2L:12508_2L:12516    2L:12516 2L:12516:Tad_310    2L:12508</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12509 2L:12509_2L:12515    2L:12515 2L:12515:Tad_310    2L:12509</span></span>
+<span><span class="co">#&gt;                            bait.name anchor.Beaf.score anchor.Beaf.name</span></span>
+<span><span class="co">#&gt;                          &lt;character&gt;         &lt;numeric&gt;           &lt;list&gt;</span></span>
+<span><span class="co">#&gt;         2L:74_2L:77      2L:77:Tad_1               205         Beaf32_8</span></span>
+<span><span class="co">#&gt;       2L:115_2L:107     2L:107:Tad_3              1707        Beaf32_14</span></span>
+<span><span class="co">#&gt;       2L:121_2L:107     2L:107:Tad_3               484        Beaf32_15</span></span>
+<span><span class="co">#&gt;       2L:121_2L:117     2L:117:Tad_3               484        Beaf32_15</span></span>
+<span><span class="co">#&gt;       2L:274_2L:268    2L:268:Tad_10               210        Beaf32_39</span></span>
+<span><span class="co">#&gt;                 ...              ...               ...              ...</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12498 2L:12498:Tad_310                44       Beaf32_900</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12498 2L:12498:Tad_310                88       Beaf32_901</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12508 2L:12508:Tad_310                44       Beaf32_900</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12508 2L:12508:Tad_310                88       Beaf32_901</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12509 2L:12509:Tad_310                44       Beaf32_900</span></span>
+<span><span class="co">#&gt;                     anchor.Beaf.bln bait.Tss.class           bait.Tss.name</span></span>
+<span><span class="co">#&gt;                           &lt;numeric&gt;    &lt;character&gt;                  &lt;list&gt;</span></span>
+<span><span class="co">#&gt;         2L:74_2L:77               1       inactive             FBgn0031214</span></span>
+<span><span class="co">#&gt;       2L:115_2L:107               1         active FBgn0026787,FBgn0005278</span></span>
+<span><span class="co">#&gt;       2L:121_2L:107               1         active FBgn0026787,FBgn0005278</span></span>
+<span><span class="co">#&gt;       2L:121_2L:117               1         active             FBgn0031219</span></span>
+<span><span class="co">#&gt;       2L:274_2L:268               1       inactive             FBgn0031239</span></span>
+<span><span class="co">#&gt;                 ...             ...            ...                     ...</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12498               1       inactive             FBgn0051858</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12498               1       inactive             FBgn0051858</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12508               1       inactive             FBgn0262353</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12508               1       inactive             FBgn0262353</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12509               1       inactive             FBgn0263458</span></span>
+<span><span class="co">#&gt;                     bait.Tss.bln</span></span>
+<span><span class="co">#&gt;                        &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt;         2L:74_2L:77            1</span></span>
+<span><span class="co">#&gt;       2L:115_2L:107            1</span></span>
+<span><span class="co">#&gt;       2L:121_2L:107            1</span></span>
+<span><span class="co">#&gt;       2L:121_2L:117            1</span></span>
+<span><span class="co">#&gt;       2L:274_2L:268            1</span></span>
+<span><span class="co">#&gt;                 ...          ...</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12498            1</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12498            1</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12508            1</span></span>
+<span><span class="co">#&gt;   2L:12516_2L:12508            1</span></span>
+<span><span class="co">#&gt;   2L:12515_2L:12509            1</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 429 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome</span></span></code></pre></div>
 <p>A selection of some matrices remove attributes.</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span></span>
 <span><span class="co">#&gt; NULL</span></span></code></pre></div>
 </div>
 </div>
@@ -4034,8 +4192,8 @@ active
 <span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span>
 <span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span>
 <span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="va">str</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  Named int [1:3] 14 179 195</span></span>
 <span><span class="co">#&gt;  - attr(*, "names")= chr [1:3] "name1" "name2" "name3"</span></span></code></pre></div>
 </div>
@@ -4098,9 +4256,9 @@ active
 <div class="section level3">
 <h3 id="understand-orientation">Understand orientation<a class="anchor" aria-label="anchor" href="#understand-orientation"></a>
 </h3>
-<p>First, lets look how the two first matrices are oriented (column orientation of metadata of the interactions attribute). Below we can see that the first matrix is correctly oriented (value is TRUE) but not the second one.</p>
+<p>First, lets look how two matrices are oriented (column orientation of metadata of the interactions attribute). Below we can see that the first matrix is correctly oriented (value is TRUE) but not the second one.</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">$</span><span class="va">orientation</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">$</span><span class="va">orientation</span><span class="op">[</span><span class="fl">13</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span> </span>
 <span><span class="co">#&gt; [1]  TRUE FALSE</span></span></code></pre></div>
 <p>A matrix that is correctly oriented have an anchor before a bait (see SearchPairs for anchor-bait order), and a matrix that is not oriented have an anchor after a bait.</p>
 <p>That mean that:</p>
@@ -4118,7 +4276,7 @@ active
 </h3>
 <p>We expected that the values in upper left corner (green in above scheme) will end up in the lower right corner after orientation, so let’s oriente the matrices list according to the orientation metadata.</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="first-matrice-dont-need-orientation">First matrice (don’t need orientation)<a class="anchor" aria-label="anchor" href="#first-matrice-dont-need-orientation"></a>
 </h4>
@@ -4126,7 +4284,7 @@ active
 <li>upper left corner <strong>before orientation</strong>.</li>
 </ol>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
@@ -4137,6 +4295,15 @@ View
 <th style="text-align:center;">
 2
 </th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -4146,6 +4313,15 @@ View
 <td style="text-align:center;">
 0
 </td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
 </tr>
 <tr>
 <td style="text-align:center;">
@@ -4153,6 +4329,66 @@ NA
 </td>
 <td style="text-align:center;">
 0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.1
 </td>
 </tr>
 </tbody>
@@ -4160,7 +4396,7 @@ NA
 <li>upper left corner <strong>after orientation does not change</strong>.</li>
 </ol>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
@@ -4171,6 +4407,15 @@ View
 <th style="text-align:center;">
 2
 </th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -4180,6 +4425,15 @@ View
 <td style="text-align:center;">
 0
 </td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
 </tr>
 <tr>
 <td style="text-align:center;">
@@ -4187,6 +4441,66 @@ NA
 </td>
 <td style="text-align:center;">
 0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.1
 </td>
 </tr>
 </tbody>
@@ -4200,7 +4514,7 @@ NA
 </li>
 </ol>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
@@ -4211,6 +4525,15 @@ View
 <th style="text-align:center;">
 2
 </th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -4218,7 +4541,16 @@ View
 0
 </td>
 <td style="text-align:center;">
-0
+0.2
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+0.7
 </td>
 </tr>
 <tr>
@@ -4226,49 +4558,179 @@ View
 NA
 </td>
 <td style="text-align:center;">
-0
+0.2
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+0.6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.4
 </td>
 </tr>
 </tbody>
 </table></details><ol start="2" style="list-style-type: decimal">
-<li><strong>lower right corner after orientation correspond to the upper left corner before orientation</strong></li>
+<li><strong>transposed lower right corner after orientation correspond to the upper left corner before orientation</strong></li>
 </ol>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">100</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">100</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">97</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">97</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
 <thead><tr>
-<th style="text-align:left;">
+<th style="text-align:center;">
+1
 </th>
 <th style="text-align:center;">
-100
+2
 </th>
 <th style="text-align:center;">
-101
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
 </th>
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-100
+<td style="text-align:center;">
+0.4
 </td>
 <td style="text-align:center;">
-0
+0.5
 </td>
 <td style="text-align:center;">
-0
+0.5
+</td>
+<td style="text-align:center;">
+0.6
+</td>
+<td style="text-align:center;">
+0.7
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-101
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
 </td>
 <td style="text-align:center;">
 NA
 </td>
 <td style="text-align:center;">
-0
+0.3
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.0
 </td>
 </tr>
 </tbody>
@@ -4282,26 +4744,39 @@ NA
 <div class="section level4">
 <h4 id="first-matrix">First matrix<a class="anchor" aria-label="anchor" href="#first-matrix"></a>
 </h4>
-<p>Lower right corner after orientation correspond to the upper left corner before orientation.</p>
+<p>Transposed lower right corner after orientation correspond to the upper left corner before orientation.</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">100</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">100</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">97</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">97</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
 <thead><tr>
-<th style="text-align:left;">
+<th style="text-align:center;">
+1
 </th>
 <th style="text-align:center;">
-100
+2
 </th>
 <th style="text-align:center;">
-101
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
 </th>
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-100
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+0.1
 </td>
 <td style="text-align:center;">
 0
@@ -4311,8 +4786,65 @@ View
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-101
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
 </td>
 <td style="text-align:center;">
 NA
@@ -4329,41 +4861,111 @@ NA
 </h4>
 <p>Below we find again the orientation of the second matrix.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">100</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">100</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">97</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">97</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
 View
 </summary><table class="table">
 <thead><tr>
-<th style="text-align:left;">
+<th style="text-align:center;">
+1
 </th>
 <th style="text-align:center;">
-100
+2
 </th>
 <th style="text-align:center;">
-101
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
 </th>
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-100
+<td style="text-align:center;">
+0.4
 </td>
 <td style="text-align:center;">
-0
+0.5
 </td>
 <td style="text-align:center;">
-0
+0.5
+</td>
+<td style="text-align:center;">
+0.6
+</td>
+<td style="text-align:center;">
+0.7
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-101
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
 </td>
 <td style="text-align:center;">
 NA
 </td>
 <td style="text-align:center;">
-0
+0.3
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.0
 </td>
 </tr>
 </tbody>
@@ -4390,9 +4992,9 @@ NA
 <p>the <code>GetQuantif</code> function have some preregistred area and function (see <code><a href="../reference/GetQuantif.html">Genomic2DTK::GetQuantif</a></code>). Below we will extract centrals values. There are interactions values in a square 3x3 centred on the interactions between anchor and bait. With all extracted value we will perform an average after removing all zeros.</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">center.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="st">"center"</span>,</span>
-<span>  operation.fun <span class="op">=</span> <span class="st">"mean_rm0"</span></span>
+<span>  operation.fun <span class="op">=</span> <span class="st">"mean"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Below we can see the values and the attributes of the numerical vector with a value for each matrices. There are same attributes than the matrices list with two news:</p>
 <ol style="list-style-type: decimal">
@@ -4403,12 +5005,12 @@ NA
 <strong>operation</strong> that correspond to the numerical operatiion that is perform on values in the selected area.</li>
 </ol>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">center.num</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`2L:74_2L:77`</span></span>
-<span><span class="co">#&gt; [1] 0.01238601</span></span>
+<span><span class="co">#&gt; [1] 0.002752447</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:115_2L:107`</span></span>
-<span><span class="co">#&gt; [1] 0.04313207</span></span>
+<span><span class="co">#&gt; [1] 0.004792452</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:121_2L:107`</span></span>
 <span><span class="co">#&gt; [1] 1.01102</span></span>
@@ -4420,120 +5022,15 @@ NA
 <span><span class="co">#&gt; [1] 1.69169</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:278_2L:268`</span></span>
-<span><span class="co">#&gt; [1] 1.483054</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:274_2L:279`</span></span>
-<span><span class="co">#&gt; [1] 1.699314</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:306_2L:320`</span></span>
-<span><span class="co">#&gt; [1] 0.6724637</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:471_2L:422`</span></span>
-<span><span class="co">#&gt; [1] 0.4478968</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:472_2L:422`</span></span>
-<span><span class="co">#&gt; [1] 0.6564072</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attr(,"interactions")</span></span>
-<span><span class="co">#&gt; GInteractions object with 10 interactions and 15 metadata columns:</span></span>
-<span><span class="co">#&gt;                 seqnames1       ranges1     seqnames2       ranges2 |</span></span>
-<span><span class="co">#&gt;                     &lt;Rle&gt;     &lt;IRanges&gt;         &lt;Rle&gt;     &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77        2L   73001-74000 ---        2L   76001-77000 |</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107        2L 114001-115000 ---        2L 106001-107000 |</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107        2L 120001-121000 ---        2L 106001-107000 |</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117        2L 120001-121000 ---        2L 116001-117000 |</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268        2L 273001-274000 ---        2L 267001-268000 |</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268        2L 277001-278000 ---        2L 267001-268000 |</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279        2L 273001-274000 ---        2L 278001-279000 |</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320        2L 305001-306000 ---        2L 319001-320000 |</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422        2L 470001-471000 ---        2L 421001-422000 |</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422        2L 471001-472000 ---        2L 421001-422000 |</span></span>
-<span><span class="co">#&gt;                          name  constraint  distance orientation submatrix.name</span></span>
-<span><span class="co">#&gt;                   &lt;character&gt; &lt;character&gt; &lt;integer&gt;   &lt;logical&gt;    &lt;character&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77   2L:74_2L:77       Tad_1      3000        TRUE    2L:74_2L:77</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107 2L:115_2L:107       Tad_3      8000        TRUE  2L:115_2L:107</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107 2L:121_2L:107       Tad_3     14000        TRUE  2L:121_2L:107</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117 2L:121_2L:117       Tad_3      4000        TRUE  2L:121_2L:117</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268 2L:274_2L:268      Tad_10      6000        TRUE  2L:274_2L:268</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268 2L:278_2L:268      Tad_10     10000        TRUE  2L:278_2L:268</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279 2L:274_2L:279      Tad_10      5000        TRUE  2L:274_2L:279</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320 2L:306_2L:320      Tad_13     14000        TRUE  2L:306_2L:320</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422 2L:471_2L:422      Tad_17     49000        TRUE  2L:471_2L:422</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422 2L:472_2L:422      Tad_17     50000        TRUE  2L:472_2L:422</span></span>
-<span><span class="co">#&gt;                  anchor.bin   anchor.name    bait.bin     bait.name</span></span>
-<span><span class="co">#&gt;                 &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77       2L:74   2L:74:Tad_1       2L:77   2L:77:Tad_1</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107      2L:115  2L:115:Tad_3      2L:107  2L:107:Tad_3</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107      2L:121  2L:121:Tad_3      2L:107  2L:107:Tad_3</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117      2L:121  2L:121:Tad_3      2L:117  2L:117:Tad_3</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268      2L:274 2L:274:Tad_10      2L:268 2L:268:Tad_10</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268      2L:278 2L:278:Tad_10      2L:268 2L:268:Tad_10</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279      2L:274 2L:274:Tad_10      2L:279 2L:279:Tad_10</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320      2L:306 2L:306:Tad_13      2L:320 2L:320:Tad_13</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422      2L:471 2L:471:Tad_17      2L:422 2L:422:Tad_17</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422      2L:472 2L:472:Tad_17      2L:422 2L:422:Tad_17</span></span>
-<span><span class="co">#&gt;                 anchor.Beaf.score anchor.Beaf.name anchor.Beaf.bln</span></span>
-<span><span class="co">#&gt;                         &lt;numeric&gt;           &lt;list&gt;       &lt;numeric&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77               205         Beaf32_8               1</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107              1707        Beaf32_14               1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107               484        Beaf32_15               1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117               484        Beaf32_15               1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268               210        Beaf32_39               1</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268              1641        Beaf32_41               1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279               210        Beaf32_39               1</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320                52        Beaf32_48               1</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422                37        Beaf32_62               1</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422                37        Beaf32_62               1</span></span>
-<span><span class="co">#&gt;                 bait.Tss.class           bait.Tss.name bait.Tss.bln</span></span>
-<span><span class="co">#&gt;                    &lt;character&gt;                  &lt;list&gt;    &lt;numeric&gt;</span></span>
-<span><span class="co">#&gt;     2L:74_2L:77       inactive             FBgn0031214            1</span></span>
-<span><span class="co">#&gt;   2L:115_2L:107         active FBgn0026787,FBgn0005278            1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:107         active FBgn0026787,FBgn0005278            1</span></span>
-<span><span class="co">#&gt;   2L:121_2L:117         active             FBgn0031219            1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:268       inactive             FBgn0031239            1</span></span>
-<span><span class="co">#&gt;   2L:278_2L:268       inactive             FBgn0031239            1</span></span>
-<span><span class="co">#&gt;   2L:274_2L:279         active             FBgn0086855            1</span></span>
-<span><span class="co">#&gt;   2L:306_2L:320       inactive             FBgn0031248            1</span></span>
-<span><span class="co">#&gt;   2L:471_2L:422         active             FBgn0031253            1</span></span>
-<span><span class="co">#&gt;   2L:472_2L:422         active             FBgn0031253            1</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 429 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome</span></span>
-<span><span class="co">#&gt; attr(,"target")</span></span>
-<span><span class="co">#&gt; attr(,"target")$submatrix.name</span></span>
-<span><span class="co">#&gt;  [1] "2L:74_2L:77"   "2L:107_2L:115" "2L:107_2L:121" "2L:117_2L:121"</span></span>
-<span><span class="co">#&gt;  [5] "2L:268_2L:274" "2L:268_2L:278" "2L:274_2L:279" "2L:306_2L:320"</span></span>
-<span><span class="co">#&gt;  [9] "2L:422_2L:471" "2L:422_2L:472"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attr(,"resolution")</span></span>
-<span><span class="co">#&gt; [1] 1000</span></span>
-<span><span class="co">#&gt; attr(,"referencePoint")</span></span>
-<span><span class="co">#&gt; [1] "rf"</span></span>
-<span><span class="co">#&gt; attr(,"matriceDim")</span></span>
-<span><span class="co">#&gt; [1] 101</span></span>
-<span><span class="co">#&gt; attr(,"shiftFactor")</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="co">#&gt; attr(,"operation")</span></span>
-<span><span class="co">#&gt; function (x) </span></span>
-<span><span class="co">#&gt; {</span></span>
-<span><span class="co">#&gt;     x[which(x == 0)] &lt;- NA</span></span>
-<span><span class="co">#&gt;     mean(x, na.rm = TRUE)</span></span>
-<span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5584f0ba1878&gt;</span></span>
-<span><span class="co">#&gt; attr(,"area")</span></span>
-<span><span class="co">#&gt; function (matrice.mtx) </span></span>
-<span><span class="co">#&gt; {</span></span>
-<span><span class="co">#&gt;     matrice.mtx[33:35, 67:69]</span></span>
-<span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5584eef1c520&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 1.483054</span></span></code></pre></div>
 <p>In order to print quantifications use <code>c</code> function to avoid the attributes printing.</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`2L:74_2L:77`</span></span>
-<span><span class="co">#&gt; [1] 0.01238601</span></span>
+<span><span class="co">#&gt; [1] 0.002752447</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:115_2L:107`</span></span>
-<span><span class="co">#&gt; [1] 0.04313207</span></span>
+<span><span class="co">#&gt; [1] 0.004792452</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:121_2L:107`</span></span>
 <span><span class="co">#&gt; [1] 1.01102</span></span>
@@ -4545,27 +5042,14 @@ NA
 <span><span class="co">#&gt; [1] 1.69169</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:278_2L:268`</span></span>
-<span><span class="co">#&gt; [1] 1.483054</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:274_2L:279`</span></span>
-<span><span class="co">#&gt; [1] 1.699314</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:306_2L:320`</span></span>
-<span><span class="co">#&gt; [1] 0.6724637</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:471_2L:422`</span></span>
-<span><span class="co">#&gt; [1] 0.4478968</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:472_2L:422`</span></span>
-<span><span class="co">#&gt; [1] 0.6564072</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 1.483054</span></span></code></pre></div>
 <p>And to reduce the printing use <code>unlist</code> function.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   2L:74_2L:77 2L:115_2L:107 2L:121_2L:107 2L:121_2L:117 2L:274_2L:268 </span></span>
-<span><span class="co">#&gt;    0.01238601    0.04313207    1.01102006    0.03643152    1.69168994 </span></span>
-<span><span class="co">#&gt; 2L:278_2L:268 2L:274_2L:279 2L:306_2L:320 2L:471_2L:422 2L:472_2L:422 </span></span>
-<span><span class="co">#&gt;    1.48305411    1.69931399    0.67246369    0.44789676    0.65640723</span></span></code></pre></div>
+<span><span class="co">#&gt;   0.002752447   0.004792452   1.011020060   0.036431519   1.691689943 </span></span>
+<span><span class="co">#&gt; 2L:278_2L:268 </span></span>
+<span><span class="co">#&gt;   1.483054107</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="values-naming">Values naming<a class="anchor" aria-label="anchor" href="#values-naming"></a>
@@ -4573,12 +5057,12 @@ NA
 <p>With this function you also could named values according to a metadata of the interactions attributes. For exemple we will take same quantification but now we want use the “anchor.Beaf.name” metadata as name.</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">namedCenter.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="st">"center"</span>,</span>
-<span>  operation.fun <span class="op">=</span> <span class="st">"mean_rm0"</span>,</span>
+<span>  operation.fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  name.chr      <span class="op">=</span> <span class="st">"anchor.Beaf.name"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-The first matrix is related to two anchor.Beaf.name
+The 46th matrix is related to two anchor.Beaf.name
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -4593,57 +5077,88 @@ anchor.Beaf.name
 <tbody>
 <tr>
 <td style="text-align:left;">
-2L:74_2L:77
+45
 </td>
 <td style="text-align:center;">
-2L:74_2L:77
+2L:5909_2L:5941
 </td>
 <td style="text-align:center;">
-Beaf32_8
+Beaf32_415
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-2L:115_2L:107
+46
 </td>
 <td style="text-align:center;">
-2L:115_2L:107
+2L:5944_2L:5968
 </td>
 <td style="text-align:center;">
-Beaf32_14
+Beaf32_417, Beaf32_418
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-2L:121_2L:107
+47
 </td>
 <td style="text-align:center;">
-2L:121_2L:107
+2L:5945_2L:5968
 </td>
 <td style="text-align:center;">
-Beaf32_15
+Beaf32_418
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:center;">
+2L:6051_2L:6069
+</td>
+<td style="text-align:center;">
+Beaf32_430
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+49
+</td>
+<td style="text-align:center;">
+2L:6066_2L:6069
+</td>
+<td style="text-align:center;">
+Beaf32_432
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:center;">
+2L:6084_2L:6071
+</td>
+<td style="text-align:center;">
+Beaf32_435
 </td>
 </tr>
 </tbody>
 </table>
-<p>So the first value in center.num is repeted in namedCenter.num</p>
+<p>So the value in center.num is repeted in namedCenter.num</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   2L:74_2L:77 2L:115_2L:107 2L:121_2L:107 2L:121_2L:117 2L:274_2L:268 </span></span>
-<span><span class="co">#&gt;    0.01238601    0.04313207    1.01102006    0.03643152    1.69168994 </span></span>
-<span><span class="co">#&gt; 2L:278_2L:268 2L:274_2L:279 2L:306_2L:320 2L:471_2L:422 2L:472_2L:422 </span></span>
-<span><span class="co">#&gt;    1.48305411    1.69931399    0.67246369    0.44789676    0.65640723</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">namedCenter.num</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Beaf32_8  Beaf32_14  Beaf32_15  Beaf32_15  Beaf32_39  Beaf32_41  Beaf32_39 </span></span>
-<span><span class="co">#&gt; 0.01238601 0.04313207 1.01102006 0.03643152 1.69168994 1.48305411 1.69931399 </span></span>
-<span><span class="co">#&gt;  Beaf32_48  Beaf32_62  Beaf32_62 </span></span>
-<span><span class="co">#&gt; 0.67246369 0.44789676 0.65640723</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">45</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span></span>
+<span><span class="co">#&gt; 2L:5909_2L:5941 2L:5944_2L:5968 2L:5945_2L:5968 2L:6051_2L:6069 2L:6066_2L:6069 </span></span>
+<span><span class="co">#&gt;       0.1871565       0.0000000       0.0000000       0.5279512       2.1392992 </span></span>
+<span><span class="co">#&gt; 2L:6084_2L:6071 </span></span>
+<span><span class="co">#&gt;       0.1096642</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">namedCenter.num</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">45</span><span class="op">:</span><span class="fl">51</span><span class="op">]</span></span>
+<span><span class="co">#&gt; Beaf32_415 Beaf32_417 Beaf32_418 Beaf32_418 Beaf32_430 Beaf32_432 Beaf32_435 </span></span>
+<span><span class="co">#&gt;  0.1871565  0.0000000  0.0000000  0.0000000  0.5279512  2.1392992  0.1096642</span></span></code></pre></div>
 <p>An attributes is add to know wich values are a duplicate. Here is the second value</p>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span><span class="op">$</span><span class="va">duplicated</span></span>
 <span><span class="co">#&gt; NULL</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">namedCenter.num</span><span class="op">)</span><span class="op">$</span><span class="va">duplicated</span></span>
-<span><span class="co">#&gt; NULL</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 47</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="custom-functions">Custom functions<a class="anchor" aria-label="anchor" href="#custom-functions"></a>
@@ -4651,19 +5166,20 @@ Beaf32_15
 <p>The <code>GetQuantif</code> function could also take custom <strong>area</strong> selection and <strong>operation</strong> in parameter. For exemple here we use the functions we see in the attributes <strong>area</strong> and <strong>operation</strong> of the center.num vector. We obtain same result with custom function in parameter.</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">33</span><span class="op">:</span><span class="fl">35</span>,<span class="fl">67</span><span class="op">:</span><span class="fl">69</span><span class="op">]</span><span class="op">}</span>,</span>
 <span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.mtx</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">area.mtx</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">area.mtx</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span><span class="op">]</span><span class="op">&lt;-</span><span class="cn">NA</span>;</span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">area.mtx</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   2L:74_2L:77 2L:115_2L:107 2L:121_2L:107 2L:121_2L:117 2L:274_2L:268 </span></span>
 <span><span class="co">#&gt;    0.01238601    0.04313207    1.01102006    0.03643152    1.69168994 </span></span>
-<span><span class="co">#&gt; 2L:278_2L:268 2L:274_2L:279 2L:306_2L:320 2L:471_2L:422 2L:472_2L:422 </span></span>
-<span><span class="co">#&gt;    1.48305411    1.69931399    0.67246369    0.44789676    0.65640723</span></span></code></pre></div>
+<span><span class="co">#&gt; 2L:278_2L:268 </span></span>
+<span><span class="co">#&gt;    1.48305411</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="particular-cases-extraction-of-values">Particular cases: Extraction of values<a class="anchor" aria-label="anchor" href="#particular-cases-extraction-of-values"></a>
@@ -4671,27 +5187,28 @@ Beaf32_15
 <p>The Operation.fun parameter could a custom function that just return the area selected. this allow to extract values in each matrices. ### One value extraction</p>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">}</span>,</span>
 <span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">area.mtx</span><span class="op">}</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   2L:74_2L:77 2L:115_2L:107 2L:121_2L:107 2L:121_2L:117 2L:274_2L:268 </span></span>
-<span><span class="co">#&gt;    0.00000000    0.00000000    0.34039825    0.43514634    0.00000000 </span></span>
-<span><span class="co">#&gt; 2L:278_2L:268 2L:274_2L:279 2L:306_2L:320 2L:471_2L:422 2L:472_2L:422 </span></span>
-<span><span class="co">#&gt;    0.18062805    0.00000000    0.00000000    0.01182124    0.00000000</span></span></code></pre></div>
+<span><span class="co">#&gt;     0.0000000     0.0000000     0.3403983     0.4351463     0.0000000 </span></span>
+<span><span class="co">#&gt; 2L:278_2L:268 </span></span>
+<span><span class="co">#&gt;     0.1806280</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="area-extraction">Area extraction<a class="anchor" aria-label="anchor" href="#area-extraction"></a>
 </h4>
 <p>The Operation.fun parameter could a custom function that just return the area selected. this allow to extract values in each matrices.</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">}</span>,</span>
 <span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area</span><span class="op">)</span><span class="op">{</span><span class="va">area</span><span class="op">}</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`2L:74_2L:77`</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
 <span><span class="co">#&gt; [1,]    0    0    0</span></span>
@@ -4726,39 +5243,16 @@ Beaf32_15
 <span><span class="co">#&gt;      [,1]      [,2]      [,3]</span></span>
 <span><span class="co">#&gt; [1,]    0 0.2032066 0.5080164</span></span>
 <span><span class="co">#&gt; [2,]   NA 0.1806280 0.4515701</span></span>
-<span><span class="co">#&gt; [3,]   NA        NA 0.2822313</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:274_2L:279`</span></span>
-<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    0    0    0</span></span>
-<span><span class="co">#&gt; [2,]   NA    0    0</span></span>
-<span><span class="co">#&gt; [3,]   NA   NA    0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:306_2L:320`</span></span>
-<span><span class="co">#&gt;      [,1] [,2]       [,3]</span></span>
-<span><span class="co">#&gt; [1,]    0    0 0.03562731</span></span>
-<span><span class="co">#&gt; [2,]   NA    0 0.09317913</span></span>
-<span><span class="co">#&gt; [3,]   NA   NA 0.13872766</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:471_2L:422`</span></span>
-<span><span class="co">#&gt;           [,1]       [,2]      [,3]</span></span>
-<span><span class="co">#&gt; [1,] 0.1379966 0.04038924 0.6810285</span></span>
-<span><span class="co">#&gt; [2,]        NA 0.01182124 0.2958302</span></span>
-<span><span class="co">#&gt; [3,]        NA         NA 0.0000000</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:472_2L:422`</span></span>
-<span><span class="co">#&gt;           [,1] [,2]      [,3]</span></span>
-<span><span class="co">#&gt; [1,] 0.3027412    0 0.0000000</span></span>
-<span><span class="co">#&gt; [2,]        NA    0 0.0000000</span></span>
-<span><span class="co">#&gt; [3,]        NA   NA 0.2052299</span></span></code></pre></div>
+<span><span class="co">#&gt; [3,]   NA        NA 0.2822313</span></span></code></pre></div>
 <p>If is null operation.fun return values of the selected area without NA.</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">}</span>,</span>
 <span>  operation.fun <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`2L:74_2L:77`</span></span>
 <span><span class="co">#&gt; [1] 0 0 0 0 0 0</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -4775,19 +5269,7 @@ Beaf32_15
 <span><span class="co">#&gt; [1] 0 0 0 0 0 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:278_2L:268`</span></span>
-<span><span class="co">#&gt; [1] 0.0000000 0.2032066 0.1806280 0.5080164 0.4515701 0.2822313</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:274_2L:279`</span></span>
-<span><span class="co">#&gt; [1] 0 0 0 0 0 0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:306_2L:320`</span></span>
-<span><span class="co">#&gt; [1] 0.00000000 0.00000000 0.00000000 0.03562731 0.09317913 0.13872766</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:471_2L:422`</span></span>
-<span><span class="co">#&gt; [1] 0.13799657 0.04038924 0.01182124 0.68102846 0.29583023 0.00000000</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`2L:472_2L:422`</span></span>
-<span><span class="co">#&gt; [1] 0.3027412 0.0000000 0.0000000 0.0000000 0.0000000 0.2052299</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.0000000 0.2032066 0.1806280 0.5080164 0.4515701 0.2822313</span></span></code></pre></div>
 <hr>
 <!-- Aggregations -->
 </div>
@@ -4844,22 +5326,23 @@ Beaf32_15
 <p>Like the <code>GetQuantif</code> function, the aggregation have some preregistred function like <code>sum</code>, <code>mean</code> or <code>median</code>. See Genomic2DTK::Aggregation for more details.</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_sum.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span></span>
-<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>, </span>
+<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>, </span>
 <span>  agg.fun      <span class="op">=</span> <span class="st">"sum"</span>,</span>
 <span>  rm0.bln      <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Verification with extraction of one value</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_sum.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0.9679939</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 21.63697</span></span></code></pre></div>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
-<span>  area.fun     <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">}</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] NaN</span></span></code></pre></div>
+<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  area.fun     <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">}</span>,</span>
+<span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.num</span><span class="op">)</span><span class="op">{</span><span class="va">area.num</span><span class="op">}</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span>na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 21.63697</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="custom-function">Custom function<a class="anchor" aria-label="anchor" href="#custom-function"></a>
@@ -4867,29 +5350,30 @@ Beaf32_15
 <p>Here we will used a custom function. This function must return an unique value for all pixels_ij of the matrices.</p>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_mean.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span></span>
-<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  agg.fun      <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">}</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Verification with extraction of one value</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_mean.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0.09679939</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.2163697</span></span></code></pre></div>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
-<span>  area.fun     <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">}</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] NaN</span></span></code></pre></div>
+<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  area.fun     <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">}</span>,</span>
+<span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.num</span><span class="op">)</span><span class="op">{</span><span class="va">area.num</span><span class="op">}</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span>na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.2163697</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="distance-constraint">Distance constraint<a class="anchor" aria-label="anchor" href="#distance-constraint"></a>
 </h4>
-<p>You could add distance constraint, in this case the function will agregate all ce matrices that have a distance between anchor and bait superior or equal to the <code>minDist</code> parameter and inferior or equal to the <code>maxDist</code> parameter</p>
+<p>You could add distance constraint, in this case the function will agregate all matrices that have a distance between anchor and bait superior or equal to the <code>minDist</code> parameter and inferior or equal to the <code>maxDist</code> parameter</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_dist.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span></span>
-<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  minDist      <span class="op">=</span> <span class="fl">9000</span>,</span>
 <span>  maxDist      <span class="op">=</span> <span class="fl">11000</span>,</span>
 <span>  agg.fun      <span class="op">=</span> <span class="st">"sum"</span></span>
@@ -4898,17 +5382,18 @@ Beaf32_15
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_dist.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;      V97 </span></span>
-<span><span class="co">#&gt; 0.180628</span></span>
+<span><span class="co">#&gt; 2.674181</span></span>
 <span><span class="va">quantif.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
-<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first10_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
-<span>  area.fun     <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">}</span></span>
+<span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
+<span>  area.fun     <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">}</span>,</span>
+<span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.num</span><span class="op">)</span><span class="op">{</span><span class="va">area.num</span><span class="op">}</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">ndx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">quantif.num</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">$</span><span class="va">distance</span> <span class="op">&gt;=</span> <span class="fl">9000</span> <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">quantif.num</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">$</span><span class="va">distance</span> <span class="op">&lt;=</span> <span class="fl">11000</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">quantif.num</span><span class="op">)</span><span class="op">[</span><span class="va">ndx</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.180628</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">quantif.num</span><span class="op">)</span><span class="op">[</span><span class="va">ndx</span><span class="op">]</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.674181</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -4945,7 +5430,7 @@ Beaf32_15
 <code class="sourceCode R"><span><span class="va">rawQuantif.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">matrice.mtx</span><span class="op">)</span><span class="op">{</span><span class="va">matrice.mtx</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">}</span>,</span>
-<span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area</span><span class="op">)</span><span class="op">{</span><span class="va">area</span><span class="op">}</span></span>
+<span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.num</span><span class="op">)</span><span class="op">{</span><span class="va">area.num</span><span class="op">}</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Preparation of second matrices list in Beaf depleted condition. <strong>Extraction</strong>
@@ -4986,7 +5471,7 @@ Beaf32_15
 <span>  matrices.lst        <span class="op">=</span> <span class="va">oriented_first100_Regions_Beaf_VS_TssNoBeaf.mtx_lst</span>,</span>
 <span>  minDist             <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  maxDist             <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  agg.fun             <span class="op">=</span> <span class="st">"median"</span>,</span>
+<span>  agg.fun             <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  rm0.bln             <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  diff.fun            <span class="op">=</span> <span class="st">"substraction"</span>,</span>
 <span>  scaleCorrection.bln <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -5015,62 +5500,64 @@ Beaf32_15
 </ol>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diffAggreg</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.03645583</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.03645583</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Aggregation of Control</li>
 </ol>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCtrl</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0.02970222</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.02970222</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.2163697</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.2163697</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Aggregation of Beaf depleted Condition</li>
 </ol>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">agg</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0.02025877</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.02025877</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.2528255</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.2528255</span></span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>Differential at Aggregated level</li>
 </ol>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">agg</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCtrl</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] -0.009443444</span></span>
+<span><span class="co">#&gt; [1] 0.03645583</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggDelta</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] -0.009443444</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] -0.009443444</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.03645583</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.03645583</span></span></code></pre></div>
 <ol start="7" style="list-style-type: decimal">
 <li>ScaleFactor</li>
 </ol>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">correctedFact.num</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCtrl</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>,<span class="fl">72</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">agg</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>,<span class="fl">72</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">correctedFact.num</span></span>
+<span><span class="co">#&gt; [1] -0.002255729</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">correctedFact</span></span>
-<span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] -0.002255729</span></span></code></pre></div>
 <ol start="8" style="list-style-type: decimal">
 <li>Aggregation Classic Scaled</li>
 </ol>
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCorrected</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0.02025877</span></span>
+<span><span class="co">#&gt; [1] 0.2505698</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">agg</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
-<span><span class="co">#&gt; [1] 0.02025877</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
-<span><span class="co">#&gt; [1] 0.02025877</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.2505698</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
+<span><span class="co">#&gt; [1] 0.2505698</span></span></code></pre></div>
 <ol start="9" style="list-style-type: decimal">
 <li>Differential at Aggregated level between Aggregation Classic Scaled and Control</li>
 </ol>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">agg</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCtrl</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
-<span><span class="co">#&gt; [1] -0.009443444</span></span>
+<span><span class="co">#&gt; [1] 0.0342001</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCorrectedDelta</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] -0.009443444</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
-<span><span class="co">#&gt; [1] -0.009443444</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.0342001</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">beafKdQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">rawQuantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
+<span><span class="co">#&gt; [1] 0.0342001</span></span></code></pre></div>
 </div>
 </div>
 </div>
