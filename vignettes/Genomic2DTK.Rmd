@@ -8,7 +8,7 @@ description: >
 vignette: >
   %\VignetteIndexEntry{Introduction to Genomic2DTK}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 <!-- Options -->
@@ -383,13 +383,14 @@ Beaf_VS_TssNoBeaf.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
     digits = 1
   ) |>
   kableExtra::add_header_above(c(
+    "Names" = 1,
     "First" = 3,
     "Second" = 3,
     "Interaction"=5,
     "Anchor"=5,
     "Bait"=5)
   ) |>
-  kableExtra::add_header_above(c("Ranges" = 6 , "Metadata"=15))
+  kableExtra::add_header_above(c("Ranges" = 7 , "Metadata"=15))
 ```
 </details>
 
@@ -692,13 +693,14 @@ Interactions_Regions_Beaf_VS_TssNoBeaf_ctrl.dtf[,c(1:11,13,12,17,16,18,15,14,20,
     digits = 1
   ) |>
   kableExtra::add_header_above(c(
+    "Names"=1,
     "First" = 3,
     "Second" = 3,
     "Interaction"=5,
     "Anchor"=5,
     "Bait"=5)
   ) |>
-  kableExtra::add_header_above(c("Ranges" = 6, "Metadata"=15))
+  kableExtra::add_header_above(c("Ranges" = 7, "Metadata"=15))
 ```
 </details>  
 
@@ -1589,7 +1591,7 @@ ggplot2::labs(
 ## All in one function  
 
 Here is an all in one function that plot the matrix (and all matrices in attributes if it's a differential aggregation) with different options and put it in a pdf. 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 PlotAPA(
     apa.mtx                  = diffAggreg.mtx,
     out.dir                  = getwd(),
