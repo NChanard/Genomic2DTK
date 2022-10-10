@@ -35,3 +35,16 @@ None
 \description{
 Draw aggregation plot from aggregation matrices.
 }
+\examples{
+library(GenomicED)
+data(aggreg.mtx)
+PlotAPA(
+    apa.mtx                  = aggreg.mtx,
+    trimPrct.num             = 20,
+    minBoundary.num          = -2,
+    center.num               = 0,
+    maxBoundary.num          = 2,
+    minConditionBoundary.num = 0,
+    maxConditionBoundary.num = 2
+)
+}
