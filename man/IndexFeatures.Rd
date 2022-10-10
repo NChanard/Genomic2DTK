@@ -47,7 +47,7 @@ chromSize.dtf  <- data.frame(
   seqlengths = seqlengths.num
   )
 binSize.num <- 10000
-anchors_Peaks.gnr
+anchors_Peaks.gnr[1]
 anchors_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
   constraint.gnr        = domains.gnr,
@@ -58,5 +58,5 @@ anchors_Index.gnr <- IndexFeatures(
   cores.num             = 1,
   verbose.bln           = FALSE
   )
-anchors_Index.gnr
+anchors_Index.gnr[1]
 }

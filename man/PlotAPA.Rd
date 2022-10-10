@@ -2,7 +2,7 @@
 % Please edit documentation in R/PlotAPA.r
 \name{PlotAPA}
 \alias{PlotAPA}
-\title{DrawAPA}
+\title{PlotAPA}
 \usage{
 PlotAPA(
   apa.mtx = NULL,
