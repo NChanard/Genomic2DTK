@@ -422,14 +422,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(columnElement){</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(14000==columnElement || columnElement == 3000)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55f07885bc30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x564ed2221880&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"selection")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(){</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   setdiff(name)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55f07885bc30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x564ed2221880&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"resolution")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"referencePoint")</span>
@@ -448,7 +448,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>             1             2 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extraction on InteractionSet list and with GRanges</span></span></span>
-<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>first <span class="op">=</span> <span class="fu">InteractionSet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">)</span><span class="op">[[</span><span class="st">"first"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gRangesTarget.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span><span class="fu">InteractionSet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    first <span class="op">=</span> </span></span>
+<span class="r-in"><span>      <span class="va">gRangesTarget.gnr</span><span class="op">[[</span><span class="st">"first"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span></span>
 <span class="r-in"><span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
