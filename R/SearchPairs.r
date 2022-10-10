@@ -10,10 +10,14 @@
 #' @return A GInteractions object.
 #' @examples
 #' library(GenomicED)
+#' 
 #' data(anchors_Index.gnr)
 #' anchors_Index.gnr[1]
+#' 
 #' data(baits_Index.gnr)
 #' baits_Index.gnr[1]
+#' 
+#' 
 #' interactions.gni <- SearchPairs(
 #'     indexAnchor.gnr = anchors_Index.gnr,
 #'     indexBait.gnr   = baits_Index.gnr,
@@ -22,6 +26,7 @@
 #'     cores.num       = 1,
 #'     verbose.bln     = FALSE
 #'     )
+#' 
 #' interactions.gni[1]
 
 SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NULL, maxDist.num=NULL, verbose.bln=TRUE, cores.num=1){

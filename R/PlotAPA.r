@@ -12,6 +12,8 @@
 #' @examples
 #' library(GenomicED)
 #' data(aggreg.mtx)
+#' 
+#' 
 #' PlotAPA(
 #'     apa.mtx                  = aggreg.mtx,
 #'     trimPrct.num             = 20,

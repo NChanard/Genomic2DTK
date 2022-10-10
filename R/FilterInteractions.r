@@ -9,6 +9,8 @@
 #' @examples
 #' library(GenomicED)
 #' data("submatrixPF_Ctrl.mtx_lst")
+#'
+#'
 #' target.lst <- list(
 #'   anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
 #'   bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
@@ -17,6 +19,8 @@
 #'     return(14000==columnElement || columnElement == 3000)
 #'     }
 #' )
+#'
+#'
 #' # Extraction on InteractionSet
 #' FilterInteractions(
 #'   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
@@ -28,6 +32,7 @@
 #'   Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
 #'   setdiff(name)
 #' }
+#'
 #' 
 #' # Extraction on matrices list and with selection
 #' FilterInteractions(
@@ -35,6 +40,7 @@
 #'   target.lst        = target.lst,
 #'   selection.fun     = selection.fun
 #' ) |> str(max.level=1)
+#'
 #' 
 #' # Extraction on InteractionSet with InteractionsSet
 #' target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
@@ -43,6 +49,7 @@
 #'   target.lst        = target.lst,
 #'   selection.fun     = NULL
 #' )
+#'
 #' 
 #' # Extraction on InteractionSet list and with GRanges
 #' gRangesTarget.gnr <- attributes(submatrixPF_Ctrl.mtx_lst)$interactions |> 

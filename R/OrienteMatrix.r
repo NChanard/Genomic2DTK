@@ -6,9 +6,13 @@
 #' @examples
 #' library(GenomicED)
 #' data("submatrixPF_Ctrl.mtx_lst")
-#' head(attributes(submatrixPF_Ctrl.mtx_lst)$interactions@elementMetadata$orientation)
+#' 
+#' 
+#' head(attributes(submatrixPF_Ctrl.mtx_lst)$interactions$orientation)
+#' 
 #' submatrixPF_Ctrl_oriented.mtx_lst <- OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
-#' head(attributes(submatrixPF_Ctrl_oriented.mtx_lst)$interactions@elementMetadata$orientation)
+#' 
+#' head(attributes(submatrixPF_Ctrl_oriented.mtx_lst)$interactions$orientation)
 OrienteMatrix <- function(matrice.mtx){
     if(is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)){
         orientedMatrice.mtx <- matrice.mtx
