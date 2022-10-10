@@ -100,6 +100,104 @@
 <p>A GInteractions object.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">anchors_Index.gnr</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">baits_Index.gnr</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">interactions.gni</span> <span class="op">&lt;-</span> <span class="fu">SearchPairs</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    indexAnchor.gnr <span class="op">=</span> <span class="va">anchors_Index.gnr</span>,</span></span>
+<span class="r-in"><span>    indexBait.gnr   <span class="op">=</span> <span class="va">baits_Index.gnr</span>,</span></span>
+<span class="r-in"><span>    minDist.num     <span class="op">=</span> <span class="cn">NULL</span>, </span></span>
+<span class="r-in"><span>    maxDist.num     <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>    cores.num       <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    verbose.bln     <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">interactions.gni</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 351 interactions and 15 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     seqnames1           ranges1     seqnames2           ranges2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;Rle&gt;         &lt;IRanges&gt;         &lt;Rle&gt;         &lt;IRanges&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77        2L       73001-74000 ---        2L       76001-77000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:75_2L:77        2L       74001-75000 ---        2L       76001-77000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107        2L     114001-115000 ---        2L     106001-107000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107        2L     120001-121000 ---        2L     106001-107000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:117        2L     114001-115000 ---        2L     116001-117000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...       ...               ... ...       ...               ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24023_2R:24018        2R 24022001-24023000 ---        2R 24017001-24018000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24875_2R:24882        2R 24874001-24875000 ---        2R 24881001-24882000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24876_2R:24882        2R 24875001-24876000 ---        2R 24881001-24882000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24974        2R 24969001-24970000 ---        2R 24973001-24974000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24976        2R 24969001-24970000 ---        2R 24975001-24976000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     |              name  constraint  distance orientation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     |       &lt;character&gt; &lt;character&gt; &lt;integer&gt;   &lt;logical&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77 |       2L:74_2L:77       Tad_1      3000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:75_2L:77 |       2L:75_2L:77       Tad_1      2000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107 |     2L:115_2L:107       Tad_3      8000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107 |     2L:121_2L:107       Tad_3     14000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:117 |     2L:115_2L:117       Tad_3      2000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ... .               ...         ...       ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24023_2R:24018 | 2R:24023_2R:24018    Tad_1017      5000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24875_2R:24882 | 2R:24875_2R:24882    Tad_1048      7000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24876_2R:24882 | 2R:24876_2R:24882    Tad_1048      6000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24974 | 2R:24970_2R:24974    Tad_1053      4000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24976 | 2R:24970_2R:24976    Tad_1053      6000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        submatrix.name  anchor.bin       anchor.name    bait.bin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;character&gt; &lt;character&gt;       &lt;character&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77       2L:74_2L:77       2L:74       2L:74:Tad_1       2L:77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:75_2L:77       2L:75_2L:77       2L:75       2L:75:Tad_1       2L:77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107     2L:107_2L:115      2L:115      2L:115:Tad_3      2L:107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107     2L:107_2L:121      2L:121      2L:121:Tad_3      2L:107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:117     2L:115_2L:117      2L:115      2L:115:Tad_3      2L:117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...               ...         ...               ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24023_2R:24018 2R:24018_2R:24023    2R:24023 2R:24023:Tad_1017    2R:24018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24875_2R:24882 2R:24875_2R:24882    2R:24875 2R:24875:Tad_1048    2R:24882</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24876_2R:24882 2R:24876_2R:24882    2R:24876 2R:24876:Tad_1048    2R:24882</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24974 2R:24970_2R:24974    2R:24970 2R:24970:Tad_1053    2R:24974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24976 2R:24970_2R:24976    2R:24970 2R:24970:Tad_1053    2R:24976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             bait.name anchor.Beaf.score anchor.Beaf.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;character&gt;         &lt;numeric&gt;           &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77       2L:77:Tad_1               205         Beaf32_8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:75_2L:77       2L:77:Tad_1               205         Beaf32_8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107      2L:107:Tad_3              1707        Beaf32_14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107      2L:107:Tad_3               484        Beaf32_15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:117      2L:117:Tad_3              1707        Beaf32_14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...               ...               ...              ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24023_2R:24018 2R:24018:Tad_1017               221      Beaf32_2870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24875_2R:24882 2R:24882:Tad_1048                82      Beaf32_2958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24876_2R:24882 2R:24882:Tad_1048                82      Beaf32_2958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24974 2R:24974:Tad_1053              1068      Beaf32_2971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24976 2R:24976:Tad_1053              1068      Beaf32_2971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     anchor.Beaf.bln bait.Tss.class           bait.Tss.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;numeric&gt;    &lt;character&gt;                  &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77               1       inactive             FBgn0031214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:75_2L:77               1       inactive             FBgn0031214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107               1         active FBgn0026787,FBgn0005278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107               1         active FBgn0026787,FBgn0005278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:117               1         active             FBgn0031219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...             ...            ...                     ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24023_2R:24018               1       inactive             FBgn0034956</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24875_2R:24882               1       inactive             FBgn0263443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24876_2R:24882               1       inactive             FBgn0263443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24974               1       inactive             FBgn0035089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24976               1       inactive             FBgn0035090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     bait.Tss.bln</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:75_2L:77            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:117            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...          ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24023_2R:24018            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24875_2R:24882            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24876_2R:24882            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24974            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2R:24970_2R:24976            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 429 ranges and 0 metadata columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

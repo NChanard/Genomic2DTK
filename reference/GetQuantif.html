@@ -106,6 +106,457 @@
 <p>A GRange object.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"submatrixRF_Ctrl.mtx_lst"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">GetQuantif</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  matrices.lst  <span class="op">=</span> <span class="va">submatrixRF_Ctrl.mtx_lst</span>,</span></span>
+<span class="r-in"><span>  area.fun      <span class="op">=</span> <span class="st">"center"</span>,</span></span>
+<span class="r-in"><span>  operation.fun <span class="op">=</span> <span class="st">"mean"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:74_2L:77`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.002752447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:107_2L:115`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.004792452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:107_2L:121`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.01102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:117_2L:121`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03643152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:268_2L:274`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.69169</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:268_2L:278`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.483054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:274_2L:279`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.699314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:306_2L:320`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6724637</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:422_2L:471`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3981305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:422_2L:472`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2917365</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:454_2L:471`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4176653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:454_2L:472`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07697316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:1165_2L:1174`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1933935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:1174_2L:1178`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.97396</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2493_2L:2534`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1509465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2494_2L:2534`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1147519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2654_2L:2678`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03862693</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2771_2L:2805`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1995228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2771_2L:2806`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1731242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2980_2L:2993`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.403238</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2988_2L:2993`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.966797</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:2989_2L:2993`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.430412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:3160_2L:3164`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:3333_2L:3347`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04267804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:3333_2L:3349`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8697373</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:3333_2L:3355`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1149894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:3718_2L:3731`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.005324978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:4404_2L:4434`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.706205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:4466_2L:4477`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8661045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:4466_2L:4478`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08887885</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:4980_2L:4999`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5829616</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5052_2L:5059`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01361992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5059_2L:5071`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07153248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5060_2L:5071`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5071_2L:5094`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2870154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5521_2L:5529`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08567937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5521_2L:5533`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07505932</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5526_2L:5529`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07977823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5526_2L:5533`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03038824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5527_2L:5533`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5756298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5566_2L:5725`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6408698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5616_2L:5725`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1162785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5633_2L:5725`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3059426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5908_2L:5941`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3542089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5909_2L:5941`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1871565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5944_2L:5968`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:5945_2L:5968`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6051_2L:6069`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5279512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6066_2L:6069`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.139299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6071_2L:6084`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1096642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6071_2L:6089`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1007996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6499_2L:6509`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.630512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6724_2L:6743`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1687783</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6908_2L:6915`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.134238</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:6908_2L:6919`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08672329</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7033_2L:7038`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.703114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7033_2L:7039`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.601052</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7066_2L:7085`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4551538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7066_2L:7156`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09590472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7085_2L:7179`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9786903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7156_2L:7179`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4174838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:7812_2L:7828`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8693823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:8125_2L:8128`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06835569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:8242_2L:8279`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6649474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:8240_2L:8243`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.002060519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:8243_2L:8279`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8386224</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:8687_2L:8710`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1404249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:8694_2L:8710`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04914559</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9760_2L:9764`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.912675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9764_2L:9780`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1105858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9764_2L:9783`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1230102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9760_2L:9776`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6786809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9776_2L:9780`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.008095992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9776_2L:9783`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08259367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:9985_2L:10003`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2712008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10233_2L:10248`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02951273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10387_2L:10394`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1361494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10388_2L:10394`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09456354</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10389_2L:10394`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.009158009</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10394_2L:10397`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1372137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10696_2L:10729`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10702_2L:10729`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1690664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10729_2L:10738`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02811435</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:10730_2L:10738`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11949_2L:11989`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07958475</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11989_2L:12006`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2831623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11949_2L:12000`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.004800573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11990_2L:12000`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03047268</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11991_2L:12000`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3249912</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12000_2L:12006`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.986563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11949_2L:12026`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11990_2L:12026`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05402907</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:11991_2L:12026`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2037945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12006_2L:12026`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3690407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12431_2L:12435`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8919457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12498_2L:12515`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12498_2L:12516`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12508_2L:12515`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4756325</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12508_2L:12516`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02889891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L:12509_2L:12515`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1061493</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"interactions")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 100 interactions and 15 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     seqnames1           ranges1     seqnames2           ranges2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;Rle&gt;         &lt;IRanges&gt;         &lt;Rle&gt;         &lt;IRanges&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77        2L       73001-74000 ---        2L       76001-77000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107        2L     114001-115000 ---        2L     106001-107000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107        2L     120001-121000 ---        2L     106001-107000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:117        2L     120001-121000 ---        2L     116001-117000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:274_2L:268        2L     273001-274000 ---        2L     267001-268000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...       ...               ... ...       ...               ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12498        2L 12514001-12515000 ---        2L 12497001-12498000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12498        2L 12515001-12516000 ---        2L 12497001-12498000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12508        2L 12514001-12515000 ---        2L 12507001-12508000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12508        2L 12515001-12516000 ---        2L 12507001-12508000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12509        2L 12514001-12515000 ---        2L 12508001-12509000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     |              name  constraint  distance orientation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     |       &lt;character&gt; &lt;character&gt; &lt;integer&gt;   &lt;logical&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77 |       2L:74_2L:77       Tad_1      3000        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107 |     2L:115_2L:107       Tad_3      8000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107 |     2L:121_2L:107       Tad_3     14000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:117 |     2L:121_2L:117       Tad_3      4000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:274_2L:268 |     2L:274_2L:268      Tad_10      6000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ... .               ...         ...       ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12498 | 2L:12515_2L:12498     Tad_310     17000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12498 | 2L:12516_2L:12498     Tad_310     18000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12508 | 2L:12515_2L:12508     Tad_310      7000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12508 | 2L:12516_2L:12508     Tad_310      8000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12509 | 2L:12515_2L:12509     Tad_310      6000       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        submatrix.name  anchor.bin      anchor.name    bait.bin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;character&gt; &lt;character&gt;      &lt;character&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77       2L:74_2L:77       2L:74      2L:74:Tad_1       2L:77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107     2L:107_2L:115      2L:115     2L:115:Tad_3      2L:107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107     2L:107_2L:121      2L:121     2L:121:Tad_3      2L:107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:117     2L:117_2L:121      2L:121     2L:121:Tad_3      2L:117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:274_2L:268     2L:268_2L:274      2L:274    2L:274:Tad_10      2L:268</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...               ...         ...              ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12498 2L:12498_2L:12515    2L:12515 2L:12515:Tad_310    2L:12498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12498 2L:12498_2L:12516    2L:12516 2L:12516:Tad_310    2L:12498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12508 2L:12508_2L:12515    2L:12515 2L:12515:Tad_310    2L:12508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12508 2L:12508_2L:12516    2L:12516 2L:12516:Tad_310    2L:12508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12509 2L:12509_2L:12515    2L:12515 2L:12515:Tad_310    2L:12509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            bait.name anchor.Beaf.score anchor.Beaf.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          &lt;character&gt;         &lt;numeric&gt;           &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77      2L:77:Tad_1               205         Beaf32_8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107     2L:107:Tad_3              1707        Beaf32_14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107     2L:107:Tad_3               484        Beaf32_15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:117     2L:117:Tad_3               484        Beaf32_15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:274_2L:268    2L:268:Tad_10               210        Beaf32_39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...              ...               ...              ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12498 2L:12498:Tad_310                44       Beaf32_900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12498 2L:12498:Tad_310                88       Beaf32_901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12508 2L:12508:Tad_310                44       Beaf32_900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12508 2L:12508:Tad_310                88       Beaf32_901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12509 2L:12509:Tad_310                44       Beaf32_900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     anchor.Beaf.bln bait.Tss.class           bait.Tss.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;numeric&gt;    &lt;character&gt;                  &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77               1       inactive             FBgn0031214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107               1         active FBgn0026787,FBgn0005278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107               1         active FBgn0026787,FBgn0005278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:117               1         active             FBgn0031219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:274_2L:268               1       inactive             FBgn0031239</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...             ...            ...                     ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12498               1       inactive             FBgn0051858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12498               1       inactive             FBgn0051858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12508               1       inactive             FBgn0262353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12508               1       inactive             FBgn0262353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12509               1       inactive             FBgn0263458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     bait.Tss.bln</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         2L:74_2L:77            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:115_2L:107            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:107            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:121_2L:117            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2L:274_2L:268            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ...          ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12498            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12498            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12508            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12516_2L:12508            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:12515_2L:12509            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 429 ranges and 0 metadata columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"target")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"target")$submatrix.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "2L:74_2L:77"       "2L:107_2L:115"     "2L:107_2L:121"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] "2L:117_2L:121"     "2L:268_2L:274"     "2L:268_2L:278"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "2L:274_2L:279"     "2L:306_2L:320"     "2L:422_2L:471"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [10] "2L:422_2L:472"     "2L:454_2L:471"     "2L:454_2L:472"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "2L:1165_2L:1174"   "2L:1174_2L:1178"   "2L:2493_2L:2534"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [16] "2L:2494_2L:2534"   "2L:2654_2L:2678"   "2L:2771_2L:2805"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "2L:2771_2L:2806"   "2L:2980_2L:2993"   "2L:2988_2L:2993"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [22] "2L:2989_2L:2993"   "2L:3160_2L:3164"   "2L:3333_2L:3347"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "2L:3333_2L:3349"   "2L:3333_2L:3355"   "2L:3718_2L:3731"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [28] "2L:4404_2L:4434"   "2L:4466_2L:4477"   "2L:4466_2L:4478"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "2L:4980_2L:4999"   "2L:5052_2L:5059"   "2L:5059_2L:5071"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [34] "2L:5060_2L:5071"   "2L:5071_2L:5094"   "2L:5521_2L:5529"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "2L:5521_2L:5533"   "2L:5526_2L:5529"   "2L:5526_2L:5533"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [40] "2L:5527_2L:5533"   "2L:5566_2L:5725"   "2L:5616_2L:5725"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "2L:5633_2L:5725"   "2L:5908_2L:5941"   "2L:5909_2L:5941"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [46] "2L:5944_2L:5968"   "2L:5945_2L:5968"   "2L:6051_2L:6069"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "2L:6066_2L:6069"   "2L:6071_2L:6084"   "2L:6071_2L:6089"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [52] "2L:6499_2L:6509"   "2L:6724_2L:6743"   "2L:6908_2L:6915"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "2L:6908_2L:6919"   "2L:7033_2L:7038"   "2L:7033_2L:7039"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [58] "2L:7066_2L:7085"   "2L:7066_2L:7156"   "2L:7085_2L:7179"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "2L:7156_2L:7179"   "2L:7812_2L:7828"   "2L:8125_2L:8128"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [64] "2L:8242_2L:8279"   "2L:8240_2L:8243"   "2L:8243_2L:8279"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "2L:8687_2L:8710"   "2L:8694_2L:8710"   "2L:9760_2L:9764"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [70] "2L:9764_2L:9780"   "2L:9764_2L:9783"   "2L:9760_2L:9776"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "2L:9776_2L:9780"   "2L:9776_2L:9783"   "2L:9985_2L:10003" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [76] "2L:10233_2L:10248" "2L:10387_2L:10394" "2L:10388_2L:10394"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "2L:10389_2L:10394" "2L:10394_2L:10397" "2L:10696_2L:10729"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [82] "2L:10702_2L:10729" "2L:10729_2L:10738" "2L:10730_2L:10738"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "2L:11949_2L:11989" "2L:11989_2L:12006" "2L:11949_2L:12000"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [88] "2L:11990_2L:12000" "2L:11991_2L:12000" "2L:12000_2L:12006"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "2L:11949_2L:12026" "2L:11990_2L:12026" "2L:11991_2L:12026"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [94] "2L:12006_2L:12026" "2L:12431_2L:12435" "2L:12498_2L:12515"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "2L:12498_2L:12516" "2L:12508_2L:12515" "2L:12508_2L:12516"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [100] "2L:12509_2L:12515"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"resolution")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"referencePoint")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rf"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"matriceDim")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"shiftFactor")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"operation")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     mean(x, na.rm = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55f064bd7938&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"area")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (matrice.mtx) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     matrice.mtx[33:35, 67:69]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55f079781900&gt;</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

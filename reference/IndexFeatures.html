@@ -110,6 +110,75 @@
 <p>A GRange object.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"anchors_Peaks.gnr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span><span class="op">=</span><span class="fl">23513712</span>, <span class="st">'2R'</span><span class="op">=</span><span class="fl">25286936</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">chromSize.dtf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span></span>
+<span class="r-in"><span>  seqlengths <span class="op">=</span> <span class="va">seqlengths.num</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">binSize.num</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">anchors_Peaks.gnr</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 600 ranges and 2 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         seqnames            ranges strand |     score        name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [1]       2L       35594-35725      * |        76    Beaf32_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [2]       2L       47296-47470      * |        44    Beaf32_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [3]       2L       65770-65971      * |       520    Beaf32_5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [4]       2L       73858-74052      * |       205    Beaf32_8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [5]       2L     102138-102684      * |      1830   Beaf32_11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ...      ...               ...    ... .       ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [596]       2R 24687286-24687440      * |        37 Beaf32_2943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [597]       2R 24874870-24875019      * |        82 Beaf32_2958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [598]       2R 24944555-24944686      * |        48 Beaf32_2966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [599]       2R 24969405-24969744      * |      1068 Beaf32_2971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [600]       2R 25038610-25038711      * |        76 Beaf32_2975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
+<span class="r-in"><span><span class="va">anchors_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu">IndexFeatures</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">anchors_Peaks.gnr</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>  constraint.gnr        <span class="op">=</span> <span class="va">domains.gnr</span>,</span></span>
+<span class="r-in"><span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span></span>
+<span class="r-in"><span>  binSize.int           <span class="op">=</span> <span class="va">binSize.num</span>,</span></span>
+<span class="r-in"><span>  method.chr            <span class="op">=</span> <span class="st">"max"</span>,</span></span>
+<span class="r-in"><span>  variablesName.chr_vec <span class="op">=</span> <span class="st">"score"</span>,</span></span>
+<span class="r-in"><span>  cores.num             <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  verbose.bln           <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">anchors_Index.gnr</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 635 ranges and 6 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         seqnames            ranges strand |              name         bin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; |       &lt;character&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [1]       2L       73001-74000      * |       2L:74:Tad_1       2L:74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [2]       2L       74001-75000      * |       2L:75:Tad_1       2L:75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [3]       2L     102001-103000      * |      2L:103:Tad_2      2L:103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [4]       2L     114001-115000      * |      2L:115:Tad_3      2L:115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [5]       2L     120001-121000      * |      2L:121:Tad_3      2L:121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ...      ...               ...    ... .               ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [631]       2R 24687001-24688000      * | 2R:24688:Tad_1041    2R:24688</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [632]       2R 24874001-24875000      * | 2R:24875:Tad_1048    2R:24875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [633]       2R 24875001-24876000      * | 2R:24876:Tad_1048    2R:24876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [634]       2R 24944001-24945000      * | 2R:24945:Tad_1051    2R:24945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [635]       2R 24969001-24970000      * | 2R:24970:Tad_1053    2R:24970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          constraint Beaf.score   Beaf.name  Beaf.bln</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;character&gt;  &lt;numeric&gt;      &lt;list&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [1]       Tad_1        205    Beaf32_8         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [2]       Tad_1        205    Beaf32_8         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [3]       Tad_2       1830   Beaf32_11         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [4]       Tad_3       1707   Beaf32_14         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [5]       Tad_3        484   Beaf32_15         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ...         ...        ...         ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [631]    Tad_1041         37 Beaf32_2943         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [632]    Tad_1048         82 Beaf32_2958         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [633]    Tad_1048         82 Beaf32_2958         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [634]    Tad_1051         48 Beaf32_2966         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [635]    Tad_1053       1068 Beaf32_2971         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
