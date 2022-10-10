@@ -200,7 +200,6 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                     })
                 }else if(cores.num>=2){
                     parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                    doParallel::registerDoParallel(parCl)
                     tempSubmatrix.spm_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(range.ndx){
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)

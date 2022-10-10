@@ -18,7 +18,7 @@
 #'   seqnames   = names(seqlengths.num ), 
 #'   seqlengths = seqlengths.num
 #'   )
-#' binSize.num <- 1000
+#' binSize.num <- 10000
 #' anchors_Peaks.gnr
 #' anchors_Index.gnr <- IndexFeatures(
 #'   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
@@ -105,7 +105,9 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                 })
             }else if(cores.num>=2){
                 parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                doParallel::registerDoParallel(parCl)
+                parallel::clusterEvalQ(parCl, {
+                    library(GenomicRanges)
+                })
                 binnedFeature.gnr_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(row.ndx){
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] %>% unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] %>% unlist(use.names=FALSE)
@@ -163,7 +165,6 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                 })
             }else if(cores.num>=2){
                 parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                doParallel::registerDoParallel(parCl)
                 binnedIndexDuplicated.lst <- parallel::parLapply(parCl,seq_len(jobLenght.num), function(row.ndx){
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
                     row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
