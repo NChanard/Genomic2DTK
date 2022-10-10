@@ -23,6 +23,33 @@
 #' @param correctionArea.lst <list>: Nested list of indice that define a noising area fore correction. List muste contain in first an element "i" (row indices) then an element called "j" (columns indices). If NULL automatically take in upper left part of aggregated matrices. (Default NULL)
 #' @param statCompare.bln <logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.
 #' @return A matrix
+#' @examples
+#' library(GenomicED)
+#' data("submatrixRF_Ctrl.mtx_lst")
+#' data("submatrixRF.mtx_lst")
+#' aggreg.mtx <- Aggregation(
+#'   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
+#'   agg.fun      = "sum",
+#'   rm0.bln      = TRUE,
+#'   minDist      = 9000,
+#'   maxDist      = 11000
+#' )
+#' diffAggreg.mtx <- Aggregation(
+#'   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
+#'   matrices.lst        = submatrixRF.mtx_lst,
+#'   minDist             = NULL,
+#'   maxDist             = NULL,
+#'   agg.fun             = "mean",
+#'   rm0.bln             = FALSE,
+#'   diff.fun            = "substraction",
+#'   scaleCorrection.bln = TRUE,
+#'   correctionArea.lst  =  list(
+#'     i = c(1:30),
+#'     j = c(72:101)
+#'     ),
+#'   statCompare.bln = TRUE
+#' )
+
 Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=TRUE ,correctionArea.lst = NULL, statCompare.bln=FALSE){
     # subFunctions
         .PrepareMtxList =  function(matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln=FALSE){

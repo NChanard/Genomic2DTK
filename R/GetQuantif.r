@@ -26,7 +26,14 @@
 #' }
 #' @param name.chr <character> : The name of a column in GInteraction attributes of matrices.lst used as named in the output (Default NULL).
 #' @return A GRange object.
-
+#' @examples
+#' library(GenomicED)
+#' data("submatrixRF_Ctrl.mtx_lst")
+#' GetQuantif(
+#'   matrices.lst  = submatrixRF_Ctrl.mtx_lst,
+#'   area.fun      = "center",
+#'   operation.fun = "mean"
+#'   )
 GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0", name.chr=NULL){
     # Define operation function
         if(is.null(operation.fun)){

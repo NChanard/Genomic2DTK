@@ -6,6 +6,54 @@
 #' @param target.lst <List>: a nammed list that describe the target.
 #' @param selection.fun <function>: A function that described how the target must be cross. (Defaul intersection of all targets)
 #' @return A list of elements index or a filtred matrices list with attributes updates.
+#' @examples
+#' library(GenomicED)
+#' data("submatrixPF_Ctrl.mtx_lst")
+#' target.lst <- list(
+#'   anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
+#'   bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
+#'   name             = c("2L:74_2L:77"),
+#'   distance         = function(columnElement){
+#'     return(14000==columnElement || columnElement == 3000)
+#'     }
+#' )
+#' # Extraction on InteractionSet
+#' FilterInteractions(
+#'   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+#'   target.lst        = target.lst,
+#'   selection.fun     = NULL
+#' )
+#' 
+#' selection.fun = function(){
+#'   Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
+#'   setdiff(name)
+#' }
+#' 
+#' # Extraction on matrices list and with selection
+#' FilterInteractions(
+#'   matrices.lst = submatrixPF_Ctrl.mtx_lst,
+#'   target.lst        = target.lst,
+#'   selection.fun     = selection.fun
+#' )
+#' 
+#' # Extraction on InteractionSet with InteractionsSet
+#' target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
+#' FilterInteractions(
+#'   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+#'   target.lst        = target.lst,
+#'   selection.fun     = NULL
+#' )
+#' 
+#' # Extraction on InteractionSet list and with GRanges
+#' target.lst <- list(
+#'     first = InteractionSet::anchors(attributes(submatrixPF_Ctrl.mtx_lst)$interactions)[["first"]][1:2]
+#' )
+#' FilterInteractions(
+#'   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+#'   target.lst        = target.lst,
+#'   selection.fun     = NULL
+#' )
+
 FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.lst=NULL, selection.fun=function(){Reduce(intersect,interarctions.ndx_lst)}) {
     if(!is.null(matrices.lst) && !is.null(attributes(matrices.lst)$interactions)){interarctions.gni <- attributes(matrices.lst)$interactions}
     interarctions.ndx_lst <- lapply(seq_along(target.lst), function(target.ndx){

@@ -55,3 +55,30 @@ A matrix
 \description{
 aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
 }
+\examples{
+library(GenomicED)
+data("submatrixRF_Ctrl.mtx_lst")
+data("submatrixRF.mtx_lst")
+aggreg.mtx <- Aggregation(
+  matrices.lst = submatrixRF_Ctrl.mtx_lst, 
+  agg.fun      = "sum",
+  rm0.bln      = TRUE,
+  minDist      = 9000,
+  maxDist      = 11000
+)
+diffAggreg.mtx <- Aggregation(
+  ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
+  matrices.lst        = submatrixRF.mtx_lst,
+  minDist             = NULL,
+  maxDist             = NULL,
+  agg.fun             = "mean",
+  rm0.bln             = FALSE,
+  diff.fun            = "substraction",
+  scaleCorrection.bln = TRUE,
+  correctionArea.lst  =  list(
+    i = c(1:30),
+    j = c(72:101)
+    ),
+  statCompare.bln = TRUE
+)
+}

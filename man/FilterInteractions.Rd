@@ -28,3 +28,49 @@ A list of elements index or a filtred matrices list with attributes updates.
 \description{
 Search in a GInteraction object which interactions correspond ti a target list and return a list of index or filter a matrices list according to target and a selection function.
 }
+\examples{
+library(GenomicED)
+data("submatrixPF_Ctrl.mtx_lst")
+target.lst <- list(
+  anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
+  bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
+  name             = c("2L:74_2L:77"),
+  distance         = function(columnElement){
+    return(14000==columnElement || columnElement == 3000)
+    }
+)
+# Extraction on InteractionSet
+FilterInteractions(
+  interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+  target.lst        = target.lst,
+  selection.fun     = NULL
+)
+
+selection.fun = function(){
+  Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
+  setdiff(name)
+}
+
+# Extraction on matrices list and with selection
+FilterInteractions(
+  matrices.lst = submatrixPF_Ctrl.mtx_lst,
+  target.lst        = target.lst,
+  selection.fun     = selection.fun
+)
+
+# Extraction on InteractionSet with InteractionsSet
+target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
+FilterInteractions(
+  interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+  target.lst        = target.lst,
+  selection.fun     = NULL
+)
+
+# Extraction on InteractionSet list and with GRanges
+target.lst <- list(first = InteractionSet::anchors(attributes(submatrixPF_Ctrl.mtx_lst)$interactions)[["first"]][1:2])
+FilterInteractions(
+  interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+  target.lst        = target.lst,
+  selection.fun     = NULL
+)
+}

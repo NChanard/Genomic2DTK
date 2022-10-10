@@ -11,7 +11,6 @@ vignette: >
   %\usepackage[UTF-8]{inputenc}
 ---
 
-<!-- Options -->
 <style>
 body {
 text-align: justify}
@@ -39,39 +38,13 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 ```
 
 
-<!-- Firsts Steps -->
 # Firsts Steps
-
-## Installation
 ```{r, eval = FALSE}
 devtools::install_github("Nchanard/Genomic2DTK")
+devtools::install_github("Nchanard/GenomicED")
 ```
 
-## Dependencies
-[BiocGenerics](https://bioconductor.org/packages/release/bioc/manuals/BiocGenerics/man/BiocGenerics.pdf), 
-[DataTK](https://nchanard.github.io/DataTK/), 
-[DevTK](https://nchanard.github.io/DevTK/), 
-[doParallel](https://cran.r-project.org/web/packages/doParallel/doParallel.pdf), 
-[dplyr](https://dplyr.tidyverse.org), 
-[GenomeInfoDb](https://bioconductor.org/packages/release/bioc/vignettes/GenomeInfoDb/inst/doc/GenomeInfoDb.pdf), 
-[GenomicRanges](https://bioconductor.org/packages/release/bioc/vignettes/GenomicRanges/inst/doc/GenomicRangesIntroduction.html), 
-[GenomicTK](https://nchanard.github.io/GenomicTK/), 
-[InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html), 
-[IRanges](https://bioconductor.org/packages/release/bioc/vignettes/IRanges/inst/doc/IRangesOverview.pdf), 
-[magrittr](https://magrittr.tidyverse.org), 
-[Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf), 
-[methods](https://www.rdocumentation.org/packages/methods/versions/3.6.2), 
-[parallel](https://www.rdocumentation.org/packages/parallel/versions/3.6.2), 
-[plyr](https://cran.r-project.org/web/packages/plyr/plyr.pdf), 
-[S4Vectors](https://bioconductor.org/packages/release/bioc/vignettes/S4Vectors/inst/doc/S4VectorsOverview.pdf), 
-[stats](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html), 
-[stringr](https://stringr.tidyverse.org), 
-[tibble](https://tibble.tidyverse.org/index.html), 
-[tidyr](https://tidyr.tidyverse.org), 
-[tidyselect](https://tidyselect.r-lib.org)  
-  
 ___  
-<!-- Loads -->
 # Loads
 
 ## Library
@@ -125,17 +98,17 @@ knitr::kable(HiC.dtf[,-c(4,9)],
 ```
 </details>  
 
-### GRanges.gnr  
+### anchors_Peaks.gnr  
 ChIPseq data of Beaf-32 protein in wild type condition in GRanges format (bed).  
 ```{r, eval = TRUE}
-data("GRanges.gnr")
+data("anchors_Peaks.gnr")
 ```
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE, message = FALSE}
-GRanges.dtf <- GRanges.gnr |> as.data.frame() |> head(n=3L)
-GRanges.dtf <- GRanges.dtf[,-c(4)]
-knitr::kable(GRanges.dtf[,c(1:4,6,5)],
+anchors_Peaks.dtf <- anchors_Peaks.gnr |> as.data.frame() |> head(n=3L)
+anchors_Peaks.dtf <- anchors_Peaks.dtf[,-c(4)]
+knitr::kable(anchors_Peaks.dtf[,c(1:4,6,5)],
   col.names = c(
     "seq","start","end","strand",
     "name","score"),
@@ -145,17 +118,17 @@ knitr::kable(GRanges.dtf[,c(1:4,6,5)],
 ```
 </details>  
 
-### Tad.gnr
+### domains.gnr
 Data from TAD calling on HIC data in wild type ([F. Ramirez, 2018](https://doi.org/10.1038/s41467-017-02525-w)).  
 ```{r, eval = TRUE}
-data("Tad.gnr")
+data("domains.gnr")
 ```
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE, message = FALSE}
-Tad.dtf <- Tad.gnr |> as.data.frame() |> head(n=3L)
-Tad.dtf <- Tad.dtf[,-c(4)]
-knitr::kable(Tad.dtf[,c(1:4,7,5,6)],
+domains.dtf <- domains.gnr |> as.data.frame() |> head(n=3L)
+domains.dtf <- domains.dtf[,-c(4)]
+knitr::kable(domains.dtf[,c(1:4,7,5,6)],
   col.names = c(
     "seq","start","end","strand",
     "name","score","class"),
@@ -164,17 +137,17 @@ knitr::kable(Tad.dtf[,c(1:4,7,5,6)],
 ```
 </details>  
 
-### Tss.gnr
+### baits_Peaks.gnr
 Data from the UCSC data base.  
 ```{r, eval = TRUE}
-data("Tss.gnr")
+data("baits_Peaks.gnr")
 ```
 <details>
 <summary>View</summary>
 ```{r, echo = FALSE, eval = TRUE, message = FALSE}
-Tss.dtf <- Tss.gnr |> as.data.frame() |> head(n=3L)
-Tss.dtf <- Tss.dtf[,-c(4)] 
-knitr::kable(Tss.dtf[,c(1:4,6,5)],
+baits_Peaks.dtf <- baits_Peaks.gnr |> as.data.frame() |> head(n=3L)
+baits_Peaks.dtf <- baits_Peaks.dtf[,-c(4)] 
+knitr::kable(baits_Peaks.dtf[,c(1:4,6,5)],
   col.names = c(
     "seq","start","end","strand",
     "name","class"),
@@ -194,7 +167,6 @@ chromSize.dtf  <- data.frame(
 binSize.num <- 1000
 ```
 ___
-<!-- Convert HiC -->
 # Convert HiC bedpe
 
 ## HiC Control
@@ -272,7 +244,6 @@ S4Vectors::metadata(HiC_ctrl.cmx_lst[["2L_2L"]])
     - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
   
 ___
-<!-- Indexing -->
 # Genomic Features Indexing  
 
 ## Tips
@@ -282,11 +253,11 @@ ___
 
 ## Indexing
 
-### Beaf
+### Anchors (Beaf32)
 ```{r, message = FALSE, eval = TRUE}
-Beaf.gnr_ndx <- IndexFeatures(
-  gRange.gnr_lst        = list(Beaf=GRanges.gnr), 
-  constraint.gnr        = Tad.gnr,
+anchors_Index.gnr <- IndexFeatures(
+  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
+  constraint.gnr        = domains.gnr,
   chromSize.dtf         = chromSize.dtf,
   binSize.int           = binSize.num,
   method.chr            = "max",
@@ -298,18 +269,18 @@ Beaf.gnr_ndx <- IndexFeatures(
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-Beaf.gnr_ndx |>
+anchors_Index.gnr |>
   as.data.frame() |>
   head(n=3) |>
   knitr::kable()
 ```
 </details>  
 
-### TSS (Transcription Starting Sites)
+### Baits (Transcription Starting Sites)
 ```{r, eval = TRUE}
-Tss.gnr_ndx <- IndexFeatures(
-  gRange.gnr_lst        = list(Tss=Tss.gnr),
-  constraint.gnr        = Tad.gnr,
+baits_Index.gnr <- IndexFeatures(
+  gRange.gnr_lst        = list(Tss=baits_Peaks.gnr),
+  constraint.gnr        = domains.gnr,
   chromSize.dtf         = chromSize.dtf,
   binSize.int           = binSize.num,
   method.chr            = "max",
@@ -321,21 +292,21 @@ Tss.gnr_ndx <- IndexFeatures(
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-Tss.gnr_ndx |>
+baits_Index.gnr |>
   as.data.frame() |>
   head(n=3) |>
   knitr::kable()
 ```
 </details>  
-Then we select only TSS with no Beaf peak on same Bin.
+Then we select only baits (TSS) with no anchors (Beaf) peak on same Bin.
 ```{r, eval = TRUE}
-TssNoBeaf.ndx <- SuperTK::NotIn(Tss.gnr_ndx$bin,Beaf.gnr_ndx$bin)
-TssNoBeaf.gnr_ndx <- Tss.gnr_ndx[TssNoBeaf.ndx,]
+non_Overlaps.ndx <- SuperTK::NotIn(baits_Index.gnr$bin,anchors_Index.gnr$bin)
+baits_Index.gnr <- baits_Index.gnr[non_Overlaps.ndx,]
 ```
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-TssNoBeaf.gnr_ndx |>
+baits_Index.gnr |>
   as.data.frame() |>
   head(n=3) |>
   knitr::kable()
@@ -343,7 +314,6 @@ TssNoBeaf.gnr_ndx |>
 </details>  
 
 ___
-<!-- Pairing -->
 # Search Pairs 
 
 ## Tips
@@ -353,24 +323,24 @@ ___
 ## Pairing
 Now we have two genomic features indexed on genome and we want search all putative Beaf-TSS pairs that share a same constraint (i.e: that are in the same Tad). The first element of the pair (beaf) is called **Anchors** and the second one (TSS) is called **Bait**. So a pair is always in order **Anchors-Bait** (as A is before B).
 ```{r, eval = TRUE}
-Beaf_VS_TssNoBeaf.gni <- SearchPairs(
-    indexAnchor.gnr = Beaf.gnr_ndx,
-    indexBait.gnr   = TssNoBeaf.gnr_ndx,
+interactions.gni <- SearchPairs(
+    indexAnchor.gnr = anchors_Index.gnr,
+    indexBait.gnr   = baits_Index.gnr,
     minDist.num     = NULL, 
     maxDist.num     = NULL,
     cores.num       = 1,
-    verbose.bln     = TRUE
+    verbose.bln     = FALSE
     )
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE,  echo = FALSE}
-Beaf_VS_TssNoBeaf.dtf <- Beaf_VS_TssNoBeaf.gni |>
+interactions.dtf <- interactions.gni |>
   as.data.frame() |>
   head(n=3L)
-Beaf_VS_TssNoBeaf.dtf <- Beaf_VS_TssNoBeaf.dtf[,-c(4,5,9,10)]
-Beaf_VS_TssNoBeaf.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
+interactions.dtf <- interactions.dtf[,-c(4,5,9,10)]
+interactions.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
   knitr::kable(
     col.names = c(
       "seq","start","end",
@@ -395,7 +365,6 @@ Beaf_VS_TssNoBeaf.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
 </details>
 
 ___
-<!-- Extraction -->
 # Extractions
 
 ## Tips
@@ -415,10 +384,10 @@ knitr::include_graphics("images/Regions_GInteractions.png")
 ```
 
 ```{r, eval = TRUE}
-Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst  <- ExtractSubmatrix(
-  feature.gn         = Beaf_VS_TssNoBeaf.gni,
+interactions_RFmatrix_ctrl.lst  <- ExtractSubmatrix(
+  feature.gn         = interactions.gni,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
-  res.num            = NULL, 
+  res.num            = NULL,
   referencePoint.chr = "rf",
   matriceDim.num     = 101,
   cores.num          = 1,
@@ -433,9 +402,9 @@ The regions are directly defined by the ranges of GRanges object.
 knitr::include_graphics("images/Regions_GRanges.png")
 ```
   
-```{r, eval = TRUE}
-Regions_Tad_ctrl.mtx_lst <- ExtractSubmatrix(
-  feature.gn         = Tad.gnr,
+```{r, eval = FALSE}
+domains_RFmatrix.lst <- ExtractSubmatrix(
+  feature.gn         = domains.gnr,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
   referencePoint.chr = "rf",
   matriceDim.num     = 101,
@@ -458,9 +427,9 @@ In extracted matrices, the middle of Y axis correspond to the center of the firs
 knitr::include_graphics("images/LRI_GInteractions.png")
 ```
 
-```{r, eval = TRUE}
-Points_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- ExtractSubmatrix(
-  feature.gn         = Beaf_VS_TssNoBeaf.gni,
+```{r, eval = FALSE}
+interactions_PFmatrix.lst <- ExtractSubmatrix(
+  feature.gn         = interactions.gni,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
   referencePoint.chr = "pf",
   matriceDim.num     = 41,
@@ -476,8 +445,8 @@ The middle of Y axis correspond to the start of the range and interact with the 
 knitr::include_graphics("images/LRI_GRanges.png")
 ```
 ```{r, eval = TRUE}
-Points_Tad_ctrl.mtx_lst <- ExtractSubmatrix(
-  feature.gn         = Tad.gnr,
+domains_PFmatrix.lst <- ExtractSubmatrix(
+  feature.gn         = domains.gnr,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
   referencePoint.chr = "pf",
   matriceDim.num     = 41,
@@ -493,27 +462,27 @@ knitr::include_graphics("images/Extractions_of_Ponctuals_Interactions.png")
 ```
 
 ### Define ponctual interactions.
-First, we want to create objects of points interaction along diagonal. For exemple and to achieve this we will take all the TAD borders. The width of each ranges is put to 1 to force the start and end of ranges to be in a same bin.
+First, we want to create objects of points interaction along diagonal. For exemple and to achieve this we will take all the domains borders. The width of each ranges is put to 1 to force the start and end of ranges to be in a same bin.
 ```{r, eval = TRUE}
-tad_Border.gnr <- c(
-    GenomicRanges::resize(Tad.gnr, 1, "start"),
-    GenomicRanges::resize(Tad.gnr, 1,  "end" )
+domains_Border.gnr <- c(
+    GenomicRanges::resize(domains.gnr, 1, "start"),
+    GenomicRanges::resize(domains.gnr, 1,  "end" )
 ) |>
 sort()
 ```
-Probably some end of TADs are found next to some beginning of other TADs. In other words, these genomic locations are found on the same bin.  
+Probably some end of domains are found next to some beginning of other domains. In other words, these genomic locations are found on the same bin.  
 ```{r, eval = FALSE}
-tad_Border.gnr
+domains_Border.gnr
 ```
 Below ranges 2 and 3 are in this case.  
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE, echo = FALSE}
-tad_Border.dtf <- tad_Border.gnr |>
+domains_Border.dtf <- domains_Border.gnr |>
   as.data.frame() |>
   head(n=3L)
-tad_Border.dtf <- tad_Border.dtf[,-c(4)]
-knitr::kable(tad_Border.dtf[,c(1:4,7,5,6)],
+domains_Border.dtf <- domains_Border.dtf[,-c(4)]
+knitr::kable(domains_Border.dtf[,c(1:4,7,5,6)],
   col.names = c(
     "seq","start","end","strand",
     "name","score", "class"),
@@ -523,13 +492,13 @@ knitr::kable(tad_Border.dtf[,c(1:4,7,5,6)],
 </details>  
 If we use `GenomicRanges::reduce` function we lost metadata.
 ```{r, eval = FALSE}
-GenomicRanges::reduce(tad_Border.gnr)
+GenomicRanges::reduce(domains_Border.gnr)
 ```
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE, echo = FALSE}
-tad_Border.dtf <- GenomicRanges::reduce(tad_Border.gnr) |> as.data.frame() |> head(n=3L)
-knitr::kable(tad_Border.dtf[,-c(4)],
+domains_Border.dtf <- GenomicRanges::reduce(domains_Border.gnr) |> as.data.frame() |> head(n=3L)
+knitr::kable(domains_Border.dtf[,-c(4)],
   col.names = c(
     "seq","start","end","strand"),
   align  = "rcccc"
@@ -538,8 +507,8 @@ knitr::kable(tad_Border.dtf[,-c(4)],
 </details>  
 So we can Bin the GRanges with the `GenomicTK::BinGRanges` function at the HiC Resolution to keep metadata.
 ```{r, eval = TRUE}
-tad_Border_Binnned.gnr <- GenomicTK::BinGRanges(
-  gRange.gnr  = tad_Border.gnr,
+domains_Border_Bin.gnr <- GenomicTK::BinGRanges(
+  gRange.gnr  = domains_Border.gnr,
   binSize.int = binSize.num,
   verbose.bln = FALSE
   )
@@ -547,16 +516,16 @@ tad_Border_Binnned.gnr <- GenomicTK::BinGRanges(
 
 Here we see that we conserve metadata and in Bin 2L:95 we have Tad_1 and Tad_2.
 ```{r, eval = FALSE}
-tad_Border_Binnned.gnr
+domains_Border_Bin.gnr
 ```
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE, echo = FALSE}
-tad_Border_Binnned.dtf <- tad_Border_Binnned.gnr |>
+domains_Border_Bin.dtf <- domains_Border_Bin.gnr |>
   as.data.frame() |>
   head(n=3L)
-tad_Border_Binnned.dtf <- tad_Border_Binnned.dtf[,-c(4)]
-knitr::kable(tad_Border_Binnned.dtf[,c(1:4,7,5,6)],
+domains_Border_Bin.dtf <- domains_Border_Bin.dtf[,-c(4)]
+knitr::kable(domains_Border_Bin.dtf[,c(1:4,7,5,6)],
   col.names = c(
     "seq","start","end","strand",
     "name","score", "class"),
@@ -567,18 +536,18 @@ knitr::kable(tad_Border_Binnned.dtf[,c(1:4,7,5,6)],
 
 In addition, Tad_1 is in Bin 2L:74 and 2L:95, So we need to put an unique name to each ranges (=bin) and keep Tad names in a new variables.
 ```{r, eval = TRUE}
-tad_Border_Binnned.gnr$subname <- tad_Border_Binnned.gnr$name
-tad_Border_Binnned.gnr$name    <- tad_Border_Binnned.gnr$bin
+domains_Border_Bin.gnr$subname <- domains_Border_Bin.gnr$name
+domains_Border_Bin.gnr$name    <- domains_Border_Bin.gnr$bin
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE, echo = FALSE}
-tad_Border_Binnned.dtf <- tad_Border_Binnned.gnr |>
+domains_Border_Bin.dtf <- domains_Border_Bin.gnr |>
   as.data.frame() |>
   head(n=3L)
-tad_Border_Binnned.dtf <- tad_Border_Binnned.dtf[,-c(4)]
-knitr::kable(tad_Border_Binnned.dtf[,c(1:4,7,5,6,8,9)],
+domains_Border_Bin.dtf <- domains_Border_Bin.dtf[,-c(4)]
+knitr::kable(domains_Border_Bin.dtf[,c(1:4,7,5,6,8,9)],
   col.names = c(
     "seq","start","end","strand",
     "name","score", "class","bin","subname"),
@@ -589,17 +558,17 @@ knitr::kable(tad_Border_Binnned.dtf[,c(1:4,7,5,6,8,9)],
 Now we have a GRanges object. And for the exemples below we will need the same informations but in an GInteraction object.  
 
 ```{r, eval = TRUE}
-tad_Border_Binnned.gni <- InteractionSet::GInteractions(tad_Border_Binnned.gnr,tad_Border_Binnned.gnr)
+domains_Border_Bin.gni <- InteractionSet::GInteractions(domains_Border_Bin.gnr,domains_Border_Bin.gnr)
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE, echo = FALSE}
-tad_Border_Binnned.dtf <- tad_Border_Binnned.gni |>
+domains_Border_Bin.dtf <- domains_Border_Bin.gni |>
   as.data.frame() |>
   head(n=3L)
-tad_Border_Binnned.dtf <- tad_Border_Binnned.dtf[,-c(4,5,9,10)]
-tad_Border_Binnned.dtf[,c(1,2,3,9,7,8,10,11,4,5,6,14,13,12,15,16)] |>
+domains_Border_Bin.dtf <- domains_Border_Bin.dtf[,-c(4,5,9,10)]
+domains_Border_Bin.dtf[,c(1,2,3,9,7,8,10,11,4,5,6,14,13,12,15,16)] |>
   knitr::kable(
     col.names = c(
       "seq","start","end","name","score", "class", "bin", "subname",
@@ -619,9 +588,9 @@ Here the start and the end of each ranges are in a same bin.
 knitr::include_graphics("images/Ponctuals_Interactions_GRanges.png")
 ```
 
-```{r, eval = TRUE}
-Points_Tad_Border_ctrl.mtx_lst <- ExtractSubmatrix(
-  feature.gn         = tad_Border_Binnned.gnr,
+```{r, eval = FALSE}
+border_PFmatrix.lst <- ExtractSubmatrix(
+  feature.gn         = domains_Border_Bin.gnr,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
   referencePoint.chr = "pf",
   matriceDim.num     = 101,
@@ -630,14 +599,14 @@ Points_Tad_Border_ctrl.mtx_lst <- ExtractSubmatrix(
 ```
 
 ### Ponctual interactions defined with GInteractions
-Here the first element is in the same bin as the second.  
+Here the first element (blue on scheme) is in the same bin as the second (red on scheme).  
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Ponctuals_Interactions_GInteractions.png")
 ```
-```{r, eval = TRUE}
-Points_Tad_Border_ctrl_2.mtx_lst <- ExtractSubmatrix(
-  feature.gn         = tad_Border_Binnned.gni,
+```{r, eval = FALSE}
+border_PFmatrix.lst <- ExtractSubmatrix(
+  feature.gn         = domains_Border_Bin.gni,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
   referencePoint.chr = "pf",
   matriceDim.num     = 101,
@@ -646,7 +615,6 @@ Points_Tad_Border_ctrl_2.mtx_lst <- ExtractSubmatrix(
 ```
 
 ___
-<!-- Filtrations -->
 # Filtrations
 In this section we will see how to select interactions in GInteraction object or in matrices in extracted Matrices list.  
 
@@ -667,20 +635,20 @@ structureTarget.lst <- list(
 ```
 First, let's look the GInteractions columns names (metadata of interactions attributes of our matrices list)
 ```{r, eval = FALSE}
-names(S4Vectors::mcols(attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions))
+names(S4Vectors::mcols(attributes(interactions_RFmatrix_ctrl.lst)$interactions))
 ```
 Here a look of 
 ```{r, eval = FALSE}
-attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions
+attributes(interactions_RFmatrix_ctrl.lst)$interactions
 ```
 <details>  
 <summary>View</summary>  
 ```{r, eval = TRUE, echo = FALSE}
-Interactions_Regions_Beaf_VS_TssNoBeaf_ctrl.dtf <- attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions |>
+interactions_RFmatrix_ctrl.dtf <- attributes(interactions_RFmatrix_ctrl.lst)$interactions |>
   as.data.frame() |>
   head(n=10L)
-Interactions_Regions_Beaf_VS_TssNoBeaf_ctrl.dtf <- Interactions_Regions_Beaf_VS_TssNoBeaf_ctrl.dtf[,-c(4,5,9,10)]
-Interactions_Regions_Beaf_VS_TssNoBeaf_ctrl.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
+interactions_RFmatrix_ctrl.dtf <- interactions_RFmatrix_ctrl.dtf[,-c(4,5,9,10)]
+interactions_RFmatrix_ctrl.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
   knitr::kable(
     col.names = c(
       "seq","start","end",
@@ -729,7 +697,7 @@ When you don't specify any selection ways the function will return all indices f
 ### GInteraction filtration
 ```{r, eval = TRUE}
 FilterInteractions(
-  interarctions.gni = attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions,
+  interarctions.gni = attributes(interactions_RFmatrix_ctrl.lst)$interactions,
   target.lst        = target.lst,
   selection.fun     = NULL
   ) |>
@@ -738,7 +706,7 @@ str()
 ### Matrices list filtration
 ```{r, eval = TRUE}
 FilterInteractions(
-  matrices.lst      = Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst      = interactions_RFmatrix_ctrl.lst,
   target.lst        = target.lst,
   selection.fun     = NULL
   ) |>
@@ -813,7 +781,7 @@ But The indice 1 is in name criterion, so we select only the 4th element
 
 ```{r, eval = TRUE}
 FilterInteractions(
-  interarctions.gni = attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions,
+  interarctions.gni = attributes(interactions_RFmatrix_ctrl.lst)$interactions,
   target.lst        = target.lst,
   selection.fun     = selection.fun
   ) |>
@@ -821,13 +789,13 @@ str()
 ```
 names of 4th interaction is:
 ```{r, eval = TRUE}     
-attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions$name[4]
+attributes(interactions_RFmatrix_ctrl.lst)$interactions$name[4]
 ```
 
 ### Matrices list filtration
 ```{r, eval = TRUE}
-Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst_filtred <- FilterInteractions(
-  matrices.lst  = Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+filtred_interactions_RFmatrix_ctrl.lst <- FilterInteractions(
+  matrices.lst  = interactions_RFmatrix_ctrl.lst,
   target.lst    = target.lst,
   selection.fun = selection.fun
   )
@@ -835,48 +803,48 @@ Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst_filtred <- FilterInteractions(
 names of the filtred matrice is the same than the 4th interaction:  
 
 ```{r, eval = TRUE}
-attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst_filtred)$names
+attributes(filtred_interactions_RFmatrix_ctrl.lst)$names
 ```
 
 ## Particular case: Only one target and no selection
-For exemple, we want to filter the 10th first elements, so we target the 10 first names
+For exemple, we want to filter the 100th first elements, so we target the 100 first names
 ```{r, eval = TRUE}
 first100_target.lst = list(
-  submatrix.name = names(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)[1:100]
+  submatrix.name = names(interactions_RFmatrix_ctrl.lst)[1:100]
   )
 ```
 
 ### GInteraction filtration
 ```{r, eval = TRUE}
 FilterInteractions(
-  interarctions.gni = attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions,
+  interarctions.gni = attributes(interactions_RFmatrix_ctrl.lst)$interactions,
   target.lst        = first100_target.lst,
   selection.fun     = NULL
   ) |> str()
 ```
 ### Matrices list filtration
 ```{r, eval = TRUE}
-first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- FilterInteractions(
-  matrices.lst  = Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+first100_interactions_RFmatrix_ctrl.lst <- FilterInteractions(
+  matrices.lst  = interactions_RFmatrix_ctrl.lst,
   target.lst    = first100_target.lst,
   selection.fun = NULL
   )
-attributes(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions
+attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions
 ```
 A selection of some matrices remove attributes.
 ```{r, eval = TRUE}
-attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[1:20])$interactions
+attributes(interactions_RFmatrix_ctrl.lst[1:20])$interactions
 ```
 ## Particular case: Sampling
 ```{r, eval = TRUE}
 nSample.num = 3
 set.seed(123)
-target.lst = list(name=sample(attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions$name,nSample.num))
+target.lst = list(name=sample(attributes(interactions_RFmatrix_ctrl.lst)$interactions$name,nSample.num))
 ```
 ### GInteraction sampling
 ```{r, eval = TRUE}
 FilterInteractions(
-  interarctions.gni = attributes(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions,
+  interarctions.gni = attributes(interactions_RFmatrix_ctrl.lst)$interactions,
   target.lst        = target.lst,
   selection.fun     = NULL
   ) |>
@@ -884,16 +852,15 @@ str()
 ```
 ### Matrices list sampling
 ```{r, eval = TRUE}
-sampled_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- FilterInteractions(
-  matrices.lst  = Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+sampled_interactions_RFmatrix_ctrl.lst <- FilterInteractions(
+  matrices.lst  = interactions_RFmatrix_ctrl.lst,
   target.lst    = target.lst,
   selection.fun = NULL
   )
-attributes(sampled_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions
+attributes(sampled_interactions_RFmatrix_ctrl.lst)$interactions
 ```
 
 ___
-<!-- Orientation -->
 # Orientation
 
 ## Tips
@@ -904,7 +871,7 @@ ___
 ## Understand orientation
 First, lets look how two matrices are oriented (column orientation of metadata of the interactions attribute). Below we can see that the first matrix is correctly oriented (value is TRUE) but not the second one.
 ```{r, eval = TRUE}
-attributes(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions$orientation[13:14] 
+attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions$orientation[13:14] 
 ```
 
 A matrix that is correctly oriented have an anchor before a bait (see SearchPairs for anchor-bait order), and a matrix that is not oriented have an anchor after a bait.
@@ -928,7 +895,7 @@ knitr::include_graphics("images/Orientation.png")
 We expected that the values in upper left corner (green in above scheme) will end up in the lower right corner after orientation, so let's oriente the matrices list according to the orientation metadata.  
 
 ```{r, eval = TRUE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)
+oriented_first100_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst)
 ```
 
 ### First matrice (don't need orientation)  
@@ -936,13 +903,13 @@ oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- OrienteMatrix(first1
 1. upper left corner **before orientation**.  
 
 ```{r, eval = FALSE}
-first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]][1:5,1:5]
+first100_interactions_RFmatrix_ctrl.lst[[13]][1:5,1:5]
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]][1:5,1:5] |>
+first100_interactions_RFmatrix_ctrl.lst[[13]][1:5,1:5] |>
   as.matrix() |>
   as.data.frame() |>
   `colnames<-`(c(1:5)) |>
@@ -955,13 +922,13 @@ first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]][1:5,1:5] |>
 2. upper left corner **after orientation does not change**.  
 
 ```{r, eval = FALSE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]][1:5,1:5]
+oriented_first100_interactions_RFmatrix_ctrl.lst[[13]][1:5,1:5]
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]][1:5,1:5] |>
+oriented_first100_interactions_RFmatrix_ctrl.lst[[13]][1:5,1:5] |>
   as.matrix() |>
   as.data.frame() |>
   `colnames<-`(c(1:5)) |>
@@ -975,13 +942,13 @@ oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]][1:5,1:5] |>
 1. upper left corner **before orientation**  
 
 ```{r, eval = FALSE}
-first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]][1:5,1:5]
+first100_interactions_RFmatrix_ctrl.lst[[14]][1:5,1:5]
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]][1:5,1:5] |>
+first100_interactions_RFmatrix_ctrl.lst[[14]][1:5,1:5] |>
   as.matrix() |>
   as.data.frame() |>
   `colnames<-`(c(1:5)) |>
@@ -993,13 +960,13 @@ first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]][1:5,1:5] |>
 2. **transposed lower right corner after orientation correspond to the upper left corner before orientation**  
 
 ```{r, eval = FALSE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]][97:101,97:101]
+oriented_first100_interactions_RFmatrix_ctrl.lst[[14]][97:101,97:101]
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]][97:101,97:101] |>
+oriented_first100_interactions_RFmatrix_ctrl.lst[[14]][97:101,97:101] |>
   as.matrix() |>
   as.data.frame() |>
   `colnames<-`(c(1:5)) |>
@@ -1017,13 +984,13 @@ The function could also oriente only one matrix but in this case there is no att
 Transposed lower right corner after orientation correspond to the upper left corner before orientation.  
 
 ```{r, eval = FALSE}
-OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]])[97:101,97:101]
+OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst[[13]])[97:101,97:101]
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]])[97:101,97:101] |>
+OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst[[13]])[97:101,97:101] |>
   as.matrix() |>
   as.data.frame() |>
   `colnames<-`(c(1:5)) |>
@@ -1036,13 +1003,13 @@ OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[13]])[97:101,97:1
 Below we find again the orientation of the second matrix.  
 
 ```{r, eval = FALSE}
-OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]])[97:101,97:101]
+OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst[[14]])[97:101,97:101]
 ```
 
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE}
-OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]])[97:101,97:101] |>
+OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst[[14]])[97:101,97:101] |>
   as.matrix() |>
   as.data.frame() |>
   `colnames<-`(c(1:5)) |>
@@ -1052,7 +1019,6 @@ OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst[[14]])[97:101,97:1
 </details>  
 
 ___
-<!-- Quantifications -->
 # Quantifications
 ## Tips
 
@@ -1063,7 +1029,7 @@ ___
 the `GetQuantif` function have some preregistred area and function (see `Genomic2DTK::GetQuantif`). Below we will extract centrals values. There are interactions values in a square 3x3 centred on the interactions between anchor and bait. With all extracted value we will perform an average after removing all zeros.
 ```{r, eval = TRUE}
 center.num <- GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = "center",
   operation.fun = "mean"
   )
@@ -1090,7 +1056,7 @@ head(unlist(c(center.num)))
 With this function you also could named values according to a metadata of the interactions attributes. For exemple we will take same quantification but now we want use the "anchor.Beaf.name" metadata as name.
 ```{r, eval = TRUE}
 namedCenter.num <- GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = "center",
   operation.fun = "mean",
   name.chr      = "anchor.Beaf.name"
@@ -1099,7 +1065,7 @@ namedCenter.num <- GetQuantif(
 
 The 46th matrix is related to two anchor.Beaf.name
 ```{r, eval = TRUE, echo = FALSE}
-S4Vectors::mcols(attributes(oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)$interactions)[45:50,c("name","anchor.Beaf.name")] |>
+S4Vectors::mcols(attributes(oriented_first100_interactions_RFmatrix_ctrl.lst)$interactions)[45:50,c("name","anchor.Beaf.name")] |>
   `row.names<-`(45:50) |>
   knitr::kable(align = "cc", digits = 1)
 ```
@@ -1120,7 +1086,7 @@ attributes(namedCenter.num)$duplicated
 The `GetQuantif` function could also take custom **area** selection and **operation** in parameter. For exemple here we use the functions we see in the attributes **area** and **operation** of the center.num vector. We obtain same result with custom function in parameter.
 ```{r, eval = TRUE}
 GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = function(matrice.mtx){matrice.mtx[33:35,67:69]},
   operation.fun = function(area.mtx){
     area.mtx[which(area.mtx==0)]<-NA;
@@ -1136,7 +1102,7 @@ The Operation.fun parameter could a custom function that just return the area se
 ### One value extraction
 ```{r, eval = TRUE}
 GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = function(matrice.mtx){matrice.mtx[5,5]},
   operation.fun = function(area.mtx){area.mtx}
   ) |>
@@ -1148,7 +1114,7 @@ head()
 The Operation.fun parameter could a custom function that just return the area selected. this allow to extract values in each matrices.
 ```{r, eval = TRUE}
 GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = function(matrice.mtx){matrice.mtx[4:6,4:6]},
   operation.fun = function(area){area}
   ) |>
@@ -1157,7 +1123,7 @@ c() |> head()
 If is null operation.fun return values of the selected area without NA.
 ```{r, eval = TRUE}
 GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = function(matrice.mtx){matrice.mtx[4:6,4:6]},
   operation.fun = NULL
   ) |>
@@ -1166,7 +1132,6 @@ head()
 ```
 
 ___
-<!-- Aggregations -->
 # Aggregations
 
 ## Tips
@@ -1197,7 +1162,7 @@ When you perfomr differential aggregation there are some supplementary attribute
 Like the `GetQuantif` function, the aggregation have some preregistred function like `sum`, `mean` or `median`. See Genomic2DTK::Aggregation for more details.
 ```{r, eval = TRUE}
 agg_sum.mtx <- Aggregation(
-  matrices.lst = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst, 
+  matrices.lst = oriented_first100_interactions_RFmatrix_ctrl.lst, 
   agg.fun      = "sum",
   rm0.bln      = FALSE
   )
@@ -1209,7 +1174,7 @@ agg_sum.mtx[5,5]
 ```
 ```{r, eval = TRUE}
 GetQuantif(
-  matrices.lst = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun     = function(matrice.mtx){matrice.mtx[5,5]},
   operation.fun = function(area.num){area.num}
   ) |>
@@ -1221,7 +1186,7 @@ sum(na.rm=TRUE)
 Here we will used a custom function. This function must return an unique value for all pixels_ij of the matrices.
 ```{r, eval = TRUE}
 agg_mean.mtx <- Aggregation(
-  matrices.lst = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst = oriented_first100_interactions_RFmatrix_ctrl.lst,
   agg.fun      = function(x){mean(x,na.rm=TRUE)}
   )
 ```
@@ -1231,7 +1196,7 @@ agg_mean.mtx[5,5]
 ```
 ```{r, eval = TRUE}
 GetQuantif(
-  matrices.lst = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun     = function(matrice.mtx){matrice.mtx[5,5]},
   operation.fun = function(area.num){area.num}
   ) |>
@@ -1243,7 +1208,7 @@ mean(na.rm=TRUE)
 You could add distance constraint, in this case the function will agregate all matrices that have a distance between anchor and bait superior or equal to the `minDist` parameter and inferior or equal to the `maxDist` parameter
 ```{r, eval = TRUE}
 agg_dist.mtx <- Aggregation(
-  matrices.lst = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst = oriented_first100_interactions_RFmatrix_ctrl.lst,
   minDist      = 9000,
   maxDist      = 11000,
   agg.fun      = "sum"
@@ -1253,7 +1218,7 @@ Verification with extraction of one value
 ```{r, eval = TRUE}
 agg_dist.mtx[5,5]
 quantif.num <- GetQuantif(
-  matrices.lst = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+  matrices.lst = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun     = function(matrice.mtx){matrice.mtx[5,5] },
   operation.fun = function(area.num){area.num}
   )
@@ -1276,24 +1241,24 @@ When the number of matrices is not too high (few hundreds) you may want perform 
              
 1. Preparation of Control matrices list condition  
 **Filtration**
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 first100_target.lst = list(
-  submatrix.name = names(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)[1:100]
+  submatrix.name = names(interactions_RFmatrix_ctrl.lst)[1:100]
   )
-first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- FilterInteractions(
-  matrices.lst  = Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+first100_interactions_RFmatrix_ctrl.lst <- FilterInteractions(
+  matrices.lst  = interactions_RFmatrix_ctrl.lst,
   target.lst    = first100_target.lst,
   selection.fun = NULL
   )
 ```
 **Orientation**
-```{r, eval = TRUE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)
+```{r, eval = FALSE}
+oriented_first100_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst)
 ```
 **Quantifications for Verification**
 ```{r, eval = TRUE}
-rawQuantif.num <- GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+quantif_ctrl.num <- GetQuantif(
+  matrices.lst  = oriented_first100_interactions_RFmatrix_ctrl.lst,
   area.fun      = function(matrice.mtx){matrice.mtx[5,5]},
   operation.fun = function(area.num){area.num}
   )
@@ -1301,8 +1266,8 @@ rawQuantif.num <- GetQuantif(
 2. Preparation of second matrices list in Beaf depleted condition.
 **Extraction**
 ```{r, eval = TRUE}
-Regions_Beaf_VS_TssNoBeaf.mtx_lst  <- ExtractSubmatrix(
-  feature.gn         = Beaf_VS_TssNoBeaf.gni,
+interactions_RFmatrix.lst  <- ExtractSubmatrix(
+  feature.gn         = interactions.gni,
   hic.cmx_lst        = HiC.cmx_lst,
   referencePoint.chr = "rf",
   matriceDim.num     = 101,
@@ -1311,29 +1276,29 @@ Regions_Beaf_VS_TssNoBeaf.mtx_lst  <- ExtractSubmatrix(
 ```
 **Filtration**  
 ```{r, eval = TRUE}
-first100_Regions_Beaf_VS_TssNoBeaf.mtx_lst <- FilterInteractions(
-  matrices.lst  = Regions_Beaf_VS_TssNoBeaf.mtx_lst,
+first100_interactions_RFmatrix.lst <- FilterInteractions(
+  matrices.lst  = interactions_RFmatrix.lst,
   target.lst    = first100_target.lst,
   selection.fun = NULL
   )
 ```
 **Orientation**  
 ```{r, eval = TRUE}
-oriented_first100_Regions_Beaf_VS_TssNoBeaf.mtx_lst <- OrienteMatrix(first100_Regions_Beaf_VS_TssNoBeaf.mtx_lst)
+oriented_first100_interactions_RFmatrix.lst <- OrienteMatrix(first100_interactions_RFmatrix.lst)
 ```
 **Quantifications for Verification**  
 ```{r, eval = TRUE}
-beafKdQuantif.num <- GetQuantif(
-  matrices.lst  = oriented_first100_Regions_Beaf_VS_TssNoBeaf.mtx_lst,
+quantif.num <- GetQuantif(
+  matrices.lst  = oriented_first100_interactions_RFmatrix.lst,
   area.fun      = function(matrice.mtx){matrice.mtx[5,5]},
-  operation.fun = function(area){area}
+  operation.fun = function(area.num){area.num}
   )
 ```
 ### Aggregate
 ```{r, eval = TRUE}
-diffAggreg <- Aggregation(
-  ctrlMatrices.lst    = oriented_first100_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
-  matrices.lst        = oriented_first100_Regions_Beaf_VS_TssNoBeaf.mtx_lst,
+diffAggreg.mtx <- Aggregation(
+  ctrlMatrices.lst    = oriented_first100_interactions_RFmatrix_ctrl.lst,
+  matrices.lst        = oriented_first100_interactions_RFmatrix.lst,
   minDist             = NULL,
   maxDist             = NULL,
   agg.fun             = "mean",
@@ -1352,67 +1317,67 @@ diffAggreg <- Aggregation(
 1. Print with all attributes  
 
 ```{r, eval = FALSE}
-diffAggreg
+diffAggreg.mtx
 ```
 
 2. Print only matrice  
 
 ```{r, eval = FALSE}
-prmatrix(diffAggreg)
-diffAggreg[1:101,1:101]
+prmatrix(diffAggreg.mtx)
+diffAggreg.mtx[1:101,1:101]
 ```
 
 3. Differential at each submatrix level  
 
 ```{r, eval = TRUE}
-diffAggreg[5,5]
-mean(unlist(beafKdQuantif.num) - unlist(rawQuantif.num))
+diffAggreg.mtx[5,5]
+mean(unlist(quantif.num) - unlist(quantif_ctrl.num))
 ```            
 
 4. Aggregation of Control  
 
 ```{r, eval = TRUE}
-attributes(diffAggreg)$matrices$aggCtrl[5,5]
-mean(unlist(rawQuantif.num))
+attributes(diffAggreg.mtx)$matrices$aggCtrl[5,5]
+mean(unlist(quantif_ctrl.num))
 ```
 
 5. Aggregation of Beaf depleted Condition  
 
 ```{r, eval = TRUE}
-attributes(diffAggreg)$matrices$agg[5,5]
-mean(unlist(beafKdQuantif.num))
+attributes(diffAggreg.mtx)$matrices$agg[5,5]
+mean(unlist(quantif.num))
 ```
 
 6. Differential at Aggregated level  
 
 ```{r, eval = TRUE}
-attributes(diffAggreg)$matrices$agg[5,5]-attributes(diffAggreg)$matrices$aggCtrl[5,5]
-attributes(diffAggreg)$matrices$aggDelta[5,5]
-mean(unlist(beafKdQuantif.num)) - mean(unlist(rawQuantif.num))
+attributes(diffAggreg.mtx)$matrices$agg[5,5]-attributes(diffAggreg.mtx)$matrices$aggCtrl[5,5]
+attributes(diffAggreg.mtx)$matrices$aggDelta[5,5]
+mean(unlist(quantif.num)) - mean(unlist(quantif_ctrl.num))
 ```
 
 7. ScaleFactor  
 
 ```{r, eval = TRUE}
-correctedFact.num = median(attributes(diffAggreg)$matrices$aggCtrl[1:30,72:101]) - median(attributes(diffAggreg)$matrices$agg[1:30,72:101])
+correctedFact.num = median(attributes(diffAggreg.mtx)$matrices$aggCtrl[1:30,72:101]) - median(attributes(diffAggreg.mtx)$matrices$agg[1:30,72:101])
 correctedFact.num
-attributes(diffAggreg)$correctedFact
+attributes(diffAggreg.mtx)$correctedFact
 ```
 
 8. Aggregation Classic Scaled  
 
 ```{r, eval = TRUE}
-attributes(diffAggreg)$matrices$aggCorrected[5,5]
-attributes(diffAggreg)$matrices$agg[5,5] + correctedFact.num
-mean(unlist(beafKdQuantif.num)) + correctedFact.num
+attributes(diffAggreg.mtx)$matrices$aggCorrected[5,5]
+attributes(diffAggreg.mtx)$matrices$agg[5,5] + correctedFact.num
+mean(unlist(quantif.num)) + correctedFact.num
 ```
 
 9. Differential at Aggregated level between Aggregation Classic Scaled and Control  
 
 ```{r, eval = TRUE}
-attributes(diffAggreg)$matrices$agg[5,5]-attributes(diffAggreg)$matrices$aggCtrl[5,5] + correctedFact.num
-attributes(diffAggreg)$matrices$aggCorrectedDelta[5,5]
-mean(unlist(beafKdQuantif.num)) - mean(unlist(rawQuantif.num)) + correctedFact.num
+attributes(diffAggreg.mtx)$matrices$agg[5,5]-attributes(diffAggreg.mtx)$matrices$aggCtrl[5,5] + correctedFact.num
+attributes(diffAggreg.mtx)$matrices$aggCorrectedDelta[5,5]
+mean(unlist(quantif.num)) - mean(unlist(quantif_ctrl.num)) + correctedFact.num
 ```
 # Aggregations plots
 ## Preparation of aggregated matrices
@@ -1420,9 +1385,9 @@ mean(unlist(beafKdQuantif.num)) - mean(unlist(rawQuantif.num)) + correctedFact.n
 1. Control aggregation
 
 ```{r}
-oriented_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst <- OrienteMatrix(Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst)
+oriented_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(interactions_RFmatrix_ctrl.lst)
 aggreg.mtx <- Aggregation(
-    ctrlMatrices.lst=oriented_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
+    ctrlMatrices.lst=oriented_interactions_RFmatrix_ctrl.lst,
     agg.fun="mean",
     rm0.bln=FALSE
 )
@@ -1433,10 +1398,10 @@ colnames(aggreg.mtx) = c(rep("",33),rep("*",2),rep("",31),rep("*",2),rep("",33))
 2. Differential aggregation
 
 ```{r}
-oriented_Regions_Beaf_VS_TssNoBeaf.mtx_lst <- OrienteMatrix(Regions_Beaf_VS_TssNoBeaf.mtx_lst)
+oriented_interactions_RFmatrix.lst <- OrienteMatrix(interactions_RFmatrix.lst)
 diffAggreg.mtx <- Aggregation(
-    ctrlMatrices.lst    = oriented_Regions_Beaf_VS_TssNoBeaf_ctrl.mtx_lst,
-    matrices.lst        = oriented_Regions_Beaf_VS_TssNoBeaf.mtx_lst,
+    ctrlMatrices.lst    = oriented_interactions_RFmatrix_ctrl.lst,
+    matrices.lst        = oriented_interactions_RFmatrix.lst,
     minDist             = NULL,
     maxDist             = NULL,
     agg.fun             = "mean",
@@ -1453,7 +1418,6 @@ colnames(diffAggreg.mtx) = c(rep("",33),rep("*",2),rep("",31),rep("*",2),rep("",
 ## Plots
 Below you could see the ggAPA function that create a ggplot object (ggplot2::geom_raster)  
 
-<!-- ### Classic -->
 ```{r, fig.dim = c(7,7)}
 ggAPA(
     apa.mtx   = aggreg.mtx,
@@ -1569,7 +1533,7 @@ here is an option to change the color of heatmap and color of NA values.
 ggAPA(
     apa.mtx     = aggreg.mtx,
     title.chr   = "APA",
-    heatmap.col = ColorTK::viridis(6),
+    heatmap.col = SuperTK::viridis(6),
     na.col      = "black"
 )
 ```
@@ -1591,11 +1555,9 @@ ggplot2::labs(
 ## All in one function  
 
 Here is an all in one function that plot the matrix (and all matrices in attributes if it's a differential aggregation) with different options and put it in a pdf. 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 PlotAPA(
     apa.mtx                  = diffAggreg.mtx,
-    out.dir                  = getwd(),
-    fileName.chr             = "my_file_name",
     trimPrct.num             = 20,
     minBoundary.num          = -2,
     center.num               = 0,
