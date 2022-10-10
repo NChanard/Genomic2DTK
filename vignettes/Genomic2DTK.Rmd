@@ -260,9 +260,9 @@ anchors_Index.gnr <- IndexFeatures(
   constraint.gnr        = domains.gnr,
   chromSize.dtf         = chromSize.dtf,
   binSize.int           = binSize.num,
-  method.chr            = "max",
+  # method.chr            = "max",
   variablesName.chr_vec = "score",
-  cores.num             = 1,
+  cores.num             = 2,
   verbose.bln           = FALSE
   )
 ```

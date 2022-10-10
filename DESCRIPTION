@@ -11,7 +11,6 @@ URL: https://nchanard.github.io/Genomic2DTK/,
 Depends:
     R (>= 4.1)
 Imports:
-    doParallel,
     dplyr,
     GenomeInfoDb,
     GenomicRanges,

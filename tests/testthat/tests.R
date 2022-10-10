@@ -57,8 +57,6 @@ SearchPairs(
     cores.num       = 2,
     verbose.bln     = FALSE
     )
-
-
 data("interactions.gni")
 data("HiC_ctrl.cmx_lst")
 data("domains.gnr")

@@ -15,8 +15,8 @@
 #' interactions.gni <- SearchPairs(
 #'     indexAnchor.gnr = anchors_Index.gnr,
 #'     indexBait.gnr   = baits_Index.gnr,
-#'     minDist.num     = NULL, 
-#'     maxDist.num     = NULL,
+#'     minDist.num     = 9000, 
+#'     maxDist.num     = 11000,
 #'     cores.num       = 1,
 #'     verbose.bln     = FALSE
 #'     )
@@ -56,21 +56,23 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
         if(verbose.bln){cat("\n")}
     }else if(cores.num>=2){
         parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-        doParallel::registerDoParallel(parCl)
+        parallel::clusterEvalQ(parCl, {
+            library(GenomicRanges)
+        })
         pairs.gni_lst <- parallel::parLapply(parCl,seq_len(jobLength.num), function(constraint.ndx){
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
-            subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr$constraint == commonConstraint.chr)]
-            subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr$constraint == commonConstraint.chr)]
+            subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr@elementMetadata$constraint == commonConstraint.chr)]
+            subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr@elementMetadata$constraint == commonConstraint.chr)]
             pairsCombination.dtf <- expand.grid(seq_along(subIndexAnchor.gnr),seq_along(subIndexBait.gnr))
             subIndexAnchor.gnr[pairsCombination.dtf[,'Var1']]
             subIndexBait.gnr[pairsCombination.dtf[,'Var2']]
             subPairs.gni <- InteractionSet::GInteractions(subIndexAnchor.gnr[pairsCombination.dtf[,'Var1']], subIndexBait.gnr[pairsCombination.dtf[,'Var2']])
             subPairs.gni$distance <- InteractionSet::pairdist(subPairs.gni)
             if (!is.null(minDist.num)){
-                subPairs.gni <- subPairs.gni[which(subPairs.gni$distance >= minDist.num)]
+                subPairs.gni <- subPairs.gni[which(subPairs.gni@elementMetadata$distance >= minDist.num)]
             }
             if (!is.null(maxDist.num)){
-                subPairs.gni <- subPairs.gni[which(subPairs.gni$distance <= maxDist.num)]
+                subPairs.gni <- subPairs.gni[which(subPairs.gni@elementMetadata$distance <= maxDist.num)]
             }
             return(subPairs.gni)
             }) 
