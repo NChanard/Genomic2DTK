@@ -90,7 +90,7 @@ GnpToCm <- function(hic.gnp=NULL, res.num=NULL, chromSize.dtf=NULL, verbose.bln=
             })
             if(verbose.bln){cat("\n")}
         }else if(cores.num>=2){
-            parCl <- parallel::makeCluster(cores.num, type ="FORK")
+            parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
             doParallel::registerDoParallel(parCl)
             hic.cmx_lst <- parallel::parLapply(parCl,seq_len(jobLenght.num),function(combin.ndx){
                 combin.lst <- chromosomesCombinaison.chr[[combin.ndx]] %>%

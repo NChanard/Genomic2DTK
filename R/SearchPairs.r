@@ -55,7 +55,7 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             }) 
         if(verbose.bln){cat("\n")}
     }else if(cores.num>=2){
-        parCl <- parallel::makeCluster(cores.num, type ="FORK")
+        parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
         doParallel::registerDoParallel(parCl)
         pairs.gni_lst <- parallel::parLapply(parCl,seq_len(jobLength.num), function(constraint.ndx){
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
