@@ -104,7 +104,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(subBinnedFeature.gnr)
                 })
             }else if(cores.num>=2){
-                parCl <- parallel::makeCluster(cores.num, type ="FORK")
+                parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
                 doParallel::registerDoParallel(parCl)
                 binnedFeature.gnr_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(row.ndx){
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] %>% unlist(use.names=FALSE)
@@ -162,7 +162,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(.data)
                 })
             }else if(cores.num>=2){
-                parCl <- parallel::makeCluster(cores.num, type ="FORK")
+                parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
                 doParallel::registerDoParallel(parCl)
                 binnedIndexDuplicated.lst <- parallel::parLapply(parCl,seq_len(jobLenght.num), function(row.ndx){
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
