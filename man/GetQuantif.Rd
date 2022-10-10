@@ -46,3 +46,12 @@ A GRange object.
 \description{
 Compute a function on each matrix that compose a matrices list.
 }
+\examples{
+library(GenomicED)
+data("submatrixRF_Ctrl.mtx_lst")
+GetQuantif(
+  matrices.lst  = submatrixRF_Ctrl.mtx_lst,
+  area.fun      = "center",
+  operation.fun = "mean"
+  )
+}

@@ -38,3 +38,17 @@ A matrices list.
 \description{
 Extract matrices in the HiC maps list around genomic features.
 }
+\examples{
+library(GenomicED)
+data("interactions.gni")
+data("HiC_ctrl.cmx_lst")
+interactions_RFmatrix_ctrl.lst  <- ExtractSubmatrix(
+  feature.gn         = interactions.gni,
+  hic.cmx_lst        = HiC_ctrl.cmx_lst,
+  res.num            = NULL,
+  referencePoint.chr = "rf",
+  matriceDim.num     = 101,
+  cores.num          = 1,
+  verbose.bln        = FALSE
+  )
+}

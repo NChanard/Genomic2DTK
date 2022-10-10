@@ -10,6 +10,27 @@
 #' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A GRange object.
+#' @examples
+#' library(GenomicED)
+#' data("anchors_Peaks.gnr")
+#' seqlengths.num <- c('2L'=23513712, '2R'=25286936)
+#' chromSize.dtf  <- data.frame(
+#'   seqnames   = names(seqlengths.num ), 
+#'   seqlengths = seqlengths.num
+#'   )
+#' binSize.num <- 1000
+#' anchors_Peaks.gnr
+#' anchors_Index.gnr <- IndexFeatures(
+#'   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
+#'   constraint.gnr        = domains.gnr,
+#'   chromSize.dtf         = chromSize.dtf,
+#'   binSize.int           = binSize.num,
+#'   method.chr            = "max",
+#'   variablesName.chr_vec = "score",
+#'   cores.num             = 1,
+#'   verbose.bln           = FALSE
+#'   )
+#' anchors_Index.gnr
 
 IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.int=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
     # Constraint Informations

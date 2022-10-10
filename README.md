@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/NChanard/Genomic2DTK/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NChanard/Genomic2DTK/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/NChanard/Genomic2DTK/branch/master/graph/badge.svg)](https://app.codecov.io/gh/NChanard/Genomic2DTK?branch=master)
 <!-- badges: end -->
 
 Genomic2DTK is a set of genomic interaction analysis tools.

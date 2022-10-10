@@ -10,6 +10,19 @@
 #' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
+#' @examples
+#' library(GenomicED)
+#' data("interactions.gni")
+#' data("HiC_ctrl.cmx_lst")
+#' interactions_RFmatrix_ctrl.lst  <- ExtractSubmatrix(
+#'   feature.gn         = interactions.gni,
+#'   hic.cmx_lst        = HiC_ctrl.cmx_lst,
+#'   res.num            = NULL,
+#'   referencePoint.chr = "rf",
+#'   matriceDim.num     = 101,
+#'   cores.num          = 1,
+#'   verbose.bln        = FALSE
+#'   )
 
 ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.chr="rf",  res.num=NULL, matriceDim.num=21, shiftFactor.num=1,cores.num=1, verbose.bln=TRUE){
         .GInteractionFormatting <- function(feature.gn, res.num){
@@ -186,7 +199,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         return(as.matrix(mat.spm))
                     })
                 }else if(cores.num>=2){
-                    parCl <- parallel::makeCluster(cores.num, type ="FORK")
+                    parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
                     doParallel::registerDoParallel(parCl)
                     tempSubmatrix.spm_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(range.ndx){
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)

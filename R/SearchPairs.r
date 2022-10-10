@@ -8,6 +8,19 @@
 #' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A GInteractions object.
+#' @examples
+#' library(GenomicED)
+#' data(anchors_Index.gnr)
+#' data(baits_Index.gnr)
+#' interactions.gni <- SearchPairs(
+#'     indexAnchor.gnr = anchors_Index.gnr,
+#'     indexBait.gnr   = baits_Index.gnr,
+#'     minDist.num     = NULL, 
+#'     maxDist.num     = NULL,
+#'     cores.num       = 1,
+#'     verbose.bln     = FALSE
+#'     )
+#' interactions.gni
 
 SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NULL, maxDist.num=NULL, verbose.bln=TRUE, cores.num=1){
     if(is.character(minDist.num)){
