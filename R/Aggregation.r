@@ -24,6 +24,7 @@
 #' @param statCompare.bln <logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.
 #' @return A matrix
 #' @examples
+#' \dontrun{
 #' library(GenomicED)
 #' data("submatrixRF_Ctrl.mtx_lst")
 #' data("submatrixRF.mtx_lst")
@@ -49,7 +50,7 @@
 #'     ),
 #'   statCompare.bln = TRUE
 #' )
-
+#' }
 Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=TRUE ,correctionArea.lst = NULL, statCompare.bln=FALSE){
     # subFunctions
         .PrepareMtxList =  function(matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln=FALSE){

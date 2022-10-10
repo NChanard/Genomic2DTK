@@ -39,6 +39,7 @@ A matrices list.
 Extract matrices in the HiC maps list around genomic features.
 }
 \examples{
+\dontrun{
 library(GenomicED)
 data("interactions.gni")
 data("HiC_ctrl.cmx_lst")
@@ -51,4 +52,5 @@ interactions_RFmatrix_ctrl.lst  <- ExtractSubmatrix(
   cores.num          = 1,
   verbose.bln        = FALSE
   )
+}
 }

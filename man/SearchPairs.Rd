@@ -39,8 +39,8 @@ data(baits_Index.gnr)
 interactions.gni <- SearchPairs(
     indexAnchor.gnr = anchors_Index.gnr,
     indexBait.gnr   = baits_Index.gnr,
-    minDist.num     = NULL, 
-    maxDist.num     = NULL,
+    minDist.num     = 9000, 
+    maxDist.num     = 11000,
     cores.num       = 1,
     verbose.bln     = FALSE
     )
