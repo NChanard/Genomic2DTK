@@ -52,7 +52,7 @@ selection.fun = function(){
 }
 
 # Extraction on matrices list and with selection
-FilterInteractions(
+submatrixPF_Ctrl_Filtred.mtx_lst <- FilterInteractions(
   matrices.lst = submatrixPF_Ctrl.mtx_lst,
   target.lst        = target.lst,
   selection.fun     = selection.fun

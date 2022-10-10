@@ -46,7 +46,7 @@ chromSize.dtf  <- data.frame(
   seqnames   = names(seqlengths.num ), 
   seqlengths = seqlengths.num
   )
-binSize.num <- 1000
+binSize.num <- 10000
 anchors_Peaks.gnr
 anchors_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 

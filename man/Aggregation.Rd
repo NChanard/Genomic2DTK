@@ -56,6 +56,7 @@ A matrix
 aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
 }
 \examples{
+\dontrun{
 library(GenomicED)
 data("submatrixRF_Ctrl.mtx_lst")
 data("submatrixRF.mtx_lst")
@@ -69,8 +70,8 @@ aggreg.mtx <- Aggregation(
 diffAggreg.mtx <- Aggregation(
   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
   matrices.lst        = submatrixRF.mtx_lst,
-  minDist             = NULL,
-  maxDist             = NULL,
+  minDist             = 9000,
+  maxDist             = 11000,
   agg.fun             = "mean",
   rm0.bln             = FALSE,
   diff.fun            = "substraction",
@@ -81,4 +82,5 @@ diffAggreg.mtx <- Aggregation(
     ),
   statCompare.bln = TRUE
 )
+}
 }
