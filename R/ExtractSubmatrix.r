@@ -14,6 +14,8 @@
 #' library(GenomicED)
 #' data("interactions.gni")
 #' data("HiC_ctrl.cmx_lst")
+#'
+#'
 #' interactions_RFmatrix_ctrl.lst  <- ExtractSubmatrix(
 #'   feature.gn         = interactions.gni,
 #'   hic.cmx_lst        = HiC_ctrl.cmx_lst,
@@ -23,6 +25,7 @@
 #'   cores.num          = 1,
 #'   verbose.bln        = FALSE
 #'   )
+#'
 #' str(interactions_RFmatrix_ctrl.lst,max.level = 1, list.len=5)
 #' attributes(interactions_RFmatrix_ctrl.lst)$interactions[1]
 
