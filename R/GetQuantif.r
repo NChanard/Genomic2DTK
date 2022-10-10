@@ -29,6 +29,8 @@
 #' @examples
 #' library(GenomicED)
 #' data("submatrixRF_Ctrl.mtx_lst")
+#'
+#'
 #' GetQuantif(
 #'   matrices.lst  = submatrixRF_Ctrl.mtx_lst,
 #'   area.fun      = "center",
