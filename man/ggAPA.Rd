@@ -68,3 +68,17 @@ A ggplot object.
 \description{
 Create a ggplot object used for plot aggragation.
 }
+\examples{
+library(GenomicED)
+data(aggreg.mtx)
+ggAPA(
+    apa.mtx    = aggreg.mtx,
+    title.chr  = "APA center on 0.2",
+    center.num = 0,
+    trimPrct.num = 5,
+    bounds.chr   = "both",
+    blurPass.num      = 1,
+    blurSd.num        = 0.5,
+    heatmap.col = SuperTK::viridis(6)
+)
+}

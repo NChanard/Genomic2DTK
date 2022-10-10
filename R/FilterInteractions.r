@@ -45,8 +45,11 @@
 #' )
 #' 
 #' # Extraction on InteractionSet list and with GRanges
+#' gRangesTarget.gnr <- attributes(submatrixPF_Ctrl.mtx_lst)$interactions |> 
+#' InteractionSet::anchors()
 #' target.lst <- list(
-#'     first = InteractionSet::anchors(attributes(submatrixPF_Ctrl.mtx_lst)$interactions)[["first"]][1:2]
+#'     first = 
+#'       gRangesTarget.gnr[["first"]][1:2]
 #' )
 #' FilterInteractions(
 #'   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,

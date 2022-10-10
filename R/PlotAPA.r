@@ -9,6 +9,18 @@
 #' @param minConditionBoundary.num <matrix>: Avalaible for plotting differantial aggregation. The minimal value in color scale in the classsical aggregation plot. If Null automaticaly find.
 #' @param maxConditionBoundary.num <matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.
 #' @return None
+#' @examples
+#' library(GenomicED)
+#' data(aggreg.mtx)
+#' PlotAPA(
+#'     apa.mtx                  = aggreg.mtx,
+#'     trimPrct.num             = 20,
+#'     minBoundary.num          = -2,
+#'     center.num               = 0,
+#'     maxBoundary.num          = 2,
+#'     minConditionBoundary.num = 0,
+#'     maxConditionBoundary.num = 2
+#' )
 PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.num=NULL, maxBoundary.num=NULL, minConditionBoundary.num=NULL, maxConditionBoundary.num=NULL){
     .ggDensity <- function(data.lst=NULL, colour.col=NULL, mean.bln=TRUE, title.chr=NULL){
         data.lst_tbl <- lapply(seq_along(data.lst),function(element.ndx){
@@ -324,7 +336,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
 
             data.lst <- list(
                 control=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCtrl)),
-                correctedCondition=stats::na.omit(c(attributes(apa.mtx)$matrices$aggDelta))
+                correctedCondition=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrected))
             )
             plot.gp <- .ggDensity(
                 data.lst=data.lst,

@@ -20,7 +20,19 @@
 #' @param bias.num <numeric> : a positive number.  Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)
 #' @param paletteLength.num <numeric> : The number of color in the palette. (Default 51)
 #' @return A ggplot object.
-
+#' @examples
+#' library(GenomicED)
+#' data(aggreg.mtx)
+#' ggAPA(
+#'     apa.mtx    = aggreg.mtx,
+#'     title.chr  = "APA center on 0.2",
+#'     center.num = 0,
+#'     trimPrct.num = 5,
+#'     bounds.chr   = "both",
+#'     blurPass.num      = 1,
+#'     blurSd.num        = 0.5,
+#'     heatmap.col = SuperTK::viridis(6)
+#' )
 ggAPA = function(
         apa.mtx = NULL,
         title.chr = NULL,

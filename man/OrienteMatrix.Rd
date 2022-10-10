@@ -15,3 +15,8 @@ Oriented matrix or matricies list
 \description{
 Apply a 180° rotation follow with a transposation on a matrix or on matricies in a list according to the interactions attributes of the list.
 }
+\examples{
+library(GenomicED)
+data("submatrixPF_Ctrl.mtx_lst")
+submatrixPF_Ctrl_oriented.mtx_lst <- OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
+}
