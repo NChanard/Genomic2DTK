@@ -19,7 +19,7 @@
 #'   seqlengths = seqlengths.num
 #'   )
 #' binSize.num <- 10000
-#' anchors_Peaks.gnr
+#' anchors_Peaks.gnr[1]
 #' anchors_Index.gnr <- IndexFeatures(
 #'   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
 #'   constraint.gnr        = domains.gnr,
@@ -30,8 +30,7 @@
 #'   cores.num             = 1,
 #'   verbose.bln           = FALSE
 #'   )
-#' anchors_Index.gnr
-
+#' anchors_Index.gnr[1]
 IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.int=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
     # Constraint Informations
         if (is.null(constraint.gnr)){

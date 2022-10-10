@@ -262,7 +262,7 @@ anchors_Index.gnr <- IndexFeatures(
   binSize.int           = binSize.num,
   method.chr            = "max",
   variablesName.chr_vec = "score",
-  cores.num             = 1,
+  # cores.num             = 1,
   verbose.bln           = FALSE
   )
 ```

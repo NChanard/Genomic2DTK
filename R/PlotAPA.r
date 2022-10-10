@@ -1,4 +1,4 @@
-#' DrawAPA
+#' PlotAPA
 #'
 #' Draw aggregation plot from aggregation matrices.
 #' @param apa.mtx <matrix>: The aggregated matrix.

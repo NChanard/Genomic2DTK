@@ -22,7 +22,7 @@
 #'   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
 #'   target.lst        = target.lst,
 #'   selection.fun     = NULL
-#' )
+#' ) |> str(max.level=1)
 #' 
 #' selection.fun = function(){
 #'   Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
@@ -30,11 +30,11 @@
 #' }
 #' 
 #' # Extraction on matrices list and with selection
-#' submatrixPF_Ctrl_Filtred.mtx_lst <- FilterInteractions(
+#' FilterInteractions(
 #'   matrices.lst = submatrixPF_Ctrl.mtx_lst,
 #'   target.lst        = target.lst,
 #'   selection.fun     = selection.fun
-#' )
+#' ) |> str(max.level=1)
 #' 
 #' # Extraction on InteractionSet with InteractionsSet
 #' target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
