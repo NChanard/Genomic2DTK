@@ -67,7 +67,7 @@ aggreg.mtx <- Aggregation(
   rm0.bln      = TRUE,
   minDist      = 9000,
   maxDist      = 11000
-) |> invisible()
+) |> suppressPackageStartupMessages()
 
 str(attributes(aggreg.mtx),max.level = 1)
 aggreg.mtx[1:5,1:5]
