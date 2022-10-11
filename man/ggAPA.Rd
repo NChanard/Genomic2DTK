@@ -71,6 +71,8 @@ Create a ggplot object used for plot aggragation.
 \examples{
 library(GenomicED)
 data(aggreg.mtx)
+
+
 ggAPA(
     apa.mtx      = aggreg.mtx,
     title.chr    = "APA center on 0",

@@ -34,10 +34,14 @@ Compute pairs of genomic features that share a same range constraintes.
 }
 \examples{
 library(GenomicED)
+
 data(anchors_Index.gnr)
 anchors_Index.gnr[1]
+
 data(baits_Index.gnr)
 baits_Index.gnr[1]
+
+
 interactions.gni <- SearchPairs(
     indexAnchor.gnr = anchors_Index.gnr,
     indexBait.gnr   = baits_Index.gnr,
@@ -46,5 +50,6 @@ interactions.gni <- SearchPairs(
     cores.num       = 1,
     verbose.bln     = FALSE
     )
+
 interactions.gni[1]
 }

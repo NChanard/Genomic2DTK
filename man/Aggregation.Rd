@@ -59,16 +59,19 @@ aggregated matrices list. Could apply a differential of each paired matrices in 
 library(GenomicED)
 data("submatrixRF_Ctrl.mtx_lst")
 data("submatrixRF.mtx_lst")
+
+
 aggreg.mtx <- Aggregation(
   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
   agg.fun      = "sum",
   rm0.bln      = TRUE,
   minDist      = 9000,
   maxDist      = 11000
-)
-dim(aggreg.mtx)
-aggreg.mtx[1:5,1:5]
+) |> invisible()
+
 str(attributes(aggreg.mtx),max.level = 1)
+aggreg.mtx[1:5,1:5]
+
 
 diffAggreg.mtx <- Aggregation(
   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
@@ -85,7 +88,7 @@ diffAggreg.mtx <- Aggregation(
     ),
   statCompare.bln = TRUE
 )
-dim(diffAggreg.mtx)
-diffAggreg.mtx[1:5,1:5]
+
 str(attributes(diffAggreg.mtx),max.level = 1)
+diffAggreg.mtx[1:5,1:5]
 }
