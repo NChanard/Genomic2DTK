@@ -41,13 +41,16 @@ Bin multiple GRanges and summary all in one GRange. Could overlap ranges with co
 \examples{
 library(GenomicED)
 data("anchors_Peaks.gnr")
+anchors_Peaks.gnr[1]
+
+
 seqlengths.num <- c('2L'=23513712, '2R'=25286936)
 chromSize.dtf  <- data.frame(
   seqnames   = names(seqlengths.num ), 
   seqlengths = seqlengths.num
   )
 binSize.num <- 10000
-anchors_Peaks.gnr[1]
+
 anchors_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
   constraint.gnr        = domains.gnr,
@@ -58,5 +61,6 @@ anchors_Index.gnr <- IndexFeatures(
   cores.num             = 1,
   verbose.bln           = FALSE
   )
+
 anchors_Index.gnr[1]
 }
