@@ -53,50 +53,50 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
             operation.fun <- SuperTK::WrapFunction(operation.fun)
         }
     # Define extraction function
-        matriceDim.num = attributes(matrices.lst)$matriceDim
+        matriceDim.num <- attributes(matrices.lst)$matriceDim
         if(!is.function(area.fun) && attributes(matrices.lst)$referencePoint == "pf"){
             # Compute rows and cols index
                 # Center
-                    center.num = c(floor((matriceDim.num+1)/2) + ifelse(matriceDim.num>=9,yes=1,no=0) , ceiling((matriceDim.num+1)/2) - ifelse(matriceDim.num>=9,yes=1,no=0))
-                    centerStart.num = min(center.num)
-                    centerEnd.num = max(center.num)
-                    center.chr = ifelse(centerStart.num==centerEnd.num,yes=centerStart.num,no=paste0( centerStart.num, ":", centerEnd.num ))
+                    center.num      <- c(floor((matriceDim.num+1)/2) + ifelse(matriceDim.num>=9, yes=1, no=0) , ceiling((matriceDim.num+1)/2) - ifelse(matriceDim.num>=9, yes=1, no=0))
+                    centerStart.num <- min(center.num)
+                    centerEnd.num   <- max(center.num)
+                    center.chr      <- ifelse(centerStart.num==centerEnd.num, yes=centerStart.num, no=paste0( centerStart.num, ":", centerEnd.num ))
                 # Rest
-                    first.chr = paste0("1:", centerStart.num - 2)
-                    second.chr = paste0(centerEnd.num + 2, ":", matriceDim.num)
+                    first.chr  <- paste0("1:", centerStart.num - 2)
+                    second.chr <- paste0(centerEnd.num + 2, ":", matriceDim.num)
             # Compute rows and cols index for Donut
                 # Thick
-                    donutThick.num = ifelse(matriceDim.num>=9,yes=2,no=1)
+                    donutThick.num <- ifelse(matriceDim.num>=9, yes=2, no=1)
                 # Top
-                    topDonutStart.num = (centerStart.num - 1 - donutThick.num)
-                    topDonutEnd.num = centerStart.num - 2
-                    topDonut.num = topDonutStart.num:topDonutEnd.num
+                    topDonutStart.num <- (centerStart.num - 1 - donutThick.num)
+                    topDonutEnd.num   <- centerStart.num - 2
+                    topDonut.num      <- topDonutStart.num:topDonutEnd.num
                 # Left
-                    leftDonut.num = topDonut.num
+                    leftDonut.num <- topDonut.num
                 # Bot
-                    botDonutEnd.num = centerEnd.num + 1 + donutThick.num
-                    botDonutStart.num = centerEnd.num + 2
-                    botDonut.num = botDonutStart.num:botDonutEnd.num
+                    botDonutEnd.num   <- centerEnd.num + 1 + donutThick.num
+                    botDonutStart.num <- centerEnd.num + 2
+                    botDonut.num      <- botDonutStart.num:botDonutEnd.num
                 # Right
-                    rightDonut.num = botDonut.num
+                    rightDonut.num <- botDonut.num
                 # Width
-                    widthDonut.num = (centerStart.num - 1) : (centerEnd.num + 1)
+                    widthDonut.num <- (centerStart.num - 1) : (centerEnd.num + 1)
                 # Height
-                    heigthDonut.num = widthDonut.num
+                    heigthDonut.num <- widthDonut.num
                 # Coords
-                    donutCoord.dtf = rbind(
-                        expand.grid(topDonut.num,leftDonut.num),
-                        expand.grid(topDonut.num,widthDonut.num),
-                        expand.grid(topDonut.num,rightDonut.num),
+                    donutCoord.dtf <- rbind(
+                        expand.grid(topDonut.num,   leftDonut.num),
+                        expand.grid(topDonut.num,   widthDonut.num),
+                        expand.grid(topDonut.num,   rightDonut.num),
                         expand.grid(heigthDonut.num,leftDonut.num),
                         expand.grid(heigthDonut.num,rightDonut.num),
-                        expand.grid(botDonut.num,leftDonut.num),
-                        expand.grid(botDonut.num,widthDonut.num),
-                        expand.grid(botDonut.num,rightDonut.num)
+                        expand.grid(botDonut.num,   leftDonut.num),
+                        expand.grid(botDonut.num,   widthDonut.num),
+                        expand.grid(botDonut.num,   rightDonut.num)
                     )
-                    donutRows.chr =  paste(donutCoord.dtf[,1],collapse=",")
-                    donutCols.chr =  paste(donutCoord.dtf[,2],collapse=",")
-                    donut.chr = paste0("cbind(  c(", donutRows.chr,")  ,  c(",donutCols.chr,")  )")
+                    donutRows.chr <-  paste(donutCoord.dtf[,1],collapse=",")
+                    donutCols.chr <-  paste(donutCoord.dtf[,2],collapse=",")
+                    donut.chr <- paste0("cbind(  c(", donutRows.chr,")  ,  c(",donutCols.chr,")  )")
             # Wrap index in a function
                 area.fun <- dplyr::case_when(
                     toupper(area.fun) %in% c("C","CENTER")          ~ list(center.chr, center.chr),
@@ -110,61 +110,61 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("R","RIGHT")           ~ list(center.chr, second.chr),
                     toupper(area.fun) %in% c("D","DONUT")           ~ list(donut.chr             ),
                     TRUE                                            ~ list(center.chr, center.chr)
-                ) %>% paste(collapse=",")
+                ) |> paste(collapse=",")
                 area.fun <-  SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
         }else if(!is.function(area.fun) && attributes(matrices.lst)$referencePoint == "rf"){
-            shiftFactor = attributes(matrices.lst)$shiftFactor
+            shiftFactor <- attributes(matrices.lst)$shiftFactor
             # Compute rows and cols index
                 # Anchor
-                    anchorStart.num = max(1,floor((matriceDim.num-2)*shiftFactor/(1+2*shiftFactor))+1 - ifelse(matriceDim.num>=9,yes=1,no=0))
-                    anchorEnd.num = max(1,min(matriceDim.num,floor((matriceDim.num-2)*shiftFactor/(1+2*shiftFactor))+ 1 + ifelse(matriceDim.num>=9,yes=1,no=0)))
-                    anchor.chr = ifelse(anchorStart.num==anchorEnd.num, yes=anchorStart.num, no = paste0(anchorStart.num,":",anchorEnd.num))
+                    anchorStart.num <- max(1,floor((matriceDim.num-2)*shiftFactor/(1+2*shiftFactor))+1 - ifelse(matriceDim.num>=9,yes=1,no=0))
+                    anchorEnd.num   <- max(1,min(matriceDim.num,floor((matriceDim.num-2)*shiftFactor/(1+2*shiftFactor))+ 1 + ifelse(matriceDim.num>=9,yes=1,no=0)))
+                    anchor.chr      <- ifelse(anchorStart.num==anchorEnd.num, yes=anchorStart.num, no = paste0(anchorStart.num,":",anchorEnd.num))
                 # Bait
-                    baitStart.num = max(1,ceiling((matriceDim.num-2)*(1+shiftFactor)/(1+2*shiftFactor))+ 2 - ifelse(matriceDim.num>=9,yes=1,no=0))
-                    baitEnd.num = max(1,min(matriceDim.num,ceiling((matriceDim.num-2)*(1+shiftFactor)/(1+2*shiftFactor))+ 2 + ifelse(matriceDim.num>=9,yes=1,no=0)))
-                    bait.chr = ifelse(baitStart.num==baitEnd.num, yes=baitStart.num, no = paste0(baitStart.num,":",baitEnd.num))
+                    baitStart.num <- max(1,ceiling((matriceDim.num-2)*(1+shiftFactor)/(1+2*shiftFactor))+ 2 - ifelse(matriceDim.num>=9,yes=1,no=0))
+                    baitEnd.num   <- max(1,min(matriceDim.num,ceiling((matriceDim.num-2)*(1+shiftFactor)/(1+2*shiftFactor))+ 2 + ifelse(matriceDim.num>=9,yes=1,no=0)))
+                    bait.chr      <- ifelse(baitStart.num==baitEnd.num, yes=baitStart.num, no = paste0(baitStart.num,":",baitEnd.num))
                 # Rest
-                    first.chr = paste0("1:", anchorStart.num - 2)
-                    second.chr = paste0(baitEnd.num + 2, ":", matriceDim.num)
-                    ULwidth.chr = paste0("1:", baitStart.num - 2 )
-                    inner.chr = paste0(anchorEnd.num  +  2,":", baitStart.num  - 2)
-                    BRheight.chr = paste0(anchorEnd.num +  2 , ":", matriceDim.num)
+                    first.chr    <- paste0("1:", anchorStart.num - 2)
+                    second.chr   <- paste0(baitEnd.num + 2, ":", matriceDim.num)
+                    ULwidth.chr  <- paste0("1:", baitStart.num - 2 )
+                    inner.chr    <- paste0(anchorEnd.num  +  2,":", baitStart.num  - 2)
+                    BRheight.chr <- paste0(anchorEnd.num +  2 , ":", matriceDim.num)
             # Computability
-                U.lgk <- anchorStart.num >= 3
-                R.lgk <- matriceDim.num >= baitEnd.num+2
-                B.lgk <- (((matriceDim.num+1)/2)-anchorEnd.num) >= 1
-                L.lgk <- (baitStart.num-((matriceDim.num+1)/2)) >= 1
+                U.lgk  <- anchorStart.num >= 3
+                R.lgk  <- matriceDim.num >= baitEnd.num+2
+                B.lgk  <- (((matriceDim.num+1)/2)-anchorEnd.num) >= 1
+                L.lgk  <- (baitStart.num-((matriceDim.num+1)/2)) >= 1
                 UL.lgk <- U.lgk && baitStart.num >= 3
                 UR.lgk <- U.lgk && R.lgk
                 BR.lgk <- matriceDim.num >= anchorEnd.num+2 && R.lgk
                 BL.lgk <- (((matriceDim.num+1)/2)-anchorEnd.num) >= 2 && (baitStart.num-((matriceDim.num+1)/2)) >= 2
-                D.lgk <- sum(U.lgk, R.lgk, B.lgk, L.lgk, UL.lgk, UR.lgk, BR.lgk, BL.lgk) >=1
+                D.lgk  <- sum(U.lgk, R.lgk, B.lgk, L.lgk, UL.lgk, UR.lgk, BR.lgk, BL.lgk) >=1
             # Compute rows and cols index for Donut
                 if(D.lgk){
                     # Thick
-                        donutThick.num = ifelse(matriceDim.num>=9,yes=2,no=1)
+                        donutThick.num <- ifelse(matriceDim.num>=9,yes=2,no=1)
                     # Top
-                        topDonutStart.num = (anchorStart.num - 1 - donutThick.num)
-                        topDonutEnd.num = anchorStart.num - 2
-                        topDonut.num = topDonutStart.num:topDonutEnd.num
+                        topDonutStart.num <- (anchorStart.num - 1 - donutThick.num)
+                        topDonutEnd.num   <- anchorStart.num - 2
+                        topDonut.num      <- topDonutStart.num:topDonutEnd.num
                     # Left
-                        leftDonutStart.num = (baitStart.num - 1 - donutThick.num)
-                        leftDonutEnd.num = baitStart.num - 2
-                        leftDonut.num = leftDonutStart.num:leftDonutEnd.num
+                        leftDonutStart.num <- (baitStart.num - 1 - donutThick.num)
+                        leftDonutEnd.num   <- baitStart.num - 2
+                        leftDonut.num      <- leftDonutStart.num:leftDonutEnd.num
                     # Bot
-                        botDonutEnd.num = anchorEnd.num + 1 + donutThick.num
-                        botDonutStart.num = anchorEnd.num + 2
-                        botDonut.num = botDonutStart.num:botDonutEnd.num
+                        botDonutEnd.num   <- anchorEnd.num + 1 + donutThick.num
+                        botDonutStart.num <- anchorEnd.num + 2
+                        botDonut.num      <- botDonutStart.num:botDonutEnd.num
                     # Right
-                        rightDonutEnd.num = baitEnd.num + 1 + donutThick.num
-                        rightDonutStart.num = baitEnd.num + 2
-                        rightDonut.num = rightDonutStart.num:rightDonutEnd.num
+                        rightDonutEnd.num   <- baitEnd.num + 1 + donutThick.num
+                        rightDonutStart.num <- baitEnd.num + 2
+                        rightDonut.num      <- rightDonutStart.num:rightDonutEnd.num
                     # Widht
-                        widthDonut.num = (baitStart.num - 1) : (baitEnd.num + 1)
+                        widthDonut.num  <- (baitStart.num - 1) : (baitEnd.num + 1)
                     # Height
-                        heigthDonut.num = (anchorStart.num - 1) : (anchorEnd.num + 1)
+                        heigthDonut.num <- (anchorStart.num - 1) : (anchorEnd.num + 1)
                     # Coord
-                        donutCoord.dtf = rbind(
+                        donutCoord.dtf <- rbind(
                                 expand.grid(topDonut.num,leftDonut.num),
                                 expand.grid(topDonut.num,widthDonut.num),
                                 expand.grid(topDonut.num,rightDonut.num),
@@ -173,10 +173,11 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                                 expand.grid(botDonut.num,leftDonut.num),
                                 expand.grid(botDonut.num,widthDonut.num),
                                 expand.grid(botDonut.num,rightDonut.num)
-                            ) %>% dplyr::filter(.data$Var1>=1 & .data$Var2<=matriceDim.num & .data$Var1<=.data$Var2)
-                        donutRows.chr =  paste(donutCoord.dtf[,1],collapse=",")
-                        donutCols.chr =  paste(donutCoord.dtf[,2],collapse=",")
-                        donut.chr = paste0("cbind(  c(", donutRows.chr,")  ,  c(",donutCols.chr,")  )")
+                            )
+                        donutCoord.dtf <- dplyr::filter(donutCoord.dtf, donutCoord.dtf$Var1>=1 & donutCoord.dtf$Var2<=matriceDim.num & donutCoord.dtf$Var1<=donutCoord.dtf$Var2)
+                        donutRows.chr  <- paste(donutCoord.dtf[,1],collapse=",")
+                        donutCols.chr  <- paste(donutCoord.dtf[,2],collapse=",")
+                        donut.chr      <- paste0("cbind(  c(", donutRows.chr,")  ,  c(",donutCols.chr,")  )")
                 }
             # Wrap index in a function
                 area.fun <- dplyr::case_when(
@@ -191,37 +192,38 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("R","RIGHT")         && R.lgk  ~ list(anchor.chr   , second.chr   ),
                     toupper(area.fun) %in% c("D","DONUT")         && D.lgk  ~ list(donut.chr                   ),
                     TRUE                                                    ~ list(anchor.chr   , bait.chr     )
-                ) %>% paste(collapse=",")
+                ) |>
+                paste(collapse=",")
                 area.fun <- SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))   
         }
     # Compute quantif
-        quantif.num = lapply(matrices.lst, function(mtx){ 
-            mtxQuantif.num <- operation.fun(area.fun(mtx)) %>%
-                magrittr::set_names(NULL)
+        quantif.num <- lapply(matrices.lst, function(mtx){ 
+            mtxQuantif.num <- operation.fun(area.fun(mtx)) |>
+                stats::setNames(NULL)
             rownames(mtxQuantif.num) <- NULL
             colnames(mtxQuantif.num) <- NULL
             return(mtxQuantif.num)
         })
     # Get Names
         if(!is.null(name.chr)){
-            names.chr_lst <- S4Vectors::mcols(attributes(matrices.lst)$interactions) %>%
-                data.frame %>%
-                dplyr::arrange(factor(.data$submatrix.name, levels=names(quantif.num))) %>% dplyr::pull(name.chr)
+            interactions.dtf <- data.frame(S4Vectors::mcols(attributes(matrices.lst)$interactions))
+            names.chr_lst <- dplyr::arrange(interactions.dtf, factor(interactions.dtf$submatrix.name, levels=names(quantif.num))) |> dplyr::pull(name.chr) 
         } else {
             names.chr_lst <- names(quantif.num)
         }
     # Repeted Index if names.chr_lst is a nested List
-        lengths.num <- names.chr_lst %>% lapply(length)
-        lengths.num <- lengths.num %>% magrittr::set_names(seq_along(lengths.num)) 
-        repeted.ndx <- rep(names(lengths.num),lengths.num) %>% as.numeric
+        lengths.num <- lapply(names.chr_lst, length)
+        lengths.num <- lengths.num |> stats::setNames(seq_along(lengths.num)) 
+        repeted.ndx <- rep(names(lengths.num),lengths.num) |> as.numeric()
     # Add attributes
-        quantif.num[repeted.ndx] %>%
-            magrittr::set_names(unlist(names.chr_lst )) %>% 
+        quantif.num <- quantif.num[repeted.ndx] |>
+            stats::setNames(unlist(names.chr_lst )) |>
             SuperTK::AddAttr(c(
                 attributes(matrices.lst),
                 interactions = attributes(matrices.lst)$interactions[repeted.ndx],
-                operation = operation.fun,
-                area = area.fun,
-                duplicated = which(duplicated(repeted.ndx))
-            )) %>% return(.data)
+                operation    = operation.fun,
+                area         = area.fun,
+                duplicated   = which(duplicated(repeted.ndx))
+            ))
+        return(quantif.num)
 }

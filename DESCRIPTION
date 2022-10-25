@@ -28,8 +28,7 @@ Imports:
     stats,
     SuperTK,
     tibble,
-    tidyr,
-    tidyselect
+    tidyr
 Suggests:
     covr,
     GenomicED,

@@ -65,9 +65,9 @@ ggAPA = function(
                 vec.num <- c(apa.mtx)
                 if(is.null(trimPrct.num)){trimPrct.num <- 0}
                 if(trimPrct.num!=0 || !is.null(minBoundary.num) || !is.null(maxBoundary.num)){
-                    bounds.num_vec <- vec.num %>%
-                        SuperTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) %>%
-                        magrittr::set_names(NULL)
+                    bounds.num_vec <- vec.num |>
+                        SuperTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) |>
+                        stats::setNames(NULL)
                     bounds.num_lst <- list(bounds.num_vec, list(minBoundary.num, maxBoundary.num))
                     bounds.num_lst <- SuperTK::TransposeList(bounds.num_lst)
                     bounds.num_vec <- c(max(unlist(bounds.num_lst[1]),na.rm=TRUE),min(unlist(bounds.num_lst[2]), na.rm=TRUE))
@@ -118,7 +118,7 @@ ggAPA = function(
         #############
         # Raster
         #############
-            ggplot2::ggplot(SuperTK::MeltSpm(apa.mtx), ggplot2::aes(.data$j, .data$i)) +
+            plot.ggp <- ggplot2::ggplot(SuperTK::MeltSpm(apa.mtx), ggplot2::aes(.data$j, .data$i)) +
                 ggplot2::geom_raster(ggplot2::aes(fill=.data$x)) + 
                 ggplot2::scale_fill_gradientn(colours=heatmap.col, values=SuperTK::MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
                 ggplot2::scale_y_reverse(breaks=seq_along(colnames(apa.mtx)), labels=colnames(apa.mtx)) +
@@ -128,6 +128,6 @@ ggAPA = function(
                     axis.line.y=ggplot2::element_blank(), axis.ticks.y=ggplot2::element_blank(), 
                     axis.line.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank(),
                     legend.title=ggplot2::element_blank()
-                ) %>%
-            return(.data)
+                )
+            return(plot.ggp)
 }

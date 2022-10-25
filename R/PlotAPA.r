@@ -26,15 +26,14 @@
 PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.num=NULL, maxBoundary.num=NULL, minConditionBoundary.num=NULL, maxConditionBoundary.num=NULL){
     .ggDensity <- function(data.lst=NULL, colour.col=NULL, mean.bln=TRUE, title.chr=NULL){
         data.lst_tbl <- lapply(seq_along(data.lst),function(element.ndx){
-            tibble::tibble(
+            return(tibble::tibble(
                 value = data.lst[[element.ndx]],
                 class = factor(names(data.lst)[[element.ndx]])
-            ) %>%
-            return(.data)
+            ))
             }) 
         data.tbl <- dplyr::bind_rows(data.lst_tbl)
         if(is.null(colour.col)){
-            colour.col <- SuperTK::Hue(length(data.lst)) %>% magrittr::set_names(names(data.lst))
+            colour.col <- SuperTK::Hue(length(data.lst)) |> stats::setNames(names(data.lst))
         }
         plot.gp <- ggplot2::ggplot(data.tbl, ggplot2::aes(x=.data$value, fill=.data$class, colour=.data$class)) + 
             ggplot2::geom_density(alpha=0.1) +
@@ -42,7 +41,8 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             ggplot2::scale_fill_manual(values = colour.col) +
             ggplot2::labs(title=title.chr) 
         if (mean.bln){
-            mu.tbl <- data.tbl %>% dplyr::group_by(.data$class) %>% dplyr::summarise(grp.mean = mean(.data$value))
+            data.tbl <- dplyr::group_by(data.tbl, class = data.tbl$class)
+            mu.tbl <-  dplyr::summarise(data.tbl, grp.mean = mean(data.tbl$value))
             plot.gp <- plot.gp + 
                 ggplot2::geom_vline(data = mu.tbl, ggplot2::aes(xintercept = .data$grp.mean, colour = .data$class), linetype = "dashed")
         }
@@ -348,34 +348,31 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
     }
     # Attributes
             grid::grid.newpage()
-            attr.ndx <- apa.mtx %>%
-                attributes %>%
-                names %>%
+            attr.ndx <- apa.mtx |>
+                attributes() |>
+                names() |>
                 SuperTK::NotIn(c("dim","matrices","interactions", "dimnames"))
             attr.lst <- attributes(apa.mtx)[attr.ndx]
             attr.lst$aggregationMethod <- function(pxl){pxl[is.na(pxl)]<-0;mean(pxl,na.rm=TRUE)}
-            attr1.ndx <- attr.lst %>%
-                lapply(class) %>%
-                unlist %>%
+            attr1.ndx <- attr.lst |>
+                lapply(class) |>
+                unlist() |>
                 SuperTK::NotIn(c("matrix", "list","GInteractions","function")) 
-            attr1.lst <- attr.lst[attr1.ndx] %>%
-                        lapply(as.character) %>%
-                        unlist
-            attr2.ndx <- attr.lst %>%
-                        lapply(class) %>%
-                        unlist %>%
-                        magrittr::is_in (c("function"))
-            attr2.lst <- attr.lst[attr2.ndx] %>%
+            attr1.lst <- attr.lst[attr1.ndx] |>
+                        lapply(as.character) |>
+                        unlist()
+            attr2.ndx <- unlist(lapply(attr.lst, class)) %in% "function"
+            attr2.lst <- attr.lst[attr2.ndx] |>
                         lapply(function(function.fun){
                             function.chr <- deparse(function.fun)
-                            function.chr[3:(length(function.chr)-1)] %>%
+                            function.chr[3:(length(function.chr)-1)] |>
                             paste0(collapse=";\n")
                             return(gsub(" ","",function.chr))
-                            }) %>%
-                        unlist
+                            }) |>
+                        unlist()
             attr.lst <- c(attr1.lst, attr2.lst)
-            attr.tbl  <- tibble::as_tibble_col(attr.lst) %>%
-            tibble::add_column(name=names(attr.lst)) %>%
-            tibble::column_to_rownames("name")
+            attr.tbl  <- tibble::as_tibble_col(attr.lst) |>
+                tibble::add_column(name=names(attr.lst)) |>
+                tibble::column_to_rownames("name")
             gridExtra::grid.table(attr.tbl)
 }

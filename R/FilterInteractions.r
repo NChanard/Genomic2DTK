@@ -69,15 +69,18 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
     interarctions.ndx_lst <- lapply(seq_along(target.lst), function(target.ndx){
         columnName.chr = names(target.lst)[target.ndx]
         if(is.function(target.lst[[target.ndx]])){
-            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr], target.lst[[target.ndx]]) %>% unlist %>% which
+            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr], target.lst[[target.ndx]]) |> unlist() |> which()
         }else if(is.character(target.lst[[target.ndx]])){
-            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr],function(columnElement){intersect(as.character(columnElement),target.lst[[columnName.chr]]) %>% length %>% as.logical %>% return(.data)}) %>% unlist %>% which
+            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr],function(columnElement){
+                res.lgk <- intersect(as.character(columnElement),target.lst[[columnName.chr]]) |> length() |> as.logical()
+                return(res.lgk)
+                }) |> unlist() |> which()
         }else if(inherits(target.lst[[target.ndx]],"GRanges")){
             GenomicRanges::findOverlaps(InteractionSet::anchors(interarctions.gni)[[columnName.chr]],target.lst[[target.ndx]])@from
         }else if(inherits(target.lst[[target.ndx]],"GInteractions")){
             InteractionSet::findOverlaps(interarctions.gni,target.lst[[target.ndx]])@from
         }
-    }) %>% magrittr::set_names(names(target.lst))
+    }) |> stats::setNames(names(target.lst))
     if(length(target.lst)==1){
         interarctions.ndx <- unlist(interarctions.ndx_lst)
     }else if(!is.null(selection.fun)){
@@ -89,10 +92,10 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
         return(interarctions.ndx_lst)
     }
     if(!is.null(matrices.lst)){
-        matrices.lst[interarctions.ndx] %>%
-            SuperTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) %>%
-            SuperTK::AddAttr(attribute.lst=attributes(matrices.lst)) %>%
-            return(.data)
+        matrices.lst <- matrices.lst[interarctions.ndx] |>
+            SuperTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) |>
+            SuperTK::AddAttr(attribute.lst=attributes(matrices.lst))
+            return(matrices.lst)
     }else{
         return(interarctions.ndx)
     }

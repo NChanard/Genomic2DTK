@@ -16,8 +16,8 @@
 OrienteMatrix <- function(matrice.mtx){
     if(is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)){
         orientedMatrice.mtx <- matrice.mtx
-        orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)] %<>% lapply(OrienteMatrix) 
-        orientedMatrice.mtx %<>% SuperTK::AddAttr(attributes(matrice.mtx))
+        orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)] <- lapply(orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)], OrienteMatrix) 
+        orientedMatrice.mtx <- SuperTK::AddAttr(orientedMatrice.mtx, attributes(matrice.mtx))
         attributes(orientedMatrice.mtx)$interactions$orientation <- TRUE
         attributes(orientedMatrice.mtx)$interactions$submatrix.name <- attributes(orientedMatrice.mtx)$interactions$name
         names(orientedMatrice.mtx) <- attributes(orientedMatrice.mtx)$interactions$name

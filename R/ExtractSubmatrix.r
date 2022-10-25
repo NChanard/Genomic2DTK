@@ -85,31 +85,30 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
             feature.gn <- .GInteractionFormatting(feature.gn=feature.gn, res.num=res.num)
             if(!sum(feature.gn$anchor.bin!=feature.gn$bait.bin)){referencePoint.chr <- "pf"}
         # Resize Features according reference Points
-            referencePoint.chr %<>% tolower
+            referencePoint.chr <- tolower(referencePoint.chr)
             if (referencePoint.chr =="rf"){
                 cis.lgk <- SuperTK::ReduceRun(
                     GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$first),
                     GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$second),
-                    reduceFun.chr="paste",sep="_") %>%
-                    as.character %>%
+                    reduceFun.chr="paste",sep="_") |>
+                    as.character() |>
                     lapply(function(combinaison){
-                        split <- strsplit(combinaison,"_") %>% unlist 
+                        split <- unlist(strsplit(combinaison,"_") )
                         return(split[1]==split[2])
-                        }) %>%
-                    unlist
+                        }) |>
+                    unlist()
                 feature.gn <- feature.gn[cis.lgk]
                 feature.gn <- feature.gn[which(feature.gn$distance >= (3*res.num))]
                 ranges.lst_dtf <- lapply(c("first","second"),function(anchorName.chr){
                     anchor.gnr <- InteractionSet::anchors(feature.gn)[[anchorName.chr]]
-                    anchor.dtf <- IRanges::ranges(anchor.gnr) %>%
-                        as.data.frame %>%
-                        dplyr::select(.data$start,.data$end)
-                    magrittr::set_colnames(anchor.dtf,paste0(anchorName.chr,".",names(anchor.dtf))) %>%
-                        return(.data)
+                    anchor.dtf <- data.frame(IRanges::ranges(anchor.gnr)) |>
+                        dplyr::select("start","end")
+                    colnames(anchor.dtf) <- paste0(anchorName.chr,".",names(anchor.dtf))
+                    return(anchor.dtf)
                     }) 
-                ranges.dtf <- do.call(cbind,ranges.lst_dtf) %>%
-                    dplyr::mutate(start=pmin(.data$first.start,.data$second.start)) %>%
-                    dplyr::mutate(end=pmax(.data$first.end,.data$second.end))
+                ranges.dtf <- do.call(cbind,ranges.lst_dtf)
+                ranges.dtf <- dplyr::mutate(ranges.dtf, start = pmin(ranges.dtf$first.start, ranges.dtf$second.start))
+                ranges.dtf <- dplyr::mutate(ranges.dtf, end   = pmax(ranges.dtf$first.end,   ranges.dtf$second.end))
                 feature.gnr <- GenomicRanges::GRanges(
                         seqnames = GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$first),
                         ranges = IRanges::IRanges(start=ranges.dtf$start,end=ranges.dtf$end),
@@ -141,36 +140,37 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
             }))
             featureNoDup.gni <- featureNoDup.gni[order.num]
             chromosomesCombinaison.rle <- chromosomesCombinaison.rle[order.num]
+            matAnchors.gnr_lst <- lapply(hic.cmx_lst,InteractionSet::anchors)
+        # Keep combinaison that are present in hic.cmx_lst
+            present.ndx <- which(as.vector(chromosomesCombinaison.rle) %in% names(matAnchors.gnr_lst) |
+                as.vector(chromosomesCombinaison.rle) %in% unlist(lapply(names(matAnchors.gnr_lst), function(name.chr){strsplit(name.chr,"_") |> unlist() |> rev() |> paste(collapse="_")})))
+            chromosomesCombinaison.rle <- chromosomesCombinaison.rle[present.ndx]
+            featureNoDup.gni <- featureNoDup.gni[present.ndx]
         # Separate anchors
             anchors.gnr <- InteractionSet::anchors(featureNoDup.gni)$first
-            baits.gnr <- InteractionSet::anchors(featureNoDup.gni)$second
-            matAnchors.gnr_lst <- lapply(hic.cmx_lst,InteractionSet::anchors)
+            baits.gnr <- InteractionSet::anchors(featureNoDup.gni)$second 
         # Extraction
             jobLenght.num <- length(S4Vectors::runValue(chromosomesCombinaison.rle))
             start.tim <- Sys.time()
-            submatrix.spm_lst <- do.call(c,lapply(seq_len(jobLenght.num),function(combinaison.ndx){
+            submatrix.spm_lst <- lapply(seq_len(jobLenght.num),function(combinaison.ndx){
                 combinaisonName.chr <- S4Vectors::runValue(chromosomesCombinaison.rle)[[combinaison.ndx]]
                 combinaisonStart.ndx <- cumsum(c(1,S4Vectors::runLength(chromosomesCombinaison.rle)))[[combinaison.ndx]]
                 combinaisonEnd.ndx <- cumsum(S4Vectors::runLength(chromosomesCombinaison.rle))[[combinaison.ndx]]
                 if(combinaisonName.chr %in% names(matAnchors.gnr_lst)){
                     mat.ndx <- which(names(hic.cmx_lst)==combinaisonName.chr)
-                    ovl_row <- GenomicRanges::findOverlaps(anchors.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$row) %>%
-                        as.data.frame %>%
-                        dplyr::group_by(.data$queryHits)
+                    ovl_row <- data.frame(GenomicRanges::findOverlaps(anchors.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$row))
+                    ovl_row <- dplyr::group_by(ovl_row, queryHits = ovl_row$queryHits)
                     ovl_row <- tidyr::nest(ovl_row)
-                    ovl_col <- GenomicRanges::findOverlaps(baits.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$col) %>%
-                        as.data.frame %>%
-                        dplyr::group_by(.data$queryHits)
+                    ovl_col <- data.frame(GenomicRanges::findOverlaps(baits.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$col))
+                    ovl_col <- dplyr::group_by(ovl_col, queryHits = ovl_col$queryHits)
                     ovl_col <- tidyr::nest(ovl_col)
-                }else if ({combinaisonName.chr %>% strsplit("_") %>% unlist %>% rev %>% paste(collapse="_")} %in% names(matAnchors.gnr_lst)){
-                    mat.ndx <- which(names(hic.cmx_lst)=={combinaisonName.chr %>% strsplit("_") %>% unlist %>% rev %>% paste(collapse="_")})
-                    ovl_row <- GenomicRanges::findOverlaps(baits.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$row) %>%
-                        as.data.frame %>%
-                        dplyr::group_by(.data$queryHits)
+                }else if ({combinaisonName.chr |> strsplit("_") |> unlist() |> rev() |> paste(collapse="_")} %in% names(matAnchors.gnr_lst)){
+                    mat.ndx <- which(names(hic.cmx_lst)=={combinaisonName.chr |> strsplit("_") |> unlist() |> rev() |> paste(collapse="_")})
+                    ovl_row <- data.frame(GenomicRanges::findOverlaps(baits.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$row))
+                    ovl_row <- dplyr::group_by(ovl_row, queryHits = ovl_row$queryHits)
                     ovl_row <- tidyr::nest(ovl_row)
-                    ovl_col <- GenomicRanges::findOverlaps(anchors.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$col) %>%
-                        as.data.frame %>%
-                        dplyr::group_by(.data$queryHits)
+                    ovl_col <- data.frame(GenomicRanges::findOverlaps(anchors.gnr[combinaisonStart.ndx:combinaisonEnd.ndx],matAnchors.gnr_lst[[mat.ndx]]$col))
+                    ovl_col <- dplyr::group_by(ovl_col, queryHits = ovl_col$queryHits)
                     ovl_col <- tidyr::nest(ovl_col)
                 }
                 subJobLenght.num <- length(combinaisonStart.ndx:combinaisonEnd.ndx)
@@ -190,7 +190,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
                         } 
                         if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm %<>% SuperTK::ResizeMatrix(c(matriceDim.num,matriceDim.num))
+                            mat.spm <- SuperTK::ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
                         }
                         if(abs(gap.num) < matriceDim.num ){
                             if(abs(gap.num)>0){
@@ -219,7 +219,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
                         } 
                         if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm %<>% SuperTK::ResizeMatrix(c(matriceDim.num,matriceDim.num))
+                            mat.spm <- SuperTK::ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
                         }
                         if(abs(gap.num) < matriceDim.num ){
                             if(abs(gap.num)>0){
@@ -236,12 +236,13 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                     if(verbose.bln){SuperTK::ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
                 }
                 return(tempSubmatrix.spm_lst)
-            })) %>%
-                magrittr::set_names(featureNoDup.gni$submatrix.name) %>%
-                magrittr::extract(featureFilt.gni$submatrix.name)
-            interactions.ndx <- seq_along(feature.gn$name) %>%
-                magrittr::set_names(feature.gn$name) %>%
-                magrittr::extract(featureFilt.gni$name)
+            }) |>
+                do.call(what=c) |>
+                stats::setNames(featureNoDup.gni$submatrix.name)
+            submatrix.spm_lst <- submatrix.spm_lst[featureFilt.gni$submatrix.name]
+            interactions.ndx <- seq_along(feature.gn$name) |>
+                stats::setNames(feature.gn$name)
+            interactions.ndx <- interactions.ndx[featureFilt.gni$name]
             attributes(submatrix.spm_lst)$interactions <- feature.gn[interactions.ndx]
             attributes(submatrix.spm_lst)$resolution <- res.num
             attributes(submatrix.spm_lst)$referencePoint <- referencePoint.chr
