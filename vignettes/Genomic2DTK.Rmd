@@ -40,8 +40,8 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 
 # Firsts Steps
 ```{r, eval = FALSE}
-devtools::install_github("Nchanard/Genomic2DTK")
-devtools::install_github("Nchanard/GenomicED")
+remotes::install_github("NChanard/Genomic2DTK")
+remotes::install_github("NChanard/GenomicED")
 ```
 
 ___  
@@ -259,10 +259,10 @@ anchors_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
   constraint.gnr        = domains.gnr,
   chromSize.dtf         = chromSize.dtf,
-  binSize.int           = binSize.num,
+  binSize.num           = binSize.num,
   method.chr            = "max",
   variablesName.chr_vec = "score",
-  # cores.num             = 1,
+  cores.num             = 1,
   verbose.bln           = FALSE
   )
 ```
@@ -282,7 +282,7 @@ baits_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Tss=baits_Peaks.gnr),
   constraint.gnr        = domains.gnr,
   chromSize.dtf         = chromSize.dtf,
-  binSize.int           = binSize.num,
+  binSize.num           = binSize.num,
   method.chr            = "max",
   variablesName.chr_vec = "score",
   cores.num             = 1,
@@ -509,7 +509,7 @@ So we can Bin the GRanges with the `GenomicTK::BinGRanges` function at the HiC R
 ```{r, eval = TRUE}
 domains_Border_Bin.gnr <- GenomicTK::BinGRanges(
   gRange.gnr  = domains_Border.gnr,
-  binSize.int = binSize.num,
+  binSize.num = binSize.num,
   verbose.bln = FALSE
   )
 ```

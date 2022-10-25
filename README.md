@@ -18,7 +18,7 @@ You can install the development version of Genomic2DTK from
 [GitHub](https://github.com/) with:
 
 ``` r
-devtools::install_github("NChanard/Genomic2DTK")
+remotes::install_github("NChanard/Genomic2DTK")
 ```
 
 ## Documentation

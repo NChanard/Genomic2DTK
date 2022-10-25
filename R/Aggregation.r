@@ -74,15 +74,16 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 matrices.lst <- matrices.lst[!is.na(names(matrices.lst))]
             # Convert sparse matrix in dense matrix and convert 0 in NA if rm0.bln is TRUE
                 if(rm0.bln){
-                    matrices.lst %<>% lapply(
+                    matrices.lst <- lapply(
+                        matrices.lst,
                         function(mat.spm){
-                            mat.mtx <- mat.spm %>% as.matrix
+                            mat.mtx <- as.matrix(mat.spm)
                             mat.mtx[mat.mtx==0] <- NA
                             return(mat.mtx)
                         }
                     )
                 }else{
-                    matrices.lst %<>% lapply(as.matrix)
+                    matrices.lst <- lapply(matrices.lst, as.matrix)
                 }
             #
             return(matrices.lst)
@@ -143,8 +144,8 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 }
             # Stat compare
                 if(statCompare.bln){
-                    mtx.nlst <- matrices.lst %>% lapply(c) %>% simplify2array
-                    ctrlMtx.nlst <- ctrlMatrices.lst %>% lapply(c) %>% simplify2array
+                    mtx.nlst <- simplify2array(lapply(matrices.lst, c))
+                    ctrlMtx.nlst <- simplify2array(lapply(ctrlMatrices.lst, c))
                     pval.mtx <- lapply(seq_len(dim(mtx.nlst)[[1]]),function(ndx){
                         WT.vec <- mtx.nlst[ndx,]
                         KD.vec <- ctrlMtx.nlst[ndx,]
@@ -158,7 +159,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     })
                     gc()
                     pval.mtx <- matrix(stats::p.adjust(c(pval.mtx), method="fdr"), nrow=matDim.num, ncol=matDim.num)
-                    pval.mtx[pval.mtx>0.05] <- NA
+                    pval.mtx[pval.mtx>0.05]  <- NA
                     pval.mtx[pval.mtx<1e-16] <- 1e-16
                     pval.mtx <- -log10(pval.mtx)
                 }
@@ -188,39 +189,46 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     aggDiffPvalFilt.mtx <- NULL
                 }
             # Return
-                aggDiff.mtx %>%
-                    SuperTK::AddAttr(overwrite.bln=TRUE, attribute.lst=c(
-                        totalMatrixNumber = totMtx.num,
-                        filteredMatrixNumber = length(matrices.lst),
-                        minimalDistance = minDist.num,
-                        maximalDistance = maxDist.num,
-                        aggregationMethod = agg.fun,
-                        differentialMethod = diff.fun,
-                        zeroRemoved = rm0.bln,
-                        correctedFact = correctionValue.num,
-                        matrices = list(list(
-                            agg = agg.mtx,
-                            aggCtrl = aggCtrl.mtx,
-                            aggDelta = aggDelta.mtx,
-                            aggCorrected = aggCorrected.mtx,
-                            aggCorrectedDelta = aggCorrectedDelta.mtx,
-                            pVal = pval.mtx,
-                            aggDiffPvalFilt = aggDiffPvalFilt.mtx
-                        )),
-                        attributes.lst
-                    )) %>%
-                    return(.data)
+                aggDiff.mtx <-
+                    SuperTK::AddAttr(
+                        var.any = aggDiff.mtx,
+                        overwrite.bln = TRUE,
+                        attribute.lst = c(
+                            totalMatrixNumber    = totMtx.num,
+                            filteredMatrixNumber = length(matrices.lst),
+                            minimalDistance      = minDist.num,
+                            maximalDistance      = maxDist.num,
+                            aggregationMethod    = agg.fun,
+                            differentialMethod   = diff.fun,
+                            zeroRemoved          = rm0.bln,
+                            correctedFact        = correctionValue.num,
+                            matrices = list(list(
+                                agg               = agg.mtx,
+                                aggCtrl           = aggCtrl.mtx,
+                                aggDelta          = aggDelta.mtx,
+                                aggCorrected      = aggCorrected.mtx,
+                                aggCorrectedDelta = aggCorrectedDelta.mtx,
+                                pVal              = pval.mtx,
+                                aggDiffPvalFilt   = aggDiffPvalFilt.mtx
+                            )),
+                            attributes.lst
+                        )
+                    ) 
+                return(aggDiff.mtx)
         }else{
-            agg.mtx %>% 
-                SuperTK::AddAttr(attribute.lst=c(
-                    totalMatrixNumber = totMtx.num ,
-                    filteredMatrixNumber = length(matrices.lst),
-                    minimalDistance = minDist.num,
-                    maximalDistance = maxDist.num,
-                    aggregationMethod = agg.fun,
-                    zeroRemoved = rm0.bln,
-                    attributes.lst
-                )) %>%
-                return(.data)
+            agg.mtx <-  
+                SuperTK::AddAttr(
+                    var.any = agg.mtx,
+                    attribute.lst = c(
+                        totalMatrixNumber    = totMtx.num ,
+                        filteredMatrixNumber = length(matrices.lst),
+                        minimalDistance      = minDist.num,
+                        maximalDistance      = maxDist.num,
+                        aggregationMethod    = agg.fun,
+                        zeroRemoved          = rm0.bln,
+                        attributes.lst
+                    )
+                )
+            return(agg.mtx)
     }
 }

@@ -8,7 +8,7 @@ IndexFeatures(
   gRange.gnr_lst = NULL,
   constraint.gnr = NULL,
   chromSize.dtf = NULL,
-  binSize.int = NULL,
+  binSize.num = NULL,
   method.chr = "mean",
   variablesName.chr_vec = NULL,
   cores.num = 1,
@@ -22,7 +22,7 @@ IndexFeatures(
 
 \item{chromSize.dtf}{<data.frame>: A data.frame of genome where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.}
 
-\item{binSize.int}{<integer>: A number that specify the width bins.}
+\item{binSize.num}{<integer>: A number that specify the width bins.}
 
 \item{method.chr}{<character>: A string of a summary method name as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean'')}
 
@@ -53,9 +53,9 @@ binSize.num <- 10000
 
 anchors_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
-  constraint.gnr        = domains.gnr,
+  constraint.gnr        = NULL,
   chromSize.dtf         = chromSize.dtf,
-  binSize.int           = binSize.num,
+  binSize.num           = binSize.num,
   method.chr            = "max",
   variablesName.chr_vec = "score",
   cores.num             = 1,

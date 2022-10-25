@@ -4,7 +4,7 @@
 #' @param gRange.gnr_lst <GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList
 #' @param constraint.gnr <GRanges>: A GRange of constraint regions. If NULL chromosomes in chromSize.dtf are used (Default NULL)
 #' @param chromSize.dtf <data.frame>: A data.frame of genome where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
-#' @param binSize.int <integer>: A number that specify the width bins.
+#' @param binSize.num <integer>: A number that specify the width bins.
 #' @param method.chr <character>: A string of a summary method name as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean'')
 #' @param variablesName.chr_vec <character> : A character vector that specify the metadata columns of GRanges on which apply the summary method.
 #' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
@@ -25,9 +25,9 @@
 #'
 #' anchors_Index.gnr <- IndexFeatures(
 #'   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
-#'   constraint.gnr        = domains.gnr,
+#'   constraint.gnr        = NULL,
 #'   chromSize.dtf         = chromSize.dtf,
-#'   binSize.int           = binSize.num,
+#'   binSize.num           = binSize.num,
 #'   method.chr            = "max",
 #'   variablesName.chr_vec = "score",
 #'   cores.num             = 1,
@@ -35,13 +35,13 @@
 #'   )
 #'
 #' anchors_Index.gnr[1]
-IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.int=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
+IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
     # Constraint Informations
         if (is.null(constraint.gnr)){
             constraint.gnr <- GenomicRanges::GRanges(
-                seqnames = S4Vectors::Rle(chromSize.dtf[, 1]),
+                seqnames = chromSize.dtf[, 1],
                 ranges = IRanges::IRanges(start = rep(1, length(chromSize.dtf[, 2])), end = chromSize.dtf[, 2]),
-                strand = S4Vectors::Rle('*'),
+                strand = '*',
                 name =  chromSize.dtf[, 1]
             )
         }else{
@@ -54,17 +54,17 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             seqLevelsStyle.chr <- seqLevelsStyle.chr[[1]]
             GenomeInfoDb::seqlevelsStyle(constraint.gnr) <- seqLevelsStyle.chr
         }
-        binnedConstraint.gnr <- GenomicTK::BinGRanges(gRange.gnr=constraint.gnr, chromSize.dtf=chromSize.dtf, binSize.int=binSize.int, verbose.bln=verbose.bln, reduce.bln=FALSE, cores.num=cores.num)
+        binnedConstraint.gnr <- GenomicTK::BinGRanges(gRange.gnr=constraint.gnr, chromSize.dtf=chromSize.dtf, binSize.num=binSize.num, verbose.bln=verbose.bln, reduce.bln=FALSE, cores.num=cores.num)
     # Feature Names
         if (inherits(gRange.gnr_lst,"GRanges")){
-            gRange.gnr_lst <- list(gRange.gnr_lst) %>% magrittr::set_names("Feature")
+            gRange.gnr_lst <- list(Features = gRange.gnr_lst)
         }else if (inherits(gRange.gnr_lst,"GRangesList")){
             gRange.gnr_lst <- as.list(gRange.gnr_lst)
         }
-        if (gRange.gnr_lst %>% names %>% is.null){
-            gRange.gnr_lst <- magrittr::set_names(gRange.gnr_lst, paste0("Feature_",seq_along(gRange.gnr_lst)))
+        if (is.null(names(gRange.gnr_lst))){
+            gRange.gnr_lst <- stats::setNames(gRange.gnr_lst, paste0("Feature_",seq_along(gRange.gnr_lst)))
         }
-        gRangeOrder.ndx <- lapply(gRange.gnr_lst,length) %>% unlist %>% order(decreasing=TRUE)
+        gRangeOrder.ndx <- lapply(gRange.gnr_lst,length) |> unlist() |> order(decreasing=TRUE)
         gRange.gnr_lst <- gRange.gnr_lst[gRangeOrder.ndx]
         feature.chr_vec <- names(gRange.gnr_lst)
     # GRanges Binning
@@ -74,34 +74,33 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             feature.chr <- feature.chr_vec[[feature.ndx]]
             feature.gnr <- IRanges::subsetByOverlaps(gRange.gnr_lst[[feature.chr ]],constraint.gnr)
             GenomeInfoDb::seqlevelsStyle(feature.gnr) <- seqLevelsStyle.chr
-            binnedFeature.gnr <- GenomicTK::BinGRanges(gRange.gnr=feature.gnr, chromSize.dtf=chromSize.dtf, binSize.int=binSize.int,  method.chr=method.chr, variablesName.chr_vec=variablesName.chr_vec, verbose.bln=verbose.bln, reduce.bln=TRUE, cores.num=cores.num)
-            binnedFeat.tbl <- tibble::tibble(BinnedFeature.ndx = seq_along(binnedFeature.gnr),Feature.name = binnedFeature.gnr$name) %>%
-                tidyr::unnest(cols = c(.data$Feature.name)) %>%
-                dplyr::group_by(.data$Feature.name)
-            binnedFeat.tbl <- tidyr::nest(binnedFeat.tbl) %>%
-                magrittr::set_names(c("Feature.name","BinnedFeature.ndx"))
-            binnedConstraint.tbl <- tibble::tibble(BinnedConstraint.ndx = seq_along(binnedConstraint.gnr),Constraint.name = binnedConstraint.gnr$name) %>%
-                dplyr::group_by(.data$Constraint.name)
-            binnedConstraint.tbl <- tidyr::nest(binnedConstraint.tbl) %>%
-                magrittr::set_names(c("Constraint.name","BinnedConstraint.ndx"))
-
+            binnedFeature.gnr <- GenomicTK::BinGRanges(gRange.gnr=feature.gnr, chromSize.dtf=chromSize.dtf, binSize.num=binSize.num,  method.chr=method.chr, variablesName.chr_vec=variablesName.chr_vec, verbose.bln=verbose.bln, reduce.bln=TRUE, cores.num=cores.num)
+            binnedFeat.tbl <- tibble::tibble(BinnedFeature.ndx = seq_along(binnedFeature.gnr),Feature.name = binnedFeature.gnr$name) |>
+                tidyr::unnest(cols = "Feature.name")
+            binnedFeat.tbl <- dplyr::group_by(binnedFeat.tbl, Feature.name = binnedFeat.tbl$Feature.name)
+            binnedFeat.tbl <- tidyr::nest(binnedFeat.tbl) |>
+                stats::setNames(c("Feature.name","BinnedFeature.ndx"))
+            binnedConstraint.tbl <- tibble::tibble(BinnedConstraint.ndx = seq_along(binnedConstraint.gnr),Constraint.name = binnedConstraint.gnr$name) 
+            binnedConstraint.tbl <- dplyr::group_by(binnedConstraint.tbl, Constraint.name = binnedConstraint.tbl$Constraint.name)
+            binnedConstraint.tbl <- tidyr::nest(binnedConstraint.tbl) |>
+                stats::setNames(c("Constraint.name","BinnedConstraint.ndx"))
             featConstOvlp.ovlp <- GenomicRanges::findOverlaps(feature.gnr, constraint.gnr)
-            featConstOvlp.tbl <- tibble::tibble(Feature.name = feature.gnr$name[featConstOvlp.ovlp@from],Constraint.name = constraint.gnr$name[featConstOvlp.ovlp@to]) %>%
-                dplyr::left_join(binnedFeat.tbl, by="Feature.name") %>%
-                dplyr::select(-(.data$Feature.name)) %>%
-                tidyr::unnest(cols = c(.data$BinnedFeature.ndx)) %>%
-                unique %>%
-                dplyr::group_by(.data$Constraint.name)
-            featConstOvlp.tbl <- tidyr::nest(featConstOvlp.tbl) %>%
-                magrittr::set_names(c("Constraint.name","BinnedFeature.ndx")) %>%
+            featConstOvlp.tbl <- tibble::tibble(Feature.name = feature.gnr$name[featConstOvlp.ovlp@from],Constraint.name = constraint.gnr$name[featConstOvlp.ovlp@to]) |>
+                dplyr::left_join(binnedFeat.tbl, by="Feature.name") |>
+                dplyr::select(-"Feature.name") |>
+                tidyr::unnest(cols = "BinnedFeature.ndx") |>
+                unique()
+            featConstOvlp.tbl <- dplyr::group_by(featConstOvlp.tbl, Constraint.name = featConstOvlp.tbl$Constraint.name)
+            featConstOvlp.tbl <- tidyr::nest(featConstOvlp.tbl) |>
+                stats::setNames(c("Constraint.name","BinnedFeature.ndx")) |>
                 dplyr::left_join(binnedConstraint.tbl, by="Constraint.name")
-            subJobLenght.num <- featConstOvlp.tbl %>% nrow
+            subJobLenght.num <- nrow(featConstOvlp.tbl)
             start.tim <- Sys.time()
             if(cores.num==1){
                 binnedFeature.gnr_lst <- lapply(seq_len(subJobLenght.num),function(row.ndx){
                     if(verbose.bln){SuperTK::ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
-                    ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] %>% unlist(use.names=FALSE)
-                    constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] %>% unlist(use.names=FALSE)
+                    ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
+                    constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
                     subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
                     subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
                     return(subBinnedFeature.gnr)
@@ -112,8 +111,8 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     library(GenomicRanges)
                 })
                 binnedFeature.gnr_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(row.ndx){
-                    ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] %>% unlist(use.names=FALSE)
-                    constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] %>% unlist(use.names=FALSE)
+                    ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
+                    constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
                     subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
                     subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
                     return(subBinnedFeature.gnr)
@@ -126,13 +125,13 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".bin"))] <- "bin"
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".constraint"))] <- "constraint"
             binnedFeature.gnr$name <- paste0(binnedFeature.gnr$bin, ":", binnedFeature.gnr$constraint)
-            metadataBinnedFeature.dtf <- S4Vectors::mcols(binnedFeature.gnr) %>% data.frame
+            metadataBinnedFeature.dtf <- data.frame(S4Vectors::mcols(binnedFeature.gnr))
             S4Vectors::mcols(binnedFeature.gnr) <- NULL
             return(list(binnedFeature.gnr=binnedFeature.gnr, featureMetadata.dtf=metadataBinnedFeature.dtf))
         })
 
-        binnedIndex.gnr <- binnedFeature.lst %>% lapply("[[", "binnedFeature.gnr") %>% GenomicTK::MergeGRanges(sort.bln=FALSE, reduce.bln=FALSE)
-        featureMetadata.lst_dtf <- binnedFeature.lst %>% lapply("[[", "featureMetadata.dtf")
+        binnedIndex.gnr <- binnedFeature.lst |> lapply("[[", "binnedFeature.gnr") |> GenomicTK::MergeGRanges(sort.bln=FALSE, reduce.bln=FALSE)
+        featureMetadata.lst_dtf <- binnedFeature.lst |> lapply("[[", "featureMetadata.dtf")
         S4Vectors::mcols(binnedIndex.gnr) <- SuperTK::BindFillRows(featureMetadata.lst_dtf)
         ids.lst <- binnedIndex.gnr$name
         dupplicatedIds.lst <- unique(ids.lst[duplicated(ids.lst)])
@@ -140,7 +139,8 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
     # Merge GRanges into one index and duplicated Bin handle
         if(length(idDuplicated.ndx)){
             binnedIndexDuplicated.dtf <- data.frame(binnedIndex.gnr[idDuplicated.ndx])
-            binnedIndexDuplicated.tbl <- tibble::tibble(binnedIndexDuplicated.dtf) %>% dplyr::group_by(.data$name) 
+            binnedIndexDuplicated.tbl <- tibble::tibble(binnedIndexDuplicated.dtf) 
+            binnedIndexDuplicated.tbl <- dplyr::group_by(binnedIndexDuplicated.tbl, name = binnedIndexDuplicated.tbl$name)
             binnedIndexDuplicated.tbl <- tidyr::nest(binnedIndexDuplicated.tbl)
             binnedIndexNoDuplicated.dtf <- data.frame(binnedIndex.gnr[-idDuplicated.ndx])
             binnedIndexNoDuplicated.tbl <- tibble::tibble(binnedIndexNoDuplicated.dtf)
@@ -160,11 +160,10 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                         }else {
                             return(list(unlist(col)))
                             }
-                        })  %>% magrittr::set_names(names(row))
-
-                    tibble::as_tibble(col.lst) %>%
-                    tibble::add_column(name = rowName.chr) %>%
-                    return(.data)
+                        })  |> stats::setNames(names(row))
+                    binnedIndexDuplicated.tbl <- tibble::as_tibble(col.lst) |>
+                        tibble::add_column(name = rowName.chr)
+                    return(binnedIndexDuplicated.tbl)
                 })
             }else if(cores.num>=2){
                 parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
@@ -180,21 +179,22 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                         }else {
                             return(list(unlist(col)))
                         }
-                        })  %>% magrittr::set_names(names(row))
-                    tibble::as_tibble(col.lst) %>%
-                    tibble::add_column(name = rowName.chr) %>%
-                    return(.data)
+                        })  |> stats::setNames(names(row))
+                    binnedIndexDuplicated.tbl <- tibble::as_tibble(col.lst) |>
+                        tibble::add_column(name = rowName.chr)
+                    return(binnedIndexDuplicated.tbl)
                 })
                 parallel::stopCluster(parCl)
             }
             binnedIndexDuplicated.tbl <- dplyr::bind_rows(binnedIndexDuplicated.lst)
-            binnedIndex.gnr <- rbind(binnedIndexDuplicated.tbl, binnedIndexNoDuplicated.tbl) %>% data.frame %>% methods::as("GRanges")
+            binnedIndex.gnr <- rbind(binnedIndexDuplicated.tbl, binnedIndexNoDuplicated.tbl) |> data.frame() |> methods::as("GRanges")
         }
         for(featureName.chr in feature.chr_vec){
             colname.chr =  paste0(featureName.chr, ".bln")
             S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- 0
             S4Vectors::mcols(binnedIndex.gnr)[,colname.chr] <- methods::as(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr], "Rle")
         }
-        S4Vectors::mcols(binnedIndex.gnr) %<>% as.data.frame %>% dplyr::select(.data$name,.data$bin,.data$constraint,tidyselect::everything()) 
+        columOrder.chr <- unique(c("name","bin","constraint",names(S4Vectors::mcols(binnedIndex.gnr))))
+        S4Vectors::mcols(binnedIndex.gnr) <- as.data.frame(S4Vectors::mcols(binnedIndex.gnr)) |> dplyr::select(columOrder.chr) 
     return(sort(binnedIndex.gnr))
 }
