@@ -1,8 +1,2 @@
 template:
   bootstrap: 5
-  
-articles:
-- title: Other
-  navbar: ~
-  contents:
-  - Standard

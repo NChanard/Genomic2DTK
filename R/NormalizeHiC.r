@@ -21,7 +21,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", type.chr=c("cis", "trans
         }else if (method.chr=="ICE"){
             megaHic.cmx <- ICEnorm(megaHic.cmx, qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
         }
-        hic.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln, cores.num=cores.num)
+        hic.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln)
     }else if(type.chr=="cis"){
         matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
         matricesKind.tbl <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis")
@@ -76,7 +76,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", type.chr=c("cis", "trans
         }else if (method.chr=="ICE"){
             megaHic.cmx <- ICEnorm(megaHic.cmx, qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
         }
-        trans.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln, cores.num=cores.num)
+        trans.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln)
         hic.cmx_lst[matricesNames.chr] <- trans.cmx_lst[matricesNames.chr]
     }
     return(hic.cmx_lst)
