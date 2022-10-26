@@ -146,14 +146,14 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
     # Prepare Matrix List
         if(is.null(minDist.num)){minDist.num<-NA}
         if(is.null(maxDist.num)){maxDist.num<-NA}
-        matrices.lst <- .PrepareMtxList(matrices.lst=matrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln)
+        matrices.lst <- .PrepareMtxList(matrices.lst=matrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln, trans.fun=trans.fun)
     # Aggregate
         agg.mtx <-  apply(simplify2array(matrices.lst),1:2,agg.fun)
         gc()
     # Differential Case else Return
         if(!is.null(ctrlMatrices.lst)){
             # Prepare Matrix List
-                ctrlMatrices.lst <- .PrepareMtxList(matrices.lst=ctrlMatrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln)
+                ctrlMatrices.lst <- .PrepareMtxList(matrices.lst=ctrlMatrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln, trans.fun=trans.fun)
             # Aggregate
                 aggCtrl.mtx <- apply(simplify2array(ctrlMatrices.lst),1:2,agg.fun)
                 gc()
