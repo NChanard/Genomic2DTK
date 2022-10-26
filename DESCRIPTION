@@ -29,8 +29,7 @@ Imports:
     strawr,
     SuperTK,
     tibble,
-    tidyr,
-    XML
+    tidyr
 Suggests:
     covr,
     GenomicED,
