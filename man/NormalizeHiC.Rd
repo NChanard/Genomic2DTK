@@ -7,7 +7,7 @@
 NormalizeHiC(
   hic.cmx_lst,
   method.chr = "ICE",
-  type.chr = c("cis", "trans", "all"),
+  type.chr = NULL,
   maxIter.num = 50,
   qtlTh.num = 0.15,
   cores.num = 1,
@@ -19,7 +19,7 @@ NormalizeHiC(
 
 \item{method.chr}{<character> : The kind of normalization method. One of "ICE", "VC" or "VC_SQRT" (Default "ICE")}
 
-\item{type.chr}{<character> : Whether normalization must be apply on "cis" chunks, "trans" chunks or "all" chuncks. (Default "cis")}
+\item{type.chr}{<character> : If NULL normalization is apply on cis chunks then trans chunks. If is "all", normalization is apply on all chuncks at once. (Default NULL)}
 
 \item{maxIter.num}{<numerical>: The maximum iteration number.}
 
