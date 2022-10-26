@@ -13,9 +13,6 @@
     <loc>/articles/Genomic2DTK.html</loc>
   </url>
   <url>
-    <loc>/articles/Standard.html</loc>
-  </url>
-  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
@@ -28,6 +25,12 @@
     <loc>/reference/Aggregation.html</loc>
   </url>
   <url>
+    <loc>/reference/CutHiC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ExpectedHiC.html</loc>
+  </url>
+  <url>
     <loc>/reference/ExtractSubmatrix.html</loc>
   </url>
   <url>
@@ -37,10 +40,19 @@
     <loc>/reference/GetQuantif.html</loc>
   </url>
   <url>
-    <loc>/reference/GnpToCm.html</loc>
+    <loc>/reference/ICEnorm.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ImportHiC.html</loc>
   </url>
   <url>
     <loc>/reference/IndexFeatures.html</loc>
+  </url>
+  <url>
+    <loc>/reference/JoinHiC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/NormalizeHiC.html</loc>
   </url>
   <url>
     <loc>/reference/OrienteMatrix.html</loc>
@@ -52,15 +64,15 @@
     <loc>/reference/SearchPairs.html</loc>
   </url>
   <url>
-    <loc>/reference/compound.html</loc>
+    <loc>/reference/SwitchMatrix.html</loc>
+  </url>
+  <url>
+    <loc>/reference/VCnorm.html</loc>
   </url>
   <url>
     <loc>/reference/ggAPA.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
   </url>
 </urlset>

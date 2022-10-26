@@ -50,12 +50,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Standard.html">Standard</a>
-  </div>
-</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -81,9 +75,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to Genomic2DTK</h1>
-                        <h4 data-toc-skip class="author">Nicolas Chanard</h4>
+                        <h4 data-toc-skip class="author">Nicolas
+Chanard</h4>
             
-            <h4 data-toc-skip class="date">2022-10-11</h4>
+            <h4 data-toc-skip class="date">2022-10-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/NChanard/Genomic2DTK/blob/HEAD/vignettes/Genomic2DTK.Rmd" class="external-link"><code>vignettes/Genomic2DTK.Rmd</code></a></small>
       <div class="d-none name"><code>Genomic2DTK.Rmd</code></div>
@@ -116,8 +111,8 @@ pre[class] {
 <h2 id="firsts-steps">Firsts Steps<a class="anchor" aria-label="anchor" href="#firsts-steps"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Nchanard/Genomic2DTK"</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Nchanard/GenomicED"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"NChanard/Genomic2DTK"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"NChanard/GenomicED"</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -128,16 +123,75 @@ pre[class] {
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/Genomic2DTK/" class="external-link">Genomic2DTK</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: InteractionSet</span></span>
+<span><span class="co">#&gt; Loading required package: GenomicRanges</span></span>
+<span><span class="co">#&gt; Loading required package: stats4</span></span>
+<span><span class="co">#&gt; Loading required package: BiocGenerics</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'BiocGenerics'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     IQR, mad, sd, var, xtabs</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     anyDuplicated, append, as.data.frame, basename, cbind, colnames,</span></span>
+<span><span class="co">#&gt;     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,</span></span>
+<span><span class="co">#&gt;     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,</span></span>
+<span><span class="co">#&gt;     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,</span></span>
+<span><span class="co">#&gt;     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,</span></span>
+<span><span class="co">#&gt;     union, unique, unsplit, which.max, which.min</span></span>
+<span><span class="co">#&gt; Loading required package: S4Vectors</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'S4Vectors'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     expand.grid, I, unname</span></span>
+<span><span class="co">#&gt; Loading required package: IRanges</span></span>
+<span><span class="co">#&gt; Loading required package: GenomeInfoDb</span></span>
+<span><span class="co">#&gt; Loading required package: SummarizedExperiment</span></span>
+<span><span class="co">#&gt; Loading required package: MatrixGenerics</span></span>
+<span><span class="co">#&gt; Loading required package: matrixStats</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'MatrixGenerics'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,</span></span>
+<span><span class="co">#&gt;     colCounts, colCummaxs, colCummins, colCumprods, colCumsums,</span></span>
+<span><span class="co">#&gt;     colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,</span></span>
+<span><span class="co">#&gt;     colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,</span></span>
+<span><span class="co">#&gt;     colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,</span></span>
+<span><span class="co">#&gt;     colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,</span></span>
+<span><span class="co">#&gt;     colWeightedMeans, colWeightedMedians, colWeightedSds,</span></span>
+<span><span class="co">#&gt;     colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,</span></span>
+<span><span class="co">#&gt;     rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,</span></span>
+<span><span class="co">#&gt;     rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,</span></span>
+<span><span class="co">#&gt;     rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,</span></span>
+<span><span class="co">#&gt;     rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,</span></span>
+<span><span class="co">#&gt;     rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,</span></span>
+<span><span class="co">#&gt;     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,</span></span>
+<span><span class="co">#&gt;     rowWeightedSds, rowWeightedVars</span></span>
+<span><span class="co">#&gt; Loading required package: Biobase</span></span>
+<span><span class="co">#&gt; Welcome to Bioconductor</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     Vignettes contain introductory material; view with</span></span>
+<span><span class="co">#&gt;     'browseVignettes()'. To cite Bioconductor, see</span></span>
+<span><span class="co">#&gt;     'citation("Biobase")', and for packages 'citation("pkgname")'.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'Biobase'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:MatrixGenerics':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     rowMedians</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     anyMissing, rowMedians</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
-</h3>
-<p>Here we will load some testing data from sequencing in <em>Drosophila Melanogaster</em> on chromosomes 2L and 2R.</p>
+<p>d## Data Here we will load some testing data from sequencing in
+<em>Drosophila Melanogaster</em> on chromosomes 2L and 2R.</p>
 <div class="section level4">
 <h4 id="hic_ctrl-gnp">HiC_ctrl.gnp<a class="anchor" aria-label="anchor" href="#hic_ctrl-gnp"></a>
 </h4>
-<p>HiC data in control condition (depletion of Luc protein) in Pairs GRanges (bedpe) format and with 1KBp resolution.</p>
+<p>HiC data in control condition (depletion of Luc protein) in Pairs
+GRanges (bedpe) format and with 1KBp resolution.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"HiC_ctrl.gnp"</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -297,7 +351,8 @@ score
 <div class="section level4">
 <h4 id="hic-gnp">HiC.gnp<a class="anchor" aria-label="anchor" href="#hic-gnp"></a>
 </h4>
-<p>HiC data under Beaf-32 depletion condition in Pairs GRanges (bedpe) format and with 1Kbp resolution.</p>
+<p>HiC data under Beaf-32 depletion condition in Pairs GRanges (bedpe)
+format and with 1Kbp resolution.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"HiC.gnp"</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -457,7 +512,8 @@ score
 <div class="section level4">
 <h4 id="anchors_peaks-gnr">anchors_Peaks.gnr<a class="anchor" aria-label="anchor" href="#anchors_peaks-gnr"></a>
 </h4>
-<p>ChIPseq data of Beaf-32 protein in wild type condition in GRanges format (bed).</p>
+<p>ChIPseq data of Beaf-32 protein in wild type condition in GRanges
+format (bed).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"anchors_Peaks.gnr"</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -550,7 +606,8 @@ Beaf32_5
 <div class="section level4">
 <h4 id="domains-gnr">domains.gnr<a class="anchor" aria-label="anchor" href="#domains-gnr"></a>
 </h4>
-<p>Data from TAD calling on HIC data in wild type (<a href="https://doi.org/10.1038/s41467-017-02525-w" class="external-link">F. Ramirez, 2018</a>).</p>
+<p>Data from TAD calling on HIC data in wild type (<a href="https://doi.org/10.1038/s41467-017-02525-w" class="external-link">F. Ramirez,
+2018</a>).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"domains.gnr"</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -749,7 +806,8 @@ active
 <div class="section level3">
 <h3 id="genomic-informations">Genomic Informations<a class="anchor" aria-label="anchor" href="#genomic-informations"></a>
 </h3>
-<p>We complete the data with 2L and 2R chromosome sizes and HiC map resolution.</p>
+<p>We complete the data with 2L and 2R chromosome sizes and HiC map
+resolution.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span><span class="op">=</span><span class="fl">23513712</span>, <span class="st">'2R'</span><span class="op">=</span><span class="fl">25286936</span><span class="op">)</span></span>
 <span><span class="va">chromSize.dtf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -767,30 +825,23 @@ active
 <h3 id="hic-control">HiC Control<a class="anchor" aria-label="anchor" href="#hic-control"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HiC_ctrl.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GnpToCm.html">GnpToCm</a></span><span class="op">(</span></span>
-<span>  hic.gnp       <span class="op">=</span> <span class="va">HiC_ctrl.gnp</span>,</span>
-<span>  res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
-<span>  chromSize.dtf <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
-<span>  cores.num     <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  verbose.bln   <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="hic-under-beaf-depletion">HiC under Beaf depletion<a class="anchor" aria-label="anchor" href="#hic-under-beaf-depletion"></a>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HiC.cmx_lst</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GnpToCm.html">GnpToCm</a></span><span class="op">(</span></span>
-<span>  hic.gnp       <span class="op">=</span> <span class="va">HiC.gnp</span>,</span>
-<span>  res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
-<span>  chromSize.dtf <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
-<span>  cores.num     <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  verbose.bln   <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">HiC.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="understand-results">Understand results<a class="anchor" aria-label="anchor" href="#understand-results"></a>
 </h3>
-<p>The result is a named list of Contactmatrix object where the matrix are dgCMatrix object (sparse matrix). Each element of the list corresponds to the interaction between two sequences (chromosomes). The name of each element corresponds to the names of the two sequences. For exemple, an element that would be named 2L_2R would correspond to the interaction of the 2L and 2R sequences.</p>
+<p>The result is a named list of Contactmatrix object where the matrix
+are dgCMatrix object (sparse matrix). Each element of the list
+corresponds to the interaction between two sequences (chromosomes). The
+name of each element corresponds to the names of the two sequences. For
+exemple, an element that would be named 2L_2R would correspond to the
+interaction of the 2L and 2R sequences.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $`2L_2L`</span></span>
@@ -829,8 +880,12 @@ active
 <span><span class="co">#&gt;   ..@ x       : num [1:617185] 0.899 1.772 1.729 2.185 2.752 ...</span></span>
 <span><span class="co">#&gt;   ..@ factors : list()</span></span>
 <span><span class="co">#&gt;</span></span></code></pre></div>
-<p>See <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html" class="external-link">InteractionSet</a> package for more details on ContactMatrix objects and see <a href="https://cran.r-project.org/web/packages/Matrix/Matrix.pdf" class="external-link">Matrix</a> package for more details on sparse matrices formats.<br>
-If the element name is 2L_2R so, the Bin that make up the 2L and 2R sequences would be represented on the contact map (sparse matrix) by lines and columns respectively.</p>
+<p>See <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html" class="external-link">InteractionSet</a>
+package for more details on ContactMatrix objects and see <a href="https://cran.r-project.org/web/packages/Matrix/Matrix.pdf" class="external-link">Matrix</a>
+package for more details on sparse matrices formats.<br>
+If the element name is 2L_2R so, the Bin that make up the 2L and 2R
+sequences would be represented on the contact map (sparse matrix) by
+lines and columns respectively.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">[[</span><span class="st">"2L_2L"</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">matrix</span><span class="op">[</span><span class="fl">101</span><span class="op">:</span><span class="fl">110</span>,<span class="fl">101</span><span class="op">:</span><span class="fl">110</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
@@ -1232,18 +1287,14 @@ bin 110
 <span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $chromSize</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   seqnames seqlengths dimension</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 2L         23<span style="text-decoration: underline;">513</span>712     <span style="text-decoration: underline;">23</span>514</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2R         25<span style="text-decoration: underline;">286</span>936     <span style="text-decoration: underline;">25</span>287</span></span>
+<span><span class="co">#&gt; 1       2L   23513712     23514</span></span>
+<span><span class="co">#&gt; 2       2R   25286936     25287</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $matricesKind</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
-<span><span class="co">#&gt;   name  type  kind  symmetric</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 2L_2L cis   U     TRUE     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2R_2R cis   U     TRUE</span></span>
+<span><span class="co">#&gt;    name type kind symmetric</span></span>
+<span><span class="co">#&gt; 1 2L_2L  cis    U      TRUE</span></span>
+<span><span class="co">#&gt; 2 2R_2R  cis    U      TRUE</span></span>
 <span><span class="co">#&gt;</span></span></code></pre></div>
 <p>And each element have metadata.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -1268,7 +1319,8 @@ bin 110
 <strong>resolution</strong> : the resolution of the HiC map.<br>
 </li>
 <li>
-<strong>chromSize</strong> : the size of the chromosomes in the tibble format.
+<strong>chromSize</strong> : the size of the chromosomes in the
+tibble format.
 <ul>
 <li>
 <em>seqnames</em> : the sequence name (chromosome name).<br>
@@ -1282,18 +1334,24 @@ bin 110
 </ul>
 </li>
 <li>
-<strong>matricesKind</strong> : the kind of matrix that composes the list in the tibble format.
+<strong>matricesKind</strong> : the kind of matrix that composes the
+list in the tibble format.
 <ul>
 <li>
 <em>name</em> : the matrix name.</li>
 <li>
-<em>type</em> : the interaction kind. <em>“Cis”</em> for interactions on the same sequence and <em>“Trans”</em> for interactions on different sequences.<br>
+<em>type</em> : the interaction kind. <em>“Cis”</em> for
+interactions on the same sequence and <em>“Trans”</em> for interactions
+on different sequences.<br>
 </li>
 <li>
-<em>kind</em> : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices. See<br>
+<em>kind</em> : the matrix kind. U for upper triangle matrices, L
+for lower triangle matrices, NA for rectangular or square matrices.
+See<br>
 </li>
 <li>
-<em>symmetric</em> : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).</li>
+<em>symmetric</em> : a boolean that indicates whether the matrix is
+symmetric (lower triangle identical to upper triangle).</li>
 </ul>
 </li>
 </ol>
@@ -1307,11 +1365,15 @@ bin 110
 <h3 id="tips">Tips<a class="anchor" aria-label="anchor" href="#tips"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Put GRanges in a list allow to name the features. Here we name the feature <em>“Beaf”</em>.<br>
+<li>Put GRanges in a list allow to name the features. Here we name the
+feature <em>“Beaf”</em>.<br>
 </li>
-<li>If no regions constraint are used, chromosomes are used as constraints.<br>
+<li>If no regions constraint are used, chromosomes are used as
+constraints.<br>
 </li>
-<li>If multiples ranges are in a same bin you can choose variables (<code>variablesName.chr_vec</code>) that will be summary with a function (<code>method.chr</code>).</li>
+<li>If multiples ranges are in a same bin you can choose variables
+(<code>variablesName.chr_vec</code>) that will be summary with a
+function (<code>method.chr</code>).</li>
 </ol>
 </div>
 <div class="section level3">
@@ -1325,10 +1387,10 @@ bin 110
 <span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">anchors_Peaks.gnr</span><span class="op">)</span>, </span>
 <span>  constraint.gnr        <span class="op">=</span> <span class="va">domains.gnr</span>,</span>
 <span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
-<span>  binSize.int           <span class="op">=</span> <span class="va">binSize.num</span>,</span>
+<span>  binSize.num           <span class="op">=</span> <span class="va">binSize.num</span>,</span>
 <span>  method.chr            <span class="op">=</span> <span class="st">"max"</span>,</span>
 <span>  variablesName.chr_vec <span class="op">=</span> <span class="st">"score"</span>,</span>
-<span>  <span class="co"># cores.num             = 1,</span></span>
+<span>  cores.num             <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  verbose.bln           <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -1486,7 +1548,7 @@ Beaf32_11
 <span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Tss<span class="op">=</span><span class="va">baits_Peaks.gnr</span><span class="op">)</span>,</span>
 <span>  constraint.gnr        <span class="op">=</span> <span class="va">domains.gnr</span>,</span>
 <span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
-<span>  binSize.int           <span class="op">=</span> <span class="va">binSize.num</span>,</span>
+<span>  binSize.num           <span class="op">=</span> <span class="va">binSize.num</span>,</span>
 <span>  method.chr            <span class="op">=</span> <span class="st">"max"</span>,</span>
 <span>  variablesName.chr_vec <span class="op">=</span> <span class="st">"score"</span>,</span>
 <span>  cores.num             <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -1638,7 +1700,8 @@ FBgn0031219
 </tr>
 </tbody>
 </table></details>
-Then we select only baits (TSS) with no anchors (Beaf) peak on same Bin.
+Then we select only baits (TSS) with no anchors (Beaf) peak on same
+Bin.
 
 
 
@@ -1801,14 +1864,22 @@ FBgn0031219
 <h3 id="tips-1">Tips<a class="anchor" aria-label="anchor" href="#tips-1"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>if <code>indexBait.gnr</code> is NULL the function considers it to be equal to <code>indexAnchor.gnr</code>.</li>
-<li>You could search pairs of feature that are between an certain distances. This selection can also be made on the resulting GInteraction object with the <code>FilterInteraction</code> function.</li>
+<li>if <code>indexBait.gnr</code> is NULL the function considers it to
+be equal to <code>indexAnchor.gnr</code>.</li>
+<li>You could search pairs of feature that are between an certain
+distances. This selection can also be made on the resulting GInteraction
+object with the <code>FilterInteraction</code> function.</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="pairing">Pairing<a class="anchor" aria-label="anchor" href="#pairing"></a>
 </h3>
-<p>Now we have two genomic features indexed on genome and we want search all putative Beaf-TSS pairs that share a same constraint (i.e: that are in the same Tad). The first element of the pair (beaf) is called <strong>Anchors</strong> and the second one (TSS) is called <strong>Bait</strong>. So a pair is always in order <strong>Anchors-Bait</strong> (as A is before B).</p>
+<p>Now we have two genomic features indexed on genome and we want search
+all putative Beaf-TSS pairs that share a same constraint (i.e: that are
+in the same Tad). The first element of the pair (beaf) is called
+<strong>Anchors</strong> and the second one (TSS) is called
+<strong>Bait</strong>. So a pair is always in order
+<strong>Anchors-Bait</strong> (as A is before B).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">interactions.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SearchPairs.html">SearchPairs</a></span><span class="op">(</span></span>
 <span>    indexAnchor.gnr <span class="op">=</span> <span class="va">anchors_Index.gnr</span>,</span>
@@ -2150,18 +2221,28 @@ active
 <h3 id="tips-2">Tips<a class="anchor" aria-label="anchor" href="#tips-2"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>If <code>res.num</code> is null, the function find it in the resolution attribute of <code>hic.cmx_lst</code>.</li>
-<li>In <code>feature.gn</code> if each ranges overlap with just one Bin, i.e start and end of a GRanges or first and second element of a GInteraction (or GRanges Pairs) are in the same bin, so reference point is automatically <code>"pf"</code>.</li>
+<li>If <code>res.num</code> is null, the function find it in the
+resolution attribute of <code>hic.cmx_lst</code>.</li>
+<li>In <code>feature.gn</code> if each ranges overlap with just one Bin,
+i.e start and end of a GRanges or first and second element of a
+GInteraction (or GRanges Pairs) are in the same bin, so reference point
+is automatically <code>"pf"</code>.</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="genomic-regions-or-domains">Genomic Regions or Domains<a class="anchor" aria-label="anchor" href="#genomic-regions-or-domains"></a>
 </h3>
-<p>On an HiC map, a genomic region is defined by a square (or a triangle if the matrice is triangular) along the diagonal of the Map, resulting in an extraction of square matrices where there diagonal are the diagonal of the HiC map. As not all regions have the same length, the extracted matrices do not have the same dimensions. These extracted matrices are therefore resized by the function.<br><img src="images/Extractions_of_Regions.png"><!-- --></p>
+<p>On an HiC map, a genomic region is defined by a square (or a triangle
+if the matrice is triangular) along the diagonal of the Map, resulting
+in an extraction of square matrices where there diagonal are the
+diagonal of the HiC map. As not all regions have the same length, the
+extracted matrices do not have the same dimensions. These extracted
+matrices are therefore resized by the function.<br><img src="images/Extractions_of_Regions.png"><!-- --></p>
 <div class="section level4">
 <h4 id="regions-defined-with-ginteraction-object-or-pairs-granges">Regions defined with GInteraction object or Pairs GRanges<a class="anchor" aria-label="anchor" href="#regions-defined-with-ginteraction-object-or-pairs-granges"></a>
 </h4>
-<p>The region’s start is defined by the center of the first element and the region’s end by the center of the second element.<br><img src="images/Regions_GInteractions.png"><!-- --></p>
+<p>The region’s start is defined by the center of the first element and
+the region’s end by the center of the second element.<br><img src="images/Regions_GInteractions.png"><!-- --></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">interactions_RFmatrix_ctrl.lst</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
 <span>  feature.gn         <span class="op">=</span> <span class="va">interactions.gni</span>,</span>
@@ -2192,12 +2273,17 @@ active
 <div class="section level3">
 <h3 id="long-range-interactions">Long range interactions<a class="anchor" aria-label="anchor" href="#long-range-interactions"></a>
 </h3>
-<p>As we move away from the diagonal of the HiC map we have access to long range interactions that we can extract with more or less distant surrounding interactions resulting in an extraction of a square matrices centred on long range interactions.</p>
+<p>As we move away from the diagonal of the HiC map we have access to
+long range interactions that we can extract with more or less distant
+surrounding interactions resulting in an extraction of a square matrices
+centred on long range interactions.</p>
 <p><img src="images/Extractions_of_LRI.png"><!-- --></p>
 <div class="section level4">
 <h4 id="interactions-defined-with-ginteraction-or-pairs-granges-">Interactions defined with GInteraction or Pairs GRanges.<a class="anchor" aria-label="anchor" href="#interactions-defined-with-ginteraction-or-pairs-granges-"></a>
 </h4>
-<p>In extracted matrices, the middle of Y axis correspond to the center of the first element and interact with the center of second element in the middle of X axis.</p>
+<p>In extracted matrices, the middle of Y axis correspond to the center
+of the first element and interact with the center of second element in
+the middle of X axis.</p>
 <p><img src="images/LRI_GInteractions.png"><!-- --></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">interactions_PFmatrix.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
@@ -2212,7 +2298,9 @@ active
 <div class="section level4">
 <h4 id="interactions-defined-with-granges-">Interactions defined with GRanges.<a class="anchor" aria-label="anchor" href="#interactions-defined-with-granges-"></a>
 </h4>
-<p>The middle of Y axis correspond to the start of the range and interact with the middle of X axis which correspond with the ends of the ranges.</p>
+<p>The middle of Y axis correspond to the start of the range and
+interact with the middle of X axis which correspond with the ends of the
+ranges.</p>
 <p><img src="images/LRI_GRanges.png"><!-- --></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domains_PFmatrix.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
@@ -2228,18 +2316,24 @@ active
 <div class="section level3">
 <h3 id="ponctual-interactions-along-diagonal-">Ponctual interactions along diagonal.<a class="anchor" aria-label="anchor" href="#ponctual-interactions-along-diagonal-"></a>
 </h3>
-<p>Here we want to extract fixed windows along the diagonal center on some points (Bins). <img src="images/Extractions_of_Ponctuals_Interactions.png"><!-- --></p>
+<p>Here we want to extract fixed windows along the diagonal center on
+some points (Bins). <img src="images/Extractions_of_Ponctuals_Interactions.png"><!-- --></p>
 <div class="section level4">
 <h4 id="define-ponctual-interactions-">Define ponctual interactions.<a class="anchor" aria-label="anchor" href="#define-ponctual-interactions-"></a>
 </h4>
-<p>First, we want to create objects of points interaction along diagonal. For exemple and to achieve this we will take all the domains borders. The width of each ranges is put to 1 to force the start and end of ranges to be in a same bin.</p>
+<p>First, we want to create objects of points interaction along
+diagonal. For exemple and to achieve this we will take all the domains
+borders. The width of each ranges is put to 1 to force the start and end
+of ranges to be in a same bin.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domains_Border.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu">GenomicRanges</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/intra-range-methods.html" class="external-link">resize</a></span><span class="op">(</span><span class="va">domains.gnr</span>, <span class="fl">1</span>, <span class="st">"start"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">GenomicRanges</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/intra-range-methods.html" class="external-link">resize</a></span><span class="op">(</span><span class="va">domains.gnr</span>, <span class="fl">1</span>,  <span class="st">"end"</span> <span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Probably some end of domains are found next to some beginning of other domains. In other words, these genomic locations are found on the same bin.</p>
+<p>Probably some end of domains are found next to some beginning of
+other domains. In other words, these genomic locations are found on the
+same bin.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domains_Border.gnr</span></span></code></pre></div>
 Below ranges 2 and 3 are in this case.<br><details><summary>
@@ -2340,7 +2434,8 @@ active
 </tr>
 </tbody>
 </table></details>
-If we use <code><a href="https://rdrr.io/pkg/IRanges/man/inter-range-methods.html" class="external-link">GenomicRanges::reduce</a></code> function we lost metadata.
+If we use <code><a href="https://rdrr.io/pkg/IRanges/man/inter-range-methods.html" class="external-link">GenomicRanges::reduce</a></code> function we lost
+metadata.
 
 
 
@@ -2408,17 +2503,19 @@ strand
 </tr>
 </tbody>
 </table></details>
-So we can Bin the GRanges with the <code><a href="https://nchanard.github.io/GenomicTK/reference/BinGRanges.html" class="external-link">GenomicTK::BinGRanges</a></code> function at the HiC Resolution to keep metadata.
+So we can Bin the GRanges with the <code><a href="https://nchanard.github.io/GenomicTK/reference/BinGRanges.html" class="external-link">GenomicTK::BinGRanges</a></code>
+function at the HiC Resolution to keep metadata.
 
 
 
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domains_Border_Bin.gnr</span> <span class="op">&lt;-</span> <span class="fu">GenomicTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/GenomicTK/reference/BinGRanges.html" class="external-link">BinGRanges</a></span><span class="op">(</span></span>
 <span>  gRange.gnr  <span class="op">=</span> <span class="va">domains_Border.gnr</span>,</span>
-<span>  binSize.int <span class="op">=</span> <span class="va">binSize.num</span>,</span>
+<span>  binSize.num <span class="op">=</span> <span class="va">binSize.num</span>,</span>
 <span>  verbose.bln <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Here we see that we conserve metadata and in Bin 2L:95 we have Tad_1 and Tad_2.</p>
+<p>Here we see that we conserve metadata and in Bin 2L:95 we have Tad_1
+and Tad_2.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domains_Border_Bin.gnr</span></span></code></pre></div>
 <details><summary>
@@ -2518,7 +2615,9 @@ active
 </td>
 </tr>
 </tbody>
-</table></details><p>In addition, Tad_1 is in Bin 2L:74 and 2L:95, So we need to put an unique name to each ranges (=bin) and keep Tad names in a new variables.</p>
+</table></details><p>In addition, Tad_1 is in Bin 2L:74 and 2L:95, So we need to put an
+unique name to each ranges (=bin) and keep Tad names in a new
+variables.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domains_Border_Bin.gnr</span><span class="op">$</span><span class="va">subname</span> <span class="op">&lt;-</span> <span class="va">domains_Border_Bin.gnr</span><span class="op">$</span><span class="va">name</span></span>
 <span><span class="va">domains_Border_Bin.gnr</span><span class="op">$</span><span class="va">name</span>    <span class="op">&lt;-</span> <span class="va">domains_Border_Bin.gnr</span><span class="op">$</span><span class="va">bin</span></span></code></pre></div>
@@ -2644,7 +2743,8 @@ Tad_2, Tad_3
 </tr>
 </tbody>
 </table></details>
-Now we have a GRanges object. And for the exemples below we will need the same informations but in an GInteraction object.
+Now we have a GRanges object. And for the exemples below we will need
+the same informations but in an GInteraction object.
 
 
 
@@ -2888,7 +2988,8 @@ Tad_2, Tad_3
 <div class="section level4">
 <h4 id="ponctual-interactions-defined-with-ginteractions">Ponctual interactions defined with GInteractions<a class="anchor" aria-label="anchor" href="#ponctual-interactions-defined-with-ginteractions"></a>
 </h4>
-<p>Here the first element (blue on scheme) is in the same bin as the second (red on scheme).</p>
+<p>Here the first element (blue on scheme) is in the same bin as the
+second (red on scheme).</p>
 <p><img src="images/Ponctuals_Interactions_GInteractions.png"><!-- --></p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">border_PFmatrix.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
@@ -2905,26 +3006,35 @@ Tad_2, Tad_3
 <div class="section level2">
 <h2 id="filtrations">Filtrations<a class="anchor" aria-label="anchor" href="#filtrations"></a>
 </h2>
-<p>In this section we will see how to select interactions in GInteraction object or in matrices in extracted Matrices list.</p>
+<p>In this section we will see how to select interactions in
+GInteraction object or in matrices in extracted Matrices list.</p>
 <div class="section level3">
 <h3 id="tips-3">Tips<a class="anchor" aria-label="anchor" href="#tips-3"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Filter an GInterction object allow to cross the selection indices as you want.<br>
+<li>Filter an GInterction object allow to cross the selection indices as
+you want.<br>
 </li>
-<li>Filter a matrices list without selection is better than filter the interaction attributes of the matrices list</li>
+<li>Filter a matrices list without selection is better than filter the
+interaction attributes of the matrices list</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="target-list">Target list<a class="anchor" aria-label="anchor" href="#target-list"></a>
 </h3>
-<p>Target list must have a particular structure. First it is a named list. Each name of each element must be the name of column in the GInteraction that you want filter (or in the attributes “interactions” of the matrices list you want filter. Then each element must be a character list to match to this column or a function that will test each row in the column and return a bolean.</p>
+<p>Target list must have a particular structure. First it is a named
+list. Each name of each element must be the name of column in the
+GInteraction that you want filter (or in the attributes “interactions”
+of the matrices list you want filter. Then each element must be a
+character list to match to this column or a function that will test each
+row in the column and return a bolean.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">structureTarget.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  first_colname_of_GInteraction  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span><span class="op">)</span>,</span>
 <span>  second_colname_of_GInteraction <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">eachElement</span><span class="op">)</span><span class="op">{</span><span class="va">min_th</span><span class="op">&lt;</span><span class="va">value</span> <span class="op">&amp;&amp;</span> <span class="va">value</span><span class="op">&lt;</span><span class="va">max_th</span><span class="op">}</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>First, let’s look the GInteractions columns names (metadata of interactions attributes of our matrices list)</p>
+<p>First, let’s look the GInteractions columns names (metadata of
+interactions attributes of our matrices list)</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu">S4Vectors</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">interactions_RFmatrix_ctrl.lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here a look of</p>
@@ -3732,7 +3842,8 @@ active
 <ol style="list-style-type: decimal">
 <li>“Beaf32_8” and “Beaf32_15” in <strong>anchor.Beaf.name</strong>
 </li>
-<li>“FBgn0031214” and “FBgn0005278” in <strong>bait.Tss.name</strong><br>
+<li>“FBgn0031214” and “FBgn0005278” in
+<strong>bait.Tss.name</strong><br>
 </li>
 <li>“2L:74_2L:77” in <strong>name</strong><br>
 </li>
@@ -3752,7 +3863,9 @@ active
 <div class="section level3">
 <h3 id="filtration-without-selection">Filtration without selection<a class="anchor" aria-label="anchor" href="#filtration-without-selection"></a>
 </h3>
-<p>When you don’t specify any selection ways the function will return all indices for each target in the list. That will allow you to cross the indices to select want you want in a second step.</p>
+<p>When you don’t specify any selection ways the function will return
+all indices for each target in the list. That will allow you to cross
+the indices to select want you want in a second step.</p>
 <div class="section level4">
 <h4 id="ginteraction-filtration">GInteraction filtration<a class="anchor" aria-label="anchor" href="#ginteraction-filtration"></a>
 </h4>
@@ -3789,7 +3902,9 @@ active
 <div class="section level3">
 <h3 id="selection-function">Selection Function<a class="anchor" aria-label="anchor" href="#selection-function"></a>
 </h3>
-<p>Now we will create a function to cross our target indices to select precisely what we want. In order to perform this we will need some set theory basis.</p>
+<p>Now we will create a function to cross our target indices to select
+precisely what we want. In order to perform this we will need some set
+theory basis.</p>
 <div class="section level4">
 <h4 id="set-theory-functions">Set theory functions<a class="anchor" aria-label="anchor" href="#set-theory-functions"></a>
 </h4>
@@ -3856,7 +3971,8 @@ active
 <div class="section level4">
 <h4 id="exemple-according-to-the-above-target">Exemple according to the above target<a class="anchor" aria-label="anchor" href="#exemple-according-to-the-above-target"></a>
 </h4>
-<p>We will select which is in anchor.Beaf.name, bait.Tss.name and distance, but not in name</p>
+<p>We will select which is in anchor.Beaf.name, bait.Tss.name and
+distance, but not in name</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">selection.fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span>, <span class="va">bait.Tss.name</span> ,<span class="va">distance</span><span class="op">)</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -3869,14 +3985,20 @@ active
 </h3>
 <p>When you specify a selection way the function will return:</p>
 <ol style="list-style-type: decimal">
-<li>The indices according to the selection if you select in interarctions.gni (That allow you to construct a vector to apply to multiple matrices list and there interaction attributes).<br>
+<li>The indices according to the selection if you select in
+interarctions.gni (That allow you to construct a vector to apply to
+multiple matrices list and there interaction attributes).<br>
 </li>
-<li>The filtred matrices list if you select in matrices list directly and update the attributes.</li>
+<li>The filtred matrices list if you select in matrices list directly
+and update the attributes.</li>
 </ol>
 <div class="section level4">
 <h4 id="ginteraction-filtration-1">GInteraction filtration<a class="anchor" aria-label="anchor" href="#ginteraction-filtration-1"></a>
 </h4>
-<p>We want to select wich is in anchor.Beaf.name, bait.Tss.name and distance criterion but not in name. So, the indices common to anchor.Beaf.name, bait.Tss.name and distance criterions are 1 and 4. But The indice 1 is in name criterion, so we select only the 4th element</p>
+<p>We want to select wich is in anchor.Beaf.name, bait.Tss.name and
+distance criterion but not in name. So, the indices common to
+anchor.Beaf.name, bait.Tss.name and distance criterions are 1 and 4. But
+The indice 1 is in name criterion, so we select only the 4th element</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/FilterInteractions.html">FilterInteractions</a></span><span class="op">(</span></span>
 <span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">interactions_RFmatrix_ctrl.lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span>
@@ -3899,7 +4021,8 @@ active
 <span>  target.lst    <span class="op">=</span> <span class="va">target.lst</span>,</span>
 <span>  selection.fun <span class="op">=</span> <span class="va">selection.fun</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>names of the filtred matrice is the same than the 4th interaction:</p>
+<p>names of the filtred matrice is the same than the 4th
+interaction:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">filtred_interactions_RFmatrix_ctrl.lst</span><span class="op">)</span><span class="op">$</span><span class="va">names</span></span>
 <span><span class="co">#&gt; [1] "2L:107_2L:121"</span></span></code></pre></div>
@@ -3908,7 +4031,8 @@ active
 <div class="section level3">
 <h3 id="particular-case-only-one-target-and-no-selection">Particular case: Only one target and no selection<a class="anchor" aria-label="anchor" href="#particular-case-only-one-target-and-no-selection"></a>
 </h3>
-<p>For exemple, we want to filter the 100th first elements, so we target the 100 first names</p>
+<p>For exemple, we want to filter the 100th first elements, so we target
+the 100 first names</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">first100_target.lst</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  submatrix.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">interactions_RFmatrix_ctrl.lst</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span></span>
@@ -4093,33 +4217,45 @@ active
 <h3 id="tips-4">Tips<a class="anchor" aria-label="anchor" href="#tips-4"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Use the same function to oriente matrices list or only one matrix.<br>
+<li>Use the same function to oriente matrices list or only one
+matrix.<br>
 </li>
-<li>If you want to force orientation on an matrix use orientation only on it, not on a list.</li>
+<li>If you want to force orientation on an matrix use orientation only
+on it, not on a list.</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="understand-orientation">Understand orientation<a class="anchor" aria-label="anchor" href="#understand-orientation"></a>
 </h3>
-<p>First, lets look how two matrices are oriented (column orientation of metadata of the interactions attribute). Below we can see that the first matrix is correctly oriented (value is TRUE) but not the second one.</p>
+<p>First, lets look how two matrices are oriented (column orientation of
+metadata of the interactions attribute). Below we can see that the first
+matrix is correctly oriented (value is TRUE) but not the second one.</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">first100_interactions_RFmatrix_ctrl.lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">$</span><span class="va">orientation</span><span class="op">[</span><span class="fl">13</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span> </span>
 <span><span class="co">#&gt; [1]  TRUE FALSE</span></span></code></pre></div>
-<p>A matrix that is correctly oriented have an anchor before a bait (see SearchPairs for anchor-bait order), and a matrix that is not oriented have an anchor after a bait.</p>
+<p>A matrix that is correctly oriented have an anchor before a bait (see
+SearchPairs for anchor-bait order), and a matrix that is not oriented
+have an anchor after a bait.</p>
 <p>That mean that:</p>
 <ol style="list-style-type: decimal">
-<li>In the first matrice, the <strong>anchor Beaf is in Y axis</strong> and the <strong>bait TSS in X axis</strong><br>
+<li>In the first matrice, the <strong>anchor Beaf is in Y axis</strong>
+and the <strong>bait TSS in X axis</strong><br>
 </li>
-<li>In the second matrice, the <strong>bait TSS is in Y axis</strong> and the <strong>anchor Beaf in X axis</strong>
+<li>In the second matrice, the <strong>bait TSS is in Y axis</strong>
+and the <strong>anchor Beaf in X axis</strong>
 </li>
 </ol>
 <p><img src="images/Orientation_extraction.png"><!-- --></p>
-<p>So we will oriente this second matrix to put anchor on Y axis and bait on X axis and see what happens. <img src="images/Orientation.png"><!-- --></p>
+<p>So we will oriente this second matrix to put anchor on Y axis and
+bait on X axis and see what happens. <img src="images/Orientation.png"><!-- --></p>
 </div>
 <div class="section level3">
 <h3 id="orientation-on-matrices-list">Orientation on matrices list<a class="anchor" aria-label="anchor" href="#orientation-on-matrices-list"></a>
 </h3>
-<p>We expected that the values in upper left corner (green in above scheme) will end up in the lower right corner after orientation, so let’s oriente the matrices list according to the orientation metadata.</p>
+<p>We expected that the values in upper left corner (green in above
+scheme) will end up in the lower right corner after orientation, so
+let’s oriente the matrices list according to the orientation
+metadata.</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first100_interactions_RFmatrix_ctrl.lst</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
@@ -4238,7 +4374,8 @@ NA
 </tr>
 </tbody>
 </table></details><ol start="2" style="list-style-type: decimal">
-<li>upper left corner <strong>after orientation does not change</strong>.</li>
+<li>upper left corner <strong>after orientation does not
+change</strong>.</li>
 </ol>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
@@ -4468,7 +4605,8 @@ NA
 </tr>
 </tbody>
 </table></details><ol start="2" style="list-style-type: decimal">
-<li><strong>transposed lower right corner after orientation correspond to the upper left corner before orientation</strong></li>
+<li><strong>transposed lower right corner after orientation correspond
+to the upper left corner before orientation</strong></li>
 </ol>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">97</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">97</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
@@ -4585,11 +4723,14 @@ NA
 <div class="section level3">
 <h3 id="orientation-on-only-one-matrice-">Orientation on only one matrice.<a class="anchor" aria-label="anchor" href="#orientation-on-only-one-matrice-"></a>
 </h3>
-<p>The function could also oriente only one matrix but in this case there is no attribute verification so you can oriente a matrix that don’t need orentation.</p>
+<p>The function could also oriente only one matrix but in this case
+there is no attribute verification so you can oriente a matrix that
+don’t need orentation.</p>
 <div class="section level4">
 <h4 id="first-matrix">First matrix<a class="anchor" aria-label="anchor" href="#first-matrix"></a>
 </h4>
-<p>Transposed lower right corner after orientation correspond to the upper left corner before orientation.</p>
+<p>Transposed lower right corner after orientation correspond to the
+upper left corner before orientation.</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/OrienteMatrix.html">OrienteMatrix</a></span><span class="op">(</span><span class="va">first100_interactions_RFmatrix_ctrl.lst</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">97</span><span class="op">:</span><span class="fl">101</span>,<span class="fl">97</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span></span></code></pre></div>
 <details><summary>
@@ -4825,28 +4966,38 @@ NA
 <h3 id="tips-5">Tips<a class="anchor" aria-label="anchor" href="#tips-5"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>To print quantifications use <code>c</code> function to avoid the attributes printing.<br>
+<li>To print quantifications use <code>c</code> function to avoid the
+attributes printing.<br>
 </li>
-<li>When you select area if is null <code>operation.fun</code> return values of the selected area without NA.</li>
+<li>When you select area if is null <code>operation.fun</code> return
+values of the selected area without NA.</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="preregistred-area-and-functions">Preregistred area and functions<a class="anchor" aria-label="anchor" href="#preregistred-area-and-functions"></a>
 </h3>
-<p>the <code>GetQuantif</code> function have some preregistred area and function (see <code><a href="../reference/GetQuantif.html">Genomic2DTK::GetQuantif</a></code>). Below we will extract centrals values. There are interactions values in a square 3x3 centred on the interactions between anchor and bait. With all extracted value we will perform an average after removing all zeros.</p>
+<p>the <code>GetQuantif</code> function have some preregistred area and
+function (see <code><a href="../reference/GetQuantif.html">Genomic2DTK::GetQuantif</a></code>). Below we will
+extract centrals values. There are interactions values in a square 3x3
+centred on the interactions between anchor and bait. With all extracted
+value we will perform an average after removing all zeros.</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">center.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
 <span>  area.fun      <span class="op">=</span> <span class="st">"center"</span>,</span>
 <span>  operation.fun <span class="op">=</span> <span class="st">"mean"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Below we can see the values and the attributes of the numerical vector with a value for each matrices. There are same attributes than the matrices list with two news:</p>
+<p>Below we can see the values and the attributes of the numerical
+vector with a value for each matrices. There are same attributes than
+the matrices list with two news:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>area</strong> that is a function that extract an area of values in each matrices.<br>
+<strong>area</strong> that is a function that extract an area of
+values in each matrices.<br>
 </li>
 <li>
-<strong>operation</strong> that correspond to the numerical operatiion that is perform on values in the selected area.</li>
+<strong>operation</strong> that correspond to the numerical
+operatiion that is perform on values in the selected area.</li>
 </ol>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span></span>
@@ -4867,7 +5018,8 @@ NA
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`2L:278_2L:268`</span></span>
 <span><span class="co">#&gt; [1] 1.483054</span></span></code></pre></div>
-<p>In order to print quantifications use <code>c</code> function to avoid the attributes printing.</p>
+<p>In order to print quantifications use <code>c</code> function to
+avoid the attributes printing.</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`2L:74_2L:77`</span></span>
@@ -4898,7 +5050,10 @@ NA
 <div class="section level3">
 <h3 id="values-naming">Values naming<a class="anchor" aria-label="anchor" href="#values-naming"></a>
 </h3>
-<p>With this function you also could named values according to a metadata of the interactions attributes. For exemple we will take same quantification but now we want use the “anchor.Beaf.name” metadata as name.</p>
+<p>With this function you also could named values according to a
+metadata of the interactions attributes. For exemple we will take same
+quantification but now we want use the “anchor.Beaf.name” metadata as
+name.</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">namedCenter.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -4997,7 +5152,8 @@ Beaf32_435
 <span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">namedCenter.num</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">45</span><span class="op">:</span><span class="fl">51</span><span class="op">]</span></span>
 <span><span class="co">#&gt; Beaf32_415 Beaf32_417 Beaf32_418 Beaf32_418 Beaf32_430 Beaf32_432 Beaf32_435 </span></span>
 <span><span class="co">#&gt;  0.1871565  0.0000000  0.0000000  0.0000000  0.5279512  2.1392992  0.1096642</span></span></code></pre></div>
-<p>An attributes is add to know wich values are a duplicate. Here is the second value</p>
+<p>An attributes is add to know wich values are a duplicate. Here is the
+second value</p>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">center.num</span><span class="op">)</span><span class="op">$</span><span class="va">duplicated</span></span>
 <span><span class="co">#&gt; NULL</span></span>
@@ -5007,7 +5163,12 @@ Beaf32_435
 <div class="section level3">
 <h3 id="custom-functions">Custom functions<a class="anchor" aria-label="anchor" href="#custom-functions"></a>
 </h3>
-<p>The <code>GetQuantif</code> function could also take custom <strong>area</strong> selection and <strong>operation</strong> in parameter. For exemple here we use the functions we see in the attributes <strong>area</strong> and <strong>operation</strong> of the center.num vector. We obtain same result with custom function in parameter.</p>
+<p>The <code>GetQuantif</code> function could also take custom
+<strong>area</strong> selection and <strong>operation</strong> in
+parameter. For exemple here we use the functions we see in the
+attributes <strong>area</strong> and <strong>operation</strong> of the
+center.num vector. We obtain same result with custom function in
+parameter.</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -5028,7 +5189,9 @@ Beaf32_435
 <div class="section level3">
 <h3 id="particular-cases-extraction-of-values">Particular cases: Extraction of values<a class="anchor" aria-label="anchor" href="#particular-cases-extraction-of-values"></a>
 </h3>
-<p>The Operation.fun parameter could a custom function that just return the area selected. this allow to extract values in each matrices. ### One value extraction</p>
+<p>The Operation.fun parameter could a custom function that just return
+the area selected. this allow to extract values in each matrices. ###
+One value extraction</p>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -5045,7 +5208,8 @@ Beaf32_435
 <div class="section level4">
 <h4 id="area-extraction">Area extraction<a class="anchor" aria-label="anchor" href="#area-extraction"></a>
 </h4>
-<p>The Operation.fun parameter could a custom function that just return the area selected. this allow to extract values in each matrices.</p>
+<p>The Operation.fun parameter could a custom function that just return
+the area selected. this allow to extract values in each matrices.</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -5088,7 +5252,8 @@ Beaf32_435
 <span><span class="co">#&gt; [1,]    0 0.2032066 0.5080164</span></span>
 <span><span class="co">#&gt; [2,]   NA 0.1806280 0.4515701</span></span>
 <span><span class="co">#&gt; [3,]   NA        NA 0.2822313</span></span></code></pre></div>
-<p>If is null operation.fun return values of the selected area without NA.</p>
+<p>If is null operation.fun return values of the selected area without
+NA.</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetQuantif.html">GetQuantif</a></span><span class="op">(</span></span>
 <span>  matrices.lst  <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -5125,37 +5290,53 @@ Beaf32_435
 <h3 id="tips-6">Tips<a class="anchor" aria-label="anchor" href="#tips-6"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>When you perform a classical aggregation, you could use any of <code>matrices.lst</code> or <code>ctrlMatrices.lst</code> parameters</li>
-<li>If <code>rm0.bln</code> is <code>TRUE</code> all zeros in matrices list are replace by NA.</li>
-<li>This Function keep attributes of the matrices list and add some news:</li>
+<li>When you perform a classical aggregation, you could use any of
+<code>matrices.lst</code> or <code>ctrlMatrices.lst</code>
+parameters</li>
+<li>If <code>rm0.bln</code> is <code>TRUE</code> all zeros in matrices
+list are replace by NA.</li>
+<li>This Function keep attributes of the matrices list and add some
+news:</li>
 </ol>
 <ul>
 <li>totalMatrixNumber: The total number of matrices.<br>
 </li>
-<li>filteredMatrixNumber: The number of matrices that use for aggregate (after distance filtering).<br>
+<li>filteredMatrixNumber: The number of matrices that use for aggregate
+(after distance filtering).<br>
 </li>
-<li>minimalDistance: The minimal distance between anchor and bait need to keep a matrix before aggregation.<br>
+<li>minimalDistance: The minimal distance between anchor and bait need
+to keep a matrix before aggregation.<br>
 </li>
-<li>maximalDistance: The maximal distance between anchor and bait need to keep a matrix before aggregation.<br>
+<li>maximalDistance: The maximal distance between anchor and bait need
+to keep a matrix before aggregation.<br>
 </li>
-<li>aggregationMethod: The function apply to each pixel to obtain the aggregation.<br>
+<li>aggregationMethod: The function apply to each pixel to obtain the
+aggregation.<br>
 </li>
-<li>zeroRemoved: A Boolean that indicate if zeros have been replaced by NA.</li>
+<li>zeroRemoved: A Boolean that indicate if zeros have been replaced by
+NA.</li>
 </ul>
-<p>When you perfomr differential aggregation there are some supplementary attributes.</p>
+<p>When you perfomr differential aggregation there are some
+supplementary attributes.</p>
 <ul>
-<li>correctedFact: The value that is add to the condition to delete some noise. It’s compute by the median difference between condition and control in an background area (e.g upper right corner in matrices).</li>
+<li>correctedFact: The value that is add to the condition to delete some
+noise. It’s compute by the median difference between condition and
+control in an background area (e.g upper right corner in matrices).</li>
 <li>matrices: The list of matrices.
 <ul>
 <li>agg: Aggregation of the condition.<br>
 </li>
 <li>aggCtrl: Aggregation of the control.<br>
 </li>
-<li>aggCorrected: Aggregation of the condition corrected with correctedFact.<br>
+<li>aggCorrected: Aggregation of the condition corrected with
+correctedFact.<br>
 </li>
-<li>aggDelta: the difference between the aggregated matrix of the condition and the aggregated matrix of the control.<br>
+<li>aggDelta: the difference between the aggregated matrix of the
+condition and the aggregated matrix of the control.<br>
 </li>
-<li>aggCorrectedDelta: the difference between the aggregated matrix of the condition corrected with correctedFact and the aggregated matrix of the control.</li>
+<li>aggCorrectedDelta: the difference between the aggregated matrix of
+the condition corrected with correctedFact and the aggregated matrix of
+the control.</li>
 </ul>
 </li>
 </ul>
@@ -5166,7 +5347,9 @@ Beaf32_435
 <div class="section level4">
 <h4 id="preregistered-function">Preregistered function<a class="anchor" aria-label="anchor" href="#preregistered-function"></a>
 </h4>
-<p>Like the <code>GetQuantif</code> function, the aggregation have some preregistred function like <code>sum</code>, <code>mean</code> or <code>median</code>. See Genomic2DTK::Aggregation for more details.</p>
+<p>Like the <code>GetQuantif</code> function, the aggregation have some
+preregistred function like <code>sum</code>, <code>mean</code> or
+<code>median</code>. See Genomic2DTK::Aggregation for more details.</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_sum.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span></span>
 <span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>, </span>
@@ -5190,7 +5373,8 @@ Beaf32_435
 <div class="section level4">
 <h4 id="custom-function">Custom function<a class="anchor" aria-label="anchor" href="#custom-function"></a>
 </h4>
-<p>Here we will used a custom function. This function must return an unique value for all pixels_ij of the matrices.</p>
+<p>Here we will used a custom function. This function must return an
+unique value for all pixels_ij of the matrices.</p>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_mean.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span></span>
 <span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -5213,7 +5397,10 @@ Beaf32_435
 <div class="section level4">
 <h4 id="distance-constraint">Distance constraint<a class="anchor" aria-label="anchor" href="#distance-constraint"></a>
 </h4>
-<p>You could add distance constraint, in this case the function will agregate all matrices that have a distance between anchor and bait superior or equal to the <code>minDist</code> parameter and inferior or equal to the <code>maxDist</code> parameter</p>
+<p>You could add distance constraint, in this case the function will
+agregate all matrices that have a distance between anchor and bait
+superior or equal to the <code>minDist</code> parameter and inferior or
+equal to the <code>maxDist</code> parameter</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_dist.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span></span>
 <span>  matrices.lst <span class="op">=</span> <span class="va">oriented_first100_interactions_RFmatrix_ctrl.lst</span>,</span>
@@ -5242,13 +5429,27 @@ Beaf32_435
 <div class="section level3">
 <h3 id="differential-aggregation">Differential Aggregation<a class="anchor" aria-label="anchor" href="#differential-aggregation"></a>
 </h3>
-<p>With the <code>Aggregation</code> function you also could perform differential aggregation. There is two kind of differential that the function perform:</p>
+<p>With the <code>Aggregation</code> function you also could perform
+differential aggregation. There is two kind of differential that the
+function perform:</p>
 <ol style="list-style-type: decimal">
-<li>The canonical differences where the difference is perform at each matrix level, i.e the function perform the difference of matrices that have the same name in the two list and then aggregate the differential matrices list.<br>
+<li>The canonical differences where the difference is perform at each
+matrix level, i.e the function perform the difference of matrices that
+have the same name in the two list and then aggregate the differential
+matrices list.<br>
 </li>
-<li>The second kind of differential is at the aggregated level, i.e the function perform the aggregation of the two condition at this step it’s possible to perform a correction to avoid noise on the aggregated matrix by adding a correction factor calculated in an background area (e.g upper right corner in matrices). Then the function perform the difference of the two aggregated and possibly corrected matrices. This second kind is store in attributes and is called <strong>DeltaAggregated</strong>.</li>
+<li>The second kind of differential is at the aggregated level, i.e the
+function perform the aggregation of the two condition at this step it’s
+possible to perform a correction to avoid noise on the aggregated matrix
+by adding a correction factor calculated in an background area (e.g
+upper right corner in matrices). Then the function perform the
+difference of the two aggregated and possibly corrected matrices. This
+second kind is store in attributes and is called
+<strong>DeltaAggregated</strong>.</li>
 </ol>
-<p>When the number of matrices is not too high (few hundreds) you may want perform statistical test (Warning it’s very memmory conssuming).</p>
+<p>When the number of matrices is not too high (few hundreds) you may
+want perform statistical test (Warning it’s very memmory
+conssuming).</p>
 <div class="section level4">
 <h4 id="preparation-of-matrices-list">Preparation of matrices list<a class="anchor" aria-label="anchor" href="#preparation-of-matrices-list"></a>
 </h4>
@@ -5276,7 +5477,8 @@ Beaf32_435
 <span>  operation.fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">area.num</span><span class="op">)</span><span class="op">{</span><span class="va">area.num</span><span class="op">}</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Preparation of second matrices list in Beaf depleted condition. <strong>Extraction</strong>
+<li>Preparation of second matrices list in Beaf depleted condition.
+<strong>Extraction</strong>
 </li>
 </ol>
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
@@ -5392,7 +5594,8 @@ Beaf32_435
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">quantif.num</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
 <span><span class="co">#&gt; [1] 0.2505698</span></span></code></pre></div>
 <ol start="9" style="list-style-type: decimal">
-<li>Differential at Aggregated level between Aggregation Classic Scaled and Control</li>
+<li>Differential at Aggregated level between Aggregation Classic Scaled
+and Control</li>
 </ol>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg.mtx</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">agg</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">diffAggreg.mtx</span><span class="op">)</span><span class="op">$</span><span class="va">matrices</span><span class="op">$</span><span class="va">aggCtrl</span><span class="op">[</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">]</span> <span class="op">+</span> <span class="va">correctedFact.num</span></span>
@@ -5445,12 +5648,16 @@ Beaf32_435
 <div class="section level3">
 <h3 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>
 </h3>
-<p>Below you could see the ggAPA function that create a ggplot object (ggplot2::geom_raster)</p>
+<p>Below you could see the ggAPA function that create a ggplot object
+(ggplot2::geom_raster)</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx   <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr <span class="op">=</span> <span class="st">"APA"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-144-1.png" width="672"></p>
 <div class="section level4">
 <h4 id="center">Center<a class="anchor" aria-label="anchor" href="#center"></a>
@@ -5461,13 +5668,17 @@ Beaf32_435
 <span>    apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr  <span class="op">=</span> <span class="st">"APA center on 0.2"</span>,</span>
 <span>    center.num <span class="op">=</span> <span class="fl">0.2</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-145-1.png" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="trimming">Trimming<a class="anchor" aria-label="anchor" href="#trimming"></a>
 </h4>
-<p>You could remove a percentage of value choose in upper tail, lower tail or both tails of the distribution.</p>
+<p>You could remove a percentage of value choose in upper tail, lower
+tail or both tails of the distribution.</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx      <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
@@ -5476,7 +5687,10 @@ Beaf32_435
 <span>    bounds.chr   <span class="op">=</span> <span class="st">"upper"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in max(unlist(bounds.num_lst[1]), na.rm = TRUE): no non-missing</span></span>
-<span><span class="co">#&gt; arguments to max; returning -Inf</span></span></code></pre></div>
+<span><span class="co">#&gt; arguments to max; returning -Inf</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-146-1.png" width="672"></p>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
@@ -5486,7 +5700,10 @@ Beaf32_435
 <span>    bounds.chr   <span class="op">=</span> <span class="st">"lower"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in min(unlist(bounds.num_lst[2]), na.rm = TRUE): no non-missing</span></span>
-<span><span class="co">#&gt; arguments to min; returning Inf</span></span></code></pre></div>
+<span><span class="co">#&gt; arguments to min; returning Inf</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-146-2.png" width="672"></p>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
@@ -5494,20 +5711,28 @@ Beaf32_435
 <span>    title.chr    <span class="op">=</span> <span class="st">"APA 30% trimmed"</span>,</span>
 <span>    trimPrct.num <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>    bounds.chr   <span class="op">=</span> <span class="st">"both"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-146-3.png" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="minmax">MinMax<a class="anchor" aria-label="anchor" href="#minmax"></a>
 </h4>
-<p>You could also define a minimal and/or a maximal value for the color scale. If you use a trimming with this options, the function will choose the more stringent options for each minimal and maximal value.</p>
+<p>You could also define a minimal and/or a maximal value for the color
+scale. If you use a trimming with this options, the function will choose
+the more stringent options for each minimal and maximal value.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx         <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr       <span class="op">=</span> <span class="st">"APA [.15-.35]"</span>,</span>
 <span>    minBoundary.num <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>    maxBoundary.num <span class="op">=</span> <span class="fl">0.35</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-147-1.png" width="672"></p>
 </div>
 <div class="section level4">
@@ -5519,21 +5744,30 @@ Beaf32_435
 <span>    apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr     <span class="op">=</span> <span class="st">"APA [.1, .2, .3, .4]"</span>,</span>
 <span>    colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-148-1.png" width="672"></p>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr     <span class="op">=</span> <span class="st">"APA [.10, .13, .16, .20, .30, .40]"</span>,</span>
 <span>    colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.13</span>,<span class="fl">0.16</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-148-2.png" width="672"></p>
 <div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr     <span class="op">=</span> <span class="st">"APA [.10, .20, .30, .33, .36, .40]"</span>,</span>
 <span>    colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span>,<span class="fl">0.33</span>,<span class="fl">0.36</span>,<span class="fl">0.40</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-148-3.png" width="672"></p>
 </div>
 <div class="section level4">
@@ -5545,27 +5779,37 @@ Beaf32_435
 <span>    apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr  <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>    colorScale <span class="op">=</span> <span class="st">"density"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-149-1.png" width="672"></p>
 <div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>    bias.num    <span class="op">=</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-149-2.png" width="672"></p>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>    bias.num    <span class="op">=</span> <span class="fl">0.5</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-149-3.png" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="blurred">Blurred<a class="anchor" aria-label="anchor" href="#blurred"></a>
 </h4>
-<p>There is an option to apply a blurr on the heatmap that could remove some noise.</p>
+<p>There is an option to apply a blurr on the heatmap that could remove
+some noise.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx           <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
@@ -5573,26 +5817,34 @@ Beaf32_435
 <span>    blurPass.num      <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    blurSd.num        <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>    lowerTri.num <span class="op">=</span> <span class="cn">NA</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-150-1.png" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="changed-color">Changed color<a class="anchor" aria-label="anchor" href="#changed-color"></a>
 </h4>
-<p>here is an option to change the color of heatmap and color of NA values.</p>
+<p>here is an option to change the color of heatmap and color of NA
+values.</p>
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>    heatmap.col <span class="op">=</span> <span class="fu">SuperTK</span><span class="fu">::</span><span class="fu"><a href="https://nchanard.github.io/ColorTK/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,</span>
 <span>    na.col      <span class="op">=</span> <span class="st">"black"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-151-1.png" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="modifications">Modifications<a class="anchor" aria-label="anchor" href="#modifications"></a>
 </h4>
-<p>Because the function return a ggplot object you could modify the ggplot object with ggplot2.</p>
+<p>Because the function return a ggplot object you could modify the
+ggplot object with ggplot2.</p>
 <div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
@@ -5601,14 +5853,19 @@ Beaf32_435
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title    <span class="op">=</span> <span class="st">"New title"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"and subtitle"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-152-1.png" width="672"></p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="all-in-one-function">All in one function<a class="anchor" aria-label="anchor" href="#all-in-one-function"></a>
 </h3>
-<p>Here is an all in one function that plot the matrix (and all matrices in attributes if it’s a differential aggregation) with different options and put it in a pdf.</p>
+<p>Here is an all in one function that plot the matrix (and all matrices
+in attributes if it’s a differential aggregation) with different options
+and put it in a pdf.</p>
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/PlotAPA.html">PlotAPA</a></span><span class="op">(</span></span>
 <span>    apa.mtx                  <span class="op">=</span> <span class="va">diffAggreg.mtx</span>,</span>
@@ -5618,8 +5875,103 @@ Beaf32_435
 <span>    maxBoundary.num          <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    minConditionBoundary.num <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    maxConditionBoundary.num <span class="op">=</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-1.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-2.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-3.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-4.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-5.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-6.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-7.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-8.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-9.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-10.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-11.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-12.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-13.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-14.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-15.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-16.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-17.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-18.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-19.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-20.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-21.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-22.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-23.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-24.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-25.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-26.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-27.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-28.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-29.png" width="700"></p>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre></div>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-1.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-2.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-3.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-4.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-5.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-6.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-7.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-8.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-9.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-10.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-11.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-12.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-13.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-14.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-15.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-16.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-17.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-18.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-19.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-20.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-21.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-22.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-23.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged. Use `x` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged. Use `j` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged. Use `i` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-24.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged. Use `grp.mean` instead.</span></span>
+<span><span class="co">#&gt; Warning: Use of `mu.tbl$class` is discouraged. Use `class` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-25.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged. Use `grp.mean` instead.</span></span>
+<span><span class="co">#&gt; Use of `mu.tbl$class` is discouraged. Use `class` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-26.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged. Use `grp.mean` instead.</span></span>
+<span><span class="co">#&gt; Use of `mu.tbl$class` is discouraged. Use `class` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-27.png" width="700"></p>
+<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged. Use `grp.mean` instead.</span></span>
+<span><span class="co">#&gt; Use of `mu.tbl$class` is discouraged. Use `class` instead.</span></span></code></pre>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-28.png" width="700"><img src="Genomic2DTK_files/figure-html/unnamed-chunk-153-29.png" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
