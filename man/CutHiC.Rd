@@ -4,12 +4,10 @@
 \alias{CutHiC}
 \title{Cut HiC map in HiC chunks.}
 \usage{
-CutHiC(megaHic.cmx, cores.num = 1, verbose.bln = TRUE)
+CutHiC(megaHic.cmx, verbose.bln = TRUE)
 }
 \arguments{
 \item{megaHic.cmx}{<contactMatrix>: The HiC megamap.}
-
-\item{cores.num}{<numerical> : An integer to specify the number of cores. (Default 1)}
 
 \item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
 }
