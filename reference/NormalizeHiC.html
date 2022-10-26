@@ -54,7 +54,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">NormalizeHiC</span><span class="op">(</span></span>
 <span>  <span class="va">hic.cmx_lst</span>,</span>
 <span>  method.chr <span class="op">=</span> <span class="st">"ICE"</span>,</span>
-<span>  type.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cis"</span>, <span class="st">"trans"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  type.chr <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  maxIter.num <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  qtlTh.num <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>  cores.num <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -73,7 +73,7 @@
 
 
 <dt>type.chr</dt>
-<dd><p>&lt;character&gt; : Whether normalization must be apply on "cis" chunks, "trans" chunks or "all" chuncks. (Default "cis")</p></dd>
+<dd><p>&lt;character&gt; : If NULL normalization is apply on cis chunks then trans chunks. If is "all", normalization is apply on all chuncks at once. (Default NULL)</p></dd>
 
 
 <dt>maxIter.num</dt>
