@@ -53,7 +53,7 @@ library(Genomic2DTK)
 library(GenomicED)
 ```
 
-## Data
+d## Data
 Here we will load some testing data from sequencing in *Drosophila Melanogaster* on chromosomes 2L and 2R.  
 
 ### HiC_ctrl.gnp
@@ -171,24 +171,12 @@ ___
 
 ## HiC Control
 ```{r, eval = TRUE}
-HiC_ctrl.cmx_lst <- GnpToCm(
-  hic.gnp       = HiC_ctrl.gnp,
-  res.num       = binSize.num,
-  chromSize.dtf = chromSize.dtf,
-  cores.num     = 1,
-  verbose.bln   = FALSE
-  )
+data(HiC_ctrl.cmx_lst)
 ```
 
 ## HiC under Beaf depletion
 ```{r, eval = TRUE}
-HiC.cmx_lst  <- GnpToCm(
-  hic.gnp       = HiC.gnp,
-  res.num       = binSize.num,
-  chromSize.dtf = chromSize.dtf,
-  cores.num     = 1,
-  verbose.bln   = FALSE
-  )
+data(HiC.cmx_lst)
 ```
 
 ## Understand results

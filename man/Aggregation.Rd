@@ -2,17 +2,18 @@
 % Please edit documentation in R/Aggregation.r
 \name{Aggregation}
 \alias{Aggregation}
-\title{Aggregation}
+\title{Aggregated matrices list.}
 \usage{
 Aggregation(
   ctrlMatrices.lst = NULL,
   matrices.lst = NULL,
   minDist.num = NULL,
   maxDist.num = NULL,
+  trans.fun = NULL,
   agg.fun = "mean",
   rm0.bln = FALSE,
   diff.fun = "substraction",
-  scaleCorrection.bln = TRUE,
+  scaleCorrection.bln = FALSE,
   correctionArea.lst = NULL,
   statCompare.bln = FALSE
 )
@@ -25,6 +26,17 @@ Aggregation(
 \item{minDist.num}{<numeric>: The minimal distance between anchor and bait.}
 
 \item{maxDist.num}{<numeric>: The maximal distance between anchor and bait.}
+
+\item{trans.fun}{<chracter or function>: The function use to transforme or scale values in each submatrix before aggregation. If the parameter is character so:
+\itemize{
+\item "quantile" or "qtl" apply function dplyr::ntile(x,500)
+\item "percentile" or "prct" apply percentile on values in matrix
+\item "rank" apply a ranking on values in matrix
+\item "zscore" apply a scaling on values in matrix
+\item "minmax" apply a SuperTK::MinMaxScale on values in matrix
+\item "mu" apply a SuperTK::MeanScale on values in matrix
+\item other (Default) apply a log2 on 1+ratio
+}}
 
 \item{agg.fun}{<chracter or function>: The function use to aggregate each pixel in matrix. If the parameter is a character so:
 \itemize{
@@ -53,7 +65,10 @@ Aggregation(
 A matrix
 }
 \description{
-aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
+Aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
+}
+\details{
+Aggregation
 }
 \examples{
 library(GenomicED)
@@ -64,6 +79,7 @@ data("submatrixRF.mtx_lst")
 aggreg.mtx <- Aggregation(
   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
   agg.fun      = "sum",
+  trans.fun    = "qtl", 
   rm0.bln      = TRUE,
   minDist      = 9000,
   maxDist      = 11000

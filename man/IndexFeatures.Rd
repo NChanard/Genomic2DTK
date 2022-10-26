@@ -2,7 +2,7 @@
 % Please edit documentation in R/IndexFeatures.r
 \name{IndexFeatures}
 \alias{IndexFeatures}
-\title{IndexFeatures}
+\title{multiple GRanges Bining}
 \usage{
 IndexFeatures(
   gRange.gnr_lst = NULL,
@@ -37,6 +37,9 @@ A GRange object.
 }
 \description{
 Bin multiple GRanges and summary all in one GRange. Could overlap ranges with constraints regions
+}
+\details{
+IndexFeatures
 }
 \examples{
 library(GenomicED)

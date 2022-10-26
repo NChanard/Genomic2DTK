@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchPairs.r
 \name{SearchPairs}
 \alias{SearchPairs}
-\title{SearchPairs}
+\title{Merge genomic index in putative bin pairs.}
 \usage{
 SearchPairs(
   indexAnchor.gnr = NULL,
@@ -31,6 +31,9 @@ A GInteractions object.
 }
 \description{
 Compute pairs of genomic features that share a same range constraintes.
+}
+\details{
+SearchPairs
 }
 \examples{
 library(GenomicED)

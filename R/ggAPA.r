@@ -1,6 +1,7 @@
+#' Aggregation plot
+#' 
 #' ggAPA
-#'
-#' Create a ggplot object used for plot aggragation.
+#' @description Create a ggplot object used for plot aggregation.
 #' @param apa.mtx <matrix> : The matrix to plot. (Default NULL)
 #' @param title.chr <character> : The title of plot. (Default NULL)
 #' @param trimPrct.num <numeric> : A number between 0 and 100 that give the percentage of trimming. (Default 0)
@@ -118,8 +119,9 @@ ggAPA = function(
         #############
         # Raster
         #############
-            plot.ggp <- ggplot2::ggplot(SuperTK::MeltSpm(apa.mtx), ggplot2::aes(.data$j, .data$i)) +
-                ggplot2::geom_raster(ggplot2::aes(fill=.data$x)) + 
+            data.dtf <- SuperTK::MeltSpm(apa.mtx)
+            plot.ggp <- ggplot2::ggplot(data.dtf, ggplot2::aes(data.dtf$j, data.dtf$i)) +
+                ggplot2::geom_raster(ggplot2::aes(fill=data.dtf$x)) + 
                 ggplot2::scale_fill_gradientn(colours=heatmap.col, values=SuperTK::MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
                 ggplot2::scale_y_reverse(breaks=seq_along(colnames(apa.mtx)), labels=colnames(apa.mtx)) +
                 ggplot2::scale_x_continuous(breaks=seq_along(rownames(apa.mtx)), labels=rownames(apa.mtx)) +

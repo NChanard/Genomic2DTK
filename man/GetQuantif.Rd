@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetQuantif.r
 \name{GetQuantif}
 \alias{GetQuantif}
-\title{GetQuantif}
+\title{Compute quantification in extracted submatrix.}
 \usage{
 GetQuantif(
   matrices.lst,
@@ -45,6 +45,9 @@ A GRange object.
 }
 \description{
 Compute a function on each matrix that compose a matrices list.
+}
+\details{
+GetQuantif
 }
 \examples{
 library(GenomicED)

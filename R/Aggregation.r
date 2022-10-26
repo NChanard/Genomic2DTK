@@ -1,6 +1,7 @@
+#' Aggregated matrices list.
+#' 
 #' Aggregation
-#'
-#' aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
+#' @description Aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
 #' @param ctrlMatrices.lst <list[matrix]>: The matrices list to aggregate as control.
 #' @param matrices.lst <list[matrix]>: The matrices list to aggregate.
 #' @param minDist.num <numeric>: The minimal distance between anchor and bait.
@@ -19,6 +20,16 @@
 #' \item "log2","log2-","log2/" or "log2ratio" apply a log2 on ratio
 #' \item other (Default) apply a log2 on 1+ratio
 #' }
+#' @param trans.fun <chracter or function>: The function use to transforme or scale values in each submatrix before aggregation. If the parameter is character so:
+#' \itemize{
+#' \item "quantile" or "qtl" apply function dplyr::ntile(x,500)
+#' \item "percentile" or "prct" apply percentile on values in matrix
+#' \item "rank" apply a ranking on values in matrix
+#' \item "zscore" apply a scaling on values in matrix
+#' \item "minmax" apply a SuperTK::MinMaxScale on values in matrix
+#' \item "mu" apply a SuperTK::MeanScale on values in matrix
+#' \item other (Default) apply a log2 on 1+ratio
+#' }
 #' @param scaleCorrection.bln <logical>: Whether a correction should be done on the median value take in ane noising area. (Default TRUE)
 #' @param correctionArea.lst <list>: Nested list of indice that define a noising area fore correction. List muste contain in first an element "i" (row indices) then an element called "j" (columns indices). If NULL automatically take in upper left part of aggregated matrices. (Default NULL)
 #' @param statCompare.bln <logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.
@@ -32,6 +43,7 @@
 #' aggreg.mtx <- Aggregation(
 #'   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
 #'   agg.fun      = "sum",
+#'   trans.fun    = "qtl", 
 #'   rm0.bln      = TRUE,
 #'   minDist      = 9000,
 #'   maxDist      = 11000
@@ -60,9 +72,9 @@
 #' str(attributes(diffAggreg.mtx),max.level = 1)
 #' diffAggreg.mtx[1:5,1:5]
 
-Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=TRUE ,correctionArea.lst = NULL, statCompare.bln=FALSE){
+Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, trans.fun=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=FALSE, correctionArea.lst = NULL, statCompare.bln=FALSE){
     # subFunctions
-        .PrepareMtxList =  function(matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln=FALSE){
+        .PrepareMtxList =  function(matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln=FALSE, trans.fun=NULL){
                 interactions.gni <- attributes(matrices.lst)$interactions
             # Filter on distances
                 if(!is.na(minDist.num)){
@@ -73,18 +85,19 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 }
                 matrices.lst <- matrices.lst[!is.na(names(matrices.lst))]
             # Convert sparse matrix in dense matrix and convert 0 in NA if rm0.bln is TRUE
-                if(rm0.bln){
-                    matrices.lst <- lapply(
-                        matrices.lst,
-                        function(mat.spm){
-                            mat.mtx <- as.matrix(mat.spm)
+                matrices.lst <- lapply(
+                    matrices.lst,
+                    function(mat.spm){
+                        mat.mtx <- as.matrix(mat.spm)
+                        if(rm0.bln){
                             mat.mtx[mat.mtx==0] <- NA
-                            return(mat.mtx)
                         }
-                    )
-                }else{
-                    matrices.lst <- lapply(matrices.lst, as.matrix)
-                }
+                        if(!is.null(trans.fun)){
+                            mat.mtx <- trans.fun(mat.mtx)
+                        }
+                        return(mat.mtx)
+                    }
+                )
             #
             return(matrices.lst)
         }
@@ -117,6 +130,19 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 )
             agg.fun <- SuperTK::WrapFunction(agg.fun)
         }
+    # Transformation Function
+        if(!is.function(trans.fun) & !is.null(trans.fun)){
+            trans.fun <- dplyr::case_when(
+                tolower(trans.fun) %in% c("quantile", "qtl")        ~ "function(mat.mtx){matrix(dplyr::ntile(mat.mtx,500),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
+                tolower(trans.fun) %in% c("percentile", "prct")     ~ "function(mat.mtx){matrix(rank(mat.mtx,na.last='keep')/length(mat.mtx[!is.na(mat.mtx)]), dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
+                tolower(trans.fun) %in% c("rank")                   ~ "function(mat.mtx){matrix(rank(mat.mtx,na.last='keep'), dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
+                tolower(trans.fun) %in% c("zscore")                 ~ "function(mat.mtx){matrix(scale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
+                tolower(trans.fun) %in% c("minmax")                 ~ "function(mat.mtx){matrix(SuperTK::MinMaxScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
+                tolower(trans.fun) %in% c("mu")                     ~ "function(mat.mtx){matrix(SuperTK::MeanScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
+                TRUE                                                ~  "NULL"
+                )
+            trans.fun <- SuperTK::WrapFunction(trans.fun)
+        }        
     # Prepare Matrix List
         if(is.null(minDist.num)){minDist.num<-NA}
         if(is.null(maxDist.num)){maxDist.num<-NA}
@@ -198,10 +224,12 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                             filteredMatrixNumber = length(matrices.lst),
                             minimalDistance      = minDist.num,
                             maximalDistance      = maxDist.num,
+                            transformationMethod = trans.fun,
                             aggregationMethod    = agg.fun,
                             differentialMethod   = diff.fun,
                             zeroRemoved          = rm0.bln,
                             correctedFact        = correctionValue.num,
+                            correctionArea       = correctionArea.lst,
                             matrices = list(list(
                                 agg               = agg.mtx,
                                 aggCtrl           = aggCtrl.mtx,
@@ -224,6 +252,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                         filteredMatrixNumber = length(matrices.lst),
                         minimalDistance      = minDist.num,
                         maximalDistance      = maxDist.num,
+                        transformationMethod = trans.fun,
                         aggregationMethod    = agg.fun,
                         zeroRemoved          = rm0.bln,
                         attributes.lst

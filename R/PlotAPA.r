@@ -1,6 +1,7 @@
+#' Draw aggregation plot.
+#' 
 #' PlotAPA
-#'
-#' Draw aggregation plot from aggregation matrices.
+#' @description Draw aggregation plot from aggregation matrices.
 #' @param apa.mtx <matrix>: The aggregated matrix.
 #' @param trimPrct.num <numeric>: A number between 0 and 100 thaht give the percentage of triming in matrices.
 #' @param minBoundary.num <matrix>: The minimal value in color scale. If Null automaticaly find.
@@ -35,7 +36,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
         if(is.null(colour.col)){
             colour.col <- SuperTK::Hue(length(data.lst)) |> stats::setNames(names(data.lst))
         }
-        plot.gp <- ggplot2::ggplot(data.tbl, ggplot2::aes(x=.data$value, fill=.data$class, colour=.data$class)) + 
+        plot.gp <- ggplot2::ggplot(data.tbl, ggplot2::aes(x=data.tbl$value, fill=data.tbl$class, colour=data.tbl$class)) + 
             ggplot2::geom_density(alpha=0.1) +
             ggplot2::scale_color_manual(values = colour.col)+
             ggplot2::scale_fill_manual(values = colour.col) +
@@ -44,7 +45,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             data.tbl <- dplyr::group_by(data.tbl, class = data.tbl$class)
             mu.tbl <-  dplyr::summarise(data.tbl, grp.mean = mean(data.tbl$value))
             plot.gp <- plot.gp + 
-                ggplot2::geom_vline(data = mu.tbl, ggplot2::aes(xintercept = .data$grp.mean, colour = .data$class), linetype = "dashed")
+                ggplot2::geom_vline(data = mu.tbl, ggplot2::aes(xintercept = mu.tbl$grp.mean, colour = mu.tbl$class), linetype = "dashed")
         }
         return(plot.gp)
     }

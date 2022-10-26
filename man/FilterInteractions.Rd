@@ -2,7 +2,7 @@
 % Please edit documentation in R/FilterInteractions.r
 \name{FilterInteractions}
 \alias{FilterInteractions}
-\title{FilterInteractions}
+\title{Submatrix or Interactions filtering.}
 \usage{
 FilterInteractions(
   matrices.lst = NULL,
@@ -27,6 +27,9 @@ A list of elements index or a filtred matrices list with attributes updates.
 }
 \description{
 Search in a GInteraction object which interactions correspond ti a target list and return a list of index or filter a matrices list according to target and a selection function.
+}
+\details{
+FilterInteractions
 }
 \examples{
 library(GenomicED)
