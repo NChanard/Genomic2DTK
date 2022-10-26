@@ -1,6 +1,7 @@
+#' multiple GRanges Bining
+#' 
 #' IndexFeatures
-#'
-#' Bin multiple GRanges and summary all in one GRange. Could overlap ranges with constraints regions
+#' @description Bin multiple GRanges and summary all in one GRange. Could overlap ranges with constraints regions
 #' @param gRange.gnr_lst <GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList
 #' @param constraint.gnr <GRanges>: A GRange of constraint regions. If NULL chromosomes in chromSize.dtf are used (Default NULL)
 #' @param chromSize.dtf <data.frame>: A data.frame of genome where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.

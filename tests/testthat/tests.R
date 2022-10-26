@@ -145,6 +145,7 @@ GetQuantif(
 Aggregation(
   matrices.lst = submatrixPF_Ctrl.mtx_lst, 
   agg.fun      = "sum",
+  trans.fun    = "qtl", 
   rm0.bln      = FALSE
   )
 Aggregation(

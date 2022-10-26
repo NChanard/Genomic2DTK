@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggAPA.r
 \name{ggAPA}
 \alias{ggAPA}
-\title{ggAPA}
+\title{Aggregation plot}
 \usage{
 ggAPA(
   apa.mtx = NULL,
@@ -66,7 +66,10 @@ ggAPA(
 A ggplot object.
 }
 \description{
-Create a ggplot object used for plot aggragation.
+Create a ggplot object used for plot aggregation.
+}
+\details{
+ggAPA
 }
 \examples{
 library(GenomicED)

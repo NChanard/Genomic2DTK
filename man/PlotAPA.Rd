@@ -2,7 +2,7 @@
 % Please edit documentation in R/PlotAPA.r
 \name{PlotAPA}
 \alias{PlotAPA}
-\title{PlotAPA}
+\title{Draw aggregation plot.}
 \usage{
 PlotAPA(
   apa.mtx = NULL,
@@ -34,6 +34,9 @@ None
 }
 \description{
 Draw aggregation plot from aggregation matrices.
+}
+\details{
+PlotAPA
 }
 \examples{
 library(GenomicED)

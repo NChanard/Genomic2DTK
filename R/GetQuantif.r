@@ -1,6 +1,7 @@
+#' Compute quantification in extracted submatrix.
+#' 
 #' GetQuantif
-#'
-#' Compute a function on each matrix that compose a matrices list.
+#' @description Compute a function on each matrix that compose a matrices list.
 #' @param matrices.lst <List[matrix]> : A matrices list.
 #' @param area.fun <character or function> : A character or function thaht alow an extraction of an area on each matrix that compose the matrices lits (Default "center").
 #' \itemize{

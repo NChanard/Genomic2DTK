@@ -1,6 +1,7 @@
+#' Submatrix extraction
+#' 
 #' ExtractSubmatrix
-#'
-#' Extract matrices in the HiC maps list around genomic features.
+#' @description Extract matrices in the HiC maps list around genomic features.
 #' @param feature.gn <GRanges or Pairs[GRanges] or GInteractions>: The genomic feature on which compute the extraction of HiC submatrix.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @param referencePoint.chr <character>: A character that give the kind of extraction. "rf" to extract regions or "pf" to extract points interactions. (Default "rf")

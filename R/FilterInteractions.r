@@ -1,6 +1,7 @@
+#' Submatrix or Interactions filtering.
+#' 
 #' FilterInteractions
-#'
-#' Search in a GInteraction object which interactions correspond ti a target list and return a list of index or filter a matrices list according to target and a selection function.
+#' @description Search in a GInteraction object which interactions correspond ti a target list and return a list of index or filter a matrices list according to target and a selection function.
 #' @param matrices.lst <List[matrix]>: The matrices list to filter. If is not NULL, the function will return the filtred matrices list, else return a list of index.
 #' @param interarctions.gni <GInteractions>: The GInteraction object on which compute the filter.
 #' @param target.lst <List>: a nammed list that describe the target.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/OrienteMatrix.r
 \name{OrienteMatrix}
 \alias{OrienteMatrix}
-\title{OrienteMatrix}
+\title{extracted matrix orientation}
 \usage{
 OrienteMatrix(matrice.mtx)
 }
@@ -13,7 +13,10 @@ OrienteMatrix(matrice.mtx)
 Oriented matrix or matricies list
 }
 \description{
-Apply a 180° rotation follow with a transposation on a matrix or on matricies in a list according to the interactions attributes of the list.
+Oriente extracted Matrix according to the anchors and bait order. Apply a 180° rotation follow with a transposation on a matrix or on matricies in a list according to the interactions attributes of the list.
+}
+\details{
+OrienteMatrix
 }
 \examples{
 library(GenomicED)

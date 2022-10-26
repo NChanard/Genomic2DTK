@@ -1,6 +1,7 @@
+#' Merge genomic index in putative bin pairs.
+#' 
 #' SearchPairs
-#'
-#' Compute pairs of genomic features that share a same range constraintes.
+#' @description Compute pairs of genomic features that share a same range constraintes.
 #' @param indexAnchor.gnr <GRanges>: GRanges used in the first part of the pairs.
 #' @param indexBait.gnr <GRanges>: GRanges used in the second part of the pars. If NULL is replace with indexAnchor.gnr (Default NULL)
 #' @param minDist.num <numeric>: the minimal distance between first and second parts of pairs. (Default NULL)

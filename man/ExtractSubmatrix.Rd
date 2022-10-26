@@ -2,7 +2,7 @@
 % Please edit documentation in R/ExtractSubmatrix.r
 \name{ExtractSubmatrix}
 \alias{ExtractSubmatrix}
-\title{ExtractSubmatrix}
+\title{Submatrix extraction}
 \usage{
 ExtractSubmatrix(
   feature.gn = NULL,
@@ -37,6 +37,9 @@ A matrices list.
 }
 \description{
 Extract matrices in the HiC maps list around genomic features.
+}
+\details{
+ExtractSubmatrix
 }
 \examples{
 library(GenomicED)
