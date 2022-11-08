@@ -159,8 +159,8 @@ import.hic <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.
             return(hic.cmx)
         })
     }else if (cores.num>=2){
-        parCl <- parallel::makeCluster(cores.num, type ="FORK")
-        hic.lst_cmx <- parallel::parLapply(parCl,seq_along(chromComb.lst), function(ele.ndx){
+        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
+        hic.lst_cmx <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(chromComb.lst), function(ele.ndx){) # DD221108 change to BiocParallel
             # Chromosomes
                 ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
                 chrom_1.chr <- ele.lst[[1]]
@@ -217,7 +217,7 @@ import.hic <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.
                         as.list()
             return(hic.cmx)
         })
-        parallel::stopCluster(parCl)
+        # parallel::stopCluster(parCl)
     }
     # Add attributes
         hic.lst_cmx <- hic.lst_cmx |>
