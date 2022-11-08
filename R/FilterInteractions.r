@@ -93,10 +93,18 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
         return(interarctions.ndx_lst)
     }
     if(!is.null(matrices.lst)){
-        matrices.lst <- matrices.lst[interarctions.ndx] |>
-            SuperTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) |>
-            SuperTK::AddAttr(attribute.lst=attributes(matrices.lst))
-            return(matrices.lst)
+        matrices.filt.lst <- matrices.lst[interarctions.ndx]
+        # recover attributes DD221107
+        attributes(matrices.filt.lst)$interactions = attributes(matrices.lst)$interactions[interarctions.ndx]
+        attributes(matrices.filt.lst)$resolution = attributes(matrices.lst)$resolution
+        attributes(matrices.filt.lst)$referencePoint = attributes(matrices.lst)$referencePoint
+        attributes(matrices.filt.lst)$matriceDim = attributes(matrices.lst)$matriceDim
+        attributes(matrices.filt.lst)$target = target.lst
+        attributes(matrices.filt.lst)$selection = selection.fun
+        #  |>
+        #     SuperTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) |>
+        #     SuperTK::AddAttr(attribute.lst=attributes(matrices.lst))
+            return(matrices.filt.lst)
     }else{
         return(interarctions.ndx)
     }
