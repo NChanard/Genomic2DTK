@@ -2,12 +2,12 @@
 #' 
 #' ExtractSubmatrix
 #' @description Extract matrices in the HiC maps list around genomic features.
-#' @param feature.gn <GRanges or Pairs[GRanges] or GInteractions>: The genomic feature on which compute the extraction of HiC submatrix.
+#' @param feature.gn <GRanges or Pairs[GRanges] or GInteractions>: The genomic coordinates on which compute the extraction of HiC submatrix.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
-#' @param referencePoint.chr <character>: A character that give the kind of extraction. "rf" to extract regions or "pf" to extract points interactions. (Default "rf")
+#' @param referencePoint.chr <character>: Type of extracted submatrices. "rf" for "region feature" to extract triangle-shaped matrices around regions or "pf" for "point feature" to extract square-shaped matrices around points. (Default "rf")
 #' @param res.num <numeric>: the resoulution in used in hic.cmx_lst. If NULL automatically find in resolution attributes of hic.cmx_lst. (Default NULL)
 #' @param matriceDim.num <numeric>: The size of matrices in output. (Default 21).
-#' @param shiftFactor.num <numeric>: If "referencePoint.chr" is "rf". How much of the distance between anchor and bait is report before and after the region (Default 1).
+#' @param shiftFactor.num <numeric>: Onlt when "referencePoint.chr" is "rf". Factor defining how much of the distance between anchor and bait is extracted before and after the region (Default 1). Ex: for shiftFactor.num=2, extracted matrices will be 2*regionSize+regionSize+2*regionSize.
 #' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
@@ -205,8 +205,10 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         return(as.matrix(mat.spm))
                     })
                 }else if(cores.num>=2){
-                    parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                    tempSubmatrix.spm_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(range.ndx){
+                    # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")# DD221108 change to BiocParallel
+                    # tempSubmatrix.spm_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(range.ndx){# DD221108 change to BiocParallel
+                    multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
+                    tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(range.ndx){ # DD221108 change to BiocParallel
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
                         if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
@@ -233,7 +235,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         }
                         return(as.matrix(mat.spm))
                     })
-                    parallel::stopCluster(parCl)
+                    # parallel::stopCluster(parCl) # DD221108 change to BiocParallel
                     if(verbose.bln){SuperTK::ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
                 }
                 return(tempSubmatrix.spm_lst)
