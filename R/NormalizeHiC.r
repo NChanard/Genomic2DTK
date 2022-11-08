@@ -7,7 +7,7 @@
 #' @param interaction.type <character> : "cis", "trans", c("cis", "trans"), "all". If NULL normalization is apply on cis chunks then trans chunks (equivalent to c("cis", "trans")). If is "all", normalization is apply on all chuncks at once. (Default NULL)
 #' @param maxIter.num <numerical>: The maximum iteration number.
 #' @param qtlTh.num <numerical>: the threshold quantile below which the bins will be ignored. (Default 0.15)
-#' @param cores.num <numerical> : An integer to specify the number of cores. (Default 1)
+#' @param cores.num <numerical> : Number of cores to be used. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples

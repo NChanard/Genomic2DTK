@@ -1,16 +1,16 @@
-#' multiple GRanges Bining
+#' Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().
 #' 
 #' IndexFeatures
-#' @description Bin multiple GRanges and summary all in one GRange. Could overlap ranges with constraints regions
-#' @param gRange.gnr_lst <GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList
-#' @param constraint.gnr <GRanges>: A GRange of constraint regions. If NULL chromosomes in chromSize.dtf are used (Default NULL)
-#' @param chromSize.dtf <data.frame>: A data.frame of genome where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
-#' @param binSize.num <integer>: A number that specify the width bins.
-#' @param method.chr <character>: A string of a summary method name as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean'')
-#' @param variablesName.chr_vec <character> : A character vector that specify the metadata columns of GRanges on which apply the summary method.
-#' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
+#' @description Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function.
+#' @param gRange.gnr_lst <GRanges or GRangesList or list[GRanges]>: GRanges object, list of GRanges or GRangesList containing coordinates to index.
+#' @param constraint.gnr <GRanges>: GRanges object of constraint regions. Note that bins in the same constraint region only will be paired in SearchPairs(). If NULL chromosomes in chromSize.dtf are used as constraints (Default NULL)
+#' @param chromSize.dtf <data.frame>: A data.frame containing chromosomes names and lengths in base pairs (see example).
+#' @param binSize.num <integer>: Bin size in bp - corresponds to HiC matrix resolution.
+#' @param variablesName.chr_vec <character> : A character vector that specify the metadata columns of GRanges on which apply the summary method if multiple ranges are indexed in the same bin.
+#' @param method.chr <character>: A string defining which summary method is used on metadata columns defined in variablesName.chr_vec if multiple ranges are indexed in the same bin. Use 'mean', 'median', 'sum', 'max' or 'min'. (Default 'mean'')
+#' @param cores.num <integer> : Number of cores used. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
-#' @return A GRange object.
+#' @return A GRanges object.
 #' @examples
 #' library(GenomicED)
 #' data("anchors_Peaks.gnr")
@@ -107,21 +107,24 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(subBinnedFeature.gnr)
                 })
             }else if(cores.num>=2){
-                parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                parallel::clusterEvalQ(parCl, {
-                    library(GenomicRanges)
-                })
-                binnedFeature.gnr_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(row.ndx){
+                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
+                # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
+                # parallel::clusterEvalQ(parCl, {
+                #     library(GenomicRanges)
+                # })
+                # binnedFeature.gnr_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(row.ndx){
+                binnedFeature.gnr_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(row.ndx){
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
                     subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
                     subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
                     return(subBinnedFeature.gnr)
                 })
-                parallel::stopCluster(parCl)
+                # parallel::stopCluster(parCl)
             }
             binnedFeature.gnr <- GenomicTK::MergeGRanges(binnedFeature.gnr_lst, sort.bln=FALSE, reduce.bln=FALSE)
-            binnedFeature.gnr$bln <- 1
+            # binnedFeature.gnr$bln <- 1
+            binnedFeature.gnr$bln <- T # DD221108 change for T/F instead of 1/0
             names(S4Vectors::mcols(binnedFeature.gnr)) <- paste0(feature.chr, ".",names(S4Vectors::mcols(binnedFeature.gnr)))
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".bin"))] <- "bin"
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".constraint"))] <- "constraint"
@@ -167,8 +170,8 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(binnedIndexDuplicated.tbl)
                 })
             }else if(cores.num>=2){
-                parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                binnedIndexDuplicated.lst <- parallel::parLapply(parCl,seq_len(jobLenght.num), function(row.ndx){
+                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
+                binnedIndexDuplicated.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(jobLenght.num), function(row.ndx){
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
                     row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
                     col.lst <- lapply(seq_along(row),function(col.ndx){
@@ -185,14 +188,15 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                         tibble::add_column(name = rowName.chr)
                     return(binnedIndexDuplicated.tbl)
                 })
-                parallel::stopCluster(parCl)
+                # parallel::stopCluster(parCl)
             }
             binnedIndexDuplicated.tbl <- dplyr::bind_rows(binnedIndexDuplicated.lst)
             binnedIndex.gnr <- rbind(binnedIndexDuplicated.tbl, binnedIndexNoDuplicated.tbl) |> data.frame() |> methods::as("GRanges")
         }
         for(featureName.chr in feature.chr_vec){
             colname.chr =  paste0(featureName.chr, ".bln")
-            S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- 0
+            # S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- 0
+            S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- F # DD221108 change for T/F instead of 1/0
             S4Vectors::mcols(binnedIndex.gnr)[,colname.chr] <- methods::as(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr], "Rle")
         }
         columOrder.chr <- unique(c("name","bin","constraint",names(S4Vectors::mcols(binnedIndex.gnr))))

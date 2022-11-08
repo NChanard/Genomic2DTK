@@ -1,9 +1,9 @@
-#' Compute expected.
+#' Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.
 #' 
 #' ExpectedHiC
-#' @description Compute the mean of contact as a function of distance and apply as expected value.
+#' @description Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
-#' @param cores.num <numerical> : An integer to specify the number of cores. (Default 1)
+#' @param cores.num <numerical> : Number of cores to be used. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples    
@@ -28,10 +28,12 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
             return(expected.lst)
         }) |> do.call(what="c")
     }else if(cores.num>=2){
-        parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-        parallel::clusterCall(parCl, ".libPaths", new=.libPaths())
-        parallel::clusterExport(parCl, c("matricesNames.chr", "hic.cmx_lst", "resolution.num"))
-        expected.lst <- parallel::parLapply(parCl,seq_along(matricesNames.chr), function(matrixName.ndx){
+        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221107 change to BiocParallel
+        # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
+        # parallel::clusterCall(parCl, ".libPaths", new=.libPaths())
+        # parallel::clusterExport(parCl, c("matricesNames.chr", "hic.cmx_lst", "resolution.num"))
+        # expected.lst <- parallel::parLapply(parCl,seq_along(matricesNames.chr), function(matrixName.ndx){
+        expected.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(matricesNames.chr), function(matrixName.ndx){
             matrixName.chr <- matricesNames.chr[matrixName.ndx]
             if(hic.cmx_lst[[matrixName.chr]]@metadata$type=="cis"){
                 hic.dtf <- SuperTK::MeltSpm(hic.cmx_lst[[matrixName.chr]]@matrix)
@@ -44,7 +46,7 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
             expected.lst <- list(expected.num) |> stats::setNames(matrixName.chr)
             return(expected.lst)
         }) |> do.call(what="c")
-        parallel::stopCluster(parCl)
+        # parallel::stopCluster(parCl)
     }
     cisNames.chr<- NULL
     for(matrixName.chr in matricesNames.chr){
