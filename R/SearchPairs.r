@@ -1,13 +1,13 @@
-#' Merge genomic index in putative bin pairs.
+#' Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.
 #' 
 #' SearchPairs
-#' @description Compute pairs of genomic features that share a same range constraintes.
-#' @param indexAnchor.gnr <GRanges>: GRanges used in the first part of the pairs.
-#' @param indexBait.gnr <GRanges>: GRanges used in the second part of the pars. If NULL is replace with indexAnchor.gnr (Default NULL)
-#' @param minDist.num <numeric>: the minimal distance between first and second parts of pairs. (Default NULL)
-#' @param maxDist.num <numeric>: the maximal distance between first and second parts of pairs. (Default NULL)
-#' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
-#' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
+#' @description Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.
+#' @param indexAnchor.gnr <GRanges>: A first indexed GRanges object used as pairs anchor (must be indexed using IndexFeatures()).
+#' @param indexBait.gnr <GRanges>: A second indexed GRanges object used as pairs bait (must be indexed using IndexFeatures()). If NULL, indexAnchor.gnr is used instead (Default NULL)
+#' @param minDist.num <numeric>: Minimal distance between anchors and baits. (Default NULL)
+#' @param maxDist.num <numeric>: Maximal distance between anchors and baits. (Default NULL)
+#' @param cores.num <integer> : Number of cores to use. (Default 1)
+#' @param verbose.bln <logical>: If TRUE show the progression in console. (Default TRUE)
 #' @return A GInteractions object.
 #' @examples
 #' library(GenomicED)
@@ -63,11 +63,12 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             }) 
         if(verbose.bln){cat("\n")}
     }else if(cores.num>=2){
-        parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-        parallel::clusterEvalQ(parCl, {
-            library(GenomicRanges)
-        })
-        pairs.gni_lst <- parallel::parLapply(parCl,seq_len(jobLength.num), function(constraint.ndx){
+        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
+        # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
+        # parallel::clusterEvalQ(parCl, {
+        #     library(GenomicRanges)
+        # })
+        pairs.gni_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(jobLength.num), function(constraint.ndx){
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
             subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr@elementMetadata$constraint == commonConstraint.chr)]
             subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr@elementMetadata$constraint == commonConstraint.chr)]
@@ -84,7 +85,7 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             }
             return(subPairs.gni)
             }) 
-        parallel::stopCluster(parCl)
+        # parallel::stopCluster(parCl)
     }
     pairs.gni <- do.call(c,pairs.gni_lst)
     pairs.gni$anchor2.constraint <- NULL
