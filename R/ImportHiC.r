@@ -1,6 +1,6 @@
 #' Import Hic data 
 #'
-#' import.hic
+#' ImportHic
 #' @description Import ..hic, .cool, .mcool or .bedpe data  
 #' @param file.pth <GRanges or Pairs[GRanges] or GInteractions>: The genomic feature on which compute the extraction of HiC submatrix. Extension should be .hic, .cool, .mcool, .h5, .hdf5, .HDF5 or .bedpe" assuming .h5 et .hdf5 are only for cool (not mcool).
 #' @param res.num <numeric>: the HiC resolution.
@@ -11,7 +11,7 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
-import.hic <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.chr=NULL, chrom_2.chr=NULL, verbose.bln=TRUE, cores.num=1){
+ImportHic <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.chr=NULL, chrom_2.chr=NULL, verbose.bln=TRUE, cores.num=1){
     # Resolution Format
         options(scipen=999)
         if(inherits(res.num,"character")){
