@@ -18,10 +18,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item">
-  <a class="nav-link" href="../articles/Genomic2DTK.html">Get started</a>
-</li>
-<li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -68,7 +65,7 @@
           
           <code><a href="ExpectedHiC.html">ExpectedHiC()</a></code> 
         </dt>
-        <dd>Compute expected.</dd>
+        <dd>Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.</dd>
       </dl><dl><dt>
           
           <code><a href="ExtractSubmatrix.html">ExtractSubmatrix()</a></code> 
@@ -83,7 +80,7 @@
           
           <code><a href="GetQuantif.html">GetQuantif()</a></code> 
         </dt>
-        <dd>Compute quantification in extracted submatrix.</dd>
+        <dd>Compute quantification on extracted submatrix.</dd>
       </dl><dl><dt>
           
           <code><a href="ICEnorm.html">ICEnorm()</a></code> 
@@ -91,14 +88,9 @@
         <dd>Compute Iterative Correction on hic chunk.</dd>
       </dl><dl><dt>
           
-          <code><a href="ImportHiC.html">ImportHiC()</a></code> 
-        </dt>
-        <dd>Import Hic data</dd>
-      </dl><dl><dt>
-          
           <code><a href="IndexFeatures.html">IndexFeatures()</a></code> 
         </dt>
-        <dd>multiple GRanges Bining</dd>
+        <dd>Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().</dd>
       </dl><dl><dt>
           
           <code><a href="JoinHiC.html">JoinHiC()</a></code> 
@@ -108,7 +100,7 @@
           
           <code><a href="NormalizeHiC.html">NormalizeHiC()</a></code> 
         </dt>
-        <dd>Comoute HiC map normalization.</dd>
+        <dd>Compute HiC map matrix-balancing normalization.</dd>
       </dl><dl><dt>
           
           <code><a href="OrienteMatrix.html">OrienteMatrix()</a></code> 
@@ -123,7 +115,7 @@
           
           <code><a href="SearchPairs.html">SearchPairs()</a></code> 
         </dt>
-        <dd>Merge genomic index in putative bin pairs.</dd>
+        <dd>Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.</dd>
       </dl><dl><dt>
           
           <code><a href="SwitchMatrix.html">SwitchMatrix()</a></code> 

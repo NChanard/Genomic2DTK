@@ -18,10 +18,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item">
-  <a class="nav-link" href="../articles/Genomic2DTK.html">Get started</a>
-</li>
-<li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -66,7 +63,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>feature.gn</dt>
-<dd><p>&lt;GRanges or Pairs[GRanges] or GInteractions&gt;: The genomic feature on which compute the extraction of HiC submatrix.</p></dd>
+<dd><p>&lt;GRanges or Pairs[GRanges] or GInteractions&gt;: The genomic coordinates on which compute the extraction of HiC submatrix.</p></dd>
 
 
 <dt>hic.cmx_lst</dt>
@@ -74,7 +71,7 @@
 
 
 <dt>referencePoint.chr</dt>
-<dd><p>&lt;character&gt;: A character that give the kind of extraction. "rf" to extract regions or "pf" to extract points interactions. (Default "rf")</p></dd>
+<dd><p>&lt;character&gt;: Type of extracted submatrices. "rf" for "region feature" to extract triangle-shaped matrices around regions or "pf" for "point feature" to extract square-shaped matrices around points. (Default "rf")</p></dd>
 
 
 <dt>res.num</dt>
@@ -86,7 +83,7 @@
 
 
 <dt>shiftFactor.num</dt>
-<dd><p>&lt;numeric&gt;: If "referencePoint.chr" is "rf". How much of the distance between anchor and bait is report before and after the region (Default 1).</p></dd>
+<dd><p>&lt;numeric&gt;: Onlt when "referencePoint.chr" is "rf". Factor defining how much of the distance between anchor and bait is extracted before and after the region (Default 1). Ex: for shiftFactor.num=2, extracted matrices will be 2*regionSize+regionSize+2*regionSize.</p></dd>
 
 
 <dt>cores.num</dt>
