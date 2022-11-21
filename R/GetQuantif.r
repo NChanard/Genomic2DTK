@@ -1,5 +1,5 @@
 #' Compute quantification on extracted submatrix.
-#' 
+#'
 #' GetQuantif
 #' @description Function that computes quantification of contact frequencies in a given area and returns it in a named vector.
 #' @param matrices.lst <List[matrix]>: A matrices list.
@@ -130,6 +130,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     ULwidth.chr  <- paste0("1:", baitStart.num - 2 )
                     inner.chr    <- paste0(anchorEnd.num  +  2,":", baitStart.num  - 2)
                     BRheight.chr <- paste0(anchorEnd.num +  2 , ":", matriceDim.num)
+                    donut.chr    <- NULL
             # Computability
                 U.lgk  <- anchorStart.num >= 3
                 R.lgk  <- matriceDim.num >= baitEnd.num+2
@@ -195,10 +196,10 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     TRUE                                                    ~ list(anchor.chr   , bait.chr     )
                 ) |>
                 paste(collapse=",")
-                area.fun <- SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))   
+                area.fun <- SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
         }
     # Compute quantif
-        quantif.num <- lapply(matrices.lst, function(mtx){ 
+        quantif.num <- lapply(matrices.lst, function(mtx){
             mtxQuantif.num <- operation.fun(area.fun(mtx)) |>
                 stats::setNames(NULL)
             rownames(mtxQuantif.num) <- NULL
@@ -208,13 +209,13 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
     # Get Names
         if(!is.null(name.chr)){
             interactions.dtf <- data.frame(S4Vectors::mcols(attributes(matrices.lst)$interactions))
-            names.chr_lst <- dplyr::arrange(interactions.dtf, factor(interactions.dtf$submatrix.name, levels=names(quantif.num))) |> dplyr::pull(name.chr) 
+            names.chr_lst <- dplyr::arrange(interactions.dtf, factor(interactions.dtf$submatrix.name, levels=names(quantif.num))) |> dplyr::pull(name.chr)
         } else {
             names.chr_lst <- names(quantif.num)
         }
     # Repeted Index if names.chr_lst is a nested List
         lengths.num <- lapply(names.chr_lst, length)
-        lengths.num <- lengths.num |> stats::setNames(seq_along(lengths.num)) 
+        lengths.num <- lengths.num |> stats::setNames(seq_along(lengths.num))
         repeted.ndx <- rep(names(lengths.num),lengths.num) |> as.numeric()
     # Add attributes
         quantif.num <- unlist(quantif.num[repeted.ndx]) |>
