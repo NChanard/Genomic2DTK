@@ -28,11 +28,7 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
             return(expected.lst)
         }) |> do.call(what="c")
     }else if(cores.num>=2){
-        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221107 change to BiocParallel
-        # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-        # parallel::clusterCall(parCl, ".libPaths", new=.libPaths())
-        # parallel::clusterExport(parCl, c("matricesNames.chr", "hic.cmx_lst", "resolution.num"))
-        # expected.lst <- parallel::parLapply(parCl,seq_along(matricesNames.chr), function(matrixName.ndx){
+        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
         expected.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(matricesNames.chr), function(matrixName.ndx){
             matrixName.chr <- matricesNames.chr[matrixName.ndx]
             if(hic.cmx_lst[[matrixName.chr]]@metadata$type=="cis"){
@@ -46,7 +42,6 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
             expected.lst <- list(expected.num) |> stats::setNames(matrixName.chr)
             return(expected.lst)
         }) |> do.call(what="c")
-        # parallel::stopCluster(parCl)
     }
     cisNames.chr<- NULL
     for(matrixName.chr in matricesNames.chr){

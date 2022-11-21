@@ -2,7 +2,7 @@
 % Please edit documentation in R/IndexFeatures.r
 \name{IndexFeatures}
 \alias{IndexFeatures}
-\title{multiple GRanges Bining}
+\title{Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().}
 \usage{
 IndexFeatures(
   gRange.gnr_lst = NULL,
@@ -16,27 +16,27 @@ IndexFeatures(
 )
 }
 \arguments{
-\item{gRange.gnr_lst}{<GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList}
+\item{gRange.gnr_lst}{<GRanges or GRangesList or list[GRanges]>: GRanges object, list of GRanges or GRangesList containing coordinates to index.}
 
-\item{constraint.gnr}{<GRanges>: A GRange of constraint regions. If NULL chromosomes in chromSize.dtf are used (Default NULL)}
+\item{constraint.gnr}{<GRanges>: GRanges object of constraint regions. Note that bins in the same constraint region only will be paired in SearchPairs(). If NULL chromosomes in chromSize.dtf are used as constraints (Default NULL)}
 
-\item{chromSize.dtf}{<data.frame>: A data.frame of genome where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.}
+\item{chromSize.dtf}{<data.frame>: A data.frame containing chromosomes names and lengths in base pairs (see example).}
 
-\item{binSize.num}{<integer>: A number that specify the width bins.}
+\item{binSize.num}{<integer>: Bin size in bp - corresponds to HiC matrix resolution.}
 
-\item{method.chr}{<character>: A string of a summary method name as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean'')}
+\item{method.chr}{<character>: A string defining which summary method is used on metadata columns defined in variablesName.chr_vec if multiple ranges are indexed in the same bin. Use 'mean', 'median', 'sum', 'max' or 'min'. (Default 'mean'')}
 
-\item{variablesName.chr_vec}{<character> : A character vector that specify the metadata columns of GRanges on which apply the summary method.}
+\item{variablesName.chr_vec}{<character> : A character vector that specify the metadata columns of GRanges on which apply the summary method if multiple ranges are indexed in the same bin.}
 
-\item{cores.num}{<integer> : An integer to specify the number of cores. (Default 1)}
+\item{cores.num}{<integer> : Number of cores used. (Default 1)}
 
 \item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
 }
 \value{
-A GRange object.
+A GRanges object.
 }
 \description{
-Bin multiple GRanges and summary all in one GRange. Could overlap ranges with constraints regions
+Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function.
 }
 \details{
 IndexFeatures

@@ -107,12 +107,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(subBinnedFeature.gnr)
                 })
             }else if(cores.num>=2){
-                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
-                # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-                # parallel::clusterEvalQ(parCl, {
-                #     library(GenomicRanges)
-                # })
-                # binnedFeature.gnr_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(row.ndx){
+                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
                 binnedFeature.gnr_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(row.ndx){
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
@@ -120,11 +115,9 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
                     return(subBinnedFeature.gnr)
                 })
-                # parallel::stopCluster(parCl)
             }
             binnedFeature.gnr <- GenomicTK::MergeGRanges(binnedFeature.gnr_lst, sort.bln=FALSE, reduce.bln=FALSE)
-            # binnedFeature.gnr$bln <- 1
-            binnedFeature.gnr$bln <- T # DD221108 change for T/F instead of 1/0
+            binnedFeature.gnr$bln <- TRUE
             names(S4Vectors::mcols(binnedFeature.gnr)) <- paste0(feature.chr, ".",names(S4Vectors::mcols(binnedFeature.gnr)))
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".bin"))] <- "bin"
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".constraint"))] <- "constraint"
@@ -170,7 +163,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(binnedIndexDuplicated.tbl)
                 })
             }else if(cores.num>=2){
-                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
+                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
                 binnedIndexDuplicated.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(jobLenght.num), function(row.ndx){
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
                     row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
@@ -188,15 +181,13 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                         tibble::add_column(name = rowName.chr)
                     return(binnedIndexDuplicated.tbl)
                 })
-                # parallel::stopCluster(parCl)
             }
             binnedIndexDuplicated.tbl <- dplyr::bind_rows(binnedIndexDuplicated.lst)
             binnedIndex.gnr <- rbind(binnedIndexDuplicated.tbl, binnedIndexNoDuplicated.tbl) |> data.frame() |> methods::as("GRanges")
         }
         for(featureName.chr in feature.chr_vec){
-            colname.chr =  paste0(featureName.chr, ".bln")
-            # S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- 0
-            S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- F # DD221108 change for T/F instead of 1/0
+            colname.chr <- paste0(featureName.chr, ".bln")
+            S4Vectors::mcols(binnedIndex.gnr)[which(is.na(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr])),colname.chr] <- FALSE
             S4Vectors::mcols(binnedIndex.gnr)[,colname.chr] <- methods::as(S4Vectors::mcols(binnedIndex.gnr)[, colname.chr], "Rle")
         }
         columOrder.chr <- unique(c("name","bin","constraint",names(S4Vectors::mcols(binnedIndex.gnr))))

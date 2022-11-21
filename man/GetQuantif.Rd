@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetQuantif.r
 \name{GetQuantif}
 \alias{GetQuantif}
-\title{Compute quantification in extracted submatrix.}
+\title{Compute quantification on extracted submatrix.}
 \usage{
 GetQuantif(
   matrices.lst,
@@ -12,39 +12,39 @@ GetQuantif(
 )
 }
 \arguments{
-\item{matrices.lst}{<List[matrix]> : A matrices list.}
+\item{matrices.lst}{<List[matrix]>: A matrices list.}
 
-\item{area.fun}{<character or function> : A character or function thaht alow an extraction of an area on each matrix that compose the matrices lits (Default "center").
+\item{area.fun}{<character or function>: A character or function that allow an extraction of an area on each matrix that compose the matrices list (Default "center").
 \itemize{
-\item "mean_rm0" : apply a mean after replace 0 with NA
-\item "median_rm0" : apply a median after replace 0 with NA
-\item "sum_rm0" : apply a sum after replace 0 with NA
-\item "median" : apply a median
-\item "sum" : apply a sum
-\item "mean" or other character :  apply a mean
+\item "C" or "CENTER": pixel at the intersection between anchor and bait.
+\item "UL" or "UPPER_LEFT": pixels in the uppper left square
+\item "UR" or "UPPER_RIGHT": pixels in the uppper right square
+\item "BL" or "BOTTOM_LEFT": pixels in the bottom left square
+\item "BR" or "BOTTOM_RIGHT": pixels in the bottom right square
+\item "U" or "UPPER": pixels above the center area
+\item "B" or "BOTTOM": pixels below the center area
+\item "L" or "LEFT": pixels in the left of the center area
+\item "R" or "RIGHT": pixels in the right of the center area
+\item "D" or "DONUT": pixels that surrounds the center area
 }}
 
-\item{operation.fun}{<character or function> : A character or function to applt on the  extracted area of each matrix that compose the matrices lits (Default "mean_rm0").
+\item{operation.fun}{<character or function>: A character or function specifying the operation used to get quantification (Default "mean_rm0").
 \itemize{
-\item "C" or "CENTER" : Take the area of interaction between anchor and bait.
-\item "UL" or "UPPER_LEFT" : Take the area of interaction in the uppper left square
-\item "UR" or "UPPER_RIGHT" : Take the area of interaction in the uppper right square
-\item "BL" or "BOTTOM_LEFT" : Take the area of interaction in the bottom left square
-\item "BR" or "BOTTOM_RIGHT" : Take the area of interaction in the bottom right square
-\item "U" or "UPPER" : Take the area of interaction in above the center area
-\item "B" or "BOTTOM" : Take the area of interaction in below the center area
-\item "L" or "LEFT" : Take the area of interaction in the left of the center area
-\item "R" or "RIGHT" : Take the area of interaction in the right of the center area
-\item "D" or "DONUT" : Take the area of interaction that surround the center area
+\item "mean_rm0": apply a mean after replace 0 with NA
+\item "median_rm0": apply a median after replace 0 with NA
+\item "sum_rm0": apply a sum after replace 0 with NA
+\item "median": apply a median
+\item "sum": apply a sum
+\item "mean" or other character:  apply a mean
 }}
 
-\item{name.chr}{<character> : The name of a column in GInteraction attributes of matrices.lst used as named in the output (Default NULL).}
+\item{name.chr}{<character>: The name of a column in GInteraction attributes of matrices.lst used as named in the output vector (Default NULL). By default, sub-matrices IDs are used.}
 }
 \value{
 A GRange object.
 }
 \description{
-Compute a function on each matrix that compose a matrices list.
+Function that computes quantification of contact frequencies in a given area and returns it in a named vector.
 }
 \details{
 GetQuantif

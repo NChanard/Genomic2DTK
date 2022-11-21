@@ -2,12 +2,12 @@
 % Please edit documentation in R/NormalizeHiC.r
 \name{NormalizeHiC}
 \alias{NormalizeHiC}
-\title{Comoute HiC map normalization.}
+\title{Compute HiC map matrix-balancing normalization.}
 \usage{
 NormalizeHiC(
   hic.cmx_lst,
   method.chr = "ICE",
-  type.chr = NULL,
+  interaction.type = NULL,
   maxIter.num = 50,
   qtlTh.num = 0.15,
   cores.num = 1,
@@ -19,13 +19,13 @@ NormalizeHiC(
 
 \item{method.chr}{<character> : The kind of normalization method. One of "ICE", "VC" or "VC_SQRT" (Default "ICE")}
 
-\item{type.chr}{<character> : If NULL normalization is apply on cis chunks then trans chunks. If is "all", normalization is apply on all chuncks at once. (Default NULL)}
+\item{interaction.type}{<character> : "cis", "trans", c("cis", "trans"), "all". If NULL normalization is apply on cis chunks then trans chunks (equivalent to c("cis", "trans")). If is "all", normalization is apply on all chuncks at once. (Default NULL)}
 
 \item{maxIter.num}{<numerical>: The maximum iteration number.}
 
 \item{qtlTh.num}{<numerical>: the threshold quantile below which the bins will be ignored. (Default 0.15)}
 
-\item{cores.num}{<numerical> : An integer to specify the number of cores. (Default 1)}
+\item{cores.num}{<numerical> : Number of cores to be used. (Default 1)}
 
 \item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
 }
@@ -33,7 +33,7 @@ NormalizeHiC(
 A matrices list.
 }
 \description{
-Apply a normalization method to a list of contacts matrix.
+Apply a matrix-balancing normalization method to a list of contacts matrix.
 }
 \details{
 NormalizeHiC

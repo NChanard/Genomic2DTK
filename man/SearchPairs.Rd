@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchPairs.r
 \name{SearchPairs}
 \alias{SearchPairs}
-\title{Merge genomic index in putative bin pairs.}
+\title{Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.}
 \usage{
 SearchPairs(
   indexAnchor.gnr = NULL,
@@ -14,23 +14,23 @@ SearchPairs(
 )
 }
 \arguments{
-\item{indexAnchor.gnr}{<GRanges>: GRanges used in the first part of the pairs.}
+\item{indexAnchor.gnr}{<GRanges>: A first indexed GRanges object used as pairs anchor (must be indexed using IndexFeatures()).}
 
-\item{indexBait.gnr}{<GRanges>: GRanges used in the second part of the pars. If NULL is replace with indexAnchor.gnr (Default NULL)}
+\item{indexBait.gnr}{<GRanges>: A second indexed GRanges object used as pairs bait (must be indexed using IndexFeatures()). If NULL, indexAnchor.gnr is used instead (Default NULL)}
 
-\item{minDist.num}{<numeric>: the minimal distance between first and second parts of pairs. (Default NULL)}
+\item{minDist.num}{<numeric>: Minimal distance between anchors and baits. (Default NULL)}
 
-\item{maxDist.num}{<numeric>: the maximal distance between first and second parts of pairs. (Default NULL)}
+\item{maxDist.num}{<numeric>: Maximal distance between anchors and baits. (Default NULL)}
 
-\item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
+\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default TRUE)}
 
-\item{cores.num}{<integer> : An integer to specify the number of cores. (Default 1)}
+\item{cores.num}{<integer> : Number of cores to use. (Default 1)}
 }
 \value{
 A GInteractions object.
 }
 \description{
-Compute pairs of genomic features that share a same range constraintes.
+Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.
 }
 \details{
 SearchPairs

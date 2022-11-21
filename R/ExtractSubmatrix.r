@@ -205,10 +205,8 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         return(as.matrix(mat.spm))
                     })
                 }else if(cores.num>=2){
-                    # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")# DD221108 change to BiocParallel
-                    # tempSubmatrix.spm_lst <- parallel::parLapply(parCl,seq_len(subJobLenght.num),function(range.ndx){# DD221108 change to BiocParallel
-                    multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
-                    tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(range.ndx){ # DD221108 change to BiocParallel
+                    multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+                    tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(range.ndx){
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
                         if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
@@ -235,7 +233,6 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         }
                         return(as.matrix(mat.spm))
                     })
-                    # parallel::stopCluster(parCl) # DD221108 change to BiocParallel
                     if(verbose.bln){SuperTK::ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
                 }
                 return(tempSubmatrix.spm_lst)

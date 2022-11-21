@@ -12,7 +12,7 @@
 #' @return A matrices list.
 #' @examples
 NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, maxIter.num=50, qtlTh.num=0.15, cores.num=1, verbose.bln=TRUE ){
-    if ("all" %in% interaction.type){ # DD221028 NULL=="coucou" logical(0) does not return TRUE/FALSE
+    if ("all" %in% interaction.type){
         megaHic.cmx <- JoinHiC(hic.cmx_lst)
         if(method.chr=="VC"){
             megaHic.cmx <-  VCnorm(megaHic.cmx, qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
@@ -44,10 +44,8 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                             return(hic.cmx)
                         })
                     }else if (cores.num>=2){
-                        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221107 change to BiocParallel
-                        # parCl <- parallel::makeCluster(cores.num, type ="FORK") # DD221107 change to BiocParallel
-                        hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){ # DD221107 change to BiocParallel
-                        # hic.cmx_lst[cisMatricesNames.chr] <- parallel::parLapply(parCl,seq_along(cisMatricesNames.chr), function(ele.ndx){ # DD221107 change to BiocParallel
+                        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+                        hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){
                             matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
                             if(method.chr=="VC"){
                                 hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
@@ -58,7 +56,6 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                             }
                             return(hic.cmx)
                         })
-                        # parallel::stopCluster(parCl) # DD221107 change to BiocParallel
                     }
                 }
             }else{

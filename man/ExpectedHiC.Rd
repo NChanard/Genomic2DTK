@@ -2,7 +2,7 @@
 % Please edit documentation in R/ExpectedHiC.r
 \name{ExpectedHiC}
 \alias{ExpectedHiC}
-\title{Compute expected.}
+\title{Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.}
 \usage{
 ExpectedHiC(hic.cmx_lst, verbose.bln = TRUE, cores.num = 1)
 }
@@ -11,13 +11,13 @@ ExpectedHiC(hic.cmx_lst, verbose.bln = TRUE, cores.num = 1)
 
 \item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
 
-\item{cores.num}{<numerical> : An integer to specify the number of cores. (Default 1)}
+\item{cores.num}{<numerical> : Number of cores to be used. (Default 1)}
 }
 \value{
 A matrices list.
 }
 \description{
-Compute the mean of contact as a function of distance and apply as expected value.
+Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.
 }
 \details{
 ExpectedHiC

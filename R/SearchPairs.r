@@ -63,11 +63,7 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             }) 
         if(verbose.bln){cat("\n")}
     }else if(cores.num>=2){
-        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num) # DD221108 change to BiocParallel
-        # parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-        # parallel::clusterEvalQ(parCl, {
-        #     library(GenomicRanges)
-        # })
+        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
         pairs.gni_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(jobLength.num), function(constraint.ndx){
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
             subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr@elementMetadata$constraint == commonConstraint.chr)]
@@ -85,7 +81,6 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             }
             return(subPairs.gni)
             }) 
-        # parallel::stopCluster(parCl)
     }
     pairs.gni <- do.call(c,pairs.gni_lst)
     pairs.gni$anchor2.constraint <- NULL
