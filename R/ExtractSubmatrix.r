@@ -30,7 +30,7 @@
 #' str(interactions_RFmatrix_ctrl.lst,max.level = 1, list.len=5)
 #' attributes(interactions_RFmatrix_ctrl.lst)$interactions[1]
 
-ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.chr="rf",  res.num=NULL, matriceDim.num=21, shiftFactor.num=1,cores.num=1, verbose.bln=TRUE){
+ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.chr="pf",  res.num=NULL, matriceDim.num=21, shiftFactor.num=1,cores.num=1, verbose.bln=TRUE){
         .GInteractionFormatting <- function(feature.gn, res.num){
             if(inherits(feature.gn,"GRanges")){
                 feature.gni  <- InteractionSet::GInteractions(GenomicRanges::resize(feature.gn,1,"start"),GenomicRanges::resize(feature.gn,1,"end"))

@@ -78,9 +78,15 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 interactions.gni <- attributes(matrices.lst)$interactions
             # Filter on distances
                 if(!is.na(minDist.num)){
+                    if(is.character(minDist.num)){
+                        minDist.num <- GenomicTK::GenomicSystem(minDist.num)
+                    }
                     matrices.lst <- matrices.lst[S4Vectors::mcols(interactions.gni)$submatrix.name[which(S4Vectors::mcols(interactions.gni)$distance >= minDist.num)]]
                 }
                 if(!is.na(maxDist.num)){
+                    if(is.character(maxDist.num)){
+                        maxDist.num <- GenomicTK::GenomicSystem(maxDist.num)
+                    }
                     matrices.lst <- matrices.lst[S4Vectors::mcols(interactions.gni)$submatrix.name[which(S4Vectors::mcols(interactions.gni)$distance <= maxDist.num)]]
                 }
                 matrices.lst <- matrices.lst[!is.na(names(matrices.lst))]
@@ -126,7 +132,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
             agg.fun <- dplyr::case_when(
                 tolower(agg.fun) %in% c("50%","median")     ~ "function(pxl){stats::median(pxl,na.rm=TRUE)}",
                 tolower(agg.fun) %in% c("+","sum")          ~ "function(pxl){sum(pxl,na.rm=TRUE)}",
-                TRUE                                        ~ "function(pxl){mean(pxl,na.rm=TRUE)}"
+                TRUE                                        ~ "function(pxl){mean(pxl,na.rm=TRUE,trim=0.01)}"
                 )
             agg.fun <- SuperTK::WrapFunction(agg.fun)
         }

@@ -7,7 +7,7 @@
 ExtractSubmatrix(
   feature.gn = NULL,
   hic.cmx_lst = NULL,
-  referencePoint.chr = "rf",
+  referencePoint.chr = "pf",
   res.num = NULL,
   matriceDim.num = 21,
   shiftFactor.num = 1,
