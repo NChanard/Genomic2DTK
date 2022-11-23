@@ -43,7 +43,7 @@ However, we invite you to have a closer look at the documentation and other arti
 ## Install libraries
 ```{r, eval = FALSE}
 remotes::install_github("NChanard/Genomic2DTK")
-remotes::install_github("NChanard/GenomicED")
+#remotes::install_github("NChanard/GenomicED")
 ```
 
 ## Load libraries
@@ -65,9 +65,9 @@ data("Beaf32_Peaks.gnr")
 <details>  
 <summary>View</summary>  
 ```{r, echo = FALSE, eval = TRUE, message = FALSE}
-anchors_Peaks.dtf <- anchors_Peaks.gnr |> as.data.frame() |> head(n=3L)
-anchors_Peaks.dtf <- anchors_Peaks.dtf[,-c(4)]
-knitr::kable(anchors_Peaks.dtf[,c(1:4,6,5)],
+Beaf_Peaks.dtf <- Beaf32_Peaks.gnr |> as.data.frame() |> head(n=3L)
+Beaf_Peaks.dtf <- Beaf_Peaks.dtf[,-c(4)]
+knitr::kable(Beaf_Peaks.dtf[,c(1:4,6,5)],
   col.names = c(
     "seq","start","end","strand",
     "name","score"),
@@ -166,32 +166,33 @@ S4Vectors::metadata(HiC_ctrl.cmx_lst[["2L_2L"]])
 
 
 # Genomic locations Preprocess
-Cette partie des données correspond aux données de positionnement sur le génomes. 
-Pour les intégréer avec les données HiC qui sont représentée par des matrices (2D), ces données  doivent subire quelque transformations.
+This part of the data corresponds to the positioning data on the genome. 
+To integrate them with the HiC data, which are represented by 2D matrices, these data have to be processed in some way.
 
 ## Features Indexing
-La première étape est l'indexation des features sur le génome. Cette étape permet de découper et regrouper les dans des bin qui correspondent à la résolution de la matrice HiC.
+The first step is the indexing of the features on the genome. This step allows the features to be splitted and grouped into bins that correspond to the resolution of the HiC matrix.
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Index.gnr <- IndexFeatures(
-  gRange.gnr_lst        = list(Beaf = anchors_Peaks.gnr),
+  gRange.gnr_lst        = list(Beaf = Beaf32_Peaks.gnr),
   chromSize.dtf         = chromSize.dtf,
   binSize.num           = binSize.num
   )
 ```
 
 ## Beaf32 <-> Beaf32 putatives pairs
-La seconde étapes consiste à rechercher les paires de Bins 
+The second step is to search for pairs of bins. We put here two distance constraints in order to limit the number of pairs kept. Thus, only the pairs for which the peaks of Beaf32 are at least 25KB and at most 100Kb apart are retained.
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Pairs.gni <- SearchPairs(
   indexAnchor.gnr = Beaf_Index.gnr,
-  minDist.num     = "21KB",
+  minDist.num     = "25KB",
   maxDist.num     = "100KB"
   )
 ```
 
 # Aggregation Analysis
-
+Once the data has been pre-processed, the analysis can be performed to integrate it.
 ## Extraction
+The first step is to extract the HiC data centred on the previously formed loci pairs. The result of the extraction is a list of matrices where each matrix corresponds to a pair.
 ```{r, eval = TRUE, results = FALSE}
 Beaf.mtx_lst <- ExtractSubmatrix(
   feature.gn  = Beaf_Pairs.gni,
@@ -199,12 +200,14 @@ Beaf.mtx_lst <- ExtractSubmatrix(
   )
 ```
 
-
 ## Aggregation
+Then we aggregate all extracted matrices in one unique matrice by performing as default a mean.
 ```{r, eval = TRUE, message = FALSE}
 aggreg.mtx <- Aggregation(Beaf.mtx_lst)
 ```
+
 ## Visulatisation
+Finaly, we can plot the aggregated matrix. Here we can see a white/red square that correspond to the topological associated domains formed between beaf32 loci.
 ```{r, eval = TRUE, fig.dim = c(7,7), warning=FALSE}
 ggAPA(
   apa.mtx = aggreg.mtx,
