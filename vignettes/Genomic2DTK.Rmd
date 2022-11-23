@@ -170,8 +170,8 @@ str(S4Vectors::metadata(hic.cmx_lst[["2L_2L"]]))
 5. **resolution** : the resolution of the HiC map.  
 6. **removedCounts** : A sparse matrix (dgCMatrix) of all counts that are removed beacause there are on very low count row or very low count columns.
 7. **observed** : the raw observed counts of the sparse matrix.
-8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).
-9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
+8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).  
+9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.  
 10.**expected** : the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
 
 
