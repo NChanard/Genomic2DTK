@@ -43,13 +43,11 @@ However, we invite you to have a closer look at the documentation and other arti
 ## Install libraries
 ```{r, eval = FALSE}
 remotes::install_github("NChanard/Genomic2DTK")
-#remotes::install_github("NChanard/GenomicED")
 ```
 
 ## Load libraries
 ```{r, eval = TRUE, message = FALSE}
 library(Genomic2DTK)
-#library(GenomicED)
 ```  
 
 
@@ -141,7 +139,7 @@ str(hic.cmx_lst, max.level = 3, give.attr = FALSE)
 ```
 The list object have some generals attributes. These attributes are accessed via:
 ```{r, eval = TRUE}
-attributes(hic.cmx_lst)
+str(attributes(hic.cmx_lst))
 #>
 ```
 
@@ -154,15 +152,27 @@ attributes(hic.cmx_lst)
 4. **matricesKind** : the kind of matrix that composes the list in the tibble format.   
     - *name* : the matrix name. 
     - *type* : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.  
-    - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices. See  
+    - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
     - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
 5. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
+6. **expected** : a tiblle of expected count as a function of genomic distance 
 
 Each contactmatrix in the list have metadata. These are accessed via:
 ```{r, eval = TRUE}
-S4Vectors::metadata(hic.cmx_lst[["2L_2L"]])
+str(S4Vectors::metadata(hic.cmx_lst[["2L_2L"]]))
 #>
 ```
+
+1. **name** : the name of the ContactMatrix.
+2. **type** : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.
+3. **kind** : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square
+4. **symmetric** : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
+5. **resolution** : the resolution of the HiC map.  
+6. **removedCounts** : A sparse matrix (dgCMatrix) of all counts that are removed beacause there are on very low count row or very low count columns.
+7. **observed** : the raw observed counts of the sparse matrix.
+8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).
+9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
+10.**expected** : the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
 
 
 # Genomic locations Preprocess
@@ -207,7 +217,7 @@ aggreg.mtx <- Aggregation(Beaf.mtx_lst)
 ```
 
 ## Visulatisation
-Finaly, we can plot the aggregated matrix. Here we can see a white/red square that correspond to the topological associated domains formed between beaf32 loci.
+Finaly, we can plot the aggregated matrix. Here we can see a red square that correspond to the topological associated domains formed between beaf32 loci.
 ```{r, eval = TRUE, fig.dim = c(7,7), warning=FALSE}
 ggAPA(
   apa.mtx = aggreg.mtx,
