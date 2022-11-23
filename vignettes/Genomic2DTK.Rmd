@@ -58,10 +58,7 @@ The testing dataset is obtained from *Drosophila melanogaster S2 cells*.
 A first part of this data is provided directly in this package and it consist of genomic location data (ChIP-seq and annotations). An other part of testing dataset is downloaded directly from the [4DN](https://data.4dnucleome.org) platform and it consists of 3D structure data of the genome (HiC maps in two different conditions).
 
 ## Genomic location and annotation data
-These kind of data could be import in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
-
-### ChIP-seq peaks
-Subset of ChIP-seq peaks of Beaf-32 protein in wild type condition in GRanges format (bed).
+Subset of ChIP-seq peaks of Beaf-32 protein in wild type condition in GRanges format (bed). These kind of data could be import in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
 ```{r, eval = TRUE}
 data("anchors_Peaks.gnr")
 ```
@@ -80,57 +77,14 @@ knitr::kable(anchors_Peaks.dtf[,c(1:4,6,5)],
 ```
 </details>  
 
-### Reference annontation
-Subset data of TSS from the UCSC data base ([TxDb.Dmelanogaster.UCSC.dm6.ensGene](https://bioconductor.org/packages/release/data/annotation/html/TxDb.Dmelanogaster.UCSC.dm6.ensGene.html)).
-```{r, eval = TRUE}
-data("baits_Peaks.gnr")
-```
-<details>
-<summary>View</summary>
-```{r, echo = FALSE, eval = TRUE, message = FALSE}
-baits_Peaks.dtf <- baits_Peaks.gnr |> as.data.frame() |> head(n=3L)
-baits_Peaks.dtf <- baits_Peaks.dtf[,-c(4)] 
-knitr::kable(baits_Peaks.dtf[,c(1:4,6,5)],
-  col.names = c(
-    "seq","start","end","strand",
-    "name","class"),
-  align  = "rccccc"
-)
-```
-</details>  
-
-### Domains annotation
-Subset of topologically associated domains from a TAD calling annalysis on wild-type HiC data ([F. Ramirez, 2018](https://doi.org/10.1038/s41467-017-02525-w)).
-```{r, eval = TRUE}
-data("domains.gnr")
-```
-<details>  
-<summary>View</summary>  
-```{r, echo = FALSE, eval = TRUE, message = FALSE}
-domains.dtf <- domains.gnr |> as.data.frame() |> head(n=3L)
-domains.dtf <- domains.dtf[,-c(4)]
-knitr::kable(domains.dtf[,c(1:4,7,5,6)],
-  col.names = c(
-    "seq","start","end","strand",
-    "name","score","class"),
-  align  = "rcccccc"
-  )
-```
-</details>  
-
 ## Genomic 3D structure
-The second part of the test data is downloaded directly from the [4DN](https://data.4dnucleome.org) platform. It consists of data from HiC experiments.
+The second part of the test data is downloaded directly from the [4DN](https://data.4dnucleome.org) platform. It consists of data from HiC experiments in .hic format (juicer format).
 
-### Prepare download
 ```{r, eval = TRUE, message = FALSE}
 options(timeout = 3600) 
 temp.dir <- file.path(tempdir(), "HIC_DATA")
 dir.create(temp.dir)
-```
 
-### Map in control condition
-HiC Map in .hic format (juicer format).
-```{r, eval = TRUE, message = FALSE}
 Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
 HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
 download.file(Hic.url, HicOutput.pth)
@@ -183,7 +137,7 @@ hic.cmx_lst <- ExpectedHiC(hic.cmx_lst)
 Each element of the list corresponds to a ContactMatrix object (dgCMatrix object, sparse matrix format) storing contact frequencies for one chromosomes (cis-interactions, ex: "2L_2L") or between two chromosomes (trans-interactions, ex: "2L_2R").  
 HiC data format is based on [InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html) package, for more details on sparse matrices format, see [Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf).
 ```{r, eval = TRUE}
-str(HiC_ctrl.cmx_lst, max.level = 4)
+str(HiC_ctrl.cmx_lst, max.level = 3, give.attr = FALSE)
 #>
 ```
 The list object have some generals attributes. These attributes are accessed via:
@@ -221,19 +175,18 @@ La première étape est l'indexation des features sur le génome. Cette étape p
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf = anchors_Peaks.gnr),
-  constraint.gnr        = domains.gnr,
   chromSize.dtf         = chromSize.dtf,
   binSize.num           = binSize.num
   )
 ```
 
-## Beaf32-TSS putatives pairing
+## Beaf32 <-> Beaf32 putatives pairs
 La seconde étapes consiste à rechercher les paires de Bins 
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Pairs.gni <- SearchPairs(
   indexAnchor.gnr = Beaf_Index.gnr,
-  minDist.num     = 40000,
-  maxDist.num     = 100000
+  minDist.num     = "21KB",
+  maxDist.num     = "100KB"
   )
 ```
 
