@@ -55,10 +55,10 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
             stop("ERROR: file must be .hic, .cool, .mcool, .hdf5, .HDF5 or .bedpe")
         }
         # Standardize seqlevelsStyle of chromSize.dtf according to chrom.chr
-            if(grepl("chr", rownames(chromSize.dtf)[1], fixed=T) & seqlevelsStyleHiC=="ensembl"){
+            if(grepl("chr", rownames(chromSize.dtf)[1], fixed=TRUE) & seqlevelsStyleHiC=="ensembl"){
                 chromSize.dtf$name <- unlist(lapply(strsplit(rownames(chromSize.dtf), "chr"), `[[`, 2))
                 rownames(chromSize.dtf) <- unlist(lapply(strsplit(rownames(chromSize.dtf), "chr"), `[[`, 2))
-            }else if(!grepl("chr", rownames(chromSize.dtf)[1], fixed=T) & seqlevelsStyleHiC=="UCSC"){
+            }else if(!grepl("chr", rownames(chromSize.dtf)[1], fixed=TRUE) & seqlevelsStyleHiC=="UCSC"){
                 chromSize.dtf$name <- paste0("chr", rownames(chromSize.dtf))
                 rownames(chromSize.dtf) <- paste0("chr", rownames(chromSize.dtf))
             }
@@ -112,7 +112,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                     unlist()
             if(SuperTK::GetFileExtension(file.pth)=="hic"){ 
                 # Read .hic file
-                    hic.dtf <- strawr::straw("NONE", file.pth, chrom_1.chr,chrom_2.chr, "BP", res.num, "observed")
+                    hic.dtf <- strawr::straw("NONE", file.pth, chrom_1.chr, chrom_2.chr, "BP", res.num, "observed")
                     hic.dtf$j <- ceiling((hic.dtf$y+1) / res.num)
                     hic.dtf$i <- ceiling((hic.dtf$x+1) / res.num)
             }else if(SuperTK::GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){
