@@ -49,7 +49,7 @@ remotes::install_github("NChanard/GenomicED")
 ## Load libraries
 ```{r, eval = TRUE, message = FALSE}
 library(Genomic2DTK)
-library(GenomicED)
+#library(GenomicED)
 ```  
 
 
@@ -60,7 +60,7 @@ A first part of this data is provided directly in this package and it consist of
 ## Genomic location and annotation data
 Subset of ChIP-seq peaks of Beaf-32 protein in wild type condition in GRanges format (bed). These kind of data could be import in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
 ```{r, eval = TRUE}
-data("anchors_Peaks.gnr")
+data("Beaf32_Peaks.gnr")
 ```
 <details>  
 <summary>View</summary>  
