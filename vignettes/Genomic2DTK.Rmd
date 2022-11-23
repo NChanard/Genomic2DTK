@@ -87,7 +87,7 @@ dir.create(temp.dir)
 
 Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
 HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
-download.file(Hic.url, HicOutput.pth)
+download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
 ```
 
 ## Additional genome informations
@@ -116,7 +116,6 @@ Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool,
 hic.cmx_lst <- ImportHiC(
   file.pth      = HicOutput.pth,
   res.num       = binSize.num,
-  chromSize.dtf = chromSize.dtf ,
   chrom_1.chr   = c("2L","2R")
   )
 ```

@@ -200,7 +200,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                     hic.dtf <- hic.dtf[filter.bin2,]
                     hic.dtf <- dplyr::mutate(hic.dtf, i=hic.dtf$i-starts.ndx[chrom_1.chr]+1)
                     hic.dtf <- dplyr::mutate(hic.dtf, j=hic.dtf$j-starts.ndx[chrom_2.chr]+1)         
-            }else if(SuperTK::GetFileExtension(file.pth) =="bedpe"){ 
+            }else if(SuperTK::GetFileExtension(file.pth) == "bedpe"){ 
                 hic.dtf <-  dplyr::filter(megaHic.dtf, megaHic.dtf$chrom_1==chrom_1.chr & megaHic.dtf$chrom_2==chrom_2.chr)
             }
             # Create Contact matrix
