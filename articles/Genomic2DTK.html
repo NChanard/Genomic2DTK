@@ -147,13 +147,9 @@ conditions).</p>
 <div class="section level3">
 <h3 id="genomic-location-and-annotation-data">Genomic location and annotation data<a class="anchor" aria-label="anchor" href="#genomic-location-and-annotation-data"></a>
 </h3>
-<p>These kind of data could be import in R with <a href="https://bioconductor.org/packages/release/bioc/html/rtracklayer.html" class="external-link">rtracklayer</a>
-package.</p>
-<div class="section level4">
-<h4 id="chip-seq-peaks">ChIP-seq peaks<a class="anchor" aria-label="anchor" href="#chip-seq-peaks"></a>
-</h4>
 <p>Subset of ChIP-seq peaks of Beaf-32 protein in wild type condition in
-GRanges format (bed).</p>
+GRanges format (bed). These kind of data could be import in R with <a href="https://bioconductor.org/packages/release/bioc/html/rtracklayer.html" class="external-link">rtracklayer</a>
+package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"anchors_Peaks.gnr"</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -195,125 +191,19 @@ View
 </tbody>
 </table></details>
 </div>
-<div class="section level4">
-<h4 id="reference-annontation">Reference annontation<a class="anchor" aria-label="anchor" href="#reference-annontation"></a>
-</h4>
-<p>Subset data of TSS from the UCSC data base (<a href="https://bioconductor.org/packages/release/data/annotation/html/TxDb.Dmelanogaster.UCSC.dm6.ensGene.html" class="external-link">TxDb.Dmelanogaster.UCSC.dm6.ensGene</a>).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"baits_Peaks.gnr"</span><span class="op">)</span></span></code></pre></div>
-<details><summary>
-View
-</summary><table class="table">
-<thead><tr class="header">
-<th align="right">seq</th>
-<th align="center">start</th>
-<th align="center">end</th>
-<th align="center">strand</th>
-<th align="center">name</th>
-<th align="center">class</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="right">2L</td>
-<td align="center">71757</td>
-<td align="center">71757</td>
-<td align="center">+</td>
-<td align="center">FBgn0031213</td>
-<td align="center">active</td>
-</tr>
-<tr class="even">
-<td align="right">2L</td>
-<td align="center">76348</td>
-<td align="center">76348</td>
-<td align="center">+</td>
-<td align="center">FBgn0031214</td>
-<td align="center">inactive</td>
-</tr>
-<tr class="odd">
-<td align="right">2L</td>
-<td align="center">106903</td>
-<td align="center">106903</td>
-<td align="center">+</td>
-<td align="center">FBgn0005278</td>
-<td align="center">active</td>
-</tr>
-</tbody>
-</table></details>
-</div>
-<div class="section level4">
-<h4 id="domains-annotation">Domains annotation<a class="anchor" aria-label="anchor" href="#domains-annotation"></a>
-</h4>
-<p>Subset of topologically associated domains from a TAD calling
-annalysis on wild-type HiC data (<a href="https://doi.org/10.1038/s41467-017-02525-w" class="external-link">F. Ramirez,
-2018</a>).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"domains.gnr"</span><span class="op">)</span></span></code></pre></div>
-<details><summary>
-View
-</summary><table class="table">
-<thead><tr class="header">
-<th align="right">seq</th>
-<th align="center">start</th>
-<th align="center">end</th>
-<th align="center">strand</th>
-<th align="center">name</th>
-<th align="center">score</th>
-<th align="center">class</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="right">2L</td>
-<td align="center">73104</td>
-<td align="center">94543</td>
-<td align="center">*</td>
-<td align="center">Tad_1</td>
-<td align="center">3</td>
-<td align="center">active</td>
-</tr>
-<tr class="even">
-<td align="right">2L</td>
-<td align="center">94544</td>
-<td align="center">102930</td>
-<td align="center">*</td>
-<td align="center">Tad_2</td>
-<td align="center">8</td>
-<td align="center">active</td>
-</tr>
-<tr class="odd">
-<td align="right">2L</td>
-<td align="center">102931</td>
-<td align="center">121473</td>
-<td align="center">*</td>
-<td align="center">Tad_3</td>
-<td align="center">8</td>
-<td align="center">active</td>
-</tr>
-</tbody>
-</table></details>
-</div>
-</div>
 <div class="section level3">
 <h3 id="genomic-3d-structure">Genomic 3D structure<a class="anchor" aria-label="anchor" href="#genomic-3d-structure"></a>
 </h3>
 <p>The second part of the test data is downloaded directly from the <a href="https://data.4dnucleome.org" class="external-link">4DN</a> platform. It consists of data
-from HiC experiments.</p>
-<div class="section level4">
-<h4 id="prepare-download">Prepare download<a class="anchor" aria-label="anchor" href="#prepare-download"></a>
-</h4>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+from HiC experiments in .hic format (juicer format).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span> </span>
 <span><span class="va">temp.dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"HIC_DATA"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">temp.dir</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="map-in-control-condition">Map in control condition<a class="anchor" aria-label="anchor" href="#map-in-control-condition"></a>
-</h4>
-<p>HiC Map in .hic format (juicer format).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Hic.url</span> <span class="op">&lt;-</span> <span class="st">"https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">temp.dir</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Hic.url</span> <span class="op">&lt;-</span> <span class="st">"https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"</span></span>
 <span><span class="va">HicOutput.pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp.dir</span>, <span class="st">"Control_HIC.hic"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Hic.url</span>, <span class="va">HicOutput.pth</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 <div class="section level3">
 <h3 id="additional-genome-informations">Additional genome informations<a class="anchor" aria-label="anchor" href="#additional-genome-informations"></a>
@@ -322,7 +212,7 @@ from HiC experiments.</p>
 process are a data.frame containing chromosomes names and sized and the
 binSize, corresponding to the HiC matrices resolution. We complete the
 data with 2L and 2R chromosome sizes and HiC map resolution.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span><span class="op">=</span><span class="fl">23513712</span>, <span class="st">'2R'</span><span class="op">=</span><span class="fl">25286936</span><span class="op">)</span></span>
 <span><span class="va">chromSize.dtf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span>
@@ -342,7 +232,7 @@ structure.</p>
 </h3>
 <p>Genomic2DTK can import HiC data stored in the main formats: .hic,
 .cool, .mcool, .h5, .hdf5.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ImportHiC.html">ImportHiC</a></span><span class="op">(</span></span>
 <span>  file.pth      <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span>
 <span>  res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
@@ -358,7 +248,7 @@ matrix, it is thus necessary to perform the balancing step (Defaut:
 Iterative Correction) which makes it possible to correct the biases
 inherent to the loci by balancing the sums of each line and of each
 column to make them comparable.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NormalizeHiC.html">NormalizeHiC</a></span><span class="op">(</span><span class="va">hic.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -368,7 +258,7 @@ column to make them comparable.</p>
 to the genomic distance between two loci must be corrected. To do this,
 the matrix is corrected by the expected values for each genomic
 distance.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExpectedHiC.html">ExpectedHiC</a></span><span class="op">(</span><span class="va">hic.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -380,8 +270,8 @@ one chromosomes (cis-interactions, ex: “2L_2L”) or between two
 chromosomes (trans-interactions, ex: “2L_2R”).<br>
 HiC data format is based on <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html" class="external-link">InteractionSet</a>
 package, for more details on sparse matrices format, see <a href="https://cran.r-project.org/web/packages/Matrix/Matrix.pdf" class="external-link">Matrix</a>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">HiC_ctrl.cmx_lst</span>, max.level <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">HiC_ctrl.cmx_lst</span>, max.level <span class="op">=</span> <span class="fl">3</span>, give.attr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 2</span></span>
 <span><span class="co">#&gt;  $ 2L_2L:Formal class 'ContactMatrix' [package "InteractionSet"] with 5 slots</span></span>
 <span><span class="co">#&gt;   .. ..@ matrix  :Formal class 'dgCMatrix' [package "Matrix"] with 6 slots</span></span>
@@ -389,36 +279,16 @@ package, for more details on sparse matrices format, see <a href="https://cran.r
 <span><span class="co">#&gt;   .. ..@ anchor2 : int [1:23514] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
 <span><span class="co">#&gt;   .. ..@ regions :Formal class 'GRanges' [package "GenomicRanges"] with 7 slots</span></span>
 <span><span class="co">#&gt;   .. ..@ metadata:List of 5</span></span>
-<span><span class="co">#&gt;   .. .. ..$ name      : chr "2L_2L"</span></span>
-<span><span class="co">#&gt;   .. .. ..$ type      : chr "cis"</span></span>
-<span><span class="co">#&gt;   .. .. ..$ kind      : chr "U"</span></span>
-<span><span class="co">#&gt;   .. .. ..$ symmetric : logi TRUE</span></span>
-<span><span class="co">#&gt;   .. .. ..$ resolution: num 1000</span></span>
 <span><span class="co">#&gt;  $ 2R_2R:Formal class 'ContactMatrix' [package "InteractionSet"] with 5 slots</span></span>
 <span><span class="co">#&gt;   .. ..@ matrix  :Formal class 'dgCMatrix' [package "Matrix"] with 6 slots</span></span>
 <span><span class="co">#&gt;   .. ..@ anchor1 : int [1:25287] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
 <span><span class="co">#&gt;   .. ..@ anchor2 : int [1:25287] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
 <span><span class="co">#&gt;   .. ..@ regions :Formal class 'GRanges' [package "GenomicRanges"] with 7 slots</span></span>
 <span><span class="co">#&gt;   .. ..@ metadata:List of 5</span></span>
-<span><span class="co">#&gt;   .. .. ..$ name      : chr "2R_2R"</span></span>
-<span><span class="co">#&gt;   .. .. ..$ type      : chr "cis"</span></span>
-<span><span class="co">#&gt;   .. .. ..$ kind      : chr "U"</span></span>
-<span><span class="co">#&gt;   .. .. ..$ symmetric : logi TRUE</span></span>
-<span><span class="co">#&gt;   .. .. ..$ resolution: num 1000</span></span>
-<span><span class="co">#&gt;  - attr(*, "resolution")= num 1000</span></span>
-<span><span class="co">#&gt;  - attr(*, "chromSize")= tibble [2 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ seqnames  : chr [1:2] "2L" "2R"</span></span>
-<span><span class="co">#&gt;   ..$ seqlengths: num [1:2] 23513712 25286936</span></span>
-<span><span class="co">#&gt;   ..$ dimension : num [1:2] 23514 25287</span></span>
-<span><span class="co">#&gt;  - attr(*, "matricesKind")= tibble [2 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ name     : chr [1:2] "2L_2L" "2R_2R"</span></span>
-<span><span class="co">#&gt;   ..$ type     : chr [1:2] "cis" "cis"</span></span>
-<span><span class="co">#&gt;   ..$ kind     : chr [1:2] "U" "U"</span></span>
-<span><span class="co">#&gt;   ..$ symmetric: logi [1:2] TRUE TRUE</span></span>
 <span><span class="co">#&gt;</span></span></code></pre></div>
 <p>The list object have some generals attributes. These attributes are
 accessed via:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $names</span></span>
 <span><span class="co">#&gt; [1] "2L_2L" "2R_2R"</span></span>
@@ -490,7 +360,7 @@ observed counts, normalized counts, observed/expected, etc.</li>
 </ol>
 <p>Each contactmatrix in the list have metadata. These are accessed
 via:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">S4Vectors</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html" class="external-link">metadata</a></span><span class="op">(</span><span class="va">HiC_ctrl.cmx_lst</span><span class="op">[[</span><span class="st">"2L_2L"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $name</span></span>
 <span><span class="co">#&gt; [1] "2L_2L"</span></span>
@@ -522,23 +392,22 @@ transformations.</p>
 <p>La première étape est l’indexation des features sur le génome. Cette
 étape permet de découper et regrouper les dans des bin qui correspondent
 à la résolution de la matrice HiC.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span>
 <span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">anchors_Peaks.gnr</span><span class="op">)</span>,</span>
-<span>  constraint.gnr        <span class="op">=</span> <span class="va">domains.gnr</span>,</span>
 <span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
 <span>  binSize.num           <span class="op">=</span> <span class="va">binSize.num</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="beaf32-tss-putatives-pairing">Beaf32-TSS putatives pairing<a class="anchor" aria-label="anchor" href="#beaf32-tss-putatives-pairing"></a>
+<h3 id="beaf32---beaf32-putatives-pairs">Beaf32 &lt;-&gt; Beaf32 putatives pairs<a class="anchor" aria-label="anchor" href="#beaf32---beaf32-putatives-pairs"></a>
 </h3>
 <p>La seconde étapes consiste à rechercher les paires de Bins</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf_Pairs.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SearchPairs.html">SearchPairs</a></span><span class="op">(</span></span>
 <span>  indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf_Index.gnr</span>,</span>
-<span>  minDist.num     <span class="op">=</span> <span class="fl">40000</span>,</span>
-<span>  maxDist.num     <span class="op">=</span> <span class="fl">100000</span></span>
+<span>  minDist.num     <span class="op">=</span> <span class="st">"21KB"</span>,</span>
+<span>  maxDist.num     <span class="op">=</span> <span class="st">"100KB"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -548,7 +417,7 @@ transformations.</p>
 <div class="section level3">
 <h3 id="extraction">Extraction<a class="anchor" aria-label="anchor" href="#extraction"></a>
 </h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
 <span>  feature.gn  <span class="op">=</span> <span class="va">Beaf_Pairs.gni</span>,</span>
 <span>  hic.cmx_lst <span class="op">=</span> <span class="va">hic.cmx_lst</span></span>
@@ -557,18 +426,18 @@ transformations.</p>
 <div class="section level3">
 <h3 id="aggregation">Aggregation<a class="anchor" aria-label="anchor" href="#aggregation"></a>
 </h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aggreg.mtx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Aggregation.html">Aggregation</a></span><span class="op">(</span><span class="va">Beaf.mtx_lst</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visulatisation">Visulatisation<a class="anchor" aria-label="anchor" href="#visulatisation"></a>
 </h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>  apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>  title.chr <span class="op">=</span> <span class="st">"APA Beaf &lt;-&gt; Beaf"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-24-1.png" width="672"></p>
+<p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
