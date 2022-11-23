@@ -136,12 +136,12 @@ hic.cmx_lst <- ExpectedHiC(hic.cmx_lst)
 Each element of the list corresponds to a ContactMatrix object (dgCMatrix object, sparse matrix format) storing contact frequencies for one chromosomes (cis-interactions, ex: "2L_2L") or between two chromosomes (trans-interactions, ex: "2L_2R").  
 HiC data format is based on [InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html) package, for more details on sparse matrices format, see [Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf).
 ```{r, eval = TRUE}
-str(HiC_ctrl.cmx_lst, max.level = 3, give.attr = FALSE)
+str(hic.cmx_lst, max.level = 3, give.attr = FALSE)
 #>
 ```
 The list object have some generals attributes. These attributes are accessed via:
 ```{r, eval = TRUE}
-attributes(HiC_ctrl.cmx_lst)
+attributes(hic.cmx_lst)
 #>
 ```
 
@@ -160,7 +160,7 @@ attributes(HiC_ctrl.cmx_lst)
 
 Each contactmatrix in the list have metadata. These are accessed via:
 ```{r, eval = TRUE}
-S4Vectors::metadata(HiC_ctrl.cmx_lst[["2L_2L"]])
+S4Vectors::metadata(hic.cmx_lst[["2L_2L"]])
 #>
 ```
 
