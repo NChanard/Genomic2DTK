@@ -17,7 +17,7 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
             if(verbose.bln){ShowLoading(start.tim,matrixName.ndx,jobLenght.num)}
             matrixName.chr <- matricesNames.chr[matrixName.ndx]
             if(hic.cmx_lst[[matrixName.chr]]@metadata$type=="cis"){
-                hic.dtf <- SuperTK::MeltSpm(hic.cmx_lst[[matrixName.chr]]@matrix)
+                hic.dtf <- MeltSpm(hic.cmx_lst[[matrixName.chr]]@matrix)
                 hic.dtf <- dplyr::mutate(hic.dtf,"distance"=1+(hic.dtf$j-hic.dtf$i)*resolution.num) |> dplyr::select(c("x","distance"))
                 expected.dtf <- dplyr::group_by(hic.dtf,distance=hic.dtf$distance) |> dplyr::summarise_at(.vars="x", .funs=list(expected=mean))
                 expected.num <- dplyr::left_join(hic.dtf, expected.dtf, by="distance")
@@ -32,7 +32,7 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
         expected.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(matricesNames.chr), function(matrixName.ndx){
             matrixName.chr <- matricesNames.chr[matrixName.ndx]
             if(hic.cmx_lst[[matrixName.chr]]@metadata$type=="cis"){
-                hic.dtf <- SuperTK::MeltSpm(hic.cmx_lst[[matrixName.chr]]@matrix)
+                hic.dtf <- MeltSpm(hic.cmx_lst[[matrixName.chr]]@matrix)
                 hic.dtf <- dplyr::mutate(hic.dtf,"distance"=1+(hic.dtf$j-hic.dtf$i)*resolution.num) |> dplyr::select(c("x","distance"))
                 expected.dtf <- dplyr::group_by(hic.dtf,distance=hic.dtf$distance) |>dplyr::summarise_at(.vars="x", .funs=list(expected=mean))
                 expected.num <- dplyr::left_join(hic.dtf, expected.dtf, by="distance")

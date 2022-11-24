@@ -24,7 +24,7 @@ JoinHiC <- function (hic.cmx_lst){
             addJ <- 0
             if(j>1){addJ <- sum(chromSize.dtf$dimension[1:j-1])}
             if (length(which(mapPosition$i==i & mapPosition$j==j))){
-                map.dtf <- SuperTK::MeltSpm(hic.cmx_lst[[which(mapPosition$i==i & mapPosition$j==j)]]@matrix)
+                map.dtf <- MeltSpm(hic.cmx_lst[[which(mapPosition$i==i & mapPosition$j==j)]]@matrix)
                 map.dtf$i <- map.dtf$i + addI
                 map.dtf$j <- map.dtf$j + addJ
                 mega.dtf <- rbind(mega.dtf,map.dtf )

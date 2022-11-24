@@ -88,7 +88,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
         # Resize Features according reference Points
             referencePoint.chr <- tolower(referencePoint.chr)
             if (referencePoint.chr =="rf"){
-                cis.lgk <- SuperTK::ReduceRun(
+                cis.lgk <- ReduceRun(
                     GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$first),
                     GenomeInfoDb::seqnames(InteractionSet::anchors(feature.gn)$second),
                     reduceFun.chr="paste",sep="_") |>
@@ -132,7 +132,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
         # Filt Duplicated Submatrix before extraction
             featureNoDup.gni <- featureFilt.gni[!duplicated(featureFilt.gni$submatrix.name)]
         # Order according Chromosomes combinaison
-            chromosomesCombinaison.rle <- SuperTK::ReduceRun(
+            chromosomesCombinaison.rle <- ReduceRun(
                 GenomeInfoDb::seqnames(InteractionSet::anchors(featureNoDup.gni)$first),
                 GenomeInfoDb::seqnames(InteractionSet::anchors(featureNoDup.gni)$second),
                 reduceFun.chr="paste",sep="_") 
@@ -191,11 +191,11 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
                         } 
                         if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm <- SuperTK::ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
+                            mat.spm <- ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
                         }
                         if(abs(gap.num) < matriceDim.num ){
                             if(abs(gap.num)>0){
-                                mat.spm <- SuperTK::PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
+                                mat.spm <- PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
                             }
                             mat.spm[lower.tri(mat.spm)] <- NA
                             if(abs(gap.num)>0){
@@ -220,11 +220,11 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
                         } 
                         if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm <- SuperTK::ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
+                            mat.spm <- ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
                         }
                         if(abs(gap.num) < matriceDim.num ){
                             if(abs(gap.num)>0){
-                                mat.spm <- SuperTK::PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
+                                mat.spm <- PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
                             }
                             mat.spm[lower.tri(mat.spm)] <- NA
                             if(abs(gap.num)>0){

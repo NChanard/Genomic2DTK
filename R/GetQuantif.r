@@ -51,7 +51,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                 operation.fun == "mean"                         ~ "function(x){mean(x,na.rm=TRUE)}",
                 TRUE                                            ~ "function(x){mean(x,na.rm=TRUE)}"
                 )
-            operation.fun <- SuperTK::WrapFunction(operation.fun)
+            operation.fun <- WrapFunction(operation.fun)
         }
     # Define extraction function
         matriceDim.num <- attributes(matrices.lst)$matriceDim
@@ -112,7 +112,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     toupper(area.fun) %in% c("D","DONUT")           ~ list(donut.chr             ),
                     TRUE                                            ~ list(center.chr, center.chr)
                 ) |> paste(collapse=",")
-                area.fun <-  SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
+                area.fun <-  WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
         }else if(!is.function(area.fun) && attributes(matrices.lst)$referencePoint == "rf"){
             shiftFactor <- attributes(matrices.lst)$shiftFactor
             # Compute rows and cols index
@@ -196,7 +196,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
                     TRUE                                                    ~ list(anchor.chr   , bait.chr     )
                 ) |>
                 paste(collapse=",")
-                area.fun <- SuperTK::WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
+                area.fun <- WrapFunction(paste0("function(matrice.mtx){ matrice.mtx[",area.fun,"] }" ))
         }
     # Compute quantif
         quantif.num <- lapply(matrices.lst, function(mtx){

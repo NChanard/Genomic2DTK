@@ -70,7 +70,7 @@ ggAPA = function(
                         SuperTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) |>
                         stats::setNames(NULL)
                     bounds.num_lst <- list(bounds.num_vec, list(minBoundary.num, maxBoundary.num))
-                    bounds.num_lst <- SuperTK::TransposeList(bounds.num_lst)
+                    bounds.num_lst <- TransposeList(bounds.num_lst)
                     bounds.num_vec <- c(max(unlist(bounds.num_lst[1]),na.rm=TRUE),min(unlist(bounds.num_lst[2]), na.rm=TRUE))
                 }else{
                     bounds.num_vec <- NULL
@@ -119,7 +119,7 @@ ggAPA = function(
         #############
         # Raster
         #############
-            data.dtf <- SuperTK::MeltSpm(apa.mtx)
+            data.dtf <- MeltSpm(apa.mtx)
             plot.ggp <- ggplot2::ggplot(data.dtf, ggplot2::aes(data.dtf$j, data.dtf$i)) +
                 ggplot2::geom_raster(ggplot2::aes(fill=data.dtf$x)) +
                 ggplot2::scale_fill_gradientn(colours=heatmap.col, values=MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +

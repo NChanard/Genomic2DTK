@@ -125,7 +125,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(diff.fun) %in% c("log2","log2-","log2/","log2ratio")  ~ "function(mat.mtx,ctrl.mtx){log2(mat.mtx) - log2(ctrl.mtx)}",
                 TRUE                                                          ~ "function(mat.mtx,ctrl.mtx){log2(mat.mtx+1) - log2(ctrl.mtx+1)}"
                 )
-            diff.fun <- SuperTK::WrapFunction(diff.fun)
+            diff.fun <- WrapFunction(diff.fun)
         }
     # Aggregation Function
         if(!is.function(agg.fun)){
@@ -134,7 +134,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(agg.fun) %in% c("+","sum")          ~ "function(pxl){sum(pxl,na.rm=TRUE)}",
                 TRUE                                        ~ "function(pxl){mean(pxl,na.rm=TRUE,trim=0.01)}"
                 )
-            agg.fun <- SuperTK::WrapFunction(agg.fun)
+            agg.fun <- WrapFunction(agg.fun)
         }
     # Transformation Function
         if(!is.function(trans.fun) & !is.null(trans.fun)){
@@ -147,7 +147,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(trans.fun) %in% c("mu")                     ~ "function(mat.mtx){matrix(SuperTK::MeanScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
                 TRUE                                                ~  "NULL"
                 )
-            trans.fun <- SuperTK::WrapFunction(trans.fun)
+            trans.fun <- WrapFunction(trans.fun)
         }        
     # Prepare Matrix List
         if(is.null(minDist.num)){minDist.num<-NA}

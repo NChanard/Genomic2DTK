@@ -20,7 +20,7 @@ ICEnorm <- function(hic.cmx,  qtlTh.num=0.15, maxIter.num=50){
             row.ndx <- which(rowBias.num<stats::quantile(rowBias.num,qtlTh.num) & rowBias.num > 0)
             col.ndx <- which(colBias.num<stats::quantile(colBias.num,qtlTh.num) & colBias.num > 0)
             
-            meltedHic.dtf <- SuperTK::MeltSpm(hic.cmx@matrix)
+            meltedHic.dtf <- MeltSpm(hic.cmx@matrix)
 
             removedHic.dtf <- dplyr::filter(meltedHic.dtf, meltedHic.dtf$i %in% row.ndx | meltedHic.dtf$j %in% col.ndx)
             hic.cmx@metadata$removedCounts <- Matrix::sparseMatrix(i=removedHic.dtf$i,j=removedHic.dtf$j,x=removedHic.dtf$x,dims=dim(hic.cmx@matrix))

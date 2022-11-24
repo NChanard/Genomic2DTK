@@ -21,7 +21,7 @@ VCnorm <- function(hic.cmx=NULL, qtlTh.num=0.15, sqrt.bln=TRUE){
             }
             row.ndx <- which(rowBias.num<stats::quantile(rowBias.num,qtlTh.num) & rowBias.num > 0)
             col.ndx <- which(colBias.num<stats::quantile(colBias.num,qtlTh.num) & colBias.num > 0)
-            meltedHic.dtf <- SuperTK::MeltSpm(hic.spm)
+            meltedHic.dtf <- MeltSpm(hic.spm)
             removedHic.dtf <- dplyr::filter(meltedHic.dtf, meltedHic.dtf$i %in% row.ndx | meltedHic.dtf$j %in% col.ndx)
             hic.cmx@metadata$removedCounts <- Matrix::sparseMatrix(i=removedHic.dtf$i,j=removedHic.dtf$j,x=removedHic.dtf$x,dims=dim(hic.spm))
             hic.dtf <- dplyr::filter(meltedHic.dtf, NotIn(meltedHic.dtf$i,row.ndx) & NotIn(meltedHic.dtf$j,col.ndx))
@@ -29,7 +29,7 @@ VCnorm <- function(hic.cmx=NULL, qtlTh.num=0.15, sqrt.bln=TRUE){
         }
         hic.cmx@metadata$observed <- hic.spm@x
     # Bias computation
-        coords.tbl <- SuperTK::MeltSpm(hic.spm)
+        coords.tbl <- MeltSpm(hic.spm)
         rowNormalizer.num <-  Matrix::rowSums(hic.spm,na.rm=TRUE)
         if (hic.cmx@metadata$symmetric){
             if (!is.na(hic.cmx@metadata$kind)){
