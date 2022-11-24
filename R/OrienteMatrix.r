@@ -19,7 +19,7 @@ OrienteMatrix <- function(matrice.mtx){
         orientedMatrice.mtx <- matrice.mtx
         print(paste0(length(which(!attributes(matrice.mtx)$interactions$orientation)), " matrices are oriented"))
         orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)] <- lapply(orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)], OrienteMatrix) 
-        orientedMatrice.mtx <- SuperTK::AddAttr(orientedMatrice.mtx, attributes(matrice.mtx))
+        orientedMatrice.mtx <- AddAttr(orientedMatrice.mtx, attributes(matrice.mtx))
         attributes(orientedMatrice.mtx)$interactions$orientation <- TRUE
         attributes(orientedMatrice.mtx)$interactions$submatrix.name <- attributes(orientedMatrice.mtx)$interactions$name
         names(orientedMatrice.mtx) <- attributes(orientedMatrice.mtx)$interactions$name

@@ -26,7 +26,7 @@
 #' \item "percentile" or "prct" apply percentile on values in matrix
 #' \item "rank" apply a ranking on values in matrix
 #' \item "zscore" apply a scaling on values in matrix
-#' \item "minmax" apply a SuperTK::MinMaxScale on values in matrix
+#' \item "minmax" apply a MinMaxScale on values in matrix
 #' \item "mu" apply a SuperTK::MeanScale on values in matrix
 #' \item other (Default) apply a log2 on 1+ratio
 #' }
@@ -143,7 +143,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(trans.fun) %in% c("percentile", "prct")     ~ "function(mat.mtx){matrix(rank(mat.mtx,na.last='keep')/length(mat.mtx[!is.na(mat.mtx)]), dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
                 tolower(trans.fun) %in% c("rank")                   ~ "function(mat.mtx){matrix(rank(mat.mtx,na.last='keep'), dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
                 tolower(trans.fun) %in% c("zscore")                 ~ "function(mat.mtx){matrix(scale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
-                tolower(trans.fun) %in% c("minmax")                 ~ "function(mat.mtx){matrix(SuperTK::MinMaxScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
+                tolower(trans.fun) %in% c("minmax")                 ~ "function(mat.mtx){matrix(MinMaxScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
                 tolower(trans.fun) %in% c("mu")                     ~ "function(mat.mtx){matrix(SuperTK::MeanScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
                 TRUE                                                ~  "NULL"
                 )
@@ -222,7 +222,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 }
             # Return
                 aggDiff.mtx <-
-                    SuperTK::AddAttr(
+                    AddAttr(
                         var.any = aggDiff.mtx,
                         overwrite.bln = TRUE,
                         attribute.lst = c(
@@ -251,7 +251,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 return(aggDiff.mtx)
         }else{
             agg.mtx <-  
-                SuperTK::AddAttr(
+                AddAttr(
                     var.any = agg.mtx,
                     attribute.lst = c(
                         totalMatrixNumber    = totMtx.num ,

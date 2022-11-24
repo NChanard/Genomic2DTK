@@ -24,7 +24,7 @@ VCnorm <- function(hic.cmx=NULL, qtlTh.num=0.15, sqrt.bln=TRUE){
             meltedHic.dtf <- SuperTK::MeltSpm(hic.spm)
             removedHic.dtf <- dplyr::filter(meltedHic.dtf, meltedHic.dtf$i %in% row.ndx | meltedHic.dtf$j %in% col.ndx)
             hic.cmx@metadata$removedCounts <- Matrix::sparseMatrix(i=removedHic.dtf$i,j=removedHic.dtf$j,x=removedHic.dtf$x,dims=dim(hic.spm))
-            hic.dtf <- dplyr::filter(meltedHic.dtf, SuperTK::NotIn(meltedHic.dtf$i,row.ndx) & SuperTK::NotIn(meltedHic.dtf$j,col.ndx))
+            hic.dtf <- dplyr::filter(meltedHic.dtf, NotIn(meltedHic.dtf$i,row.ndx) & NotIn(meltedHic.dtf$j,col.ndx))
             hic.spm <- Matrix::sparseMatrix(i=hic.dtf$i,j=hic.dtf$j,x=hic.dtf$x,dims=dim(hic.spm))
         }
         hic.cmx@metadata$observed <- hic.spm@x

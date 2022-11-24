@@ -64,7 +64,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                 attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, NotIn(attr.lst$matricesKind$name, transMatricesNames.chr))
                 chroms.chr <- attr.lst$matricesKind$name |> strsplit("_") |> unlist() |> unique()
                 attr.lst$chromSize <- dplyr::filter(attr.lst$chromSize, attr.lst$chromSize$name == chroms.chr)
-                hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% transMatricesNames.chr)] |> SuperTK::AddAttr(attr.lst)
+                hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% transMatricesNames.chr)] |> AddAttr(attr.lst)
             }
         }else{
             print("No cis matrix, Normalisation won't be applied on cis matrices")
@@ -77,7 +77,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             chromNames.chr <- transMatricesNames.chr |> strsplit("_") |> unlist() |> unique()
             chromSize.tbl <- attributes(hic.cmx_lst)$chromSize
             chromSize.tbl <- dplyr::filter(chromSize.tbl, chromSize.tbl$name %in% chromNames.chr)
-            trans.cmx_lst <- hic.cmx_lst[transMatricesNames.chr] |> SuperTK::AddAttr(list(
+            trans.cmx_lst <- hic.cmx_lst[transMatricesNames.chr] |> AddAttr(list(
                 resolution   = attributes(hic.cmx_lst)$resolution,
                 chromSize    = chromSize.tbl,
                 matricesKind = matricesKind.tbl
@@ -99,7 +99,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                 attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, NotIn(attr.lst$matricesKind$name, cisMatricesNames.chr))
                 chroms.chr <- attr.lst$matricesKind$name |> strsplit("_") |> unlist() |> unique()
                 attr.lst$chromSize <- dplyr::filter(attr.lst$chromSize, attr.lst$chromSize$name == chroms.chr)
-                hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% cisMatricesNames.chr)] |> SuperTK::AddAttr(attr.lst)
+                hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% cisMatricesNames.chr)] |> AddAttr(attr.lst)
             }
         }else{
             print("No trans matrix, Normalisation won't be applied on trans matrices")
@@ -150,7 +150,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                 chromNames.chr <- transMatricesNames.chr |> strsplit("_") |> unlist() |> unique()
                 chromSize.tbl <- attributes(hic.cmx_lst)$chromSize
                 chromSize.tbl <- dplyr::filter(chromSize.tbl, chromSize.tbl$name %in% chromNames.chr)
-                trans.cmx_lst <- hic.cmx_lst[transMatricesNames.chr] |> SuperTK::AddAttr(list(
+                trans.cmx_lst <- hic.cmx_lst[transMatricesNames.chr] |> AddAttr(list(
                     resolution   = attributes(hic.cmx_lst)$resolution,
                     chromSize    = chromSize.tbl,
                     matricesKind = matricesKind.tbl

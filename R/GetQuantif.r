@@ -220,7 +220,7 @@ GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0",
     # Add attributes
         quantif.num <- unlist(quantif.num[repeted.ndx]) |>
             stats::setNames(unlist(names.chr_lst )) |>
-            SuperTK::AddAttr(c(
+            AddAttr(c(
                 attributes(matrices.lst),
                 interactions = attributes(matrices.lst)$interactions[repeted.ndx],
                 operation    = operation.fun,

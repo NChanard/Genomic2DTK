@@ -111,9 +111,9 @@ ggAPA = function(
         #############
             if(is.null(heatmap.col)){
                 heatmap.col <- dplyr::case_when(
-                    !is.null(center.num) && max(colBreaks.num)<=center.num  ~ rev(SuperTK::YlGnBu(paletteLength.num=paletteLength.num,bias=bias.num)),
-                    !is.null(center.num) && center.num<=min(colBreaks.num)  ~ SuperTK::YlOrRd(paletteLength.num=paletteLength.num,bias=bias.num ),
-                    TRUE                                                    ~ c(rev(SuperTK::YlGnBu(paletteLength.num=floor((paletteLength.num-1)/2),bias=bias.num)), "#FFFFD8", SuperTK::YlOrRd(paletteLength.num=ceiling((paletteLength.num-1)/2), bias=bias.num))
+                    !is.null(center.num) && max(colBreaks.num)<=center.num  ~ rev(YlGnBu(paletteLength.num=paletteLength.num,bias=bias.num)),
+                    !is.null(center.num) && center.num<=min(colBreaks.num)  ~ YlOrRd(paletteLength.num=paletteLength.num,bias=bias.num ),
+                    TRUE                                                    ~ c(rev(YlGnBu(paletteLength.num=floor((paletteLength.num-1)/2),bias=bias.num)), "#FFFFD8", YlOrRd(paletteLength.num=ceiling((paletteLength.num-1)/2), bias=bias.num))
                 )
             }
         #############
@@ -122,7 +122,7 @@ ggAPA = function(
             data.dtf <- SuperTK::MeltSpm(apa.mtx)
             plot.ggp <- ggplot2::ggplot(data.dtf, ggplot2::aes(data.dtf$j, data.dtf$i)) +
                 ggplot2::geom_raster(ggplot2::aes(fill=data.dtf$x)) +
-                ggplot2::scale_fill_gradientn(colours=heatmap.col, values=SuperTK::MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
+                ggplot2::scale_fill_gradientn(colours=heatmap.col, values=MinMaxScale(colBreaks.num), na.value=na.col, limits=c(minBoundary.num,maxBoundary.num)) +
                 ggplot2::scale_y_reverse(breaks=seq_along(colnames(apa.mtx)), labels=colnames(apa.mtx)) +
                 ggplot2::scale_x_continuous(breaks=seq_along(rownames(apa.mtx)), labels=rownames(apa.mtx)) +
                 ggplot2::labs(title=title.chr, y=dimnames(apa.mtx)[[2]], x=dimnames(apa.mtx)[[2]]) +

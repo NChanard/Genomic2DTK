@@ -1,6 +1,7 @@
 #' Bind data frames after filling missing columns.
 #'
 #' BindFillRows
+#' @keywords internal
 #' @description Bind data frames by rows after filling missing columns with NA.
 #' @param data.lst_df <data.frames or list[data.frame]>: data frames to bind or list of data.frames. If is a data.frame create a list with arguments `data.lst_df` and `...`, else `...` are ignored.
 #' @param ... <data.frames or list[data.frame]>: data frames to bind or list of data.frames.

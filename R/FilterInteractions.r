@@ -102,8 +102,8 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
         attributes(matrices.filt.lst)$target = target.lst
         attributes(matrices.filt.lst)$selection = selection.fun
         #  |>
-        #     SuperTK::AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) |>
-        #     SuperTK::AddAttr(attribute.lst=attributes(matrices.lst))
+        #     AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) |>
+        #     AddAttr(attribute.lst=attributes(matrices.lst))
             return(matrices.filt.lst)
     }else{
         return(interarctions.ndx)

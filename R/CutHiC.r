@@ -63,7 +63,7 @@ CutHiC <- function(megaHic.cmx, verbose.bln=TRUE){
     })
     hic.lst_cmx <- hic.lst_cmx |>
         stats::setNames(chromComb.lst) |>
-        SuperTK::AddAttr(list(
+        AddAttr(list(
             resolution = res.num,
             mtx = mtx.chr,
             chromSize = tibble::as_tibble(chromSize.dtf),

@@ -129,7 +129,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
 
         binnedIndex.gnr <- binnedFeature.lst |> lapply("[[", "binnedFeature.gnr") |> MergeGRanges(sort.bln=FALSE, reduce.bln=FALSE)
         featureMetadata.lst_dtf <- binnedFeature.lst |> lapply("[[", "featureMetadata.dtf")
-        S4Vectors::mcols(binnedIndex.gnr) <- SuperTK::BindFillRows(featureMetadata.lst_dtf)
+        S4Vectors::mcols(binnedIndex.gnr) <- BindFillRows(featureMetadata.lst_dtf)
         ids.lst <- binnedIndex.gnr$name
         dupplicatedIds.lst <- unique(ids.lst[duplicated(ids.lst)])
         idDuplicated.ndx <- which(ids.lst %in% dupplicatedIds.lst)

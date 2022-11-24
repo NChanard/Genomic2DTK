@@ -1,3 +1,29 @@
+Hsl2Hex(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
+
+Hsl2Rgb(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
+
+Hue(paletteLength.num=9)
+
+IsHsl("red")
+IsHsl("#FFFFFF")
+IsHsl(c(125,125,125))
+IsHsl(c(43.8,0.873,0.492))
+
+IsRgb("red")
+IsRgb("#FFFFFF")
+IsRgb(c(125,125,125))
+IsRgb(c(43.8,0.873,0.492))
+
+Rgb2Hex(c(235,176,16,127),alpha.bln=TRUE)
+
+viridis(9)
+
+YlOrRd(9)
+
+YlGnBu(9)
+
+MinMaxScale(rnorm(500,100))
+
 NotIn("A", c("A","B","C"))
 NotIn("A", c("B","C","D"))
  

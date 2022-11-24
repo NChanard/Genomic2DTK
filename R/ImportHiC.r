@@ -30,19 +30,19 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
             seqlevelsStyleHiC <- "ensembl"
         }
     # Get SeqInfo
-        if(SuperTK::GetFileExtension(file.pth)=="hic"){ 
+        if(GetFileExtension(file.pth)=="hic"){ 
                 if("index" %in% colnames(chromSize.dtf)){
                     chromSize.dtf <- strawr::readHicChroms(file.pth) |> dplyr::select(-"index")
                 }else{
                     chromSize.dtf <- strawr::readHicChroms(file.pth)
                 }
-        }else if(SuperTK::GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){ 
+        }else if(GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){ 
             # Define HDF5groups
-                chr.group <- ifelse(SuperTK::GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/chroms",no=paste('resolutions',res.num,'chroms',sep='/')) 
+                chr.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/chroms",no=paste('resolutions',res.num,'chroms',sep='/')) 
             # Get SeqInfo
                 chromSize.dtf <- data.frame(rhdf5::h5read(file.pth,name=chr.group))
                 rownames(chromSize.dtf) <- chromSize.dtf$name
-        }else if(SuperTK::GetFileExtension(file.pth)=="bedpe" & !is.null(chromSize.dtf)){ 
+        }else if(GetFileExtension(file.pth)=="bedpe" & !is.null(chromSize.dtf)){ 
             hic.gnp <- rtracklayer::import(file.pth, format="bedpe")
             megaHic.dtf <- data.frame(
                 chrom_1 = as.vector(hic.gnp@first@seqnames),
@@ -110,15 +110,15 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                             dplyr::pull("dimension")
                         }) |>
                     unlist()
-            if(SuperTK::GetFileExtension(file.pth)=="hic"){ 
+            if(GetFileExtension(file.pth)=="hic"){ 
                 # Read .hic file
                     hic.dtf <- strawr::straw("NONE", file.pth, chrom_1.chr, chrom_2.chr, "BP", res.num, "observed")
                     hic.dtf$j <- ceiling((hic.dtf$y+1) / res.num)
                     hic.dtf$i <- ceiling((hic.dtf$x+1) / res.num)
-            }else if(SuperTK::GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){
+            }else if(GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){
                 # Define HDF5groups
-                    indexes.group <- ifelse(SuperTK::GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/indexes",no=paste('resolutions',res.num,'indexes',sep='/')) 
-                    pixels.group <- ifelse(SuperTK::GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/pixels",no=paste('resolutions',res.num,'pixels',sep='/')) 
+                    indexes.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/indexes",no=paste('resolutions',res.num,'indexes',sep='/')) 
+                    pixels.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/pixels",no=paste('resolutions',res.num,'pixels',sep='/')) 
                 # Define start and end of chromosomes
                     ends.ndx <- chromSize.dtf$dimension |> cumsum() |> stats::setNames(chromSize.dtf$name)
                     starts.ndx <- (ends.ndx-chromSize.dtf$dimension+1) |> stats::setNames(chromSize.dtf$name)
@@ -141,7 +141,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                     hic.dtf <- hic.dtf[filter.bin2,]
                     hic.dtf <- dplyr::mutate(hic.dtf, i=hic.dtf$i-starts.ndx[chrom_1.chr]+1)
                     hic.dtf <- dplyr::mutate(hic.dtf, j=hic.dtf$j-starts.ndx[chrom_2.chr]+1)        
-            }else if(SuperTK::GetFileExtension(file.pth) =="bedpe"){ 
+            }else if(GetFileExtension(file.pth) =="bedpe"){ 
                 hic.dtf <-  dplyr::filter(megaHic.dtf, megaHic.dtf$chrom_1==chrom_1.chr & megaHic.dtf$chrom_2==chrom_2.chr)
             }
             # Create Contact matrix
@@ -169,15 +169,15 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                             dplyr::pull("dimension")
                         }) |>
                     unlist()
-            if(SuperTK::GetFileExtension(file.pth)=="hic"){ 
+            if(GetFileExtension(file.pth)=="hic"){ 
                 # Read .hic file
                     hic.dtf <- strawr::straw("NONE", file.pth, chrom_1.chr,chrom_2.chr, "BP", res.num, "observed")
                     hic.dtf$j <- ceiling((hic.dtf$y+1) / res.num)
                     hic.dtf$i <- ceiling((hic.dtf$x+1) / res.num)
-            }else if(SuperTK::GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){
+            }else if(GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){
                 # Define HDF5groups
-                    indexes.group <- ifelse(SuperTK::GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/indexes",no=paste('resolutions',res.num,'indexes',sep='/')) 
-                    pixels.group <- ifelse(SuperTK::GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/pixels",no=paste('resolutions',res.num,'pixels',sep='/')) 
+                    indexes.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/indexes",no=paste('resolutions',res.num,'indexes',sep='/')) 
+                    pixels.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/pixels",no=paste('resolutions',res.num,'pixels',sep='/')) 
                 # Define start and end of chromosomes
                     ends.ndx <- chromSize.dtf$dimension |> cumsum() |> stats::setNames(chromSize.dtf$name)
                     starts.ndx <- 1+c(0,ends.ndx[-length(ends.ndx)]) |> stats::setNames(chromSize.dtf$name)
@@ -200,7 +200,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                     hic.dtf <- hic.dtf[filter.bin2,]
                     hic.dtf <- dplyr::mutate(hic.dtf, i=hic.dtf$i-starts.ndx[chrom_1.chr]+1)
                     hic.dtf <- dplyr::mutate(hic.dtf, j=hic.dtf$j-starts.ndx[chrom_2.chr]+1)         
-            }else if(SuperTK::GetFileExtension(file.pth) == "bedpe"){ 
+            }else if(GetFileExtension(file.pth) == "bedpe"){ 
                 hic.dtf <-  dplyr::filter(megaHic.dtf, megaHic.dtf$chrom_1==chrom_1.chr & megaHic.dtf$chrom_2==chrom_2.chr)
             }
             # Create Contact matrix
@@ -218,7 +218,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
     # Add attributes
         hic.lst_cmx <- hic.lst_cmx |>
             stats::setNames(chromComb.lst) |>
-            SuperTK::AddAttr(list(
+            AddAttr(list(
                 resolution = res.num,
                 chromSize = tibble::as_tibble(chromSize.dtf),
                 matricesKind=attributes.tbl,
