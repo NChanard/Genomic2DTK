@@ -1,236 +1,37 @@
-set.seed(981643)
-mat.mtx <- rnorm(10000,50,10)**3 %>% matrix(.,100,100)
-BoxBlur(mat.mtx)
-
-set.seed(31415)
-x.num <- rnorm(100,50,200)
-BreakVector(x.num=x.num, n.num=9)
-BreakVector(x.num=x.num, min.num=-400, center.num=58.34, max.num=600, n.num=9, method.chr="linear")
-BreakVector(x.num=x.num, center.num=58.34, n.num=9, method.chr="linear")
-BreakVector(x.num=x.num, n.num=9, method.chr="density")
-
-Gauss(x=1)
-Gauss(x=1,y=2)
-
-GaussBox( scale.chr="none")
-GaussBox( scale.chr="1")
-GaussBox( scale.chr="int")
-
-x.num <- rnorm(500,500)
-MeanScale(x.num)
-
-Plus(c(1,2,3))
-Plus(c(1,2,NA))
-Plus(c(NA,NA,NA))
-
-set.seed(1111)
-x.num <- 0:100
-x.num <- sort(x.num)
-QtlThreshold(x.num, prct.num=5, bounds.chr="lower")
-QtlThreshold(x.num, prct.num=5, bounds.chr="both")
-QtlThreshold(x.num, prct.num=5, bounds.chr="upper")
-
-set.seed(1111)
-x.num <- rnorm(1000)
-x.num <- sort(x.num)
-SdThreshold(x.num, sdThreshold.num=2, bounds.chr="lower")
-SdThreshold(x.num, sdThreshold.num=2, bounds.chr="both")
-SdThreshold(x.num, sdThreshold.num=2, bounds.chr="upper")
-
-set.seed(1111)
-x.num = rnorm(1000)
-x.num = sort(x.num)
-SdThreshold(x.num)
-TrimOutliers(x.num)[990:1000]
-TrimOutliers(x.num, clip=TRUE)[990:1000]
-
-
-i=c(1,1,2,2,3,3,4,4,4,4)
-j=c(1,4,2,5,1,4,2,3,4,5)
-x=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-mat.spm = Matrix::sparseMatrix(i=i, j=j, x=x, dims=c(5,5))
-mat.spm
-meltedMat.tbl <- MeltSpm(mat.spm)
-meltedMat.tbl[order(meltedMat.tbl$i),]
-
-mat.mtx = matrix(1:25,5,5)
-PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('top','bot','right','left') )
-PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
-PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('right','left') )
-PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('top') )
-
-first.rle = rle(c("A","A","B"))
-second.rle = rle(c("A","B","B"))
-ReduceRun(first.rle=first.rle, second.rle=second.rle, reduceFun.chr="paste", sep="_" )
-first.rle = S4Vectors::Rle(c(1,2,3))
-second.rle = S4Vectors::Rle(c(5,5,5))
-ReduceRun(first.rle=first.rle, second.rle=second.rle, reduceFun.chr="sum")
-
-matrice.mtx <- matrix(0,11,11)
-matrice.mtx[which(as.logical(1:(11*11)%%2))] <- 1:ceiling((11*11)/2)
-matrice.mtx[2,] <- 100
-matrice.mtx[,7] <- 200
-matrice.mtx
-ResizeMatrix(matrice.mtx=matrice.mtx, newDim.num=c(7,7))
-ResizeMatrix(matrice.mtx=matrice.mtx, newDim.num=c(13,13))
-
-set.seed(123)
-mat.spm = as(matrix(floor(runif(7*13,0,2)),7,13), "dgCMatrix")
-mat.spm
-Rise0(mat.spm=mat.spm, which.ndx=c(1,3,6,10,12))
-Rise0(mat.spm=mat.spm, coord.dtf=data.frame(i=c(1,5,3),  j=c(1,2,3) ) )
-Rise0(mat.spm=mat.spm)
-
-my_lst <- list(
-    first=list("A1","B1","C1"),
-    second=list("A2","B2"),
-    third=list(NULL,"B3")
-)
-TransposeList(my_lst)
-
-myString <- "mean(c(2,4,NA), na.rm=TRUE)"
-WrapFunction("mean(c(2,4,NA), na.rm=TRUE)")
-myResult <- WrapFunction(myString)
-myString_2 <- "function(X){mean(X, na.rm=TRUE)}"
-WrapFunction(myString_2)
-myFunction <- WrapFunction(myString_2)
-myFunction(c(1,2,3))
-
-
-Hsl2Hex(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
-
-Hsl2Rgb(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
-
-Hue(paletteLength.num=9)
-Hue(paletteLength.num=1)
-Hue(paletteLength.num=2)
-
-IsHsl("red")
-IsHsl("#FFFFFF")
-IsHsl(c(125,125,125))
-IsHsl(c(43.8,0.873,0.492))
-
-IsRgb("red")
-IsRgb("#FFFFFF")
-IsRgb(c(125,125,125))
-IsRgb(c(43.8,0.873,0.492))
-
-Rgb2Hex(c(235,176,16,127),alpha.bln=TRUE)
-
-viridis(9)
-
-YlOrRd(9)
-
-YlGnBu(9)
-
-MinMaxScale(rnorm(500,100))
-
-NotIn("A", c("A","B","C"))
-NotIn("A", c("B","C","D"))
- 
-start.tim <- Sys.time()
-for(i in seq_len(10000)){
- ShowLoading(start.tim, i , 10000)
-}
-
-start.tim <- Sys.time()
-for(i in seq_len(10000)){
-    Sys.sleep(3)
-    ShowLoading(start.tim, i , 10000)
-    if (i==3){
-        break
-    }
-}
-
-df1 <- data.frame(a = c(1:5), b = c(6:10))
-df2 <- data.frame(a = c(11:15), b = c(16:20), c = LETTERS[1:5])
-BindFillRows(df1,df2)
-BindFillRows(list(df1,df2))
-
-GRange.gnr <- GenomicRanges::GRanges(
-    seqnames = S4Vectors::Rle(c("chr1", "chr2"), c(3, 1)),
-    ranges = IRanges::IRanges(c(1,201,251,1), end = c(200,250,330,100), names = letters[1:4]),
-    strand = S4Vectors::Rle(BiocGenerics::strand(c("*")), 4),
-    score = c(50,NA,100,30)
-    )
-GRange.gnr
-chromSize.dtf = data.frame(c("chr1","chr2"),c(350,100))
-binSize.num <- 100
-binnedGRanges.gnr <- BinGRanges(
-    gRange.gnr = GRange.gnr,
-    chromSize.dtf=chromSize.dtf,
-    binSize.num=binSize.num,
-    method.chr ="mean",
-    variablesName.chr_vec="score",
-    na.rm=TRUE
-)
-binnedGRanges.gnr <- BinGRanges(
-    gRange.gnr = GRange.gnr,
-    chromSize.dtf=chromSize.dtf,
-    binSize.num=binSize.num,
-    method.chr ="mean",
-    variablesName.chr_vec="score",
-    na.rm=TRUE,
-    cores.num=2
-)
-
-StrToGRanges("chr1:1-100:+")
-StrToGRanges(c("chr1:1-100:+","chr2:400-500:-","chr1:10-50:*"))
-
-GenomicSystem(1540,3)
-GenomicSystem(1540,2)
-GenomicSystem(10,2)
-GenomicSystem(1000,2)
-GenomicSystem(1000000,2)
-GenomicSystem(1000000000,2)
-GenomicSystem("1Gbp")
-GenomicSystem("1Mbp")
-GenomicSystem("1Kbp")
-GenomicSystem("10Bp")
-
-GRange_1.grn <- GenomicRanges::GRanges(
-    seqnames = S4Vectors::Rle(c("chr1", "chr2", "chr1"), c(1, 3, 1)),
-    ranges = IRanges::IRanges(101:105, end = 111:115, names = letters[1:5]),
-    strand = S4Vectors::Rle(BiocGenerics::strand(c("-", "+", "*", "+")), c(1, 1, 2, 1)),
-    score = 1:5
-)
-GRange_2.grn <- GenomicRanges::GRanges(
-    seqnames = S4Vectors::Rle(c("chr1", "chr3"), c(1, 4)),
-    ranges = IRanges::IRanges(106:110, end = 116:120, names = letters[6:10]),
-    strand = S4Vectors::Rle(BiocGenerics::strand(c("*", "+", "-")), c(2, 1, 2)),
-    score = 6:10
-)
-MergeGRanges(GRange_1.grn,GRange_2.grn)
-GRange.lst = list(GRange_1.grn,GRange_2.grn)
-MergeGRanges(GRange.lst)
-MergeGRanges(GRange.lst, reduce.bln=TRUE, sort.bln=TRUE)
-
-GRange.grn <- GenomicRanges::GRanges(
-    seqnames = S4Vectors::Rle(c("chr1", "chr2", "chr1"), c(1, 3, 1)),
-    ranges = IRanges::IRanges(101:105, end = 111:115, names = letters[1:5]),
-    strand = S4Vectors::Rle(BiocGenerics::strand(c("-", "+", "*", "+")), c(1, 1, 2, 1)),
-    seqinfo = c(chr1=200, chr2=300),
-    score = 1:5
-)
-SeqEnds(GRange.grn)
-
-StrToGRanges("chr1:1-100:+")
-StrToGRanges(c("chr1:1-100:+","chr2:400-500:-","chr1:10-50:*"))
-
-
-
+#==============================
+# Libraries
+#==============================
 library(GenomicED)
 library(GenomicRanges)
 library(S4Vectors)
 
+#==============================
+# Data
+#==============================
+data("submatrixPF_Ctrl.mtx_lst")
 data("anchors_Peaks.gnr")
 data("baits_Peaks.gnr")
+data("submatrixRF_Ctrl.mtx_lst")
+data("submatrixRF.mtx_lst")
+data("anchors_Index.gnr")
+data("baits_Index.gnr")
+data("interactions.gni")
+data("HiC_ctrl.cmx_lst")
+data("domains.gnr")
+
+#==============================
+# Global Variables
+#==============================
 seqlengths.num <- c('2L'=23513712, '2R'=25286936)
 chromSize.dtf  <- data.frame(
   seqnames   = names(seqlengths.num ), 
   seqlengths = seqlengths.num
-  )
+)
 binSize.num <- 1000
+
+#==============================
+# Test IndexFeatures
+#==============================
 IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
   constraint.gnr        = domains.gnr,
@@ -240,7 +41,7 @@ IndexFeatures(
   variablesName.chr_vec = "score",
   cores.num             = 1,
   verbose.bln           = TRUE
-  )
+)
 IndexFeatures(
   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
   constraint.gnr        = NULL,
@@ -250,37 +51,38 @@ IndexFeatures(
   variablesName.chr_vec = "score",
   cores.num             = 2,
   verbose.bln           = FALSE
-  )
+)
 
+#==============================
+# Test SearchPairs
+#==============================
+SearchPairs(
+  indexAnchor.gnr = anchors_Index.gnr,
+  indexBait.gnr   = baits_Index.gnr,
+  minDist.num     = NULL, 
+  maxDist.num     = NULL,
+  cores.num       = 2,
+  verbose.bln     = FALSE
+)
+SearchPairs(
+  indexAnchor.gnr = anchors_Index.gnr,
+  minDist.num     = "1", 
+  maxDist.num     = "50Kb",
+  cores.num       = 1,
+  verbose.bln     = TRUE
+)
+SearchPairs(
+  indexAnchor.gnr = anchors_Index.gnr,
+  indexBait.gnr   = baits_Index.gnr,
+  minDist.num     = 1, 
+  maxDist.num     = 50000,
+  cores.num       = 2,
+  verbose.bln     = FALSE
+)
 
-data("anchors_Index.gnr")
-data("baits_Index.gnr")
-SearchPairs(
-    indexAnchor.gnr = anchors_Index.gnr,
-    indexBait.gnr   = baits_Index.gnr,
-    minDist.num     = NULL, 
-    maxDist.num     = NULL,
-    cores.num       = 2,
-    verbose.bln     = FALSE
-    )
-SearchPairs(
-    indexAnchor.gnr = anchors_Index.gnr,
-    minDist.num     = "1", 
-    maxDist.num     = "50Kb",
-    cores.num       = 1,
-    verbose.bln     = TRUE
-    )
-SearchPairs(
-    indexAnchor.gnr = anchors_Index.gnr,
-    indexBait.gnr   = baits_Index.gnr,
-    minDist.num     = 1, 
-    maxDist.num     = 50000,
-    cores.num       = 2,
-    verbose.bln     = FALSE
-    )
-data("interactions.gni")
-data("HiC_ctrl.cmx_lst")
-data("domains.gnr")
+#==============================
+# Test ExtractSubmatrix
+#==============================
 ExtractSubmatrix(
   feature.gn         = interactions.gni,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
@@ -289,8 +91,7 @@ ExtractSubmatrix(
   matriceDim.num     = 101,
   cores.num          = 1,
   verbose.bln        = TRUE
-  )
-
+)
 ExtractSubmatrix(
   feature.gn         = interactions.gni,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
@@ -299,7 +100,7 @@ ExtractSubmatrix(
   matriceDim.num     = 101,
   cores.num          = 2,
   verbose.bln        = TRUE
-  )
+)
 ExtractSubmatrix(
   feature.gn         = domains.gnr,
   hic.cmx_lst        = HiC_ctrl.cmx_lst,
@@ -307,9 +108,11 @@ ExtractSubmatrix(
   matriceDim.num     = 101,
   cores.num          = 2,
   verbose.bln        = FALSE
-  )
+)
 
-data("submatrixPF_Ctrl.mtx_lst")
+#==============================
+# Test FilterInteractions
+#==============================
 target.lst <- list(
   anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
   bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
@@ -322,66 +125,63 @@ target.lst <- list(
 selection.fun = function(){
   Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
   setdiff(name)
-  }
-
+}
 FilterInteractions(
-  matrices.lst = submatrixPF_Ctrl.mtx_lst,
+  matrices.lst      = submatrixPF_Ctrl.mtx_lst,
   target.lst        = target.lst,
   selection.fun     = selection.fun
-  )
-
+)
 FilterInteractions(
   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
   target.lst        = target.lst,
   selection.fun     = NULL
-  )
-
+)
 target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
 FilterInteractions(
   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
   target.lst        = target.lst,
   selection.fun     = NULL
-  )
- 
+)
 target.lst <- list(first = InteractionSet::anchors(attributes(submatrixPF_Ctrl.mtx_lst)$interactions)[["first"]][1:2])
 FilterInteractions(
   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
   target.lst        = target.lst,
   selection.fun     = NULL
-  )
+)
 
-OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
-GetQuantif(
-  matrices.lst  = submatrixPF_Ctrl.mtx_lst,
-  area.fun      = "center",
-  operation.fun = "mean"
-  )
-
-data("submatrixRF_Ctrl.mtx_lst")
+#==============================
+# Test GetQuantif
+#==============================
 GetQuantif(
   matrices.lst  = submatrixRF_Ctrl.mtx_lst,
   area.fun      = "center",
   operation.fun = "mean"
-  )
+)
+GetQuantif(
+  matrices.lst  = submatrixPF_Ctrl.mtx_lst,
+  area.fun      = "center",
+  operation.fun = "mean"
+)
+
+#==============================
+# Test OrienteMatrix
+#==============================
+OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
+
+#==============================
+# Test Aggregation
+#==============================
 Aggregation(
   matrices.lst = submatrixPF_Ctrl.mtx_lst, 
   agg.fun      = "sum",
   trans.fun    = "qtl", 
   rm0.bln      = FALSE
-  )
-Aggregation(
-  matrices.lst = submatrixPF_Ctrl.mtx_lst, 
-  agg.fun      = "sum",
-  rm0.bln      = TRUE,
-  minDist      = 9000,
-  maxDist      = 11000
-  )
-
+)
 diffAggreg.mtx <- Aggregation(
   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
   matrices.lst        = submatrixRF.mtx_lst,
-  minDist             = NULL,
-  maxDist             = NULL,
+  minDist             = "9Kb",
+  maxDist             = "11Kb",
   agg.fun             = "mean",
   rm0.bln             = FALSE,
   diff.fun            = "substraction",
@@ -390,8 +190,12 @@ diffAggreg.mtx <- Aggregation(
     i = c(1:30),
     j = c(72:101)
     ),
-  statCompare.bln = TRUE)
+  statCompare.bln = TRUE
+)
 
+#==============================
+# Test ggAPA and PlotAPA
+#==============================
 PlotAPA(
     apa.mtx                  = diffAggreg.mtx,
     trimPrct.num             = 20,
@@ -401,3 +205,28 @@ PlotAPA(
     minConditionBoundary.num = 0,
     maxConditionBoundary.num = 2
 )
+ggAPA(
+    apa.mtx      = diffAggreg.mtx,
+    title.chr    = "APA",
+    center.num   = 0,
+    trimPrct.num = NULL,
+    bounds.chr   = "both",
+    blurPass.num = 1,
+    blurSd.num   = 0.5,
+    heatmap.col  = viridis(6)
+)
+
+#==============================
+# Complete Tests
+#==============================
+TrimOutliers(rnorm(1000))
+GaussBox(scale.chr="int")
+Gauss(x=1, y=1)
+GenomicSystem(1000000000,2)
+GRange_1.grn <- StrToGRanges(c("chr1:1-100:+","chr2:400-500:-"))
+GRange_2.grn <- StrToGRanges("chr1:10-50:*")
+MergeGRanges(list(GRange_1.grn,GRange_2.grn), reduce.bln=TRUE, sort.bln=TRUE)
+Hue(paletteLength.num=1)
+Hue(paletteLength.num=2)
+PadMtx(mat.mtx=matrix(1:25,5,5),  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
+ReduceRun(first.rle=rle(c("A","A","B")), second.rle=rle(c("A","B","B")), reduceFun.chr="paste", sep="_" )

@@ -32,7 +32,7 @@ reference:
 
 - title: Genomic utils
   contents:
-  - BinGranges
+  - BinGRanges
   - GenomicSystem
   - MergeGRanges
   - SeqEnds
