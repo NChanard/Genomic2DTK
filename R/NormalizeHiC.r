@@ -12,7 +12,7 @@
 #' @return A matrices list.
 #' @examples
 NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, maxIter.num=50, qtlTh.num=0.15, cores.num=1, verbose.bln=TRUE ){
-    if ("all" %in% interaction.type){
+    if (!is.null(interaction.type) && "all" %in% interaction.type){
         megaHic.cmx <- JoinHiC(hic.cmx_lst)
         if(method.chr=="VC"){
             megaHic.cmx <-  VCnorm(megaHic.cmx, qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
@@ -22,11 +22,93 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             megaHic.cmx <- ICEnorm(megaHic.cmx, qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
         }
         hic.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln)
+    }else if(!is.null(interaction.type) && "cis" %in% interaction.type && SuperTK::NotIn("trans",interaction.type)){
+        matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
+        if("cis" %in% matricesKind.tbl$type){
+            cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
+            if(length(cisMatricesNames.chr)){
+                if(cores.num==1){
+                    start.tim <- Sys.time()
+                    jobLenght.num <- length(cisMatricesNames.chr)
+                    hic.cmx_lst[cisMatricesNames.chr] <- lapply(seq_along(cisMatricesNames.chr), function(ele.ndx){
+                        if(verbose.bln){SuperTK::ShowLoading(start.tim, ele.ndx,jobLenght.num)}
+                        matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
+                        if(method.chr=="VC"){
+                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
+                        }else if(method.chr=="VC_SQRT"){
+                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
+                        }else if (method.chr=="ICE"){
+                            hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
+                        }
+                        return(hic.cmx)
+                    })
+                }else if (cores.num>=2){
+                    multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+                    hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){
+                        matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
+                        if(method.chr=="VC"){
+                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
+                        }else if(method.chr=="VC_SQRT"){
+                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
+                        }else if (method.chr=="ICE"){
+                            hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
+                        }
+                        return(hic.cmx)
+                    })
+                }
+            }
+            transMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="trans") |> dplyr::pull("name")
+            print(paste0(paste(transMatricesNames.chr,collapse= ", "), " remove from output."))
+            if(length(transMatricesNames.chr)){
+                attr.lst <- attributes(hic.cmx_lst)
+                attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, SuperTK::NotIn(attr.lst$matricesKind$name, transMatricesNames.chr))
+                chroms.chr <- attr.lst$matricesKind$name |> strsplit("_") |> unlist() |> unique()
+                attr.lst$chromSize <- dplyr::filter(attr.lst$chromSize, attr.lst$chromSize$name == chroms.chr)
+                hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% transMatricesNames.chr)] |> SuperTK::AddAttr(attr.lst)
+            }
+        }else{
+            print("No cis matrix, Normalisation won't be applied on cis matrices")
+        }
+
+    }else if(!is.null(interaction.type) && "trans" %in% interaction.type && SuperTK::NotIn("cis",interaction.type)){
+        matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
+        if("trans" %in% matricesKind.tbl$type){
+            transMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="trans") |> dplyr::pull("name")
+            chromNames.chr <- transMatricesNames.chr |> strsplit("_") |> unlist() |> unique()
+            chromSize.tbl <- attributes(hic.cmx_lst)$chromSize
+            chromSize.tbl <- dplyr::filter(chromSize.tbl, chromSize.tbl$name %in% chromNames.chr)
+            trans.cmx_lst <- hic.cmx_lst[transMatricesNames.chr] |> SuperTK::AddAttr(list(
+                resolution   = attributes(hic.cmx_lst)$resolution,
+                chromSize    = chromSize.tbl,
+                matricesKind = matricesKind.tbl
+            ))
+            megaHic.cmx <- JoinHiC(trans.cmx_lst) 
+            if(method.chr=="VC"){
+                megaHic.cmx <-  VCnorm(megaHic.cmx, qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
+            }else if(method.chr=="VC_SQRT"){
+                megaHic.cmx <-  VCnorm(megaHic.cmx, qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
+            }else if (method.chr=="ICE"){
+                megaHic.cmx <- ICEnorm(megaHic.cmx, qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
+            }
+            trans.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln)
+            hic.cmx_lst[transMatricesNames.chr] <- trans.cmx_lst[transMatricesNames.chr]
+            cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
+            print(paste0(paste(cisMatricesNames.chr,collapse= ", "), " remove from output."))
+            if(length(cisMatricesNames.chr)){
+                attr.lst <- attributes(hic.cmx_lst)
+                attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, SuperTK::NotIn(attr.lst$matricesKind$name, cisMatricesNames.chr))
+                chroms.chr <- attr.lst$matricesKind$name |> strsplit("_") |> unlist() |> unique()
+                attr.lst$chromSize <- dplyr::filter(attr.lst$chromSize, attr.lst$chromSize$name == chroms.chr)
+                hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% cisMatricesNames.chr)] |> SuperTK::AddAttr(attr.lst)
+            }
+        }else{
+            print("No trans matrix, Normalisation won't be applied on trans matrices")
+        }
     }else{
         matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
-        if(is.null(interaction.type) | "cis" %in% interaction.type){ # DD221028 add possibility to do only cis
+        if(is.null(interaction.type) | "cis" %in% interaction.type){
             if("cis" %in% matricesKind.tbl$type){
-            cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
+                cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
                 if(length(cisMatricesNames.chr)){
                     if(cores.num==1){
                         start.tim <- Sys.time()
@@ -62,7 +144,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                 print("No cis matrix, Normalisation won't be applied on cis matrices")
             }
         }
-        if(is.null(interaction.type) | "trans" %in% interaction.type){ # DD221028 add possiblity to do only trans
+        if(is.null(interaction.type) | "trans" %in% interaction.type){
             if("trans" %in% matricesKind.tbl$type){
                 transMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="trans") |> dplyr::pull("name")
                 chromNames.chr <- transMatricesNames.chr |> strsplit("_") |> unlist() |> unique()
@@ -73,7 +155,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                     chromSize    = chromSize.tbl,
                     matricesKind = matricesKind.tbl
                 ))
-                megaHic.cmx <- JoinHiC(trans.cmx_lst) # I don't understand what is done with trans matrices, there are joint together ? in a mega map and normalized indepandently of cis matrices
+                megaHic.cmx <- JoinHiC(trans.cmx_lst)
                 if(method.chr=="VC"){
                     megaHic.cmx <-  VCnorm(megaHic.cmx, qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
                 }else if(method.chr=="VC_SQRT"){

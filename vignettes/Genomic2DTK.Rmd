@@ -114,7 +114,7 @@ Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool,
 hic.cmx_lst <- ImportHiC(
   file.pth      = HicOutput.pth,
   res.num       = binSize.num,
-  chrom_1.chr   = c("2L","2R")
+  chrom_1.chr   = c("2L", "2R")
   )
 ```
 
@@ -172,8 +172,7 @@ str(S4Vectors::metadata(hic.cmx_lst[["2L_2L"]]))
 7. **observed** : the raw observed counts of the sparse matrix.
 8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).  
 9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.  
-10.**expected** : the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
-
+10. **expected** : the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
 
 # Genomic locations Preprocess
 This part of the data corresponds to the positioning data on the genome. 
