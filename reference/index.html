@@ -44,7 +44,7 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
       
       
 
@@ -56,49 +56,25 @@
 
       <dl><dt>
           
-          <code><a href="Aggregation.html">Aggregation()</a></code> 
-        </dt>
-        <dd>Aggregated matrices list.</dd>
-      </dl><dl><dt>
-          
           <code><a href="Beaf32_Peaks.gnr.html">Beaf32_Peaks.gnr</a></code> 
         </dt>
         <dd>Drosophila Melanogaster Beaf32 peaks on 2L and 2R chromosomes.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="BinGRanges.html">BinGRanges()</a></code> 
-        </dt>
-        <dd>Bin a GRanges.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="CutHiC.html">CutHiC()</a></code> 
-        </dt>
-        <dd>Cut HiC map in HiC chunks.</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="hic-preprocess">HiC Preprocess<a class="anchor" aria-label="anchor" href="#hic-preprocess"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="ExpectedHiC.html">ExpectedHiC()</a></code> 
         </dt>
         <dd>Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="ExtractSubmatrix.html">ExtractSubmatrix()</a></code> 
-        </dt>
-        <dd>Submatrix extraction</dd>
-      </dl><dl><dt>
-          
-          <code><a href="FilterInteractions.html">FilterInteractions()</a></code> 
-        </dt>
-        <dd>Submatrix or Interactions filtering.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="GenomicSystem.html">GenomicSystem()</a></code> 
-        </dt>
-        <dd>Convert numbers of base pairs into string and vice versa.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="GetQuantif.html">GetQuantif()</a></code> 
-        </dt>
-        <dd>Compute quantification on extracted submatrix.</dd>
       </dl><dl><dt>
           
           <code><a href="ICEnorm.html">ICEnorm()</a></code> 
@@ -111,24 +87,50 @@
         <dd>Import Hic data</dd>
       </dl><dl><dt>
           
+          <code><a href="NormalizeHiC.html">NormalizeHiC()</a></code> 
+        </dt>
+        <dd>Compute HiC map matrix-balancing normalization.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VCnorm.html">VCnorm()</a></code> 
+        </dt>
+        <dd>Compute Vanilla Count or Vanilla Count square root correction on hic chunk.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="aggregation-analysis">Aggregation Analysis<a class="anchor" aria-label="anchor" href="#aggregation-analysis"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
           <code><a href="IndexFeatures.html">IndexFeatures()</a></code> 
         </dt>
         <dd>Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().</dd>
       </dl><dl><dt>
           
-          <code><a href="JoinHiC.html">JoinHiC()</a></code> 
+          <code><a href="Aggregation.html">Aggregation()</a></code> 
         </dt>
-        <dd>Merge HiC chunk as HiC map</dd>
+        <dd>Aggregated matrices list.</dd>
       </dl><dl><dt>
           
-          <code><a href="MergeGRanges.html">MergeGRanges()</a></code> 
+          <code><a href="ExtractSubmatrix.html">ExtractSubmatrix()</a></code> 
         </dt>
-        <dd>Merge GRanges or a list of GRanges</dd>
+        <dd>Submatrix extraction</dd>
       </dl><dl><dt>
           
-          <code><a href="NormalizeHiC.html">NormalizeHiC()</a></code> 
+          <code><a href="FilterInteractions.html">FilterInteractions()</a></code> 
         </dt>
-        <dd>Compute HiC map matrix-balancing normalization.</dd>
+        <dd>Submatrix or Interactions filtering.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="GetQuantif.html">GetQuantif()</a></code> 
+        </dt>
+        <dd>Compute quantification on extracted submatrix.</dd>
       </dl><dl><dt>
           
           <code><a href="OrienteMatrix.html">OrienteMatrix()</a></code> 
@@ -136,14 +138,61 @@
         <dd>extracted matrix orientation</dd>
       </dl><dl><dt>
           
-          <code><a href="PlotAPA.html">PlotAPA()</a></code> 
-        </dt>
-        <dd>Draw aggregation plot.</dd>
-      </dl><dl><dt>
-          
           <code><a href="SearchPairs.html">SearchPairs()</a></code> 
         </dt>
         <dd>Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="hic-utils">HiC utils<a class="anchor" aria-label="anchor" href="#hic-utils"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="CutHiC.html">CutHiC()</a></code> 
+        </dt>
+        <dd>Cut HiC map in HiC chunks.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="JoinHiC.html">JoinHiC()</a></code> 
+        </dt>
+        <dd>Merge HiC chunk as HiC map</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SwitchMatrix.html">SwitchMatrix()</a></code> 
+        </dt>
+        <dd>Change values in hic chunk</dd>
+      </dl></div><div class="section level2">
+      <h2 id="genomic-utils">Genomic utils<a class="anchor" aria-label="anchor" href="#genomic-utils"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="BinGRanges.html">BinGRanges()</a></code> 
+        </dt>
+        <dd>Bin a GRanges.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="GenomicSystem.html">GenomicSystem()</a></code> 
+        </dt>
+        <dd>Convert numbers of base pairs into string and vice versa.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MergeGRanges.html">MergeGRanges()</a></code> 
+        </dt>
+        <dd>Merge GRanges or a list of GRanges</dd>
       </dl><dl><dt>
           
           <code><a href="SeqEnds.html">SeqEnds()</a></code> 
@@ -154,23 +203,30 @@
           <code><a href="StrToGRanges.html">StrToGRanges()</a></code> 
         </dt>
         <dd>Convert String in GRanges object</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="visualisation">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
-          <code><a href="SwitchMatrix.html">SwitchMatrix()</a></code> 
+          <code><a href="PlotAPA.html">PlotAPA()</a></code> 
         </dt>
-        <dd>Change values in hic chunk</dd>
-      </dl><dl><dt>
-          
-          <code><a href="VCnorm.html">VCnorm()</a></code> 
-        </dt>
-        <dd>Compute Vanilla Count or Vanilla Count square root correction on hic chunk.</dd>
+        <dd>Draw aggregation plot.</dd>
       </dl><dl><dt>
           
           <code><a href="ggAPA.html">ggAPA()</a></code> 
         </dt>
         <dd>Aggregation plot</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
