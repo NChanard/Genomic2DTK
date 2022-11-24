@@ -22,6 +22,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/AddAttr.html</loc>
+  </url>
+  <url>
     <loc>/reference/Aggregation.html</loc>
   </url>
   <url>
@@ -49,7 +52,22 @@
     <loc>/reference/GenomicSystem.html</loc>
   </url>
   <url>
+    <loc>/reference/GetFileExtension.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GetFileName.html</loc>
+  </url>
+  <url>
     <loc>/reference/GetQuantif.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Hsl2Hex.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Hsl2Rgb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Hue.html</loc>
   </url>
   <url>
     <loc>/reference/ICEnorm.html</loc>
@@ -61,10 +79,19 @@
     <loc>/reference/IndexFeatures.html</loc>
   </url>
   <url>
+    <loc>/reference/IsHsl.html</loc>
+  </url>
+  <url>
+    <loc>/reference/IsRgb.html</loc>
+  </url>
+  <url>
     <loc>/reference/JoinHiC.html</loc>
   </url>
   <url>
     <loc>/reference/MergeGRanges.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MinMaxScale.html</loc>
   </url>
   <url>
     <loc>/reference/NormalizeHiC.html</loc>
@@ -77,6 +104,9 @@
   </url>
   <url>
     <loc>/reference/PlotAPA.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Rgb2Hex.html</loc>
   </url>
   <url>
     <loc>/reference/SearchPairs.html</loc>
@@ -97,9 +127,18 @@
     <loc>/reference/VCnorm.html</loc>
   </url>
   <url>
+    <loc>/reference/YlGnBu.html</loc>
+  </url>
+  <url>
+    <loc>/reference/YlOrRd.html</loc>
+  </url>
+  <url>
     <loc>/reference/ggAPA.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/viridis.html</loc>
   </url>
 </urlset>
