@@ -274,7 +274,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                 print(plot.gp)
             }
         # Grouped Scale(Condition & Control)
-            colBreaks.num <- SuperTK::BreakVector(
+            colBreaks.num <- BreakVector(
                 x.num=c(c(attributes(apa.mtx)$matrices$agg), c(attributes(apa.mtx)$matrices$aggCtrl)),
                 n.num=51)
         # Control + Grouped Scale(with Condition)
@@ -294,7 +294,7 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             ) + ggplot2::labs(subtitle="scale (grouped with control)")
             print(plot.gp)
         # Grouped Scale(Corrected condition & Control)
-            colBreaks.num <- SuperTK::BreakVector(
+            colBreaks.num <- BreakVector(
                 x.num=c(c(attributes(apa.mtx)$matrices$aggCorrected), c(attributes(apa.mtx)$matrices$aggCtrl)),
                 n.num=51)
         # Control + Grouped Scale(with corrected condition)

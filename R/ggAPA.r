@@ -5,7 +5,7 @@
 #' @param apa.mtx <matrix> : The matrix to plot. (Default NULL)
 #' @param title.chr <character> : The title of plot. (Default NULL)
 #' @param trimPrct.num <numeric> : A number between 0 and 100 that give the percentage of trimming. (Default 0)
-#' @param bounds.chr <character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see SuperTK::QtlThreshold. (Default "both")
+#' @param bounds.chr <character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see QtlThreshold. (Default "both")
 #' @param minBoundary.num <numeric> : Minimal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)
 #' @param center.num <numeric> : Center value of Heatmap, force color range. If Null automaticaly find. (Default NULL)
 #' @param maxBoundary.num <numeric> : Maximal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)
@@ -34,13 +34,13 @@
 #'     bounds.chr   = "both",
 #'     blurPass.num = 1,
 #'     blurSd.num   = 0.5,
-#'     heatmap.col  = SuperTK::viridis(6)
+#'     heatmap.col  = viridis(6)
 #' )
 ggAPA = function(
         apa.mtx = NULL,
         title.chr = NULL,
         trimPrct.num=0, # NULL or [0-100]. Percentage of trimming
-        bounds.chr="both", # inferior, bot # which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see SuperTK::QtlThreshold
+        bounds.chr="both", # inferior, bot # which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see QtlThreshold
         minBoundary.num=NULL, # Minimal value of Heatmap, force color range. If Null automaticaly find
         center.num=NULL, # Center value of Heatmap, force color range.  If Null automaticaly find
         maxBoundary.num=NULL, # Maximal value of Heatmap, force color range.  If Null automaticaly find
@@ -67,7 +67,7 @@ ggAPA = function(
                 if(is.null(trimPrct.num)){trimPrct.num <- 0}
                 if(trimPrct.num!=0 || !is.null(minBoundary.num) || !is.null(maxBoundary.num)){
                     bounds.num_vec <- vec.num |>
-                        SuperTK::QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) |>
+                        QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) |>
                         stats::setNames(NULL)
                     bounds.num_lst <- list(bounds.num_vec, list(minBoundary.num, maxBoundary.num))
                     bounds.num_lst <- TransposeList(bounds.num_lst)
@@ -76,7 +76,7 @@ ggAPA = function(
                     bounds.num_vec <- NULL
                 }
                 if(!is.null(bounds.num_vec)){
-                    apa.mtx <- SuperTK::TrimOutliers(x.num=apa.mtx,tresholds.num=bounds.num_vec, clip.bln=TRUE)
+                    apa.mtx <- TrimOutliers(x.num=apa.mtx,tresholds.num=bounds.num_vec, clip.bln=TRUE)
                     vec.num <- c(apa.mtx)
                 }
         #############
@@ -84,7 +84,7 @@ ggAPA = function(
         #############
             if (blurPass.num){
                 for(i in seq_len(blurPass.num)){
-                    apa.mtx <- SuperTK::BoxBlur(mat.mtx=apa.mtx, sd=blurSd.num, box.num=blurBox.num, boxSize.num=blurSize.num)
+                    apa.mtx <- BoxBlur(mat.mtx=apa.mtx, sd.num=blurSd.num, box.num=blurBox.num, boxSize.num=blurSize.num)
                 }
                 if(!is.null(lowerTri.num)){
                     apa.mtx[lower.tri(apa.mtx, diag=FALSE)] <- lowerTri.num
@@ -95,7 +95,7 @@ ggAPA = function(
         # Breaks
         #############
             if(is.null(colBreaks.num)){
-                colBreaks.num <- SuperTK::BreakVector(
+                colBreaks.num <- BreakVector(
                     x.num=vec.num,
                     min.num=minBoundary.num,
                     center.num=center.num,

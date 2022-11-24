@@ -28,7 +28,6 @@ Imports:
     S4Vectors,
     stats,
     strawr,
-    SuperTK,
     tibble,
     tidyr
 Suggests:
@@ -41,8 +40,7 @@ Suggests:
 VignetteBuilder:
     knitr
 Remotes:
-    github::NChanard/GenomicED,
-    github::NChanard/SuperTK
+    github::NChanard/GenomicED
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz

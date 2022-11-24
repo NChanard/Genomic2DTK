@@ -27,7 +27,7 @@
 #' \item "rank" apply a ranking on values in matrix
 #' \item "zscore" apply a scaling on values in matrix
 #' \item "minmax" apply a MinMaxScale on values in matrix
-#' \item "mu" apply a SuperTK::MeanScale on values in matrix
+#' \item "mu" apply a MeanScale on values in matrix
 #' \item other (Default) apply a log2 on 1+ratio
 #' }
 #' @param scaleCorrection.bln <logical>: Whether a correction should be done on the median value take in ane noising area. (Default TRUE)
@@ -144,7 +144,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(trans.fun) %in% c("rank")                   ~ "function(mat.mtx){matrix(rank(mat.mtx,na.last='keep'), dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
                 tolower(trans.fun) %in% c("zscore")                 ~ "function(mat.mtx){matrix(scale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
                 tolower(trans.fun) %in% c("minmax")                 ~ "function(mat.mtx){matrix(MinMaxScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
-                tolower(trans.fun) %in% c("mu")                     ~ "function(mat.mtx){matrix(SuperTK::MeanScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
+                tolower(trans.fun) %in% c("mu")                     ~ "function(mat.mtx){matrix(MeanScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
                 TRUE                                                ~  "NULL"
                 )
             trans.fun <- WrapFunction(trans.fun)

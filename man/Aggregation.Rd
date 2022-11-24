@@ -34,7 +34,7 @@ Aggregation(
 \item "rank" apply a ranking on values in matrix
 \item "zscore" apply a scaling on values in matrix
 \item "minmax" apply a MinMaxScale on values in matrix
-\item "mu" apply a SuperTK::MeanScale on values in matrix
+\item "mu" apply a MeanScale on values in matrix
 \item other (Default) apply a log2 on 1+ratio
 }}
 
