@@ -28,6 +28,12 @@
     <loc>/reference/Beaf32_Peaks.gnr.html</loc>
   </url>
   <url>
+    <loc>/reference/BinGRanges.html</loc>
+  </url>
+  <url>
+    <loc>/reference/BindFillRows.html</loc>
+  </url>
+  <url>
     <loc>/reference/CutHiC.html</loc>
   </url>
   <url>
@@ -38,6 +44,9 @@
   </url>
   <url>
     <loc>/reference/FilterInteractions.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GenomicSystem.html</loc>
   </url>
   <url>
     <loc>/reference/GetQuantif.html</loc>
@@ -55,7 +64,13 @@
     <loc>/reference/JoinHiC.html</loc>
   </url>
   <url>
+    <loc>/reference/MergeGRanges.html</loc>
+  </url>
+  <url>
     <loc>/reference/NormalizeHiC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/NotIn.html</loc>
   </url>
   <url>
     <loc>/reference/OrienteMatrix.html</loc>
@@ -65,6 +80,15 @@
   </url>
   <url>
     <loc>/reference/SearchPairs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SeqEnds.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ShowLoading.html</loc>
+  </url>
+  <url>
+    <loc>/reference/StrToGRanges.html</loc>
   </url>
   <url>
     <loc>/reference/SwitchMatrix.html</loc>
