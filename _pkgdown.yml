@@ -1,2 +1,44 @@
 template:
   bootstrap: 5
+
+reference:
+- title: Data
+  contents:
+  - Beaf32_Peaks.gnr
+
+- title: HiC Preprocess
+  contents:
+  - ExpectedHiC
+  - ICEnorm
+  - ImportHiC
+  - NormalizeHiC
+  - VCnorm
+
+- title: Aggregation Analysis
+  contents:
+  - IndexFeatures
+  - Aggregation
+  - ExtractSubmatrix
+  - FilterInteractions
+  - GetQuantif
+  - OrienteMatrix
+  - SearchPairs
+
+- title: HiC utils
+  contents:
+  - CutHiC
+  - JoinHiC
+  - SwitchMatrix
+
+- title: Genomic utils
+  contents:
+  - BinGranges
+  - GenomicSystem
+  - MergeGRanges
+  - SeqEnds
+  - StrToGRanges
+
+- title: Visualisation
+  contents:
+  - PlotAPA
+  - ggAPA
