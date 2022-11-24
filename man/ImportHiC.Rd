@@ -38,3 +38,16 @@ Import ..hic, .cool, .mcool or .bedpe data
 \details{
 ImportHiC
 }
+\examples{
+\dontrun{
+# Download HiC File
+options(timeout = 3600)
+temp.dir <- file.path(tempdir(), "HIC_DATA")
+dir.create(temp.dir)
+Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
+HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
+download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
+# Import file in R
+HiC.cmx_lst <- ImportHiC(file.pth=HicOutput.pth, res.num=1000, chrom_1.chr=c("2L", "2R", "2L"), chrom_2.chr=c("2L", "2R", "2L"))
+}
+}

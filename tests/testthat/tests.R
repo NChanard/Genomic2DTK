@@ -48,13 +48,13 @@ download.file(Mcool.url, McoolOutput.pth, method = 'curl', extra = '-k')
 HiC_Ctrl.cmx_lst <- ImportHiC(
   file.pth    = HicOutput.pth,
   res.num     = binSize.num,
-  chrom_1.chr = c("2L", "2R", "2L"),
+  chrom_1.chr = c("2L", "2L", "2L"),
   chrom_2.chr = c("2L", "2R", "2L")
 )
 HiC_HS.cmx_lst <- ImportHiC(
   file.pth    = McoolOutput.pth,
   res.num     = binSize.num,
-  chrom_1.chr = c("2L", "2R", "2L"),
+  chrom_1.chr = c("2L", "2L", "2L"),
   chrom_2.chr = c("2L", "2R", "2L"),
   cores.num   = 2
   )
@@ -70,8 +70,8 @@ ImportHiC(
 HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst)
 HiC_HS.cmx_lst <- NormalizeHiC(HiC_HS.cmx_lst)
 NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis", method.chr="VC", cores.num=2)
-NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="trans", method.chr="VC_SQRT")
-NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="all")
+NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
+NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
 
 #==============================
 # Test ExpectedHiC

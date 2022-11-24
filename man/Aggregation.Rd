@@ -71,11 +71,9 @@ Aggregated matrices list. Could apply a differential of each paired matrices in 
 Aggregation
 }
 \examples{
-library(GenomicED)
-data("submatrixRF_Ctrl.mtx_lst")
-data("submatrixRF.mtx_lst")
-
-
+\dontrun{
+# Classical Aggregation
+# submatrixRF_Ctrl.mtx_lst is a submatrix list obtain with ExtractSubmatrix function
 aggreg.mtx <- Aggregation(
   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
   agg.fun      = "sum",
@@ -83,12 +81,10 @@ aggreg.mtx <- Aggregation(
   rm0.bln      = TRUE,
   minDist      = 9000,
   maxDist      = 11000
-) |> suppressPackageStartupMessages()
+)
 
-str(attributes(aggreg.mtx),max.level = 1)
-aggreg.mtx[1:5,1:5]
-
-
+# Differential Aggregation
+# submatrixRF.mtx_lst is a second submatrix list obtain with ExtractSubmatrix function
 diffAggreg.mtx <- Aggregation(
   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
   matrices.lst        = submatrixRF.mtx_lst,
@@ -104,7 +100,5 @@ diffAggreg.mtx <- Aggregation(
     ),
   statCompare.bln = TRUE
 )
-
-str(attributes(diffAggreg.mtx),max.level = 1)
-diffAggreg.mtx[1:5,1:5]
+}
 }
