@@ -30,6 +30,56 @@ chromSize.dtf  <- data.frame(
 binSize.num <- 1000
 
 #==============================
+# Test ImportHiC
+#==============================
+# Download HiC File
+options(timeout = 3600)
+temp.dir <- file.path(tempdir(), "HIC_DATA")
+dir.create(temp.dir)
+Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
+HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
+download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
+
+Mcool.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"
+McoolOutput.pth <- file.path(temp.dir, "HeatShock_HIC.mcool")
+download.file(Mcool.url, McoolOutput.pth, method = 'curl', extra = '-k')
+
+# Import file in R
+HiC_Ctrl.cmx_lst <- ImportHiC(
+  file.pth    = HicOutput.pth,
+  res.num     = binSize.num,
+  chrom_1.chr = c("2L", "2R", "2L"),
+  chrom_2.chr = c("2L", "2R", "2L")
+)
+HiC_HS.cmx_lst <- ImportHiC(
+  file.pth    = McoolOutput.pth,
+  res.num     = binSize.num,
+  chrom_1.chr = c("2L", "2R", "2L"),
+  chrom_2.chr = c("2L", "2R", "2L"),
+  cores.num   = 2
+  )
+ImportHiC(
+  file.pth    = HicOutput.pth,
+  res.num     = "5Kb",
+  chrom_1.chr = "2L"
+)
+
+#==============================
+# Test NormalizeHiC
+#==============================
+HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst <- NormalizeHiC(HiC_HS.cmx_lst)
+NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis", method.chr="VC", cores.num=2)
+NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="trans", method.chr="VC_SQRT")
+NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="all")
+
+#==============================
+# Test ExpectedHiC
+#==============================
+HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst <-ExpectedHiC(HiC_HS.cmx_lst, cores.num=2)
+
+#==============================
 # Test IndexFeatures
 #==============================
 IndexFeatures(
