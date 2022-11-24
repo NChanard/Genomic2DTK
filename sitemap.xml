@@ -37,6 +37,12 @@
     <loc>/reference/BindFillRows.html</loc>
   </url>
   <url>
+    <loc>/reference/BoxBlur.html</loc>
+  </url>
+  <url>
+    <loc>/reference/BreakVector.html</loc>
+  </url>
+  <url>
     <loc>/reference/CutHiC.html</loc>
   </url>
   <url>
@@ -47,6 +53,12 @@
   </url>
   <url>
     <loc>/reference/FilterInteractions.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Gauss.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GaussBox.html</loc>
   </url>
   <url>
     <loc>/reference/GenomicSystem.html</loc>
@@ -88,6 +100,9 @@
     <loc>/reference/JoinHiC.html</loc>
   </url>
   <url>
+    <loc>/reference/MeanScale.html</loc>
+  </url>
+  <url>
     <loc>/reference/MeltSpm.html</loc>
   </url>
   <url>
@@ -112,6 +127,12 @@
     <loc>/reference/PlotAPA.html</loc>
   </url>
   <url>
+    <loc>/reference/Plus.html</loc>
+  </url>
+  <url>
+    <loc>/reference/QtlThreshold.html</loc>
+  </url>
+  <url>
     <loc>/reference/ReduceRun.html</loc>
   </url>
   <url>
@@ -122,6 +143,9 @@
   </url>
   <url>
     <loc>/reference/Rise0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SdThreshold.html</loc>
   </url>
   <url>
     <loc>/reference/SearchPairs.html</loc>
@@ -140,6 +164,9 @@
   </url>
   <url>
     <loc>/reference/TransposeList.html</loc>
+  </url>
+  <url>
+    <loc>/reference/TrimOutliers.html</loc>
   </url>
   <url>
     <loc>/reference/VCnorm.html</loc>
