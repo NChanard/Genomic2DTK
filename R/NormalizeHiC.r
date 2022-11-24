@@ -22,7 +22,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             megaHic.cmx <- ICEnorm(megaHic.cmx, qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
         }
         hic.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln=verbose.bln)
-    }else if(!is.null(interaction.type) && "cis" %in% interaction.type && SuperTK::NotIn("trans",interaction.type)){
+    }else if(!is.null(interaction.type) && "cis" %in% interaction.type && NotIn("trans",interaction.type)){
         matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
         if("cis" %in% matricesKind.tbl$type){
             cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
@@ -31,7 +31,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                     start.tim <- Sys.time()
                     jobLenght.num <- length(cisMatricesNames.chr)
                     hic.cmx_lst[cisMatricesNames.chr] <- lapply(seq_along(cisMatricesNames.chr), function(ele.ndx){
-                        if(verbose.bln){SuperTK::ShowLoading(start.tim, ele.ndx,jobLenght.num)}
+                        if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
                         matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
                         if(method.chr=="VC"){
                             hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
@@ -61,7 +61,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             print(paste0(paste(transMatricesNames.chr,collapse= ", "), " remove from output."))
             if(length(transMatricesNames.chr)){
                 attr.lst <- attributes(hic.cmx_lst)
-                attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, SuperTK::NotIn(attr.lst$matricesKind$name, transMatricesNames.chr))
+                attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, NotIn(attr.lst$matricesKind$name, transMatricesNames.chr))
                 chroms.chr <- attr.lst$matricesKind$name |> strsplit("_") |> unlist() |> unique()
                 attr.lst$chromSize <- dplyr::filter(attr.lst$chromSize, attr.lst$chromSize$name == chroms.chr)
                 hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% transMatricesNames.chr)] |> SuperTK::AddAttr(attr.lst)
@@ -70,7 +70,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             print("No cis matrix, Normalisation won't be applied on cis matrices")
         }
 
-    }else if(!is.null(interaction.type) && "trans" %in% interaction.type && SuperTK::NotIn("cis",interaction.type)){
+    }else if(!is.null(interaction.type) && "trans" %in% interaction.type && NotIn("cis",interaction.type)){
         matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
         if("trans" %in% matricesKind.tbl$type){
             transMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="trans") |> dplyr::pull("name")
@@ -96,7 +96,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             print(paste0(paste(cisMatricesNames.chr,collapse= ", "), " remove from output."))
             if(length(cisMatricesNames.chr)){
                 attr.lst <- attributes(hic.cmx_lst)
-                attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, SuperTK::NotIn(attr.lst$matricesKind$name, cisMatricesNames.chr))
+                attr.lst$matricesKind <- dplyr::filter(attr.lst$matricesKind, NotIn(attr.lst$matricesKind$name, cisMatricesNames.chr))
                 chroms.chr <- attr.lst$matricesKind$name |> strsplit("_") |> unlist() |> unique()
                 attr.lst$chromSize <- dplyr::filter(attr.lst$chromSize, attr.lst$chromSize$name == chroms.chr)
                 hic.cmx_lst <- hic.cmx_lst[-which(names(hic.cmx_lst) %in% cisMatricesNames.chr)] |> SuperTK::AddAttr(attr.lst)
@@ -114,7 +114,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
                         start.tim <- Sys.time()
                         jobLenght.num <- length(cisMatricesNames.chr)
                         hic.cmx_lst[cisMatricesNames.chr] <- lapply(seq_along(cisMatricesNames.chr), function(ele.ndx){
-                            if(verbose.bln){SuperTK::ShowLoading(start.tim, ele.ndx,jobLenght.num)}
+                            if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
                             matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
                             if(method.chr=="VC"){
                                 hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)

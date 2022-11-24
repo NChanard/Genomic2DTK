@@ -12,11 +12,11 @@ Depends:
     R (>= 4.1),
     InteractionSet
 Imports:
+    BiocGenerics,
     BiocParallel,
     dplyr,
     GenomeInfoDb,
     GenomicRanges,
-    GenomicTK,
     ggplot2,
     gridExtra,
     IRanges,
@@ -41,7 +41,6 @@ VignetteBuilder:
     knitr
 Remotes:
     github::NChanard/GenomicED,
-    github::NChanard/GenomicTK,
     github::NChanard/SuperTK
 Encoding: UTF-8
 LazyData: true

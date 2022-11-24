@@ -32,10 +32,10 @@
 
 SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NULL, maxDist.num=NULL, verbose.bln=TRUE, cores.num=1){
     if(is.character(minDist.num)){
-        minDist.num <- GenomicTK::GenomicSystem(minDist.num)
+        minDist.num <- GenomicSystem(minDist.num)
     }
     if(is.character(maxDist.num)){
-        maxDist.num <- GenomicTK::GenomicSystem(maxDist.num)
+        maxDist.num <- GenomicSystem(maxDist.num)
     }
     if(is.null(indexBait.gnr)){indexBait.gnr<-indexAnchor.gnr}
     commonConstraint.lst <- intersect(indexAnchor.gnr$constraint, indexBait.gnr$constraint)
@@ -44,7 +44,7 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
         start.tim <- Sys.time()
         if(verbose.bln){cat("\n")}
         pairs.gni_lst <- lapply(seq_len(jobLength.num), function(constraint.ndx){
-            if(verbose.bln){SuperTK::ShowLoading(start.tim, constraint.ndx,jobLength.num)}
+            if(verbose.bln){ShowLoading(start.tim, constraint.ndx,jobLength.num)}
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
             subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr$constraint == commonConstraint.chr)]
             subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr$constraint == commonConstraint.chr)]

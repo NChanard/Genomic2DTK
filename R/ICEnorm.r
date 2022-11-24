@@ -25,7 +25,7 @@ ICEnorm <- function(hic.cmx,  qtlTh.num=0.15, maxIter.num=50){
             removedHic.dtf <- dplyr::filter(meltedHic.dtf, meltedHic.dtf$i %in% row.ndx | meltedHic.dtf$j %in% col.ndx)
             hic.cmx@metadata$removedCounts <- Matrix::sparseMatrix(i=removedHic.dtf$i,j=removedHic.dtf$j,x=removedHic.dtf$x,dims=dim(hic.cmx@matrix))
         
-            hic.dtf <- dplyr::filter(meltedHic.dtf, SuperTK::NotIn(meltedHic.dtf$i,row.ndx) & SuperTK::NotIn(meltedHic.dtf$j,col.ndx))
+            hic.dtf <- dplyr::filter(meltedHic.dtf, NotIn(meltedHic.dtf$i,row.ndx) & NotIn(meltedHic.dtf$j,col.ndx))
             hic.cmx@matrix <- Matrix::sparseMatrix(i=hic.dtf$i,j=hic.dtf$j,x=hic.dtf$x,dims=dim(hic.cmx@matrix))
         }
     observed.num <- hic.cmx@matrix@x

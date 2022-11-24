@@ -352,13 +352,13 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             attr.ndx <- apa.mtx |>
                 attributes() |>
                 names() |>
-                SuperTK::NotIn(c("dim","matrices","interactions", "dimnames"))
+                NotIn(c("dim","matrices","interactions", "dimnames"))
             attr.lst <- attributes(apa.mtx)[attr.ndx]
             attr.lst$aggregationMethod <- function(pxl){pxl[is.na(pxl)]<-0;mean(pxl,na.rm=TRUE)}
             attr1.ndx <- attr.lst |>
                 lapply(class) |>
                 unlist() |>
-                SuperTK::NotIn(c("matrix", "list","GInteractions","function")) 
+                NotIn(c("matrix", "list","GInteractions","function")) 
             attr1.lst <- attr.lst[attr1.ndx] |>
                         lapply(as.character) |>
                         unlist()

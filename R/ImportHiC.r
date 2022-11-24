@@ -15,7 +15,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
     # Resolution Format
         options(scipen=999)
         if(inherits(res.num,"character")){
-            res.num <- GenomicTK::GenomicSystem(res.num)
+            res.num <- GenomicSystem(res.num)
         }
     # Chromosomes Format
         if(is.null(chrom_2.chr)){
@@ -98,7 +98,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
         start.tim <- Sys.time()
         jobLenght.num <- length(chromComb.lst)
         hic.lst_cmx <- lapply(seq_along(chromComb.lst), function(ele.ndx){
-            if(verbose.bln){SuperTK::ShowLoading(start.tim, ele.ndx,jobLenght.num)}
+            if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
             # Chromosomes
                 ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
                 chrom_1.chr <- ele.lst[[1]]

@@ -14,7 +14,7 @@ ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
     jobLenght.num = length(matricesNames.chr)
     if (cores.num==1){
         expected.lst <- lapply(seq_along(matricesNames.chr), function(matrixName.ndx){
-            if(verbose.bln){SuperTK::ShowLoading(start.tim,matrixName.ndx,jobLenght.num)}
+            if(verbose.bln){ShowLoading(start.tim,matrixName.ndx,jobLenght.num)}
             matrixName.chr <- matricesNames.chr[matrixName.ndx]
             if(hic.cmx_lst[[matrixName.chr]]@metadata$type=="cis"){
                 hic.dtf <- SuperTK::MeltSpm(hic.cmx_lst[[matrixName.chr]]@matrix)

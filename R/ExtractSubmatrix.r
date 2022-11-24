@@ -79,7 +79,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
     # Run
         # Check Resolution
             if(!is.null(attr(hic.cmx_lst, "resolution"))){res.num <- attr(hic.cmx_lst, "resolution")
-            }else if(is.character(res.num)){res.num <- GenomicTK::GenomicSystem(res.num)}
+            }else if(is.character(res.num)){res.num <- GenomicSystem(res.num)}
         # Check Dimension
             if(matriceDim.num<5){matriceDim.num<-5}
         # Formatting
@@ -125,9 +125,9 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
         # Filt Out Of Bound
             featureFilt.gni <- featureResize.gni[which(
                 1L<=data.frame(InteractionSet::anchors(featureResize.gni)$first@ranges)[,"start"] &
-                data.frame(InteractionSet::anchors(featureResize.gni)$first@ranges)[,"end"]<=GenomicTK::SeqEnds(InteractionSet::anchors(featureResize.gni)$first) &
+                data.frame(InteractionSet::anchors(featureResize.gni)$first@ranges)[,"end"]<=SeqEnds(InteractionSet::anchors(featureResize.gni)$first) &
                 1L<=data.frame(InteractionSet::anchors(featureResize.gni)$second)[,"start"] &
-                data.frame(InteractionSet::anchors(featureResize.gni)$second)[,"end"]<=GenomicTK::SeqEnds(InteractionSet::anchors(featureResize.gni)$second)
+                data.frame(InteractionSet::anchors(featureResize.gni)$second)[,"end"]<=SeqEnds(InteractionSet::anchors(featureResize.gni)$second)
                 )]
         # Filt Duplicated Submatrix before extraction
             featureNoDup.gni <- featureFilt.gni[!duplicated(featureFilt.gni$submatrix.name)]
@@ -177,7 +177,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                 subJobLenght.num <- length(combinaisonStart.ndx:combinaisonEnd.ndx)
                 if(cores.num==1){
                     tempSubmatrix.spm_lst <- lapply(seq_len(subJobLenght.num),function(range.ndx){
-                        if(verbose.bln){SuperTK::ShowLoading(start.tim, range.ndx+(combinaison.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
+                        if(verbose.bln){ShowLoading(start.tim, range.ndx+(combinaison.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
                         if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
@@ -233,7 +233,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                         }
                         return(as.matrix(mat.spm))
                     })
-                    if(verbose.bln){SuperTK::ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
+                    if(verbose.bln){ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
                 }
                 return(tempSubmatrix.spm_lst)
             }) |>

@@ -79,13 +79,13 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
             # Filter on distances
                 if(!is.na(minDist.num)){
                     if(is.character(minDist.num)){
-                        minDist.num <- GenomicTK::GenomicSystem(minDist.num)
+                        minDist.num <- GenomicSystem(minDist.num)
                     }
                     matrices.lst <- matrices.lst[S4Vectors::mcols(interactions.gni)$submatrix.name[which(S4Vectors::mcols(interactions.gni)$distance >= minDist.num)]]
                 }
                 if(!is.na(maxDist.num)){
                     if(is.character(maxDist.num)){
-                        maxDist.num <- GenomicTK::GenomicSystem(maxDist.num)
+                        maxDist.num <- GenomicSystem(maxDist.num)
                     }
                     matrices.lst <- matrices.lst[S4Vectors::mcols(interactions.gni)$submatrix.name[which(S4Vectors::mcols(interactions.gni)$distance <= maxDist.num)]]
                 }

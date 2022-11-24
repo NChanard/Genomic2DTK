@@ -55,7 +55,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             seqLevelsStyle.chr <- seqLevelsStyle.chr[[1]]
             GenomeInfoDb::seqlevelsStyle(constraint.gnr) <- seqLevelsStyle.chr
         }
-        binnedConstraint.gnr <- GenomicTK::BinGRanges(gRange.gnr=constraint.gnr, chromSize.dtf=chromSize.dtf, binSize.num=binSize.num, verbose.bln=verbose.bln, reduce.bln=FALSE, cores.num=cores.num)
+        binnedConstraint.gnr <- BinGRanges(gRange.gnr=constraint.gnr, chromSize.dtf=chromSize.dtf, binSize.num=binSize.num, verbose.bln=verbose.bln, reduce.bln=FALSE, cores.num=cores.num)
     # Feature Names
         if (inherits(gRange.gnr_lst,"GRanges")){
             gRange.gnr_lst <- list(Features = gRange.gnr_lst)
@@ -75,7 +75,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             feature.chr <- feature.chr_vec[[feature.ndx]]
             feature.gnr <- IRanges::subsetByOverlaps(gRange.gnr_lst[[feature.chr ]],constraint.gnr)
             GenomeInfoDb::seqlevelsStyle(feature.gnr) <- seqLevelsStyle.chr
-            binnedFeature.gnr <- GenomicTK::BinGRanges(gRange.gnr=feature.gnr, chromSize.dtf=chromSize.dtf, binSize.num=binSize.num,  method.chr=method.chr, variablesName.chr_vec=variablesName.chr_vec, verbose.bln=verbose.bln, reduce.bln=TRUE, cores.num=cores.num)
+            binnedFeature.gnr <- BinGRanges(gRange.gnr=feature.gnr, chromSize.dtf=chromSize.dtf, binSize.num=binSize.num,  method.chr=method.chr, variablesName.chr_vec=variablesName.chr_vec, verbose.bln=verbose.bln, reduce.bln=TRUE, cores.num=cores.num)
             binnedFeat.tbl <- tibble::tibble(BinnedFeature.ndx = seq_along(binnedFeature.gnr),Feature.name = binnedFeature.gnr$name) |>
                 tidyr::unnest(cols = "Feature.name")
             binnedFeat.tbl <- dplyr::group_by(binnedFeat.tbl, Feature.name = binnedFeat.tbl$Feature.name)
@@ -99,7 +99,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             start.tim <- Sys.time()
             if(cores.num==1){
                 binnedFeature.gnr_lst <- lapply(seq_len(subJobLenght.num),function(row.ndx){
-                    if(verbose.bln){SuperTK::ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
+                    if(verbose.bln){ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
                     subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
@@ -116,7 +116,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     return(subBinnedFeature.gnr)
                 })
             }
-            binnedFeature.gnr <- GenomicTK::MergeGRanges(binnedFeature.gnr_lst, sort.bln=FALSE, reduce.bln=FALSE)
+            binnedFeature.gnr <- MergeGRanges(binnedFeature.gnr_lst, sort.bln=FALSE, reduce.bln=FALSE)
             binnedFeature.gnr$bln <- TRUE
             names(S4Vectors::mcols(binnedFeature.gnr)) <- paste0(feature.chr, ".",names(S4Vectors::mcols(binnedFeature.gnr)))
             names(S4Vectors::mcols(binnedFeature.gnr))[which(names(S4Vectors::mcols(binnedFeature.gnr)) == paste0(feature.chr, ".bin"))] <- "bin"
@@ -127,7 +127,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             return(list(binnedFeature.gnr=binnedFeature.gnr, featureMetadata.dtf=metadataBinnedFeature.dtf))
         })
 
-        binnedIndex.gnr <- binnedFeature.lst |> lapply("[[", "binnedFeature.gnr") |> GenomicTK::MergeGRanges(sort.bln=FALSE, reduce.bln=FALSE)
+        binnedIndex.gnr <- binnedFeature.lst |> lapply("[[", "binnedFeature.gnr") |> MergeGRanges(sort.bln=FALSE, reduce.bln=FALSE)
         featureMetadata.lst_dtf <- binnedFeature.lst |> lapply("[[", "featureMetadata.dtf")
         S4Vectors::mcols(binnedIndex.gnr) <- SuperTK::BindFillRows(featureMetadata.lst_dtf)
         ids.lst <- binnedIndex.gnr$name
@@ -145,7 +145,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             jobLenght.num <- nrow(binnedIndexDuplicated.tbl)
             if(cores.num==1){
                 binnedIndexDuplicated.lst <- lapply(seq_len(jobLenght.num), function(row.ndx){
-                    if(verbose.bln){SuperTK::ShowLoading(start.tim, row.ndx, jobLenght.num)}
+                    if(verbose.bln){ShowLoading(start.tim, row.ndx, jobLenght.num)}
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
                     row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
                     col.lst <- lapply(seq_along(row),function(col.ndx){
