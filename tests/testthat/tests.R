@@ -48,14 +48,14 @@ download.file(Mcool.url, McoolOutput.pth, method = 'curl', extra = '-k')
 HiC_Ctrl.cmx_lst <- ImportHiC(
   file.pth    = HicOutput.pth,
   res.num     = binSize.num,
-  chrom_1.chr = c("2L", "2L", "2L"),
-  chrom_2.chr = c("2L", "2R", "2L")
+  chrom_1.chr = c("2L", "2L", "2R"),
+  chrom_2.chr = c("2L", "2R", "2R")
 )
 HiC_HS.cmx_lst <- ImportHiC(
   file.pth    = McoolOutput.pth,
   res.num     = binSize.num,
-  chrom_1.chr = c("2L", "2L", "2L"),
-  chrom_2.chr = c("2L", "2R", "2L"),
+  chrom_1.chr = c("2L", "2L", "2R"),
+  chrom_2.chr = c("2L", "2R", "2R"),
   cores.num   = 2
   )
 ImportHiC(
