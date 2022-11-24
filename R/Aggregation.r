@@ -35,11 +35,9 @@
 #' @param statCompare.bln <logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.
 #' @return A matrix
 #' @examples
-#' library(GenomicED)
-#' data("submatrixRF_Ctrl.mtx_lst")
-#' data("submatrixRF.mtx_lst")
-#'
-#'
+#' \dontrun{
+#' # Classical Aggregation
+#' # submatrixRF_Ctrl.mtx_lst is a submatrix list obtain with ExtractSubmatrix function
 #' aggreg.mtx <- Aggregation(
 #'   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
 #'   agg.fun      = "sum",
@@ -47,12 +45,10 @@
 #'   rm0.bln      = TRUE,
 #'   minDist      = 9000,
 #'   maxDist      = 11000
-#' ) |> suppressPackageStartupMessages()
+#' )
 #'
-#' str(attributes(aggreg.mtx),max.level = 1)
-#' aggreg.mtx[1:5,1:5]
-#'
-#'
+#' # Differential Aggregation
+#' # submatrixRF.mtx_lst is a second submatrix list obtain with ExtractSubmatrix function
 #' diffAggreg.mtx <- Aggregation(
 #'   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
 #'   matrices.lst        = submatrixRF.mtx_lst,
@@ -68,9 +64,7 @@
 #'     ),
 #'   statCompare.bln = TRUE
 #' )
-#'
-#' str(attributes(diffAggreg.mtx),max.level = 1)
-#' diffAggreg.mtx[1:5,1:5]
+#' }
 
 Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, trans.fun=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=FALSE, correctionArea.lst = NULL, statCompare.bln=FALSE){
     # subFunctions
