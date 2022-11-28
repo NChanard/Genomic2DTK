@@ -105,69 +105,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
             symmetric=matrixSymmetric.bln
         )
     # Dump file
-    if(cores.num==1){
-        start.tim <- Sys.time()
-        jobLenght.num <- length(chromComb.lst)
-        hic.lst_cmx <- lapply(seq_along(chromComb.lst), function(ele.ndx){
-            if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
-            # Chromosomes
-                ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
-                chrom_1.chr <- ele.lst[[1]]
-                chrom_2.chr <- ele.lst[[2]]
-            # Dimension   
-                dims.num <- ele.lst |>
-                    lapply(function(chrom){
-                        dplyr::filter(chromSize.dtf, chromSize.dtf$name ==chrom) |>
-                            dplyr::pull("dimension")
-                        }) |>
-                    unlist()
-            if(GetFileExtension(file.pth)=="hic"){ 
-                # Read .hic file
-                    hic.dtf <- strawr::straw("NONE", file.pth, chrom_1.chr, chrom_2.chr, "BP", res.num, "observed")
-                    hic.dtf$j <- ceiling((hic.dtf$y+1) / res.num)
-                    hic.dtf$i <- ceiling((hic.dtf$x+1) / res.num)
-            }else if(GetFileExtension(file.pth) %in% c("cool","mcool", "HDF5", "hdf5", "h5")){
-                # Define HDF5groups
-                    indexes.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/indexes",no=paste('resolutions',res.num,'indexes',sep='/')) 
-                    pixels.group <- ifelse(GetFileExtension(file.pth) %in% c("cool", "HDF5", "hdf5", "h5"),yes="/pixels",no=paste('resolutions',res.num,'pixels',sep='/')) 
-                # Define start and end of chromosomes
-                    ends.ndx <- chromSize.dtf$dimension |> cumsum() |> stats::setNames(chromSize.dtf$name)
-                    starts.ndx <- (ends.ndx-chromSize.dtf$dimension+1) |> stats::setNames(chromSize.dtf$name)
-                # Read .mcool / cool file
-                    bin1.ndx <- as.vector(rhdf5::h5read(file.pth,name=paste(indexes.group,'bin1_offset',sep="/"),index=list(starts.ndx[chrom_1.chr]:ends.ndx[chrom_1.chr])))
-                    slice.num <- sum(bin1.ndx[-1] - bin1.ndx[-length(bin1.ndx)])-1
-                    chunk.num  <- seq(bin1.ndx[1]+1,bin1.ndx[1]+1+slice.num)
-                    hic.dtf <- data.frame(
-                        i = as.vector(rhdf5::h5read(file.pth,
-                            name=paste(pixels.group,'bin1_id',sep="/"),
-                            index=list(chunk.num)))+1,
-                        j = as.vector(rhdf5::h5read(file.pth,
-                            name=paste(pixels.group,'bin2_id',sep="/"),
-                            index=list(chunk.num)))+1,
-                        counts = as.vector(rhdf5::h5read(file.pth,
-                            name=paste(pixels.group,'count',sep="/"),
-                            index=list(chunk.num)))
-                    )
-                    filter.bin2 <- hic.dtf$j %in% starts.ndx[chrom_2.chr]:ends.ndx[chrom_2.chr]
-                    hic.dtf <- hic.dtf[filter.bin2,]
-                    hic.dtf <- dplyr::mutate(hic.dtf, i=hic.dtf$i-starts.ndx[chrom_1.chr]+1)
-                    hic.dtf <- dplyr::mutate(hic.dtf, j=hic.dtf$j-starts.ndx[chrom_2.chr]+1)        
-            }else if(GetFileExtension(file.pth) =="bedpe"){ 
-                hic.dtf <-  dplyr::filter(megaHic.dtf, megaHic.dtf$chrom_1==chrom_1.chr & megaHic.dtf$chrom_2==chrom_2.chr)
-            }
-            # Create Contact matrix
-                hic.spm <- Matrix::sparseMatrix(i=hic.dtf$i, j=hic.dtf$j, x=hic.dtf$counts, dims=dims.num )
-                row.regions = binnedGenome.grn[which(as.vector(binnedGenome.grn@seqnames) == chrom_1.chr)]
-                col.regions = binnedGenome.grn[which(as.vector(binnedGenome.grn@seqnames) == chrom_2.chr)]
-                hic.cmx = InteractionSet::ContactMatrix(hic.spm, row.regions, col.regions)
-            # Metadata
-                hic.cmx@metadata <- dplyr::filter(attributes.tbl, attributes.tbl$name == paste(ele.lst,collapse="_")) |>
-                        tibble::add_column(resolution = res.num) |>
-                        as.list()
-            return(hic.cmx)
-        })
-    }else if (cores.num>=2){
-        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+        multicoreParam <- BiocParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
         hic.lst_cmx <- BiocParallel::bplapply(BPPARAM = multicoreParam, seq_along(chromComb.lst), function(ele.ndx){
             # Chromosomes
                 ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
@@ -225,7 +163,6 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
                         as.list()
             return(hic.cmx)
         })
-    }
     # Add attributes
         hic.lst_cmx <- hic.lst_cmx |>
             stats::setNames(chromComb.lst) |>
