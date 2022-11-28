@@ -82,26 +82,26 @@ HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
 #==============================
 # Test IndexFeatures
 #==============================
-# IndexFeatures(
-#   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
-#   constraint.gnr        = domains.gnr,
-#   chromSize.dtf         = chromSize.dtf,
-#   binSize.num           = binSize.num,
-#   method.chr            = "max",
-#   variablesName.chr_vec = "score",
-#   cores.num             = 1,
-#   verbose.bln           = TRUE
-# )
-# IndexFeatures(
-#   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
-#   constraint.gnr        = NULL,
-#   chromSize.dtf         = chromSize.dtf,
-#   binSize.num           = binSize.num,
-#   method.chr            = "max",
-#   variablesName.chr_vec = "score",
-#   cores.num             = 2,
-#   verbose.bln           = FALSE
-# )
+IndexFeatures(
+  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
+  constraint.gnr        = domains.gnr,
+  chromSize.dtf         = chromSize.dtf,
+  binSize.num           = binSize.num,
+  method.chr            = "max",
+  variablesName.chr_vec = "score",
+  cores.num             = 1,
+  verbose.bln           = TRUE
+)
+IndexFeatures(
+  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
+  constraint.gnr        = NULL,
+  chromSize.dtf         = chromSize.dtf,
+  binSize.num           = binSize.num,
+  method.chr            = "max",
+  variablesName.chr_vec = "score",
+  cores.num             = 2,
+  verbose.bln           = FALSE
+)
 
 #==============================
 # Test SearchPairs
@@ -291,22 +291,10 @@ HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
 # BreakVector(x.num=x.num, center.num=58.34, n.num=9, method.chr="linear")
 # BreakVector(x.num=x.num, n.num=9, method.chr="density")
 
-# x.num <- rnorm(500,500)
-# MeanScale(x.num)
+# MeanScale(rnorm(500,500))
 
 # set.seed(123)
 # mat.spm = as(matrix(floor(runif(7*13,0,2)),7,13), "dgCMatrix")
-# mat.spm
 # Rise0(mat.spm=mat.spm, which.ndx=c(1,3,6,10,12))
 # Rise0(mat.spm=mat.spm, coord.dtf=data.frame(i=c(1,5,3),  j=c(1,2,3) ) )
 # Rise0(mat.spm=mat.spm)
-
-# start.tim <- Sys.time()
-# for(i in seq_len(10000)){
-#     Sys.sleep(3)
-#     ShowLoading(start.tim, i , 10000)
-#     if (i==3){
-#         break
-#     }
-# }
-
