@@ -167,12 +167,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
             return(hic.cmx)
         })
     }else if (cores.num>=2){
-        # multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
-        if(.Platform$OS.type=="windows") {
-            multicoreParam <- BiocParallel::SnowParam(workers = cores.num)
-        } else {
-            multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
-        }
+        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
         hic.lst_cmx <- BiocParallel::bplapply(BPPARAM = multicoreParam, seq_along(chromComb.lst), function(ele.ndx){
             # Chromosomes
                 ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
