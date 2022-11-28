@@ -16,11 +16,17 @@
 #' options(timeout = 3600)
 #' temp.dir <- file.path(tempdir(), "HIC_DATA")
 #' dir.create(temp.dir)
-#' Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
+#' Hic.url <- paste0("https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/",
+#'   "7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic")
 #' HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
 #' download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
 #' # Import file in R
-#' HiC.cmx_lst <- ImportHiC(file.pth=HicOutput.pth, res.num=1000, chrom_1.chr=c("2L", "2R", "2L"), chrom_2.chr=c("2L", "2R", "2L"))
+#' HiC.cmx_lst <- ImportHiC(
+#'   file.pth=HicOutput.pth,
+#'   res.num=1000,
+#'   chrom_1.chr=c("2L", "2R", "2L"),
+#'   chrom_2.chr=c("2L", "2R", "2L")
+#' )
 #' }
 ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.chr=NULL, chrom_2.chr=NULL, verbose.bln=TRUE, cores.num=1){
     # Resolution Format
@@ -105,7 +111,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
             symmetric=matrixSymmetric.bln
         )
     # Dump file
-        multicoreParam <- BiocParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+        multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
         hic.lst_cmx <- BiocParallel::bplapply(BPPARAM = multicoreParam, seq_along(chromComb.lst), function(ele.ndx){
             # Chromosomes
                 ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))

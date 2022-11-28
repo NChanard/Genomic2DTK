@@ -97,17 +97,17 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                 dplyr::left_join(binnedConstraint.tbl, by="Constraint.name")
             subJobLenght.num <- nrow(featConstOvlp.tbl)
             start.tim <- Sys.time()
-            if(cores.num==1){
-                binnedFeature.gnr_lst <- lapply(seq_len(subJobLenght.num),function(row.ndx){
-                    if(verbose.bln){ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
-                    ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
-                    constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
-                    subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
-                    subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
-                    return(subBinnedFeature.gnr)
-                })
-            }else if(cores.num>=2){
-                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+            # if(cores.num==1){
+            #     binnedFeature.gnr_lst <- lapply(seq_len(subJobLenght.num),function(row.ndx){
+            #         if(verbose.bln){ShowLoading(start.tim, row.ndx+(feature.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
+            #         ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
+            #         constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
+            #         subBinnedFeature.gnr <- IRanges::subsetByOverlaps(binnedFeature.gnr[ranges.ndx], binnedConstraint.gnr[constraint.ndx])
+            #         subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
+            #         return(subBinnedFeature.gnr)
+            #     })
+            # }else if(cores.num>=2){
+                multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
                 binnedFeature.gnr_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(row.ndx){
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)
@@ -115,7 +115,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                     subBinnedFeature.gnr$constraint <- featConstOvlp.tbl$Constraint.name[row.ndx]
                     return(subBinnedFeature.gnr)
                 })
-            }
+            # }
             binnedFeature.gnr <- MergeGRanges(binnedFeature.gnr_lst, sort.bln=FALSE, reduce.bln=FALSE)
             binnedFeature.gnr$bln <- TRUE
             names(S4Vectors::mcols(binnedFeature.gnr)) <- paste0(feature.chr, ".",names(S4Vectors::mcols(binnedFeature.gnr)))
@@ -143,27 +143,27 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             binnedIndexNoDuplicated.tbl <- tibble::tibble(binnedIndexNoDuplicated.dtf)
             start.tim <- Sys.time()
             jobLenght.num <- nrow(binnedIndexDuplicated.tbl)
-            if(cores.num==1){
-                binnedIndexDuplicated.lst <- lapply(seq_len(jobLenght.num), function(row.ndx){
-                    if(verbose.bln){ShowLoading(start.tim, row.ndx, jobLenght.num)}
-                    rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
-                    row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
-                    col.lst <- lapply(seq_along(row),function(col.ndx){
-                        col <- dplyr::pull(row,col.ndx)
-                        if(length(unique(stats::na.omit(col)))==0){
-                            return(NA)
-                        }else if(length(unique(stats::na.omit(col)))==1) {
-                            return(unique(stats::na.omit(col)))
-                        }else {
-                            return(list(unlist(col)))
-                            }
-                        })  |> stats::setNames(names(row))
-                    binnedIndexDuplicated.tbl <- tibble::as_tibble(col.lst) |>
-                        tibble::add_column(name = rowName.chr)
-                    return(binnedIndexDuplicated.tbl)
-                })
-            }else if(cores.num>=2){
-                multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+            # if(cores.num==1){
+            #     binnedIndexDuplicated.lst <- lapply(seq_len(jobLenght.num), function(row.ndx){
+            #         if(verbose.bln){ShowLoading(start.tim, row.ndx, jobLenght.num)}
+            #         rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
+            #         row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
+            #         col.lst <- lapply(seq_along(row),function(col.ndx){
+            #             col <- dplyr::pull(row,col.ndx)
+            #             if(length(unique(stats::na.omit(col)))==0){
+            #                 return(NA)
+            #             }else if(length(unique(stats::na.omit(col)))==1) {
+            #                 return(unique(stats::na.omit(col)))
+            #             }else {
+            #                 return(list(unlist(col)))
+            #                 }
+            #             })  |> stats::setNames(names(row))
+            #         binnedIndexDuplicated.tbl <- tibble::as_tibble(col.lst) |>
+            #             tibble::add_column(name = rowName.chr)
+            #         return(binnedIndexDuplicated.tbl)
+            #     })
+            # }else if(cores.num>=2){
+                multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
                 binnedIndexDuplicated.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(jobLenght.num), function(row.ndx){
                     rowName.chr <- binnedIndexDuplicated.tbl$name[[row.ndx]]
                     row <- binnedIndexDuplicated.tbl$data[[row.ndx]]
@@ -181,7 +181,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
                         tibble::add_column(name = rowName.chr)
                     return(binnedIndexDuplicated.tbl)
                 })
-            }
+            # }
             binnedIndexDuplicated.tbl <- dplyr::bind_rows(binnedIndexDuplicated.lst)
             binnedIndex.gnr <- rbind(binnedIndexDuplicated.tbl, binnedIndexNoDuplicated.tbl) |> data.frame() |> methods::as("GRanges")
         }

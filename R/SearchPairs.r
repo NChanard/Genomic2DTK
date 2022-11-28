@@ -40,30 +40,30 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
     if(is.null(indexBait.gnr)){indexBait.gnr<-indexAnchor.gnr}
     commonConstraint.lst <- intersect(indexAnchor.gnr$constraint, indexBait.gnr$constraint)
     jobLength.num <- length(commonConstraint.lst)
-    if(cores.num==1){
-        start.tim <- Sys.time()
-        if(verbose.bln){cat("\n")}
-        pairs.gni_lst <- lapply(seq_len(jobLength.num), function(constraint.ndx){
-            if(verbose.bln){ShowLoading(start.tim, constraint.ndx,jobLength.num)}
-            commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
-            subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr$constraint == commonConstraint.chr)]
-            subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr$constraint == commonConstraint.chr)]
-            pairsCombination.dtf <- expand.grid(seq_along(subIndexAnchor.gnr),seq_along(subIndexBait.gnr))
-            subIndexAnchor.gnr[pairsCombination.dtf[,'Var1']]
-            subIndexBait.gnr[pairsCombination.dtf[,'Var2']]
-            subPairs.gni <- InteractionSet::GInteractions(subIndexAnchor.gnr[pairsCombination.dtf[,'Var1']], subIndexBait.gnr[pairsCombination.dtf[,'Var2']])
-            subPairs.gni$distance <- InteractionSet::pairdist(subPairs.gni)
-            if (!is.null(minDist.num)){
-                subPairs.gni <- subPairs.gni[which(subPairs.gni$distance >= minDist.num)]
-            }
-            if (!is.null(maxDist.num)){
-                subPairs.gni <- subPairs.gni[which(subPairs.gni$distance <= maxDist.num)]
-            }
-            return(subPairs.gni)
-            }) 
-        if(verbose.bln){cat("\n")}
-    }else if(cores.num>=2){
-        multicoreParam <- BiocParallel::MulticoreParam(workers = cores.num)
+    # if(cores.num==1){
+    #     start.tim <- Sys.time()
+    #     if(verbose.bln){cat("\n")}
+    #     pairs.gni_lst <- lapply(seq_len(jobLength.num), function(constraint.ndx){
+    #         if(verbose.bln){ShowLoading(start.tim, constraint.ndx,jobLength.num)}
+    #         commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
+    #         subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr$constraint == commonConstraint.chr)]
+    #         subIndexBait.gnr <- indexBait.gnr[which(indexBait.gnr$constraint == commonConstraint.chr)]
+    #         pairsCombination.dtf <- expand.grid(seq_along(subIndexAnchor.gnr),seq_along(subIndexBait.gnr))
+    #         subIndexAnchor.gnr[pairsCombination.dtf[,'Var1']]
+    #         subIndexBait.gnr[pairsCombination.dtf[,'Var2']]
+    #         subPairs.gni <- InteractionSet::GInteractions(subIndexAnchor.gnr[pairsCombination.dtf[,'Var1']], subIndexBait.gnr[pairsCombination.dtf[,'Var2']])
+    #         subPairs.gni$distance <- InteractionSet::pairdist(subPairs.gni)
+    #         if (!is.null(minDist.num)){
+    #             subPairs.gni <- subPairs.gni[which(subPairs.gni$distance >= minDist.num)]
+    #         }
+    #         if (!is.null(maxDist.num)){
+    #             subPairs.gni <- subPairs.gni[which(subPairs.gni$distance <= maxDist.num)]
+    #         }
+    #         return(subPairs.gni)
+    #         }) 
+    #     if(verbose.bln){cat("\n")}
+    # }else if(cores.num>=2){
+        multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
         pairs.gni_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(jobLength.num), function(constraint.ndx){
             commonConstraint.chr <- commonConstraint.lst[[constraint.ndx]]
             subIndexAnchor.gnr <- indexAnchor.gnr[which(indexAnchor.gnr@elementMetadata$constraint == commonConstraint.chr)]
@@ -81,7 +81,7 @@ SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NUL
             }
             return(subPairs.gni)
             }) 
-    }
+    # }
     pairs.gni <- do.call(c,pairs.gni_lst)
     pairs.gni$anchor2.constraint <- NULL
     S4Vectors::mcols(pairs.gni) <- dplyr::rename(data.frame(S4Vectors::mcols(pairs.gni)), constraint="anchor1.constraint")

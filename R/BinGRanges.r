@@ -55,36 +55,36 @@ BinGRanges = function (gRange.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, me
         dup_binnedGRange.tbl   <- dplyr::group_by(dup_binnedGRange.tbl, bin=dup_binnedGRange.tbl$bin) |>
             tidyr::nest()
         jobLenght.num <- nrow(dup_binnedGRange.tbl)
-        if(cores.num==1){
-            start.tim <- Sys.time()
-            if(verbose.bln){cat("\n")}
-            dup_binnedGRange.lst <- lapply(seq_len(jobLenght.num),function(row.ndx){
-                if(verbose.bln){ShowLoading(start.tim,row.ndx, jobLenght.num)}
-                rowName.chr <- dup_binnedGRange.tbl$bin[[row.ndx]]
-                row <- dup_binnedGRange.tbl$data[[row.ndx]]
-                row.lst <- lapply(seq_along(row),function(col.ndx){
-                    col <- dplyr::pull(row,col.ndx)
-                    colName.chr <- names(row)[col.ndx]
-                    if(is.numeric(col) & colName.chr %in% variablesName.chr_vec){
-                        return(as.numeric(eval(parse(text=method.chr))(as.numeric(col),na.rm=na.rm)))
-                    }else if(length(unique(col))==1){
-                        return(unique(col))
-                    }else{
-                        return(list(col))
-                    }
-                }) |>
-                    stats::setNames(names(row))
-                row.tbl <- tibble::as_tibble(row.lst) |>
-                    tibble::add_column(bin = rowName.chr)
-                return(row.tbl)
-            })
-            dup_binnedGRange.dtf <- BindFillRows(dup_binnedGRange.lst)
-            dup_binnedGRange.tbl <- tibble::tibble(dup_binnedGRange.dtf)
-            dup_binnedGRange.tbl <- dplyr::mutate(dup_binnedGRange.tbl, strand=as.factor(dup_binnedGRange.tbl$strand))
-            if(verbose.bln){cat("\n")}
-        }else if(cores.num>=2){
-            parCl <- parallel::makeCluster(cores.num, type ="PSOCK")
-            dup_binnedGRange.lst <- parallel::parLapply(parCl,seq_len(jobLenght.num),function(row.ndx){
+        # if(cores.num==1){
+        #     start.tim <- Sys.time()
+        #     if(verbose.bln){cat("\n")}
+        #     dup_binnedGRange.lst <- lapply(seq_len(jobLenght.num),function(row.ndx){
+        #         if(verbose.bln){ShowLoading(start.tim,row.ndx, jobLenght.num)}
+        #         rowName.chr <- dup_binnedGRange.tbl$bin[[row.ndx]]
+        #         row <- dup_binnedGRange.tbl$data[[row.ndx]]
+        #         row.lst <- lapply(seq_along(row),function(col.ndx){
+        #             col <- dplyr::pull(row,col.ndx)
+        #             colName.chr <- names(row)[col.ndx]
+        #             if(is.numeric(col) & colName.chr %in% variablesName.chr_vec){
+        #                 return(as.numeric(eval(parse(text=method.chr))(as.numeric(col),na.rm=na.rm)))
+        #             }else if(length(unique(col))==1){
+        #                 return(unique(col))
+        #             }else{
+        #                 return(list(col))
+        #             }
+        #         }) |>
+        #             stats::setNames(names(row))
+        #         row.tbl <- tibble::as_tibble(row.lst) |>
+        #             tibble::add_column(bin = rowName.chr)
+        #         return(row.tbl)
+        #     })
+        #     dup_binnedGRange.dtf <- BindFillRows(dup_binnedGRange.lst)
+        #     dup_binnedGRange.tbl <- tibble::tibble(dup_binnedGRange.dtf)
+        #     dup_binnedGRange.tbl <- dplyr::mutate(dup_binnedGRange.tbl, strand=as.factor(dup_binnedGRange.tbl$strand))
+        #     if(verbose.bln){cat("\n")}
+        # }else if(cores.num>=2){
+            multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+            dup_binnedGRange.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam, seq_len(jobLenght.num),function(row.ndx){
                 rowName.chr <- dup_binnedGRange.tbl$bin[[row.ndx]]
                 row <- dup_binnedGRange.tbl$data[[row.ndx]]
                 row.lst <- lapply(seq_along(row),function(col.ndx){
@@ -106,8 +106,7 @@ BinGRanges = function (gRange.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, me
             dup_binnedGRange.dtf <- BindFillRows(dup_binnedGRange.lst)
             dup_binnedGRange.tbl <- tibble::tibble(dup_binnedGRange.dtf)
             dup_binnedGRange.tbl <- dplyr::mutate(dup_binnedGRange.tbl, strand=as.factor(dup_binnedGRange.tbl$strand))
-            parallel::stopCluster(parCl)
-        }
+        # }
         for(colName.chr in names(dup_binnedGRange.tbl)){
             method.chr <- dplyr::pull(dup_binnedGRange.tbl,dplyr::all_of(colName.chr)) |> class()
             method.fun <- eval(parse(text=paste0("as.",method.chr)))
