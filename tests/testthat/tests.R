@@ -68,8 +68,8 @@ ImportHiC(
 # Test NormalizeHiC
 #==============================
 HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst)
-HiC_HS.cmx_lst <- NormalizeHiC(HiC_HS.cmx_lst)
-NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis", method.chr="VC", cores.num=2)
+HiC_HS.cmx_lst   <- NormalizeHiC(HiC_HS.cmx_lst)
+NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis",   method.chr="VC", cores.num=2)
 NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
 NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
 
@@ -77,7 +77,7 @@ NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
 # Test ExpectedHiC
 #==============================
 HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
-HiC_HS.cmx_lst <-ExpectedHiC(HiC_HS.cmx_lst, cores.num=2)
+HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num=2)
 
 #==============================
 # Test IndexFeatures
