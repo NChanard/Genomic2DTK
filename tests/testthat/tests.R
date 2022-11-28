@@ -76,210 +76,210 @@ NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
 #==============================
 # Test ExpectedHiC
 #==============================
-HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
-HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num=2)
+# HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
+# HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num=2)
 
 #==============================
 # Test IndexFeatures
 #==============================
-IndexFeatures(
-  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
-  constraint.gnr        = domains.gnr,
-  chromSize.dtf         = chromSize.dtf,
-  binSize.num           = binSize.num,
-  method.chr            = "max",
-  variablesName.chr_vec = "score",
-  cores.num             = 1,
-  verbose.bln           = TRUE
-)
-IndexFeatures(
-  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
-  constraint.gnr        = NULL,
-  chromSize.dtf         = chromSize.dtf,
-  binSize.num           = binSize.num,
-  method.chr            = "max",
-  variablesName.chr_vec = "score",
-  cores.num             = 2,
-  verbose.bln           = FALSE
-)
+# IndexFeatures(
+#   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
+#   constraint.gnr        = domains.gnr,
+#   chromSize.dtf         = chromSize.dtf,
+#   binSize.num           = binSize.num,
+#   method.chr            = "max",
+#   variablesName.chr_vec = "score",
+#   cores.num             = 1,
+#   verbose.bln           = TRUE
+# )
+# IndexFeatures(
+#   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
+#   constraint.gnr        = NULL,
+#   chromSize.dtf         = chromSize.dtf,
+#   binSize.num           = binSize.num,
+#   method.chr            = "max",
+#   variablesName.chr_vec = "score",
+#   cores.num             = 2,
+#   verbose.bln           = FALSE
+# )
 
 #==============================
 # Test SearchPairs
 #==============================
-SearchPairs(
-  indexAnchor.gnr = anchors_Index.gnr,
-  indexBait.gnr   = baits_Index.gnr,
-  minDist.num     = NULL, 
-  maxDist.num     = NULL,
-  cores.num       = 2,
-  verbose.bln     = FALSE
-)
-SearchPairs(
-  indexAnchor.gnr = anchors_Index.gnr,
-  minDist.num     = "1", 
-  maxDist.num     = "50Kb",
-  cores.num       = 1,
-  verbose.bln     = TRUE
-)
-SearchPairs(
-  indexAnchor.gnr = anchors_Index.gnr,
-  indexBait.gnr   = baits_Index.gnr,
-  minDist.num     = 1, 
-  maxDist.num     = 50000,
-  cores.num       = 2,
-  verbose.bln     = FALSE
-)
+# SearchPairs(
+#   indexAnchor.gnr = anchors_Index.gnr,
+#   indexBait.gnr   = baits_Index.gnr,
+#   minDist.num     = NULL, 
+#   maxDist.num     = NULL,
+#   cores.num       = 2,
+#   verbose.bln     = FALSE
+# )
+# SearchPairs(
+#   indexAnchor.gnr = anchors_Index.gnr,
+#   minDist.num     = "1", 
+#   maxDist.num     = "50Kb",
+#   cores.num       = 1,
+#   verbose.bln     = TRUE
+# )
+# SearchPairs(
+#   indexAnchor.gnr = anchors_Index.gnr,
+#   indexBait.gnr   = baits_Index.gnr,
+#   minDist.num     = 1, 
+#   maxDist.num     = 50000,
+#   cores.num       = 2,
+#   verbose.bln     = FALSE
+# )
 
 #==============================
 # Test ExtractSubmatrix
 #==============================
-ExtractSubmatrix(
-  feature.gn         = interactions.gni,
-  hic.cmx_lst        = HiC_ctrl.cmx_lst,
-  res.num            = NULL,
-  referencePoint.chr = "rf",
-  matriceDim.num     = 101,
-  cores.num          = 1,
-  verbose.bln        = TRUE
-)
-ExtractSubmatrix(
-  feature.gn         = interactions.gni,
-  hic.cmx_lst        = HiC_ctrl.cmx_lst,
-  res.num            = NULL,
-  referencePoint.chr = "pf",
-  matriceDim.num     = 101,
-  cores.num          = 2,
-  verbose.bln        = TRUE
-)
-ExtractSubmatrix(
-  feature.gn         = domains.gnr,
-  hic.cmx_lst        = HiC_ctrl.cmx_lst,
-  referencePoint.chr = "rf",
-  matriceDim.num     = 101,
-  cores.num          = 2,
-  verbose.bln        = FALSE
-)
+# ExtractSubmatrix(
+#   feature.gn         = interactions.gni,
+#   hic.cmx_lst        = HiC_ctrl.cmx_lst,
+#   res.num            = NULL,
+#   referencePoint.chr = "rf",
+#   matriceDim.num     = 101,
+#   cores.num          = 1,
+#   verbose.bln        = TRUE
+# )
+# ExtractSubmatrix(
+#   feature.gn         = interactions.gni,
+#   hic.cmx_lst        = HiC_ctrl.cmx_lst,
+#   res.num            = NULL,
+#   referencePoint.chr = "pf",
+#   matriceDim.num     = 101,
+#   cores.num          = 2,
+#   verbose.bln        = TRUE
+# )
+# ExtractSubmatrix(
+#   feature.gn         = domains.gnr,
+#   hic.cmx_lst        = HiC_ctrl.cmx_lst,
+#   referencePoint.chr = "rf",
+#   matriceDim.num     = 101,
+#   cores.num          = 2,
+#   verbose.bln        = FALSE
+# )
 
 #==============================
 # Test FilterInteractions
 #==============================
-target.lst <- list(
-  anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
-  bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
-  name             = c("2L:74_2L:77"),
-  distance         = function(columnElement){
-    return(14000==columnElement || columnElement == 3000)
-    }
-  )
+# target.lst <- list(
+#   anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
+#   bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
+#   name             = c("2L:74_2L:77"),
+#   distance         = function(columnElement){
+#     return(14000==columnElement || columnElement == 3000)
+#     }
+#   )
 
-selection.fun = function(){
-  Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
-  setdiff(name)
-}
-FilterInteractions(
-  matrices.lst      = submatrixPF_Ctrl.mtx_lst,
-  target.lst        = target.lst,
-  selection.fun     = selection.fun
-)
-FilterInteractions(
-  interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
-  target.lst        = target.lst,
-  selection.fun     = NULL
-)
-target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
-FilterInteractions(
-  interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
-  target.lst        = target.lst,
-  selection.fun     = NULL
-)
-target.lst <- list(first = InteractionSet::anchors(attributes(submatrixPF_Ctrl.mtx_lst)$interactions)[["first"]][1:2])
-FilterInteractions(
-  interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
-  target.lst        = target.lst,
-  selection.fun     = NULL
-)
+# selection.fun = function(){
+#   Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
+#   setdiff(name)
+# }
+# FilterInteractions(
+#   matrices.lst      = submatrixPF_Ctrl.mtx_lst,
+#   target.lst        = target.lst,
+#   selection.fun     = selection.fun
+# )
+# FilterInteractions(
+#   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+#   target.lst        = target.lst,
+#   selection.fun     = NULL
+# )
+# target.lst <- list(interactions = attributes(submatrixPF_Ctrl.mtx_lst)$interactions[1:2])
+# FilterInteractions(
+#   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+#   target.lst        = target.lst,
+#   selection.fun     = NULL
+# )
+# target.lst <- list(first = InteractionSet::anchors(attributes(submatrixPF_Ctrl.mtx_lst)$interactions)[["first"]][1:2])
+# FilterInteractions(
+#   interarctions.gni = attributes(submatrixPF_Ctrl.mtx_lst)$interactions,
+#   target.lst        = target.lst,
+#   selection.fun     = NULL
+# )
 
 #==============================
 # Test GetQuantif
 #==============================
-GetQuantif(
-  matrices.lst  = submatrixRF_Ctrl.mtx_lst,
-  area.fun      = "center",
-  operation.fun = "mean"
-)
-GetQuantif(
-  matrices.lst  = submatrixPF_Ctrl.mtx_lst,
-  area.fun      = "center",
-  operation.fun = "mean"
-)
+# GetQuantif(
+#   matrices.lst  = submatrixRF_Ctrl.mtx_lst,
+#   area.fun      = "center",
+#   operation.fun = "mean"
+# )
+# GetQuantif(
+#   matrices.lst  = submatrixPF_Ctrl.mtx_lst,
+#   area.fun      = "center",
+#   operation.fun = "mean"
+# )
 
 #==============================
 # Test OrienteMatrix
 #==============================
-OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
+# OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
 
 #==============================
 # Test Aggregation
 #==============================
-Aggregation(
-  matrices.lst = submatrixPF_Ctrl.mtx_lst, 
-  agg.fun      = "sum",
-  trans.fun    = "qtl", 
-  rm0.bln      = FALSE
-)
-diffAggreg.mtx <- Aggregation(
-  ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
-  matrices.lst        = submatrixRF.mtx_lst,
-  minDist             = "9Kb",
-  maxDist             = "11Kb",
-  agg.fun             = "mean",
-  rm0.bln             = FALSE,
-  diff.fun            = "substraction",
-  scaleCorrection.bln = TRUE,
-  correctionArea.lst  =  list(
-    i = c(1:30),
-    j = c(72:101)
-    ),
-  statCompare.bln = TRUE
-)
+# Aggregation(
+#   matrices.lst = submatrixPF_Ctrl.mtx_lst, 
+#   agg.fun      = "sum",
+#   trans.fun    = "qtl", 
+#   rm0.bln      = FALSE
+# )
+# diffAggreg.mtx <- Aggregation(
+#   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
+#   matrices.lst        = submatrixRF.mtx_lst,
+#   minDist             = "9Kb",
+#   maxDist             = "11Kb",
+#   agg.fun             = "mean",
+#   rm0.bln             = FALSE,
+#   diff.fun            = "substraction",
+#   scaleCorrection.bln = TRUE,
+#   correctionArea.lst  =  list(
+#     i = c(1:30),
+#     j = c(72:101)
+#     ),
+#   statCompare.bln = TRUE
+# )
 
 #==============================
 # Test ggAPA and PlotAPA
 #==============================
-PlotAPA(
-    apa.mtx                  = diffAggreg.mtx,
-    trimPrct.num             = 20,
-    minBoundary.num          = -2,
-    center.num               = 0,
-    maxBoundary.num          = 2,
-    minConditionBoundary.num = 0,
-    maxConditionBoundary.num = 2
-)
-ggAPA(
-    apa.mtx      = diffAggreg.mtx,
-    title.chr    = "APA",
-    center.num   = 0,
-    trimPrct.num = NULL,
-    bounds.chr   = "both",
-    blurPass.num = 1,
-    blurSd.num   = 0.5,
-    heatmap.col  = viridis(6)
-)
+# PlotAPA(
+#     apa.mtx                  = diffAggreg.mtx,
+#     trimPrct.num             = 20,
+#     minBoundary.num          = -2,
+#     center.num               = 0,
+#     maxBoundary.num          = 2,
+#     minConditionBoundary.num = 0,
+#     maxConditionBoundary.num = 2
+# )
+# ggAPA(
+#     apa.mtx      = diffAggreg.mtx,
+#     title.chr    = "APA",
+#     center.num   = 0,
+#     trimPrct.num = NULL,
+#     bounds.chr   = "both",
+#     blurPass.num = 1,
+#     blurSd.num   = 0.5,
+#     heatmap.col  = viridis(6)
+# )
 
 #==============================
 # Complete Tests
 #==============================
-TrimOutliers(rnorm(1000))
-GaussBox(scale.chr="int")
-Gauss(x=1, y=1)
-GenomicSystem(1000000000,2)
-GRange_1.grn <- StrToGRanges(c("chr1:1-100:+","chr2:400-500:-"))
-GRange_2.grn <- StrToGRanges("chr1:10-50:*")
-MergeGRanges(list(GRange_1.grn,GRange_2.grn), reduce.bln=TRUE, sort.bln=TRUE)
-Hue(paletteLength.num=1)
-Hue(paletteLength.num=2)
-PadMtx(mat.mtx=matrix(1:25,5,5),  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
-ReduceRun(first.rle=rle(c("A","A","B")), second.rle=rle(c("A","B","B")), reduceFun.chr="paste", sep="_" )
+# TrimOutliers(rnorm(1000))
+# GaussBox(scale.chr="int")
+# Gauss(x=1, y=1)
+# GenomicSystem(1000000000,2)
+# GRange_1.grn <- StrToGRanges(c("chr1:1-100:+","chr2:400-500:-"))
+# GRange_2.grn <- StrToGRanges("chr1:10-50:*")
+# MergeGRanges(list(GRange_1.grn,GRange_2.grn), reduce.bln=TRUE, sort.bln=TRUE)
+# Hue(paletteLength.num=1)
+# Hue(paletteLength.num=2)
+# PadMtx(mat.mtx=matrix(1:25,5,5),  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
+# ReduceRun(first.rle=rle(c("A","A","B")), second.rle=rle(c("A","B","B")), reduceFun.chr="paste", sep="_" )
 
 
 ###
