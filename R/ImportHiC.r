@@ -111,7 +111,7 @@ ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.c
             symmetric=matrixSymmetric.bln
         )
     # Dump file
-        multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+        multicoreParam <- MakeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
         hic.lst_cmx <- BiocParallel::bplapply(BPPARAM = multicoreParam, seq_along(chromComb.lst), function(ele.ndx){
             # Chromosomes
                 ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))

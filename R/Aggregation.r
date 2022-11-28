@@ -190,8 +190,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     pval.mtx <- -log10(pval.mtx)
                 }
             # Differential at submatrix and aggregated scale
-                joblength.num <- length(ctrlMatrices.lst)
-                diffmatrices.lst <- lapply(seq_len(joblength.num), function(mtx.ndx){
+                diffmatrices.lst <- lapply(seq_along(ctrlMatrices.lst), function(mtx.ndx){
                     diff.mtx <- diff.fun(matrices.lst[[mtx.ndx]],ctrlMatrices.lst[[mtx.ndx]])
                     diff.mtx[is.infinite(diff.mtx)] <- NA
                     return(as.matrix(diff.mtx))

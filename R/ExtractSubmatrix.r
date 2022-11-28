@@ -170,7 +170,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                     ovl_col <- dplyr::group_by(ovl_col, queryHits = ovl_col$queryHits)
                     ovl_col <- tidyr::nest(ovl_col)
                 }
-                multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = FALSE)
+                multicoreParam <- MakeParallelParam(cores.num = cores.num, verbose.bln = FALSE)
                 tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(combinaisonStart.ndx:combinaisonEnd.ndx),function(range.ndx){
                     row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                     col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)

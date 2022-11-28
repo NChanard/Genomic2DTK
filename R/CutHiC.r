@@ -17,11 +17,7 @@ CutHiC <- function(megaHic.cmx, verbose.bln=TRUE){
     GenomeInfoDb::seqlengths(binnedGenome.grn) <- chromSize.dtf$length |> stats::setNames(chromSize.dtf$name) 
     attributes.tbl <- megaHic.cmx@metadata$matricesKind
     chromComb.lst <- attributes.tbl$name
-    start.tim <- Sys.time()
-    jobLenght.num <- length(chromComb.lst)
-
-    hic.lst_cmx <- lapply(seq_along(chromComb.lst), function(ele.ndx){
-        # if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)} ##TODO
+    hic.lst_cmx <- BiocParallel::bplapply(BPPARAM = BiocParallel::SerialParam(progressbar = verbose.bln), seq_along(chromComb.lst), function(ele.ndx){
         # Chromosomes
             ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
             row.regions = binnedGenome.grn[which(as.vector(binnedGenome.grn@seqnames) ==  ele.lst[[1]])]

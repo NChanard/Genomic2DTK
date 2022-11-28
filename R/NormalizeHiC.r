@@ -27,35 +27,18 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
         if("cis" %in% matricesKind.tbl$type){
             cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
             if(length(cisMatricesNames.chr)){
-                # if(cores.num==1){
-                #     start.tim <- Sys.time()
-                #     jobLenght.num <- length(cisMatricesNames.chr)
-                #     hic.cmx_lst[cisMatricesNames.chr] <- lapply(seq_along(cisMatricesNames.chr), function(ele.ndx){
-                #         if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
-                #         matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
-                #         if(method.chr=="VC"){
-                #             hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
-                #         }else if(method.chr=="VC_SQRT"){
-                #             hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
-                #         }else if (method.chr=="ICE"){
-                #             hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
-                #         }
-                #         return(hic.cmx)
-                #     })
-                # }else if (cores.num>=2){
-                    multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
-                    hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){
-                        matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
-                        if(method.chr=="VC"){
-                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
-                        }else if(method.chr=="VC_SQRT"){
-                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
-                        }else if (method.chr=="ICE"){
-                            hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
-                        }
-                        return(hic.cmx)
-                    })
-                # }
+                multicoreParam <- MakeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+                hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){
+                    matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
+                    if(method.chr=="VC"){
+                        hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
+                    }else if(method.chr=="VC_SQRT"){
+                        hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
+                    }else if (method.chr=="ICE"){
+                        hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
+                    }
+                    return(hic.cmx)
+                })
             }
             transMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="trans") |> dplyr::pull("name")
             print(paste0(paste(transMatricesNames.chr,collapse= ", "), " remove from output."))
@@ -110,35 +93,18 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, m
             if("cis" %in% matricesKind.tbl$type){
                 cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type=="cis") |> dplyr::pull("name")
                 if(length(cisMatricesNames.chr)){
-                    # if(cores.num==1){
-                    #     start.tim <- Sys.time()
-                    #     jobLenght.num <- length(cisMatricesNames.chr)
-                    #     hic.cmx_lst[cisMatricesNames.chr] <- lapply(seq_along(cisMatricesNames.chr), function(ele.ndx){
-                    #         if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
-                    #         matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
-                    #         if(method.chr=="VC"){
-                    #             hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
-                    #         }else if(method.chr=="VC_SQRT"){
-                    #             hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
-                    #         }else if (method.chr=="ICE"){
-                    #             hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
-                    #         }
-                    #         return(hic.cmx)
-                    #     })
-                    # }else if (cores.num>=2){
-                        multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
-                        hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){
-                            matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
-                            if(method.chr=="VC"){
-                                hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
-                            }else if(method.chr=="VC_SQRT"){
-                                hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
-                            }else if (method.chr=="ICE"){
-                                hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
-                            }
-                            return(hic.cmx)
-                        })
-                    # }
+                    multicoreParam <- MakeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+                    hic.cmx_lst[cisMatricesNames.chr] <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(cisMatricesNames.chr), function(ele.ndx){
+                        matrixName.chr <- cisMatricesNames.chr[[ele.ndx]]
+                        if(method.chr=="VC"){
+                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=FALSE)
+                        }else if(method.chr=="VC_SQRT"){
+                            hic.cmx <-  VCnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, sqrt.bln=TRUE)
+                        }else if (method.chr=="ICE"){
+                            hic.cmx <- ICEnorm(hic.cmx_lst[[matrixName.chr]], qtlTh.num=qtlTh.num, maxIter.num=maxIter.num)
+                        }
+                        return(hic.cmx)
+                    })
                 }
             }else{
                 print("No cis matrix, Normalisation won't be applied on cis matrices")
