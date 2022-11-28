@@ -109,22 +109,13 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"submatrixRF_Ctrl.mtx_lst"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">GetQuantif</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  matrices.lst  <span class="op">=</span> <span class="va">submatrixRF_Ctrl.mtx_lst</span>,</span></span>
 <span class="r-in"><span>  area.fun      <span class="op">=</span> <span class="st">"center"</span>,</span></span>
 <span class="r-in"><span>  operation.fun <span class="op">=</span> <span class="st">"mean"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span>, list.len <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Named num [1:100] 0.00275 0.00479 1.01102 0.03643 1.69169 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "names")= chr [1:100] "2L:74_2L:77" "2L:107_2L:115" "2L:107_2L:121" "2L:117_2L:121" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "interactions")=Formal class 'GInteractions' [package "InteractionSet"] with 6 slots</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "target")=List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "resolution")= num 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "referencePoint")= chr "rf"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "matriceDim")= num 101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "shiftFactor")= num 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "operation")=function (x)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "area")=function (matrice.mtx)  </span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

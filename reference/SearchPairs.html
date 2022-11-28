@@ -126,7 +126,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">interactions.gni</span> <span class="op">&lt;-</span> <span class="fu">SearchPairs</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    indexAnchor.gnr <span class="op">=</span> <span class="va">anchors_Index.gnr</span>,</span></span>
 <span class="r-in"><span>    indexBait.gnr   <span class="op">=</span> <span class="va">baits_Index.gnr</span>,</span></span>
@@ -136,26 +136,7 @@
 <span class="r-in"><span>    verbose.bln     <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">interactions.gni</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 1 interaction and 15 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 seqnames1       ranges1     seqnames2       ranges2 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     &lt;Rle&gt;     &lt;IRanges&gt;         &lt;Rle&gt;     &lt;IRanges&gt; |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:278_2L:268        2L 277001-278000 ---        2L 267001-268000 |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          name  constraint  distance orientation submatrix.name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;character&gt; &lt;character&gt; &lt;integer&gt;   &lt;logical&gt;    &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:278_2L:268 2L:278_2L:268      Tad_10     10000       FALSE  2L:268_2L:278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  anchor.bin   anchor.name    bait.bin     bait.name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:278_2L:268      2L:278 2L:278:Tad_10      2L:268 2L:268:Tad_10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 anchor.Beaf.score anchor.Beaf.name anchor.Beaf.bln</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;numeric&gt;           &lt;list&gt;       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:278_2L:268              1641        Beaf32_41               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 bait.Tss.class bait.Tss.name bait.Tss.bln</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;character&gt;        &lt;list&gt;    &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2L:278_2L:268       inactive   FBgn0031239            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 429 ranges and 0 metadata columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
