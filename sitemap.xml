@@ -100,6 +100,9 @@
     <loc>/reference/JoinHiC.html</loc>
   </url>
   <url>
+    <loc>/reference/MakeParallelParam.html</loc>
+  </url>
+  <url>
     <loc>/reference/MeanScale.html</loc>
   </url>
   <url>
@@ -182,9 +185,6 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/makeParallelParam.html</loc>
   </url>
   <url>
     <loc>/reference/viridis.html</loc>
