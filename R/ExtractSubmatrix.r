@@ -149,9 +149,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
             anchors.gnr <- InteractionSet::anchors(featureNoDup.gni)$first
             baits.gnr <- InteractionSet::anchors(featureNoDup.gni)$second 
         # Extraction
-            jobLenght.num <- length(S4Vectors::runValue(chromosomesCombinaison.rle))
-            start.tim <- Sys.time()
-            submatrix.spm_lst <- lapply(seq_len(jobLenght.num),function(combinaison.ndx){
+            submatrix.spm_lst <-  BiocParallel::bplapply(BPPARAM = BiocParallel::SerialParam(progressbar = verbose.bln), seq_along(S4Vectors::runValue(chromosomesCombinaison.rle)),function(combinaison.ndx){
                 combinaisonName.chr <- S4Vectors::runValue(chromosomesCombinaison.rle)[[combinaison.ndx]]
                 combinaisonStart.ndx <- cumsum(c(1,S4Vectors::runLength(chromosomesCombinaison.rle)))[[combinaison.ndx]]
                 combinaisonEnd.ndx <- cumsum(S4Vectors::runLength(chromosomesCombinaison.rle))[[combinaison.ndx]]
@@ -172,67 +170,34 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                     ovl_col <- dplyr::group_by(ovl_col, queryHits = ovl_col$queryHits)
                     ovl_col <- tidyr::nest(ovl_col)
                 }
-                subJobLenght.num <- length(combinaisonStart.ndx:combinaisonEnd.ndx)
-                # if(cores.num==1){
-                #     tempSubmatrix.spm_lst <- lapply(seq_len(subJobLenght.num),function(range.ndx){
-                #         if(verbose.bln){ShowLoading(start.tim, range.ndx+(combinaison.ndx-1)*subJobLenght.num,(subJobLenght.num*jobLenght.num))}
-                #         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
-                #         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
-                #         if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
-                #             gap.num <- stats::median(col.ndx)-stats::median(row.ndx)
-                #         }else{
-                #             gap.num <- Inf
-                #         }
-                #         if(gap.num<0){
-                #             mat.spm <- hic.cmx_lst[[mat.ndx]][col.ndx,row.ndx]@matrix
-                #         }else{
-                #             mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
-                #         } 
-                #         if(dim(mat.spm)[1] != matriceDim.num ){
-                #             mat.spm <- ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
-                #         }
-                #         if(abs(gap.num) < matriceDim.num ){
-                #             if(abs(gap.num)>0){
-                #                 mat.spm <- PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
-                #             }
-                #             mat.spm[lower.tri(mat.spm)] <- NA
-                #             if(abs(gap.num)>0){
-                #                 mat.spm <- mat.spm[1:matriceDim.num,(abs(gap.num)+1):(matriceDim.num+abs(gap.num))]
-                #             }
-                #         }
-                #         return(as.matrix(mat.spm))
-                #     })
-                # }else if(cores.num>=2){
-                    multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln) ##TODO
-                    tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(range.ndx){
-                        row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
-                        col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
-                        if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
-                            gap.num <- stats::median(col.ndx)-stats::median(row.ndx)
-                        }else{
-                            gap.num <- Inf
+                multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = FALSE)
+                tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_along(combinaisonStart.ndx:combinaisonEnd.ndx),function(range.ndx){
+                    row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
+                    col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)
+                    if(S4Vectors::metadata(hic.cmx_lst[[mat.ndx]])$type =="cis"){
+                        gap.num <- stats::median(col.ndx)-stats::median(row.ndx)
+                    }else{
+                        gap.num <- Inf
+                    }
+                    if(gap.num<0){
+                        mat.spm <- hic.cmx_lst[[mat.ndx]][col.ndx,row.ndx]@matrix
+                    }else{
+                        mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
+                    } 
+                    if(dim(mat.spm)[1] != matriceDim.num ){
+                        mat.spm <- ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
+                    }
+                    if(abs(gap.num) < matriceDim.num ){
+                        if(abs(gap.num)>0){
+                            mat.spm <- PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
                         }
-                        if(gap.num<0){
-                            mat.spm <- hic.cmx_lst[[mat.ndx]][col.ndx,row.ndx]@matrix
-                        }else{
-                            mat.spm <- hic.cmx_lst[[mat.ndx]][row.ndx,col.ndx]@matrix
-                        } 
-                        if(dim(mat.spm)[1] != matriceDim.num ){
-                            mat.spm <- ResizeMatrix(matrice.mtx=mat.spm, newDim.num=c(matriceDim.num,matriceDim.num))
+                        mat.spm[lower.tri(mat.spm)] <- NA
+                        if(abs(gap.num)>0){
+                            mat.spm <- mat.spm[1:matriceDim.num,(abs(gap.num)+1):(matriceDim.num+abs(gap.num))]
                         }
-                        if(abs(gap.num) < matriceDim.num ){
-                            if(abs(gap.num)>0){
-                                mat.spm <- PadMtx(mat.mtx=mat.spm, padSize.num=abs(gap.num), value.num=0,side.chr=c("left","bot")) 
-                            }
-                            mat.spm[lower.tri(mat.spm)] <- NA
-                            if(abs(gap.num)>0){
-                                mat.spm <- mat.spm[1:matriceDim.num,(abs(gap.num)+1):(matriceDim.num+abs(gap.num))]
-                            }
-                        }
-                        return(as.matrix(mat.spm))
-                    })
-                    # if(verbose.bln){ShowLoading(start.tim,combinaison.ndx, jobLenght.num)}
-                # }
+                    }
+                    return(as.matrix(mat.spm))
+                })
                 return(tempSubmatrix.spm_lst)
             }) |>
                 do.call(what=c) |>

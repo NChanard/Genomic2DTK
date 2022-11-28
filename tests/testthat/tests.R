@@ -279,20 +279,9 @@ Hue(paletteLength.num=1)
 Hue(paletteLength.num=2)
 PadMtx(mat.mtx=matrix(1:25,5,5),  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
 ReduceRun(first.rle=rle(c("A","A","B")), second.rle=rle(c("A","B","B")), reduceFun.chr="paste", sep="_" )
-
-
-###
-# set.seed(31415)
-# x.num <- rnorm(100,50,200)
-# BreakVector(x.num=x.num, n.num=9)
-# BreakVector(x.num=x.num, min.num=-400, center.num=58.34, max.num=600, n.num=9, method.chr="linear")
-# BreakVector(x.num=x.num, center.num=58.34, n.num=9, method.chr="linear")
-# BreakVector(x.num=x.num, n.num=9, method.chr="density")
-
-# MeanScale(rnorm(500,500))
-
-# set.seed(123)
-# mat.spm = as(matrix(floor(runif(7*13,0,2)),7,13), "dgCMatrix")
-# Rise0(mat.spm=mat.spm, which.ndx=c(1,3,6,10,12))
-# Rise0(mat.spm=mat.spm, coord.dtf=data.frame(i=c(1,5,3),  j=c(1,2,3) ) )
-# Rise0(mat.spm=mat.spm)
+MeanScale(rnorm(500,500))
+set.seed(123)
+mat.spm = as(matrix(floor(runif(7*13,0,2)),7,13), "dgCMatrix")
+Rise0(mat.spm=mat.spm, which.ndx=c(1,3,6,10,12))
+Rise0(mat.spm=mat.spm, coord.dtf=data.frame(i=c(1,5,3),  j=c(1,2,3) ) )
+Rise0(mat.spm=mat.spm)
