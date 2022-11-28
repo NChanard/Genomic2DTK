@@ -76,8 +76,8 @@ NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
 #==============================
 # Test ExpectedHiC
 #==============================
-# HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
-# HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num=2)
+HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
 
 #==============================
 # Test IndexFeatures
