@@ -18,7 +18,7 @@
 #' data(baits_Index.gnr)
 #' baits_Index.gnr[1]
 #' 
-#' 
+#' \dontrun{
 #' interactions.gni <- SearchPairs(
 #'     indexAnchor.gnr = anchors_Index.gnr,
 #'     indexBait.gnr   = baits_Index.gnr,
@@ -28,7 +28,7 @@
 #'     verbose.bln     = FALSE
 #'     )
 #' 
-#' interactions.gni[1]
+#' }
 
 SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NULL, maxDist.num=NULL, verbose.bln=TRUE, cores.num=1){
     if(is.character(minDist.num)){

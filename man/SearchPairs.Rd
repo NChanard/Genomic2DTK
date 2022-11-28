@@ -44,7 +44,7 @@ anchors_Index.gnr[1]
 data(baits_Index.gnr)
 baits_Index.gnr[1]
 
-
+\dontrun{
 interactions.gni <- SearchPairs(
     indexAnchor.gnr = anchors_Index.gnr,
     indexBait.gnr   = baits_Index.gnr,
@@ -54,5 +54,5 @@ interactions.gni <- SearchPairs(
     verbose.bln     = FALSE
     )
 
-interactions.gni[1]
+}
 }

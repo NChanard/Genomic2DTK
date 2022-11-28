@@ -16,7 +16,7 @@
 #' data("interactions.gni")
 #' data("HiC_ctrl.cmx_lst")
 #'
-#'
+#' \dontrun{
 #' interactions_RFmatrix_ctrl.lst  <- ExtractSubmatrix(
 #'   feature.gn         = interactions.gni,
 #'   hic.cmx_lst        = HiC_ctrl.cmx_lst,
@@ -26,9 +26,7 @@
 #'   cores.num          = 1,
 #'   verbose.bln        = FALSE
 #'   )
-#'
-#' str(interactions_RFmatrix_ctrl.lst,max.level = 1, list.len=5)
-#' attributes(interactions_RFmatrix_ctrl.lst)$interactions[1]
+#' }
 
 ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.chr="pf",  res.num=NULL, matriceDim.num=21, shiftFactor.num=1,cores.num=1, verbose.bln=TRUE){
         .GInteractionFormatting <- function(feature.gn, res.num){
@@ -205,7 +203,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
                 #         return(as.matrix(mat.spm))
                 #     })
                 # }else if(cores.num>=2){
-                    multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+                    multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln) ##TODO
                     tempSubmatrix.spm_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(range.ndx){
                         row.ndx <- unlist(ovl_row[[range.ndx,"data"]],use.names=FALSE)
                         col.ndx <- unlist(ovl_col[[range.ndx,"data"]],use.names=FALSE)

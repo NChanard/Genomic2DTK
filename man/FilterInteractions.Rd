@@ -35,7 +35,7 @@ FilterInteractions
 library(GenomicED)
 data("submatrixPF_Ctrl.mtx_lst")
 
-
+\dontrun{
 target.lst <- list(
   anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
   bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
@@ -88,4 +88,5 @@ FilterInteractions(
   target.lst        = target.lst,
   selection.fun     = NULL
 )
+}
 }

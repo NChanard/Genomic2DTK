@@ -11,7 +11,7 @@
 #' library(GenomicED)
 #' data("submatrixPF_Ctrl.mtx_lst")
 #'
-#'
+#' \dontrun{
 #' target.lst <- list(
 #'   anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
 #'   bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
@@ -64,6 +64,7 @@
 #'   target.lst        = target.lst,
 #'   selection.fun     = NULL
 #' )
+#' }
 
 FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.lst=NULL, selection.fun=function(){Reduce(intersect,interarctions.ndx_lst)}) {
     if(!is.null(matrices.lst) && !is.null(attributes(matrices.lst)$interactions)){interarctions.gni <- attributes(matrices.lst)$interactions}

@@ -23,7 +23,7 @@
 #'   seqlengths = seqlengths.num
 #'   )
 #' binSize.num <- 10000
-#'
+#' \dontrun{
 #' anchors_Index.gnr <- IndexFeatures(
 #'   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
 #'   constraint.gnr        = NULL,
@@ -35,7 +35,7 @@
 #'   verbose.bln           = FALSE
 #'   )
 #'
-#' anchors_Index.gnr[1]
+#' }
 IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
     # Constraint Informations
         if (is.null(constraint.gnr)){
@@ -107,7 +107,7 @@ IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dt
             #         return(subBinnedFeature.gnr)
             #     })
             # }else if(cores.num>=2){
-                multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
+                multicoreParam <- makeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln) ##TODO
                 binnedFeature.gnr_lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,seq_len(subJobLenght.num),function(row.ndx){
                     ranges.ndx <- featConstOvlp.tbl$BinnedFeature.ndx[row.ndx] |> unlist(use.names=FALSE)
                     constraint.ndx <- featConstOvlp.tbl$BinnedConstraint.ndx[row.ndx] |> unlist(use.names=FALSE)

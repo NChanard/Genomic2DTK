@@ -31,12 +31,13 @@
 #' library(GenomicED)
 #' data("submatrixRF_Ctrl.mtx_lst")
 #'
-#'
+#' \dontrun{
 #' GetQuantif(
 #'   matrices.lst  = submatrixRF_Ctrl.mtx_lst,
 #'   area.fun      = "center",
 #'   operation.fun = "mean"
-#'   ) |> str(max.level=1, list.len = 5)
+#'   )
+#' }
 GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0", name.chr=NULL){
     # Define operation function
         if(is.null(operation.fun)){

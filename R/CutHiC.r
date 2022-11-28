@@ -21,7 +21,7 @@ CutHiC <- function(megaHic.cmx, verbose.bln=TRUE){
     jobLenght.num <- length(chromComb.lst)
 
     hic.lst_cmx <- lapply(seq_along(chromComb.lst), function(ele.ndx){
-        if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)}
+        # if(verbose.bln){ShowLoading(start.tim, ele.ndx,jobLenght.num)} ##TODO
         # Chromosomes
             ele.lst <- unlist(strsplit(chromComb.lst[[ele.ndx]],"_"))
             row.regions = binnedGenome.grn[which(as.vector(binnedGenome.grn@seqnames) ==  ele.lst[[1]])]
