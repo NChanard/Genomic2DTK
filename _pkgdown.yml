@@ -5,6 +5,10 @@ reference:
 - title: Data
   contents:
   - Beaf32_Peaks.gnr
+  - TSS_Peaks.gnr
+  - TADs_Domains.gnr
+  - HiC_Ctrl.cmx_lst
+  - HiC_HS.cmx_lst
 
 - title: HiC Preprocess
   contents:

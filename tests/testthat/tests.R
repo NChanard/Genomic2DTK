@@ -54,11 +54,11 @@ chromSize.dtf  <- data.frame(
 #==============================
 # Test NormalizeHiC
 #==============================
-HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
-HiC_HS.cmx_lst   <- NormalizeHiC(HiC_HS.cmx_lst,   interaction.type="cis")
-NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="VC", cores.num=2)
+NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="VC")
 NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
 NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
+HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
+HiC_HS.cmx_lst   <- NormalizeHiC(HiC_HS.cmx_lst,   interaction.type="cis")
 
 #==============================
 # Test ExpectedHiC
@@ -96,7 +96,7 @@ TSS_Index.gnr <- IndexFeatures(
   verbose.bln           = TRUE
 )
 IndexFeatures(
-  gRange.gnr_lst        = list(TSS=TSS_Peaks.gnr), 
+  gRange.gnr_lst        = list(TSS_1=TSS_Peaks.gnr, TSS_2=TSS_Peaks.gnr), 
   constraint.gnr        = NULL,
   chromSize.dtf         = chromSize.dtf,
   binSize.num           = 100000,
@@ -111,7 +111,7 @@ Beaf_TSS.gni <- SearchPairs(
   indexBait.gnr   = TSS_Index.gnr,
   minDist.num     = NULL, 
   maxDist.num     = NULL,
-  cores.num       = 2,
+  cores.num       = 1,
   verbose.bln     = TRUE
 )
 SearchPairs(
@@ -158,7 +158,7 @@ submatrixRF_Ctrl.mtx_lst <- ExtractSubmatrix(
   res.num            = NULL,
   referencePoint.chr = "rf",
   matriceDim.num     = 21,
-  cores.num          = 2,
+  cores.num          = 1,
   verbose.bln        = TRUE
 )
 ExtractSubmatrix(
@@ -286,8 +286,11 @@ Hue(paletteLength.num=2)
 PadMtx(mat.mtx=matrix(1:25,5,5),  padSize.num=1, value.num=0, side.chr=c('top','bot','right','left') )
 ReduceRun(first.rle=rle(c("A","A","B")), second.rle=rle(c("A","B","B")), reduceFun.chr="paste", sep="_" )
 MeanScale(rnorm(500,500))
+BreakVector(x.num=rnorm(500,500), n.num=50, method.chr="density")
+BreakVector(x.num=rnorm(500,500), n.num=50, center.num=-500)
 set.seed(123)
 mat.spm = as(matrix(floor(runif(7*13,0,2)),7,13), "dgCMatrix")
 Rise0(mat.spm=mat.spm, which.ndx=c(1,3,6,10,12))
 Rise0(mat.spm=mat.spm, coord.dtf=data.frame(i=c(1,5,3),  j=c(1,2,3) ) )
 Rise0(mat.spm=mat.spm)
+GetFileExtension(path.pth="my/path/to/my/file.txt")
