@@ -92,7 +92,92 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>   <span class="co"># Index Beaf32 in TADs domains</span></span></span>
+<span class="r-in"><span>   <span class="va">Beaf32_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>       gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>       chromSize.dtf  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span>, <span class="st">'2R'</span><span class="op">)</span>, seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>,<span class="fl">25286936</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       binSize.num    <span class="op">=</span> <span class="fl">100000</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Beaf32 &lt;-&gt; Beaf32 Pairing</span></span></span>
+<span class="r-in"><span>   <span class="va">Beaf_Beaf.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="SearchPairs.html">SearchPairs</a></span><span class="op">(</span>indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf32_Index.gnr</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="va">Beaf_Beaf.gni</span> <span class="op">&lt;-</span> <span class="va">Beaf_Beaf.gni</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span><span class="op">]</span> <span class="co"># subset 2000 first for exemple</span></span></span>
+<span class="r-in"><span>   </span></span>
+<span class="r-in"><span>   <span class="co"># Matrices extractions center on Beaf32 &lt;-&gt; Beaf32 point interaction</span></span></span>
+<span class="r-in"><span>   <span class="va">interactions_PF.mtx_lst</span>  <span class="op">&lt;-</span> <span class="fu"><a href="ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>       feature.gn         <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>       hic.cmx_lst        <span class="op">=</span> <span class="va">HiC_Ctrl.cmx_lst</span>,</span></span>
+<span class="r-in"><span>       referencePoint.chr <span class="op">=</span> <span class="st">"pf"</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Create a target</span></span></span>
+<span class="r-in"><span>   <span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>       anchor.Beaf.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beaf32_108"</span>, <span class="st">"Beaf32_814"</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>       distance         <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span><span class="op">)</span><span class="op">{</span><span class="va">dist</span> <span class="op">&lt;</span> <span class="fl">300000</span><span class="op">}</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="co"># We target the Beaf32&lt;-&gt;Beaf32 interactions that are less than 300Kb away</span></span></span>
+<span class="r-in"><span>   <span class="co"># and have peak Beaf32_2 and Beaf32_191 as anchors (i.e. left).</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Create a selection</span></span></span>
+<span class="r-in"><span>   <span class="va">selection.fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span> , <span class="va">distance</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span>   <span class="co"># We select the Beaf32&lt;-&gt;Beaf32 interactions that satisfy both targeting</span></span></span>
+<span class="r-in"><span>   <span class="co"># criteria (intersection).</span></span></span>
+<span class="r-in"><span>   </span></span>
+<span class="r-in"><span>   <span class="co"># Filtration on InteractionSet (Beaf32 &lt;-&gt; Beaf32 Pairs)</span></span></span>
+<span class="r-in"><span>   <span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>       target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>       selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="co"># Returns a named list (the names match the targeting criteria).</span></span></span>
+<span class="r-in"><span>   <span class="co"># Each element is an index vector of Beaf32&lt;-&gt;Beaf32 interactions</span></span></span>
+<span class="r-in"><span>   <span class="co"># that satisfy the given criteria.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Filtration on Matrices List (Beaf32 &lt;-&gt; Beaf32 Extracted matrices)</span></span></span>
+<span class="r-in"><span>   <span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       matrices.lst      <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
+<span class="r-in"><span>       target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>       selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="co"># Return the same kind of result.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Add the selection on InteractionSet Filtration</span></span></span>
+<span class="r-in"><span>   <span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>       target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>       selection.fun     <span class="op">=</span> <span class="va">selection.fun</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="co"># This return the intersection of the index vector that satisfy both</span></span></span>
+<span class="r-in"><span>   <span class="co"># targeting criteria.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Add the selection on Matrices List Filtration</span></span></span>
+<span class="r-in"><span>   <span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       matrices.lst      <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
+<span class="r-in"><span>       target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>       selection.fun     <span class="op">=</span> <span class="va">selection.fun</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="co"># This return the filtred matrices.lst, i.e the matrices.lst for which</span></span></span>
+<span class="r-in"><span>   <span class="co"># the Beaf32&lt;-&gt;Beaf32 interactions satisfy both targeting criteria.</span></span></span>
+<span class="r-in"><span>   </span></span>
+<span class="r-in"><span>   <span class="co"># Filtration with InteractionsSet as filtration criteria</span></span></span>
+<span class="r-in"><span>   <span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>interactions <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>       target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>       selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>   <span class="co"># Filtration  with GRanges as filtration criteria</span></span></span>
+<span class="r-in"><span>   <span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>first <span class="op">=</span>  <span class="fu">InteractionSet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="va">Beaf_Beaf.gni</span><span class="op">)</span><span class="op">[[</span><span class="st">"first"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>       target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>       selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

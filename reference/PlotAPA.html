@@ -54,11 +54,11 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotAPA</span><span class="op">(</span></span>
 <span>  apa.mtx <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trimPrct.num <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  minBoundary.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  center.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  maxBoundary.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  minConditionBoundary.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  maxConditionBoundary.num <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  colMin.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colMid.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colMax.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colCondMin.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colCondMax.num <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -72,23 +72,23 @@
 <dd><p>&lt;numeric&gt;: A number between 0 and 100 thaht give the percentage of triming in matrices.</p></dd>
 
 
-<dt>minBoundary.num</dt>
+<dt>colMin.num</dt>
 <dd><p>&lt;matrix&gt;: The minimal value in color scale. If Null automaticaly find.</p></dd>
 
 
-<dt>center.num</dt>
+<dt>colMid.num</dt>
 <dd><p>&lt;matrix&gt;: The middle value in color scale. If Null automaticaly find.</p></dd>
 
 
-<dt>maxBoundary.num</dt>
+<dt>colMax.num</dt>
 <dd><p>&lt;matrix&gt;: The mximal value in color scale. If Null automaticaly find.</p></dd>
 
 
-<dt>minConditionBoundary.num</dt>
+<dt>colCondMin.num</dt>
 <dd><p>&lt;matrix&gt;: Avalaible for plotting differantial aggregation. The minimal value in color scale in the classsical aggregation plot. If Null automaticaly find.</p></dd>
 
 
-<dt>maxConditionBoundary.num</dt>
+<dt>colCondMax.num</dt>
 <dd><p>&lt;matrix&gt;: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.</p></dd>
 
 </dl></div>
@@ -110,13 +110,13 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">PlotAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx                  <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    trimPrct.num             <span class="op">=</span> <span class="fl">20</span>,</span></span>
-<span class="r-in"><span>    minBoundary.num          <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span></span>
-<span class="r-in"><span>    center.num               <span class="op">=</span> <span class="fl">0</span>,</span></span>
-<span class="r-in"><span>    maxBoundary.num          <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>    minConditionBoundary.num <span class="op">=</span> <span class="fl">0</span>,</span></span>
-<span class="r-in"><span>    maxConditionBoundary.num <span class="op">=</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span>    apa.mtx        <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    trimPrct.num   <span class="op">=</span> <span class="fl">20</span>,</span></span>
+<span class="r-in"><span>    colMin.num     <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>    colMid.num     <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>    colMax.num     <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>    colCondMin.num <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>    colCondMax.num <span class="op">=</span> <span class="fl">2</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>

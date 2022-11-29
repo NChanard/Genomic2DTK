@@ -56,9 +56,9 @@
 <span>  title.chr <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trimPrct.num <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  bounds.chr <span class="op">=</span> <span class="st">"both"</span>,</span>
-<span>  minBoundary.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  center.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  maxBoundary.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colMin.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colMid.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colMax.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colBreaks.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  blurPass.num <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  blurBox.num <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -91,15 +91,15 @@
 <dd><p>&lt;character&gt; : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see QtlThreshold. (Default "both")</p></dd>
 
 
-<dt>minBoundary.num</dt>
+<dt>colMin.num</dt>
 <dd><p>&lt;numeric&gt; : Minimal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)</p></dd>
 
 
-<dt>center.num</dt>
+<dt>colMid.num</dt>
 <dd><p>&lt;numeric&gt; : Center value of Heatmap, force color range. If Null automaticaly find. (Default NULL)</p></dd>
 
 
-<dt>maxBoundary.num</dt>
+<dt>colMax.num</dt>
 <dd><p>&lt;numeric&gt; : Maximal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)</p></dd>
 
 
@@ -216,11 +216,11 @@
 <span class="r-in"><span>   </span></span>
 <span class="r-in"><span>   <span class="co"># Change Minimal, Central and Maximal Colors scale value</span></span></span>
 <span class="r-in"><span>   <span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>       apa.mtx         <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>       title.chr       <span class="op">=</span> <span class="st">"APA [min 200, center 300, max 600]"</span>,</span></span>
-<span class="r-in"><span>       minBoundary.num <span class="op">=</span> <span class="fl">200</span>,</span></span>
-<span class="r-in"><span>       center.num      <span class="op">=</span> <span class="fl">300</span>,</span></span>
-<span class="r-in"><span>       maxBoundary.num <span class="op">=</span> <span class="fl">600</span></span></span>
+<span class="r-in"><span>       apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>       title.chr  <span class="op">=</span> <span class="st">"APA [min 200, center 300, max 600]"</span>,</span></span>
+<span class="r-in"><span>       colMin.num <span class="op">=</span> <span class="fl">200</span>,</span></span>
+<span class="r-in"><span>       colMid.num <span class="op">=</span> <span class="fl">300</span>,</span></span>
+<span class="r-in"><span>       colMax.num <span class="op">=</span> <span class="fl">600</span></span></span>
 <span class="r-in"><span>   <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>   <span class="co"># Change Color</span></span></span>
