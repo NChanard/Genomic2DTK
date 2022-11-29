@@ -46,7 +46,7 @@
     <div class="section level2">
       <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Test datasets.</p>
 
       
     </div><div id="" class="section level2">
@@ -80,9 +80,9 @@
         </dt>
         <dd>In situ Hi-C on heat treated S2 cells (Drosophila Melanogaster) with MboI on chromosome 2R and 2L download from [4DN](https://data.4dnucleome.org/experiment-set-replicates/4DNESFI64TG3/) portal (Ray J, Munn PR, et al., 2019). This data is the result of the Genomic2DTK::ImportHiC function.</dd>
       </dl></div><div class="section level2">
-      <h2 id="hic-preprocess">HiC Preprocess<a class="anchor" aria-label="anchor" href="#hic-preprocess"></a></h2>
+      <h2 id="hic">HiC<a class="anchor" aria-label="anchor" href="#hic"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Functions for HiC data preprocessing.</p>
 
       
     </div><div id="" class="section level2">
@@ -95,11 +95,6 @@
           <code><a href="ExpectedHiC.html">ExpectedHiC()</a></code> 
         </dt>
         <dd>Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="ICEnorm.html">ICEnorm()</a></code> 
-        </dt>
-        <dd>Compute Iterative Correction on hic chunk.</dd>
       </dl><dl><dt>
           
           <code><a href="ImportHiC.html">ImportHiC()</a></code> 
@@ -115,10 +110,30 @@
           <code><a href="VCnorm.html">VCnorm()</a></code> 
         </dt>
         <dd>Compute Vanilla Count or Vanilla Count square root correction on hic chunk.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ICEnorm.html">ICEnorm()</a></code> 
+        </dt>
+        <dd>Compute Iterative Correction on hic chunk.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="CutHiC.html">CutHiC()</a></code> 
+        </dt>
+        <dd>Cut HiC map in HiC chunks.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="JoinHiC.html">JoinHiC()</a></code> 
+        </dt>
+        <dd>Merge HiC chunk as HiC map</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SwitchMatrix.html">SwitchMatrix()</a></code> 
+        </dt>
+        <dd>Change values in hic chunk</dd>
       </dl></div><div class="section level2">
-      <h2 id="aggregation-analysis">Aggregation Analysis<a class="anchor" aria-label="anchor" href="#aggregation-analysis"></a></h2>
+      <h2 id="genomicranges-adding">GenomicRanges adding<a class="anchor" aria-label="anchor" href="#genomicranges-adding"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Additional functions for GRanges objects.</p>
 
       
     </div><div id="" class="section level2">
@@ -128,10 +143,46 @@
 
       <dl><dt>
           
+          <code><a href="BinGRanges.html">BinGRanges()</a></code> 
+        </dt>
+        <dd>Bin a GRanges.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="GenomicSystem.html">GenomicSystem()</a></code> 
+        </dt>
+        <dd>Convert numbers of base pairs into string and vice versa.</dd>
+      </dl><dl><dt>
+          
           <code><a href="IndexFeatures.html">IndexFeatures()</a></code> 
         </dt>
         <dd>Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().</dd>
       </dl><dl><dt>
+          
+          <code><a href="MergeGRanges.html">MergeGRanges()</a></code> 
+        </dt>
+        <dd>Merge GRanges or a list of GRanges</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SeqEnds.html">SeqEnds()</a></code> 
+        </dt>
+        <dd>Get all sequences lengths.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="StrToGRanges.html">StrToGRanges()</a></code> 
+        </dt>
+        <dd>Convert String in GRanges object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="aggregation-analysis">Aggregation Analysis<a class="anchor" aria-label="anchor" href="#aggregation-analysis"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions for performing an aggregation analysis.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="Aggregation.html">Aggregation()</a></code> 
         </dt>
@@ -162,71 +213,9 @@
         </dt>
         <dd>Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.</dd>
       </dl></div><div class="section level2">
-      <h2 id="hic-utils">HiC utils<a class="anchor" aria-label="anchor" href="#hic-utils"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="CutHiC.html">CutHiC()</a></code> 
-        </dt>
-        <dd>Cut HiC map in HiC chunks.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="JoinHiC.html">JoinHiC()</a></code> 
-        </dt>
-        <dd>Merge HiC chunk as HiC map</dd>
-      </dl><dl><dt>
-          
-          <code><a href="SwitchMatrix.html">SwitchMatrix()</a></code> 
-        </dt>
-        <dd>Change values in hic chunk</dd>
-      </dl></div><div class="section level2">
-      <h2 id="genomic-utils">Genomic utils<a class="anchor" aria-label="anchor" href="#genomic-utils"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="BinGRanges.html">BinGRanges()</a></code> 
-        </dt>
-        <dd>Bin a GRanges.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="GenomicSystem.html">GenomicSystem()</a></code> 
-        </dt>
-        <dd>Convert numbers of base pairs into string and vice versa.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="MergeGRanges.html">MergeGRanges()</a></code> 
-        </dt>
-        <dd>Merge GRanges or a list of GRanges</dd>
-      </dl><dl><dt>
-          
-          <code><a href="SeqEnds.html">SeqEnds()</a></code> 
-        </dt>
-        <dd>Get all sequences lengths.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="StrToGRanges.html">StrToGRanges()</a></code> 
-        </dt>
-        <dd>Convert String in GRanges object</dd>
-      </dl></div><div class="section level2">
       <h2 id="visualisation">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Functions for visualising aggregation analysis results.</p>
 
       
     </div><div id="" class="section level2">
@@ -244,6 +233,210 @@
           <code><a href="ggAPA.html">ggAPA()</a></code> 
         </dt>
         <dd>Aggregation plot</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Hsl2Hex.html">Hsl2Hex()</a></code> 
+        </dt>
+        <dd>Convert a color in HSL to hexadecimal.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Hsl2Rgb.html">Hsl2Rgb()</a></code> 
+        </dt>
+        <dd>Convert a color in HSL to RGB.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Hue.html">Hue()</a></code> 
+        </dt>
+        <dd>Create an Hue palette.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="IsHsl.html">IsHsl()</a></code> 
+        </dt>
+        <dd>Check if a color is in HSL color format.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="IsRgb.html">IsRgb()</a></code> 
+        </dt>
+        <dd>Check if a color is in RGB color format.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Rgb2Hex.html">Rgb2Hex()</a></code> 
+        </dt>
+        <dd>Convert a color in RGB to hexadecimal format.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="viridis.html">viridis()</a></code> 
+        </dt>
+        <dd>Create a viridis palette</dd>
+      </dl><dl><dt>
+          
+          <code><a href="YlGnBu.html">YlGnBu()</a></code> 
+        </dt>
+        <dd>Create a YlGnBu palette</dd>
+      </dl><dl><dt>
+          
+          <code><a href="YlOrRd.html">YlOrRd()</a></code> 
+        </dt>
+        <dd>Create a YlOrRd palette</dd>
+      </dl></div><div class="section level2">
+      <h2 id="statistics">Statistics<a class="anchor" aria-label="anchor" href="#statistics"></a></h2>
+      
+      <p class="section-desc"></p><p>Statistical, scaling, and outlier suppression functions.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="BreakVector.html">BreakVector()</a></code> 
+        </dt>
+        <dd>Cut a vector.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Gauss.html">Gauss()</a></code> 
+        </dt>
+        <dd>Gaussian formula.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="GaussBox.html">GaussBox()</a></code> 
+        </dt>
+        <dd>One dimension Gaussian kernel.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MeanScale.html">MeanScale()</a></code> 
+        </dt>
+        <dd>Scale values by mean.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MinMaxScale.html">MinMaxScale()</a></code> 
+        </dt>
+        <dd>Scales values on min-max range.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Plus.html">Plus()</a></code> 
+        </dt>
+        <dd>Sum by removing NA.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="QtlThreshold.html">QtlThreshold()</a></code> 
+        </dt>
+        <dd>Find threshold for outliers triming based on quantiles.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SdThreshold.html">SdThreshold()</a></code> 
+        </dt>
+        <dd>Find threshold for outliers triming based on standard deviation.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="TrimOutliers.html">TrimOutliers()</a></code> 
+        </dt>
+        <dd>Remove outliers.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="matrix-and-data-frame">Matrix and Data.frame<a class="anchor" aria-label="anchor" href="#matrix-and-data-frame"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions for the manipulation of matrices and data.frames.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="BoxBlur.html">BoxBlur()</a></code> 
+        </dt>
+        <dd>Blur a matrix.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BindFillRows.html">BindFillRows()</a></code> 
+        </dt>
+        <dd>Bind data frames after filling missing columns.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MeltSpm.html">MeltSpm()</a></code> 
+        </dt>
+        <dd>Coerce matrix in tibble.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="PadMtx.html">PadMtx()</a></code> 
+        </dt>
+        <dd>Add a value around a matrix.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ResizeMatrix.html">ResizeMatrix()</a></code> 
+        </dt>
+        <dd>Resize a matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Rise0.html">Rise0()</a></code> 
+        </dt>
+        <dd>Explicit zeros in sparse matrix.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="lists-and-run-length-encoding">Lists and Run Length Encoding<a class="anchor" aria-label="anchor" href="#lists-and-run-length-encoding"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions for handling lists and Rle.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="ReduceRun.html">ReduceRun()</a></code> 
+        </dt>
+        <dd>Apply a function over two RLE</dd>
+      </dl><dl><dt>
+          
+          <code><a href="TransposeList.html">TransposeList()</a></code> 
+        </dt>
+        <dd>Turns a nested list "inside-out".</dd>
+      </dl></div><div class="section level2">
+      <h2 id="miscellaneous">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous"></a></h2>
+      
+      <p class="section-desc"></p><p>Various tools for coding.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="AddAttr.html">AddAttr()</a></code> 
+        </dt>
+        <dd>Add list as attributes.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="GetFileExtension.html">GetFileExtension()</a></code> 
+        </dt>
+        <dd>Get file extension</dd>
+      </dl><dl><dt>
+          
+          <code><a href="GetFileName.html">GetFileName()</a></code> 
+        </dt>
+        <dd>Get file name.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MakeParallelParam.html">MakeParallelParam()</a></code> 
+        </dt>
+        <dd>Create parallel parameter</dd>
+      </dl><dl><dt>
+          
+          <code><a href="NotIn.html">NotIn()</a></code> 
+        </dt>
+        <dd>Binary operator, inverse to %in%.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="WrapFunction.html">WrapFunction()</a></code> 
+        </dt>
+        <dd>Wrap a string into a function.</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
