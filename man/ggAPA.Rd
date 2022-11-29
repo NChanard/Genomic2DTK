@@ -9,9 +9,9 @@ ggAPA(
   title.chr = NULL,
   trimPrct.num = 0,
   bounds.chr = "both",
-  minBoundary.num = NULL,
-  center.num = NULL,
-  maxBoundary.num = NULL,
+  colMin.num = NULL,
+  colMid.num = NULL,
+  colMax.num = NULL,
   colBreaks.num = NULL,
   blurPass.num = 0,
   blurBox.num = NULL,
@@ -34,11 +34,11 @@ ggAPA(
 
 \item{bounds.chr}{<character> : Which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see QtlThreshold. (Default "both")}
 
-\item{minBoundary.num}{<numeric> : Minimal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
+\item{colMin.num}{<numeric> : Minimal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
 
-\item{center.num}{<numeric> : Center value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
+\item{colMid.num}{<numeric> : Center value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
 
-\item{maxBoundary.num}{<numeric> : Maximal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
+\item{colMax.num}{<numeric> : Maximal value of Heatmap, force color range. If Null automaticaly find. (Default NULL)}
 
 \item{colBreaks.num}{<numeric> : Repartition of colors. If Null automaticaly find. (Default NULL)}
 
@@ -128,11 +128,11 @@ ggAPA
    
    # Change Minimal, Central and Maximal Colors scale value
    ggAPA(
-       apa.mtx         = aggreg.mtx,
-       title.chr       = "APA [min 200, center 300, max 600]",
-       minBoundary.num = 200,
-       center.num      = 300,
-       maxBoundary.num = 600
+       apa.mtx    = aggreg.mtx,
+       title.chr  = "APA [min 200, center 300, max 600]",
+       colMin.num = 200,
+       colMid.num = 300,
+       colMax.num = 600
    )
 
    # Change Color

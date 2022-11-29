@@ -32,7 +32,7 @@ Search in a GInteraction object which interactions correspond ti a target list a
 FilterInteractions
 }
 \examples{
-/dontrun{
+\dontrun{
    # Index Beaf32 in TADs domains
    Beaf32_Index.gnr <- IndexFeatures(
        gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 

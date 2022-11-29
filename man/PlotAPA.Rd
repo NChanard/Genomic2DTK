@@ -7,11 +7,11 @@
 PlotAPA(
   apa.mtx = NULL,
   trimPrct.num = 0,
-  minBoundary.num = NULL,
-  center.num = NULL,
-  maxBoundary.num = NULL,
-  minConditionBoundary.num = NULL,
-  maxConditionBoundary.num = NULL
+  colMin.num = NULL,
+  colMid.num = NULL,
+  colMax.num = NULL,
+  colCondMin.num = NULL,
+  colCondMax.num = NULL
 )
 }
 \arguments{
@@ -19,15 +19,15 @@ PlotAPA(
 
 \item{trimPrct.num}{<numeric>: A number between 0 and 100 thaht give the percentage of triming in matrices.}
 
-\item{minBoundary.num}{<matrix>: The minimal value in color scale. If Null automaticaly find.}
+\item{colMin.num}{<matrix>: The minimal value in color scale. If Null automaticaly find.}
 
-\item{center.num}{<matrix>: The middle value in color scale. If Null automaticaly find.}
+\item{colMid.num}{<matrix>: The middle value in color scale. If Null automaticaly find.}
 
-\item{maxBoundary.num}{<matrix>: The mximal value in color scale. If Null automaticaly find.}
+\item{colMax.num}{<matrix>: The mximal value in color scale. If Null automaticaly find.}
 
-\item{minConditionBoundary.num}{<matrix>: Avalaible for plotting differantial aggregation. The minimal value in color scale in the classsical aggregation plot. If Null automaticaly find.}
+\item{colCondMin.num}{<matrix>: Avalaible for plotting differantial aggregation. The minimal value in color scale in the classsical aggregation plot. If Null automaticaly find.}
 
-\item{maxConditionBoundary.num}{<matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.}
+\item{colCondMax.num}{<matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.}
 }
 \value{
 None
@@ -44,12 +44,12 @@ data(aggreg.mtx)
 
 
 PlotAPA(
-    apa.mtx                  = aggreg.mtx,
-    trimPrct.num             = 20,
-    minBoundary.num          = -2,
-    center.num               = 0,
-    maxBoundary.num          = 2,
-    minConditionBoundary.num = 0,
-    maxConditionBoundary.num = 2
+    apa.mtx        = aggreg.mtx,
+    trimPrct.num   = 20,
+    colMin.num     = -2,
+    colMid.num     = 0,
+    colMax.num     = 2,
+    colCondMin.num = 0,
+    colCondMax.num = 2
 )
 }

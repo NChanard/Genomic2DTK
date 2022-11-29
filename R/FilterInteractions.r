@@ -8,7 +8,7 @@
 #' @param selection.fun <function>: A function that described how the target must be cross. (Defaul intersection of all targets)
 #' @return A list of elements index or a filtred matrices list with attributes updates.
 #' @examples
-#'/dontrun{
+#'\dontrun{
 #'    # Index Beaf32 in TADs domains
 #'    Beaf32_Index.gnr <- IndexFeatures(
 #'        gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 

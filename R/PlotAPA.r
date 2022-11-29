@@ -4,11 +4,11 @@
 #' @description Draw aggregation plot from aggregation matrices.
 #' @param apa.mtx <matrix>: The aggregated matrix.
 #' @param trimPrct.num <numeric>: A number between 0 and 100 thaht give the percentage of triming in matrices.
-#' @param minBoundary.num <matrix>: The minimal value in color scale. If Null automaticaly find.
-#' @param center.num <matrix>: The middle value in color scale. If Null automaticaly find.
-#' @param maxBoundary.num <matrix>: The mximal value in color scale. If Null automaticaly find.
-#' @param minConditionBoundary.num <matrix>: Avalaible for plotting differantial aggregation. The minimal value in color scale in the classsical aggregation plot. If Null automaticaly find.
-#' @param maxConditionBoundary.num <matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.
+#' @param colMin.num <matrix>: The minimal value in color scale. If Null automaticaly find.
+#' @param colMid.num <matrix>: The middle value in color scale. If Null automaticaly find.
+#' @param colMax.num <matrix>: The mximal value in color scale. If Null automaticaly find.
+#' @param colCondMin.num <matrix>: Avalaible for plotting differantial aggregation. The minimal value in color scale in the classsical aggregation plot. If Null automaticaly find.
+#' @param colCondMax.num <matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.
 #' @return None
 #' @examples
 #' library(GenomicED)
@@ -16,16 +16,16 @@
 #' 
 #' 
 #' PlotAPA(
-#'     apa.mtx                  = aggreg.mtx,
-#'     trimPrct.num             = 20,
-#'     minBoundary.num          = -2,
-#'     center.num               = 0,
-#'     maxBoundary.num          = 2,
-#'     minConditionBoundary.num = 0,
-#'     maxConditionBoundary.num = 2
+#'     apa.mtx        = aggreg.mtx,
+#'     trimPrct.num   = 20,
+#'     colMin.num     = -2,
+#'     colMid.num     = 0,
+#'     colMax.num     = 2,
+#'     colCondMin.num = 0,
+#'     colCondMax.num = 2
 #' )
 
-PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.num=NULL, maxBoundary.num=NULL, minConditionBoundary.num=NULL, maxConditionBoundary.num=NULL){
+PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, colMin.num=NULL, colMid.num=NULL, colMax.num=NULL, colCondMin.num=NULL, colCondMax.num=NULL){
     .ggDensity <- function(data.lst=NULL, colour.col=NULL, mean.bln=TRUE, title.chr=NULL){
         data.lst_tbl <- lapply(seq_along(data.lst),function(element.ndx){
             return(tibble::tibble(
@@ -68,15 +68,15 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             ) + ggplot2::labs(subtitle="scale (auto), center()")
             print(plot.gp)
         # Auto Scale + Center
-            if(!is.null(center.num)){
+            if(!is.null(colMid.num)){
                 plot.gp <- ggAPA(
                     apa.mtx=apa.mtx, 
                     heatmap.col=heatmap.col,
-                    center.num=center.num,
+                    colMid.num=colMid.num,
                     title.chr=ifelse(differential.bln,
                         yes="Agregation of differential matrices",
                         no="Agregation")
-                ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",colMid.num,")"))
                 print(plot.gp)
             }
         # Trim Scale + Center
@@ -85,25 +85,25 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                     apa.mtx=apa.mtx, 
                     heatmap.col=heatmap.col,
                     trimPrct.num=trimPrct.num,
-                    center.num=center.num,
+                    colMid.num=colMid.num,
                     title.chr=ifelse(differential.bln,
                         yes="Agregation of differential matrices",
                         no="Agregation")
-                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",colMid.num,")"))
                 print(plot.gp)
             }
         # MinMax Scale + Center
-            if(!is.null(minBoundary.num) || !is.null(maxBoundary.num)){
+            if(!is.null(colMin.num) || !is.null(colMax.num)){
                 plot.gp <- ggAPA(
                     apa.mtx=apa.mtx, 
                     heatmap.col=heatmap.col,
-                    minBoundary.num=minBoundary.num,
-                    center.num=center.num,
-                    maxBoundary.num=maxBoundary.num,
+                    colMin.num=colMin.num,
+                    colMid.num=colMid.num,
+                    colMax.num=colMax.num,
                     title.chr=ifelse(differential.bln,
                         yes="Agregation of differential matrices",
                         no="Agregation")
-                ) + ggplot2::labs(subtitle=paste0("scale (",minBoundary.num,";",maxBoundary.num,"), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (",colMin.num,";",colMax.num,"), center(",colMid.num,")"))
                 print(plot.gp)
             }
     if (differential.bln){
@@ -126,9 +126,9 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                 plot.gp <- ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggDiffPvalFilt,
                     heatmap.col=heatmap.col,
-                    center.num=center.num,
+                    colMid.num=colMid.num,
                     title.chr = paste0("Agregation of differential matrices")
-                ) + ggplot2::labs(subtitle=paste0("filtred by p.values, scale (auto), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("filtred by p.values, scale (auto), center(",colMid.num,")"))
             }else{
                 plot.gp <- ggplot2::ggplot() +
                     ggplot2::theme_void() +
@@ -142,9 +142,9 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                     apa.mtx=attributes(apa.mtx)$matrices$aggDiffPvalFilt,
                     heatmap.col=heatmap.col,
                     trimPrct.num=trimPrct.num,
-                    center.num=center.num,
+                    colMid.num=colMid.num,
                     title.chr = paste0("Agregation of differential matrices")
-                ) + ggplot2::labs(subtitle=paste0("filtred by p.values, scale (rm ",trimPrct.num,"%), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("filtred by p.values, scale (rm ",trimPrct.num,"%), center(",colMid.num,")"))
             }else{
                 plot.gp <- ggplot2::ggplot() +
                     ggplot2::theme_void() +
@@ -156,9 +156,9 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
             plot.gp <- ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggDelta, 
                 heatmap.col=heatmap.col,
-                center.num=center.num,
+                colMid.num=colMid.num,
                 title.chr="Differential of agregated matrices"
-            ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",center.num,")"))
+            ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",colMid.num,")"))
             print(plot.gp)
         # Delta + Trim Scale + Center
             if(!is.null(trimPrct.num) && 0<trimPrct.num){
@@ -166,18 +166,18 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                     apa.mtx=attributes(apa.mtx)$matrices$aggDelta, 
                     heatmap.col=heatmap.col,
                     trimPrct.num=trimPrct.num,
-                    center.num=center.num,
+                    colMid.num=colMid.num,
                     title.chr="Differential of agregated matrices"
-                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",colMid.num,")"))
                 print(plot.gp)
             }
         # Delta + Auto Scale + Center
             plot.gp <- ggAPA(
                 apa.mtx=attributes(apa.mtx)$matrices$aggCorrectedDelta, 
                 heatmap.col=heatmap.col,
-                center.num=center.num,
+                colMid.num=colMid.num,
                 title.chr="Differential of corrected agregated matrices"
-            ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",center.num,")"))
+            ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",colMid.num,")"))
             print(plot.gp)
         # Delta + Trim Scale + Center
             if(!is.null(trimPrct.num) && 0<trimPrct.num){
@@ -185,9 +185,9 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                     apa.mtx=attributes(apa.mtx)$matrices$aggCorrectedDelta, 
                     heatmap.col=heatmap.col,
                     trimPrct.num=trimPrct.num,
-                    center.num=center.num,
+                    colMid.num=colMid.num,
                     title.chr="Differential of corrected agregated matrices"
-                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",center.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",colMid.num,")"))
                 print(plot.gp)
             }
         # Control + Auto Scale
@@ -208,14 +208,14 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                 print(plot.gp)
             }
         # Control + MinMax Scale
-            if(!is.null(minConditionBoundary.num) || !is.null(maxConditionBoundary.num)){
+            if(!is.null(colCondMin.num) || !is.null(colCondMax.num)){
                 plot.gp <- ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
                     heatmap.col=viridis(51),
-                    minBoundary.num=minConditionBoundary.num,
-                    maxBoundary.num=maxConditionBoundary.num,
+                    colMin.num=colCondMin.num,
+                    colMax.num=colCondMax.num,
                     title.chr="Agregation control"
-                ) + ggplot2::labs(subtitle=paste0("scale (",minConditionBoundary.num,";",maxConditionBoundary.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (",colCondMin.num,";",colCondMax.num,")"))
                 print(plot.gp)
             }
         # Condition + Auto Scale
@@ -236,14 +236,14 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                 print(plot.gp)
             }
         # Condition + MinMax Scale
-            if(!is.null(minConditionBoundary.num) || !is.null(maxConditionBoundary.num)){
+            if(!is.null(colCondMin.num) || !is.null(colCondMax.num)){
                 plot.gp <- ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$agg, 
                     heatmap.col=viridis(51),
-                    minBoundary.num=minConditionBoundary.num,
-                    maxBoundary.num=maxConditionBoundary.num,
+                    colMin.num=colCondMin.num,
+                    colMax.num=colCondMax.num,
                     title.chr="Agregation"
-                ) + ggplot2::labs(subtitle=paste0("scale (",minConditionBoundary.num,";",maxConditionBoundary.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (",colCondMin.num,";",colCondMax.num,")"))
                 print(plot.gp)
             }
         # Corrected condition + Auto Scale
@@ -264,14 +264,14 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.
                 print(plot.gp)
             }
         # Corrected condition + MinMax Scale
-            if(!is.null(minConditionBoundary.num) || !is.null(maxConditionBoundary.num)){
+            if(!is.null(colCondMin.num) || !is.null(colCondMax.num)){
                 plot.gp <- ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
                     heatmap.col=viridis(51),
-                    minBoundary.num=minConditionBoundary.num,
-                    maxBoundary.num=maxConditionBoundary.num,
+                    colMin.num=colCondMin.num,
+                    colMax.num=colCondMax.num,
                     title.chr="Agregation corrected"
-                ) + ggplot2::labs(subtitle=paste0("scale (",minConditionBoundary.num,";",maxConditionBoundary.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (",colCondMin.num,";",colCondMax.num,")"))
                 print(plot.gp)
             }
         # Grouped Scale(Condition & Control)
