@@ -20,3 +20,7 @@ Cut a mega contactMatrix (join of multiple chromosomic maps) inq a list of conta
 \details{
 CutHiC
 }
+\examples{
+Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
+CutHiC(Mega_Ctrl.cmx)
+}

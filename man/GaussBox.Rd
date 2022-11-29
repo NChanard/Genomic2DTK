@@ -23,8 +23,7 @@ One dimension Gaussian kernel.
 GaussBox
 }
 \examples{
-GaussBox( scale.chr="none")
-GaussBox( scale.chr="1")
-sum(GaussBox( scale.chr="1"))
-GaussBox( scale.chr="int")
+GaussBox(sd.num=5, scale.chr="none")
+GaussBox(scale.chr="1")
+GaussBox(scale.chr="int")
 }

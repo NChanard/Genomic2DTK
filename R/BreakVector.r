@@ -11,8 +11,7 @@
 #' @return Numerical vector of breaks.
 #' @examples
 #' set.seed(31415)
-#' x.num <- rnorm(100,50,200)
-#' BreakVector(x.num=x.num, n.num=9)
+#' BreakVector(x.num=rnorm(100,50,200), n.num=9)
 
 BreakVector <- function(x.num=NULL, min.num=NULL, center.num=NULL, max.num=NULL, n.num=10, method.chr="linear") {
     n.num <- n.num+1

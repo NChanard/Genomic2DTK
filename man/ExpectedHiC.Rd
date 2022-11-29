@@ -2,7 +2,7 @@
 % Please edit documentation in R/ExpectedHiC.r
 \name{ExpectedHiC}
 \alias{ExpectedHiC}
-\title{Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.}
+\title{Genomic distance bias correction.}
 \usage{
 ExpectedHiC(hic.cmx_lst, verbose.bln = TRUE, cores.num = 1)
 }
@@ -17,8 +17,12 @@ ExpectedHiC(hic.cmx_lst, verbose.bln = TRUE, cores.num = 1)
 A matrices list.
 }
 \description{
-Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.
+Function that normalises HiC matrices by expected values computing by genomic distance.
 }
 \details{
 ExpectedHiC
+}
+\examples{
+Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
+ExpectedHiC(HiC_Ctrl.cmx_lst)
 }

@@ -23,11 +23,11 @@ Add list as attributes to any object with or without overwrite.
 AddAttr
 }
 \examples{
-x <- 1:10
+x <- seq_len(10)
 x <- AddAttr(x, list(dim=c(2,5)))
 x
 x <- AddAttr(x, list(dim=c(5,2)))
 x
-x <- AddAttr(x,attribute.lst,overwrite.bln=TRUE)
+x <- AddAttr(x,  list(dim=c(5,2)), overwrite.bln=TRUE)
 x
 }

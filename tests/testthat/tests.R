@@ -75,7 +75,7 @@ SwitchMatrix(HiC_Ctrl.cmx_lst, matrixKind.chr="o/e")
 #==============================
 # Test IndexFeatures
 #==============================
-Beaf32_Peaks.gnr <- IndexFeatures(
+Beaf32_Index.gnr <- IndexFeatures(
   gRange.gnr_lst        = list(Beaf=Beaf32_Peaks.gnr), 
   constraint.gnr        = TADs_Domains.gnr,
   chromSize.dtf         = chromSize.dtf,
@@ -107,7 +107,7 @@ IndexFeatures(
 # Test SearchPairs
 #==============================
 Beaf_TSS.gni <- SearchPairs(
-  indexAnchor.gnr = Beaf32_Peaks.gnr,
+  indexAnchor.gnr = Beaf32_Index.gnr,
   indexBait.gnr   = TSS_Index.gnr,
   minDist.num     = NULL, 
   maxDist.num     = NULL,
@@ -115,14 +115,14 @@ Beaf_TSS.gni <- SearchPairs(
   verbose.bln     = TRUE
 )
 SearchPairs(
-  indexAnchor.gnr = Beaf32_Peaks.gnr,
+  indexAnchor.gnr = Beaf32_Index.gnr,
   minDist.num     = "1", 
   maxDist.num     = "1MB",
   cores.num       = 1,
   verbose.bln     = TRUE
 )
 SearchPairs(
-  indexAnchor.gnr = Beaf32_Peaks.gnr,
+  indexAnchor.gnr = Beaf32_Index.gnr,
   indexBait.gnr   = TSS_Index.gnr,
   minDist.num     = 1, 
   maxDist.num     = 1000000,

@@ -20,17 +20,14 @@
 #'     score = c(50,NA,100,30)
 #'     )
 #' GRange.gnr
-#' chromSize.dtf = data.frame(c("chr1","chr2"),c(350,100))
-#' binSize.num <- 100
-#' binnedGRanges.gnr <- BinGRanges(
-#'     gRange.gnr = GRange.gnr,
-#'     chromSize.dtf=chromSize.dtf,
-#'     binSize.num=binSize.num,
-#'     method.chr ="mean",
-#'     variablesName.chr_vec="score",
-#'     na.rm=TRUE
+#' BinGRanges(
+#'     gRange.gnr            = GRange.gnr,
+#'     chromSize.dtf         = data.frame(c("chr1","chr2"),c(350,100)),
+#'     binSize.num           = 100,
+#'     method.chr            = "mean",
+#'     variablesName.chr_vec = "score",
+#'     na.rm                 = TRUE
 #' )
-#' binnedGRanges.gnr
 
 BinGRanges = function (gRange.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL, na.rm=TRUE, cores.num=1, reduce.bln=TRUE, verbose.bln=TRUE){
     if(is.null(chromSize.dtf)){

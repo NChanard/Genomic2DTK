@@ -6,6 +6,8 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+#' Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
+#' CutHiC(Mega_Ctrl.cmx)
 
 CutHiC <- function(megaHic.cmx, verbose.bln=TRUE){
     res.num <- megaHic.cmx@metadata$resolution

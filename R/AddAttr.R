@@ -7,12 +7,12 @@
 #' @param overwrite.bln <logical>: whether an overwrite is required on attributes with the same name.(Default FALSE)
 #' @return the object with new attributes.
 #' @examples
-#' x <- 1:10
+#' x <- seq_len(10)
 #' x <- AddAttr(x, list(dim=c(2,5)))
 #' x
 #' x <- AddAttr(x, list(dim=c(5,2)))
 #' x
-#' x <- AddAttr(x,attribute.lst,overwrite.bln=TRUE)
+#' x <- AddAttr(x,  list(dim=c(5,2)), overwrite.bln=TRUE)
 #' x
 
 AddAttr <- function(var.any=NULL, attribute.lst=NULL, overwrite.bln=FALSE){

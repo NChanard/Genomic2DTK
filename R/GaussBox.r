@@ -7,10 +7,9 @@
 #' @param scale.chr <character>: scaling kind of box. If "1" sum of kernel equal 1. If "int" Minimal value of kernel is 1 and all entry are integer. If "none", kernel is not scale. (Default "1")
 #' @return numerical vector.
 #' @examples
-#' GaussBox( scale.chr="none")
-#' GaussBox( scale.chr="1")
-#' sum(GaussBox( scale.chr="1"))
-#' GaussBox( scale.chr="int")
+#' GaussBox(sd.num=5, scale.chr="none")
+#' GaussBox(scale.chr="1")
+#' GaussBox(scale.chr="int")
 
 GaussBox <- function(sd.num=1, boxSize.num=NULL, scale.chr="1") {
     if(is.null(boxSize.num)){boxSize.num=1+4*sd.num}

@@ -37,6 +37,5 @@ BreakVector
 }
 \examples{
 set.seed(31415)
-x.num <- rnorm(100,50,200)
-BreakVector(x.num=x.num, n.num=9)
+BreakVector(x.num=rnorm(100,50,200), n.num=9)
 }

@@ -1,12 +1,14 @@
-#' Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.
+#' Genomic distance bias correction.
 #' 
 #' ExpectedHiC
-#' @description Function that normalises HiC matrices by expected values, returning observed/expected normalised matrices.
+#' @description Function that normalises HiC matrices by expected values computing by genomic distance.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @param cores.num <numerical> : Number of cores to be used. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+#' Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
+#' ExpectedHiC(HiC_Ctrl.cmx_lst)
 
 ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
     resolution.num <- attributes(hic.cmx_lst)$resolution

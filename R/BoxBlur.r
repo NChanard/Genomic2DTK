@@ -10,8 +10,8 @@
 #' @examples
 #' set.seed(981643)
 #' mat.mtx <- rnorm(10000,50,10)**3 |> matrix(100,100)
-#' heatmap(mat.mtx,Rowv=NA,Colv=NA)
-#' heatmap(BoxBlur(mat.mtx),Rowv=NA,Colv=NA)
+#' heatmap(mat.mtx, Rowv=NA, Colv=NA)
+#' heatmap(BoxBlur(mat.mtx), Rowv=NA, Colv=NA)
 
 BoxBlur <- function(mat.mtx, box.num=NULL, boxSize.num=NULL, sd.num=1){
     if(is.null(box.num)){box.num <- GaussBox(sd.num=sd.num,scale.chr="1",boxSize.num=boxSize.num)}
