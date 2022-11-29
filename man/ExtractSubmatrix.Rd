@@ -42,7 +42,7 @@ Extract matrices in the HiC maps list around genomic features.
 ExtractSubmatrix
 }
 \examples{
-/dontrun{
+\dontrun{
     # Index Beaf32 in TADs domains
     Beaf32_Index.gnr <- IndexFeatures(
         gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 

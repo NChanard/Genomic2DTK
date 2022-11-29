@@ -179,7 +179,8 @@ ggAPA
    )
 
    # ggplot2 object modifications  
-   # Since the function returns a ggplot object, it is possible to modify it following the ggplot2 grammar 
+   # Since the function returns a ggplot object, it is possible
+   # to modify it following the ggplot2 grammar.
    ggAPA(
        apa.mtx     = aggreg.mtx,
        title.chr   = "APA",

@@ -23,6 +23,6 @@ Function that normalises HiC matrices by expected values computing by genomic di
 ExpectedHiC
 }
 \examples{
-Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
+# Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
 ExpectedHiC(HiC_Ctrl.cmx_lst)
 }

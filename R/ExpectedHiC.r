@@ -7,7 +7,7 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
-#' Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
+#' # Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
 #' ExpectedHiC(HiC_Ctrl.cmx_lst)
 
 ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){

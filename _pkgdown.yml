@@ -14,14 +14,14 @@ reference:
 - title: HiC
   desc: "Functions for HiC data preprocessing."
   contents:
+  - CutHiC
   - ExpectedHiC
   - ImportHiC
-  - NormalizeHiC
-  - VCnorm
   - ICEnorm
-  - CutHiC
   - JoinHiC
+  - NormalizeHiC
   - SwitchMatrix
+  - VCnorm
 
 - title: GenomicRanges adding
   desc: "Additional functions for GRanges objects."
@@ -46,13 +46,13 @@ reference:
 - title: Visualisation
   desc: "Functions for visualising aggregation analysis results."
   contents:
-  - PlotAPA
   - ggAPA
   - Hsl2Hex
   - Hsl2Rgb
   - Hue
   - IsHsl
   - IsRgb
+  - PlotAPA
   - Rgb2Hex
   - viridis
   - YlGnBu
@@ -74,8 +74,8 @@ reference:
 - title: Matrix and Data.frame
   desc: "Functions for the manipulation of matrices and data.frames."
   contents:
-  - BoxBlur
   - BindFillRows
+  - BoxBlur
   - MeltSpm
   - PadMtx
   - ResizeMatrix

@@ -32,7 +32,10 @@
 #'    # Index Beaf32 in TADs domains
 #'    Beaf32_Index.gnr <- IndexFeatures(
 #'        gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
-#'        chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+#'        chromSize.dtf  = data.frame(
+#'            seqnames = c('2L', '2R'),
+#'            seqlengths = c(23513712,25286936)
+#'            ),
 #'        binSize.num    = 100000
 #'    )
 #'
