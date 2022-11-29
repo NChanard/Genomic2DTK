@@ -1,7 +1,6 @@
 #' Add list as attributes.
 #'
 #' AddAttr
-#' @keywords internal
 #' @description Add list as attributes to any object with or without overwrite.
 #' @param var.any <any>: an object to which attributes are to be added.
 #' @param attribute.lst <list>: a named list of new attributes.
@@ -9,12 +8,9 @@
 #' @return the object with new attributes.
 #' @examples
 #' x <- 1:10
+#' x <- AddAttr(x, list(dim=c(2,5)))
 #' x
-#' attribute.lst = list(dim=c(2,5))
-#' x <- AddAttr(x,attribute.lst)
-#' x
-#' attribute.lst = list(dim=c(5,2))
-#' x <- AddAttr(x,attribute.lst)
+#' x <- AddAttr(x, list(dim=c(5,2)))
 #' x
 #' x <- AddAttr(x,attribute.lst,overwrite.bln=TRUE)
 #' x

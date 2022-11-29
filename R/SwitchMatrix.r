@@ -6,6 +6,7 @@
 #' @param matrixKind.chr <character>: The kind of matrix you want.
 #' @return A contactMatrix list.
 #' @examples
+
 SwitchMatrix <- function(hic.cmx_lst, matrixKind.chr=c("obs", "norm", "o/e", "exp")){
     if(!(matrixKind.chr %in% c("obs", "norm", "o/e", "exp"))){
         stop("ERROR: matrixKind.chr must be one of \"obs\", \"norm\", \"o/e\", \"exp\".")

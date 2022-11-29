@@ -1,7 +1,7 @@
 #' Get all sequences lengths.
 #'
 #' SeqEnds
-#' Get all sequences lengths for each ranges of a GRanges object.
+#' @description Get all sequences lengths for each ranges of a GRanges object.
 #' @param x.gnr <GRanges>: a GRanges object.
 #' @return an integer vector.
 #' @examples
@@ -13,4 +13,5 @@
 #'     score = 1:5
 #' )
 #' SeqEnds(GRange.grn)
+
 SeqEnds <- function(x.gnr){GenomeInfoDb::seqlengths(x.gnr)[as.character(GenomeInfoDb::seqnames(x.gnr))]}

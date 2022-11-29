@@ -1,7 +1,6 @@
 #' Gaussian formula.
 #'
 #' Gauss
-#' @keywords internal
 #' @description Gaussian formula in 1 or 2 dimension.
 #' @param x <numeric>: x value.
 #' @param y <numeric>: y value for 2 dimensional gaussian.
@@ -11,6 +10,7 @@
 #' @examples
 #' Gauss(x=1)
 #' Gauss(x=1,y=2)
+
 Gauss <- function(x=NULL, y=NULL, sd.num=1, mu=0) {
     x <- x[1]
     y <- y[1]

@@ -28,6 +28,7 @@
 #'   chrom_2.chr=c("2L", "2R", "2L")
 #' )
 #' }
+
 ImportHiC <- function(file.pth=NULL, res.num=NULL, chromSize.dtf=NULL, chrom_1.chr=NULL, chrom_2.chr=NULL, verbose.bln=TRUE, cores.num=1){
     # Resolution Format
         options(scipen=999)

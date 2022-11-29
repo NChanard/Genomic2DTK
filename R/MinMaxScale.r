@@ -1,7 +1,6 @@
 #' Scales values on min-max range.
 #'
 #' MinMaxScale
-#' @keywords internal
 #' @description Scale values on min-max range.
 #' @param x.num <numeric>: numerical vector.
 #' @param min.num <numeric>: minimal value after scaling.

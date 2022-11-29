@@ -38,6 +38,7 @@
 #'   operation.fun = "mean"
 #'   )
 #' }
+
 GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0", name.chr=NULL){
     # Define operation function
         if(is.null(operation.fun)){

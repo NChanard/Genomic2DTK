@@ -2,7 +2,6 @@
 #' Coerce matrix in tibble.
 #' 
 #' MeltSpm
-#' @keywords internal
 #' @description Coerce a sparse matrix M in tibble where columns: i is row index, j is column index and x the value M[i,j].
 #' @param mat.spm <dgCMatrix or dgCMatrix coercible>: a matrix.
 #' @return A tibble.
@@ -14,6 +13,7 @@
 #' mat.spm
 #' meltedMat.tbl <- MeltSpm(mat.spm)
 #' meltedMat.tbl[order(meltedMat.tbl$i),]
+
 MeltSpm = function(mat.spm=NULL){
         if(NotIn("dgCMatrix",class(mat.spm))){mat.spm=methods::as(mat.spm, "dgCMatrix")}
         dp.num <- diff(mat.spm@p)

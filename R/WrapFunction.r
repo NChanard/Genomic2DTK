@@ -1,7 +1,6 @@
 #' Wrap a string into a function.
 #'
 #' WrapFunction
-#' @keywords internal
 #' @description Wrap a string into a function.
 #' @param ... <character>: a String that could be parse and eval as a function.
 #' @return the result of the function or a function.

@@ -1,7 +1,6 @@
 #' Get file extension
 #'
 #' GetFileExtension
-#' @keywords internal
 #' @description Give the extension of a file from the path.
 #' @param path.pth <character>: the path to the file.
 #' @return A character string
@@ -15,4 +14,3 @@ GetFileExtension <- function(path.pth=NULL) {
         unlist()
     return(fileName.chr[length(fileName.chr)])
 }
-

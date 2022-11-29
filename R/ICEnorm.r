@@ -7,6 +7,7 @@
 #' @param maxIter.num <numerical>: The maximum iteration number.
 #' @return A normalized contactMatrix
 #' @examples
+
 ICEnorm <- function(hic.cmx,  qtlTh.num=0.15, maxIter.num=50){
     # Removed Low counts bins
         if(qtlTh.num){

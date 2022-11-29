@@ -1,7 +1,6 @@
 #' Get file name.
 #'
 #' GetFileName
-#' @keywords internal
 #' @description Function as `basename()` with the option to not return the file extension.
 #' @param path.pth <character>: the path to the file.
 #' @param ext.bln <logical>: whether the file extension should be returned with the file name. (Default FALSE)

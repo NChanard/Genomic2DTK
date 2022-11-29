@@ -24,6 +24,7 @@
 #'     minConditionBoundary.num = 0,
 #'     maxConditionBoundary.num = 2
 #' )
+
 PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, minBoundary.num=NULL, center.num=NULL, maxBoundary.num=NULL, minConditionBoundary.num=NULL, maxConditionBoundary.num=NULL){
     .ggDensity <- function(data.lst=NULL, colour.col=NULL, mean.bln=TRUE, title.chr=NULL){
         data.lst_tbl <- lapply(seq_along(data.lst),function(element.ndx){

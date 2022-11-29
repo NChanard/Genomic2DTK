@@ -1,7 +1,6 @@
 #' Turns a nested list "inside-out".
 #'
 #' TransposeList
-#' @keywords internal
 #' @description Turns a nested list "inside-out".
 #' @param var.nlst <list[list]>: a nested list to transpose.
 #' @return  The tranposed nested list.
@@ -12,6 +11,7 @@
 #'     third=list(NULL,"B3")
 #' )
 #' TransposeList(my_lst)
+
 TransposeList <- function(var.nlst){
     var.nlst |>
         lapply(length) |>

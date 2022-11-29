@@ -1,7 +1,7 @@
 #' Convert numbers of base pairs into string and vice versa.
 #'
 #' GenomicSystem
-#' Convert numbers of base into string with order of magnitude (Kbp, Mbp, Gbp) and vice versa.
+#' @description Convert numbers of base into string with order of magnitude (Kbp, Mbp, Gbp) and vice versa.
 #' @param x <character or numeric>: the number to convert or string to convert.
 #' @param digits.num <integer>: The number of significant digits to be used. See signif() for more informations. (Default 3)
 #' @return the converted number or string.
@@ -11,6 +11,7 @@
 #' GenomicSystem("1Mbp")
 #' GenomicSystem("1Kbp")
 #' GenomicSystem("1k")
+
 GenomicSystem <- function(x, digits.num=3) {
     if(is.numeric(x)){
         dplyr::case_when(

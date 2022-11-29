@@ -1,7 +1,6 @@
 #' Add a value around a matrix.
 #'
 #' PadMtx
-#' @keywords internal
 #' @description Add a value around a matrix.
 #' @param mat.mtx <matrix>: numerical matrix.
 #' @param padSize.num <numeric>: number of columns or rows to add. (Default 1)
@@ -14,6 +13,7 @@
 #' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
 #' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('right','left') )
 #' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('top') )
+
 PadMtx <- function(mat.mtx=NULL, padSize.num=1, value.num=0, side.chr=c('top','bot','right','left')){
     if('top' %in% side.chr){
         if(!is.null(value.num)){

@@ -36,6 +36,7 @@
 #'     blurSd.num   = 0.5,
 #'     heatmap.col  = viridis(6)
 #' )
+
 ggAPA = function(
         apa.mtx = NULL,
         title.chr = NULL,

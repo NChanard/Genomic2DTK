@@ -1,7 +1,6 @@
 #' Find threshold for outliers triming based on standard deviation.
 #'
 #' SdThreshold
-#' @keywords internal
 #' @description Find threshold for outliers triming based on standard deviation.
 #' @param x.num <numeric>: numeric vector.
 #' @param sdThreshold.num <numeric>: number of standard deviation. (Default 3)

@@ -6,7 +6,8 @@
 #' @param cores.num <numerical> : Number of cores to be used. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
-#' @examples    
+#' @examples
+
 ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){
     resolution.num <- attributes(hic.cmx_lst)$resolution
     matricesNames.chr <- names(hic.cmx_lst)

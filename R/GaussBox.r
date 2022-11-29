@@ -1,7 +1,6 @@
 #' One dimension Gaussian kernel.
 #'
 #' GaussBox
-#' @keywords internal
 #' @description One dimension Gaussian kernel.
 #' @param sd.num <numeric>: standard deviation parameter of the gaussian. (Default 1)
 #' @param boxSize.num <numeric>: size of kernel. If NULL size is 1+4*sd.num (Default NULL)
@@ -12,6 +11,7 @@
 #' GaussBox( scale.chr="1")
 #' sum(GaussBox( scale.chr="1"))
 #' GaussBox( scale.chr="int")
+
 GaussBox <- function(sd.num=1, boxSize.num=NULL, scale.chr="1") {
     if(is.null(boxSize.num)){boxSize.num=1+4*sd.num}
     x.num <-as.vector(scale(seq_len(boxSize.num),scale=FALSE,center=TRUE))

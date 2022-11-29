@@ -36,6 +36,7 @@
 #'   )
 #'
 #' }
+
 IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
     # Constraint Informations
         if (is.null(constraint.gnr)){

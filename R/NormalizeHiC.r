@@ -11,6 +11,7 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+
 NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, maxIter.num=50, qtlTh.num=0.15, cores.num=1, verbose.bln=TRUE ){
     if (!is.null(interaction.type) && "all" %in% interaction.type){
         megaHic.cmx <- JoinHiC(hic.cmx_lst)

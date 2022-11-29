@@ -1,7 +1,6 @@
 #' Find threshold for outliers triming based on quantiles.
 #'
 #' QtlThreshold
-#' @keywords internal
 #' @description Find threshold for outliers triming based on quantiles.
 #' @param x.num <numeric>: numeric vector.
 #' @param prct.num <numeric>: percentage (0-100) threshold. (Default 5)

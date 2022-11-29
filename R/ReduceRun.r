@@ -1,7 +1,6 @@
 #' Apply a function over two RLE
 #' 
 #' ReduceRun
-#' @keywords internal
 #' @description Apply a function on the values over two RLE and return one RLE.
 #' @param first.rle <rle or Rle>: first rle.
 #' @param second.rle <rle or Rle>>: second rle.
@@ -15,6 +14,7 @@
 #' first.rle = S4Vectors::Rle(c(1,2,3))
 #' second.rle = S4Vectors::Rle(c(5,5,5))
 #' ReduceRun(first.rle=first.rle, second.rle=second.rle, reduceFun.chr="sum")
+
 ReduceRun <- function(first.rle, second.rle, reduceFun.chr="paste",...){
     if (methods::is(first.rle,"rle")){
         firstLen.num = first.rle$length

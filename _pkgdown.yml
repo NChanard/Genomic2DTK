@@ -3,6 +3,7 @@ template:
 
 reference:
 - title: Data
+  desc: "Test datasets."
   contents:
   - Beaf32_Peaks.gnr
   - TSS_Peaks.gnr
@@ -10,17 +11,31 @@ reference:
   - HiC_Ctrl.cmx_lst
   - HiC_HS.cmx_lst
 
-- title: HiC Preprocess
+- title: HiC
+  desc: "Functions for HiC data preprocessing."
   contents:
   - ExpectedHiC
-  - ICEnorm
   - ImportHiC
   - NormalizeHiC
   - VCnorm
+  - ICEnorm
+  - CutHiC
+  - JoinHiC
+  - SwitchMatrix
+
+- title: GenomicRanges adding
+  desc: "Additional functions for GRanges objects."
+  contents:
+  - BinGRanges
+  - GenomicSystem
+  - IndexFeatures
+  - MergeGRanges
+  - SeqEnds
+  - StrToGRanges
 
 - title: Aggregation Analysis
+  desc: "Functions for performing an aggregation analysis."
   contents:
-  - IndexFeatures
   - Aggregation
   - ExtractSubmatrix
   - FilterInteractions
@@ -28,21 +43,56 @@ reference:
   - OrienteMatrix
   - SearchPairs
 
-- title: HiC utils
-  contents:
-  - CutHiC
-  - JoinHiC
-  - SwitchMatrix
-
-- title: Genomic utils
-  contents:
-  - BinGRanges
-  - GenomicSystem
-  - MergeGRanges
-  - SeqEnds
-  - StrToGRanges
-
 - title: Visualisation
+  desc: "Functions for visualising aggregation analysis results."
   contents:
   - PlotAPA
   - ggAPA
+  - Hsl2Hex
+  - Hsl2Rgb
+  - Hue
+  - IsHsl
+  - IsRgb
+  - Rgb2Hex
+  - viridis
+  - YlGnBu
+  - YlOrRd
+
+- title: Statistics
+  desc: "Statistical, scaling, and outlier suppression functions."
+  contents:
+  - BreakVector
+  - Gauss
+  - GaussBox
+  - MeanScale
+  - MinMaxScale
+  - Plus
+  - QtlThreshold
+  - SdThreshold
+  - TrimOutliers
+
+- title: Matrix and Data.frame
+  desc: "Functions for the manipulation of matrices and data.frames."
+  contents:
+  - BoxBlur
+  - BindFillRows
+  - MeltSpm
+  - PadMtx
+  - ResizeMatrix
+  - Rise0
+
+- title: Lists and Run Length Encoding 
+  desc: "Functions for handling lists and Rle."
+  contents:
+  - ReduceRun
+  - TransposeList
+
+- title: Miscellaneous
+  desc: "Various tools for coding."
+  contents:
+  - AddAttr
+  - GetFileExtension
+  - GetFileName
+  - MakeParallelParam
+  - NotIn
+  - WrapFunction

@@ -1,7 +1,6 @@
 #' Create a viridis palette
 #'
 #' viridis
-#' @keywords internal
 #' @description Create a viridis palette.
 #' @param paletteLength.num <numeric>: color number.
 #' @param space.chr <numeric>: a character string; interpolation in RGB or CIE Lab color spaces. See ?grDevices::colorRamp for more details. (Default "rgb")
@@ -10,6 +9,7 @@
 #' @return  A vector of color.
 #' @examples
 #' viridis(9)
+
 viridis <- function(paletteLength.num=NULL, space.chr='rgb', interpolate.chr='linear', bias.num=1){
   grDevices::colorRampPalette(
     colors=c("#440154", "#440256", "#450457", "#450559", "#46075A", "#46085C", "#460A5D",

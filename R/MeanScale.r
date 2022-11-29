@@ -1,7 +1,6 @@
 #' Scale values by mean.
 #'
 #' MeanScale
-#' @keywords internal
 #' @description Scale values with mean.
 #' @param x.num <numeric>: numerical vector.
 #' @return scaled numeric vector.
@@ -14,4 +13,5 @@
 #' lines(density(y.num),col="green")
 #' plot(density(MeanScale(x.num)),col="red",xlim=c(min(MeanScale(y.num)),max(MeanScale(x.num) )))
 #' lines(density(MeanScale(y.num)),col="green")
+
 MeanScale <- function(x.num){(x.num-mean(x.num,na.rm=TRUE))/(max(x.num,na.rm=TRUE)-min(x.num,na.rm=TRUE))}

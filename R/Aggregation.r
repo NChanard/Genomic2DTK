@@ -1,34 +1,34 @@
-#' Aggregated matrices list.
+#' Aggregation of matrices list.
 #' 
 #' Aggregation
-#' @description Aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
+#' @description Aggregates all the matrices of a list (or two lists in case of differential aggregation) into a single matrix. This function allows to apply different aggregation (average, sum, ...), transformation (rank, percentage, ...) and differential (subtraction, ratio, ...) functions.
 #' @param ctrlMatrices.lst <list[matrix]>: The matrices list to aggregate as control.
 #' @param matrices.lst <list[matrix]>: The matrices list to aggregate.
 #' @param minDist.num <numeric>: The minimal distance between anchor and bait.
 #' @param maxDist.num <numeric>: The maximal distance between anchor and bait.
-#' @param agg.fun <chracter or function>: The function use to aggregate each pixel in matrix. If the parameter is a character so:
+#' @param agg.fun <function or chracter>: The function use to aggregate each pixel in matrix. If the parameter is a character so:
 #' \itemize{
 #' \item "50%" or "median" apply the median
 #' \item "+" or "sum" apply the sum
 #' \item other (Default) apply the mean
 #' }
 #' @param rm0.bln <logical>: if TURE 0 are replace with NA. (Default FALSE)
-#' @param diff.fun <chracter or function>: The function use to compute differential. If the parameter is character so:
+#' @param diff.fun <function or chracter>: The function use to compute differential. If the parameter is character so:
 #' \itemize{
 #' \item "-", "substract" or "substraction" apply a substraction
 #' \item "/" or "ratio" apply a ratio
 #' \item "log2","log2-","log2/" or "log2ratio" apply a log2 on ratio
 #' \item other (Default) apply a log2 on 1+ratio
 #' }
-#' @param trans.fun <chracter or function>: The function use to transforme or scale values in each submatrix before aggregation. If the parameter is character so:
+#' @param trans.fun <function or chracter>: The function use to transforme or scale values in each submatrix before aggregation. If the parameter is character so:
 #' \itemize{
 #' \item "quantile" or "qtl" apply function dplyr::ntile(x,500)
-#' \item "percentile" or "prct" apply percentile on values in matrix
-#' \item "rank" apply a ranking on values in matrix
-#' \item "zscore" apply a scaling on values in matrix
-#' \item "minmax" apply a MinMaxScale on values in matrix
-#' \item "mu" apply a MeanScale on values in matrix
-#' \item other (Default) apply a log2 on 1+ratio
+#' \item "percentile" or "prct" apply percentile.
+#' \item "rank" apply a ranking.
+#' \item "zscore" apply a scaling.
+#' \item "minmax" apply a Genomic2DTK::MinMaxScale.
+#' \item "mu" apply a Genomic2DTK::MeanScale.
+#' \item other or NULL don't apply transformation (Default).
 #' }
 #' @param scaleCorrection.bln <logical>: Whether a correction should be done on the median value take in ane noising area. (Default TRUE)
 #' @param correctionArea.lst <list>: Nested list of indice that define a noising area fore correction. List muste contain in first an element "i" (row indices) then an element called "j" (columns indices). If NULL automatically take in upper left part of aggregated matrices. (Default NULL)
@@ -36,34 +36,36 @@
 #' @return A matrix
 #' @examples
 #' \dontrun{
-#' # Classical Aggregation
-#' # submatrixRF_Ctrl.mtx_lst is a submatrix list obtain with ExtractSubmatrix function
-#' aggreg.mtx <- Aggregation(
-#'   matrices.lst = submatrixRF_Ctrl.mtx_lst, 
-#'   agg.fun      = "sum",
-#'   trans.fun    = "qtl", 
-#'   rm0.bln      = TRUE,
-#'   minDist      = 9000,
-#'   maxDist      = 11000
-#' )
-#'
-#' # Differential Aggregation
-#' # submatrixRF.mtx_lst is a second submatrix list obtain with ExtractSubmatrix function
-#' diffAggreg.mtx <- Aggregation(
-#'   ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
-#'   matrices.lst        = submatrixRF.mtx_lst,
-#'   minDist             = 9000,
-#'   maxDist             = 11000,
-#'   agg.fun             = "mean",
-#'   rm0.bln             = FALSE,
-#'   diff.fun            = "substraction",
-#'   scaleCorrection.bln = TRUE,
-#'   correctionArea.lst  =  list(
-#'     i = c(1:30),
-#'     j = c(72:101)
-#'     ),
-#'   statCompare.bln = TRUE
-#' )
+#'   # Classical Aggregation
+#'     # submatrixRF_Ctrl.mtx_lst is a submatrix list
+#'     # obtain with Genomic2DTK::ExtractSubmatrix function
+#'   aggreg.mtx <- Aggregation(
+#'     matrices.lst = submatrixRF_Ctrl.mtx_lst, 
+#'     agg.fun      = "sum",
+#'     trans.fun    = "qtl", 
+#'     rm0.bln      = TRUE,
+#'     minDist      = 9000,
+#'     maxDist      = 11000
+#'   )
+#'  
+#'   # Differential Aggregation
+#'     # submatrixRF.mtx_lst is a second submatrix list
+#'     # obtain with Genomic2DTK::ExtractSubmatrix function
+#'   diffAggreg.mtx <- Aggregation(
+#'     ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
+#'     matrices.lst        = submatrixRF.mtx_lst,
+#'     minDist             = 9000,
+#'     maxDist             = 11000,
+#'     agg.fun             = "mean",
+#'     rm0.bln             = FALSE,
+#'     diff.fun            = "substraction",
+#'     scaleCorrection.bln = TRUE,
+#'     correctionArea.lst  =  list(
+#'       i = c(1:30),
+#'       j = c(72:101)
+#'       ),
+#'     statCompare.bln = TRUE
+#'   )
 #' }
 
 Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, trans.fun=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=FALSE, correctionArea.lst = NULL, statCompare.bln=FALSE){

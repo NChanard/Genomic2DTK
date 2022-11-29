@@ -1,7 +1,6 @@
 #' Explicit zeros in sparse matrix.
 #'
 #' Rise0
-#' @keywords internal
 #' @description Explicit some implicit zeros in sparse matrix.
 #' @param mat.spm <dgCMatrix or dgCMatrix coercible>: a sparse matrix.
 #' @param which.ndx <numeric> vector of positions of the zeros to be explicits (column driven). If NULL and coord.dtf NULL all zeros are explicits. (Default NULL)
@@ -14,6 +13,7 @@
 #' Rise0(mat.spm=mat.spm, which.ndx=c(1,3,6,10,12))
 #' Rise0(mat.spm=mat.spm, coord.dtf=data.frame(i=c(1,5,3),  j=c(1,2,3) ) )
 #' Rise0(mat.spm=mat.spm)
+
 Rise0 = function(mat.spm=NULL, which.ndx=NULL, coord.dtf=NULL){
         if(is.null(coord.dtf)){
             if(is.null(which.ndx)){

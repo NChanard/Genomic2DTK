@@ -6,6 +6,7 @@
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @return A contactMatrix.
 #' @examples
+
 JoinHiC <- function (hic.cmx_lst){
     chromSize.dtf <-  attributes(hic.cmx_lst)$chromSize
     mapNames <- names(hic.cmx_lst)

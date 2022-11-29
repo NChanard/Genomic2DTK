@@ -1,12 +1,13 @@
 #' Convert String in GRanges object
 #'
 #' StrToGRanges
-#' Convert ranges describe with string (i.e seqname:start-end:strand) in GRanges object.
+#' @description Convert ranges describe with string (i.e seqname:start-end:strand) in GRanges object.
 #' @param x.chr_vec <character>: strings to convert on GRanges.
 #' @return a GRanges object.
 #' @examples
 #' StrToGRanges("chr1:1-100:+")
 #' StrToGRanges(c("chr1:1-100:+","chr2:400-500:-","chr1:10-50:*"))
+
 StrToGRanges <- function(x.chr_vec){
     x.gnr <- lapply(x.chr_vec, function(x.chr){
         x.chr <- unlist(strsplit(x.chr ,":"))

@@ -95,7 +95,7 @@ FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.
     }
     if(!is.null(matrices.lst)){
         matrices.filt.lst <- matrices.lst[interarctions.ndx]
-        # recover attributes DD221107
+        # recover attributes DD221107 # TODO
         attributes(matrices.filt.lst)$interactions = attributes(matrices.lst)$interactions[interarctions.ndx]
         attributes(matrices.filt.lst)$resolution = attributes(matrices.lst)$resolution
         attributes(matrices.filt.lst)$referencePoint = attributes(matrices.lst)$referencePoint

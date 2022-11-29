@@ -206,7 +206,7 @@ ExtractSubmatrix <- function(feature.gn=NULL, hic.cmx_lst=NULL, referencePoint.c
             interactions.ndx <- seq_along(feature.gn$name) |>
                 stats::setNames(feature.gn$name)
             interactions.ndx <- interactions.ndx[featureFilt.gni$name]
-            attributes(submatrix.spm_lst)$interactions <- feature.gn[interactions.ndx]
+            attributes(submatrix.spm_lst)$interactions <- feature.gn[interactions.ndx] # TODO
             attributes(submatrix.spm_lst)$resolution <- res.num
             attributes(submatrix.spm_lst)$referencePoint <- referencePoint.chr
             attributes(submatrix.spm_lst)$matriceDim <- matriceDim.num

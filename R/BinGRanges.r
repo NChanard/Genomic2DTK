@@ -1,7 +1,7 @@
 #' Bin a GRanges.
 #'
 #' BinGRanges
-#' Bin a GRanges and allow to apply a summary method (e.g: 'mean', 'median', 'sum', 'max, 'min' ...) to a chossen numericals variables of ranges in a same bin.
+#' @description Bin a GRanges and allow to apply a summary method (e.g: 'mean', 'median', 'sum', 'max, 'min' ...) to a chossen numericals variables of ranges in a same bin.
 #' @param gRange.gnr <GRanges>: a GRanges to bin.
 #' @param chromSize.dtf <data.frame>: a data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
 #' @param binSize.num <numerical>: width of the bins.
@@ -31,6 +31,7 @@
 #'     na.rm=TRUE
 #' )
 #' binnedGRanges.gnr
+
 BinGRanges = function (gRange.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL, na.rm=TRUE, cores.num=1, reduce.bln=TRUE, verbose.bln=TRUE){
     if(is.null(chromSize.dtf)){
         seqlengths.lst <- GenomeInfoDb::seqlengths(gRange.gnr)

@@ -7,6 +7,7 @@
 #' @param sqrt.bln <logical>: Whether the square root must be apply. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+
 VCnorm <- function(hic.cmx=NULL, qtlTh.num=0.15, sqrt.bln=TRUE){
     pow.num <- ifelse(sqrt.bln,0.5,1)
     hic.spm <- hic.cmx@matrix

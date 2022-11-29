@@ -1,7 +1,6 @@
 #' Blur a matrix.
 #'
 #' BoxBlur
-#' @keywords internal
 #' @description Blur a matrix with a one dimensional kernel.
 #' @param mat.mtx <matrix>: numerical matrix.
 #' @param box.num <numeric>: the numerical vector for kernel. If NULL apply a GaussBox (see 'GaussBox' function) (Default NULL)
@@ -13,6 +12,7 @@
 #' mat.mtx <- rnorm(10000,50,10)**3 |> matrix(100,100)
 #' heatmap(mat.mtx,Rowv=NA,Colv=NA)
 #' heatmap(BoxBlur(mat.mtx),Rowv=NA,Colv=NA)
+
 BoxBlur <- function(mat.mtx, box.num=NULL, boxSize.num=NULL, sd.num=1){
     if(is.null(box.num)){box.num <- GaussBox(sd.num=sd.num,scale.chr="1",boxSize.num=boxSize.num)}
     pad.num <- (length(box.num)-1)/2
@@ -30,4 +30,3 @@ BoxBlur <- function(mat.mtx, box.num=NULL, boxSize.num=NULL, sd.num=1){
     }
     return(matHsmth.mtx2)
 }
-#

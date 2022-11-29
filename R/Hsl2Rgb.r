@@ -1,13 +1,13 @@
 #' Convert a color in HSL to RGB.
 #'
 #' Hsl2Rgb
-#' @keywords internal
 #' @description Convert a color in HSl (Hue,Saturation,Light) format to RGB format.
 #' @param hsl.col <charcater>: a vector of the color's HSL code.
 #' @param alpha.bln <logical>: whether the alpha layer should be returned. (Default FALSE)
 #' @return An integer vector of the color's RGB code.
 #' @examples
 #' Hsl2Rgb(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
+
 Hsl2Rgb <- function(hsl.col=NULL, alpha.bln=FALSE){
     if(3>length(hsl.col) | length(hsl.col)>4){
         cat("Error, need 3 or 4 values beetween 0 and 255, first value for hue, second for saturation, third for light and last for alpha")
@@ -42,4 +42,3 @@ Hsl2Rgb <- function(hsl.col=NULL, alpha.bln=FALSE){
     }
     return(round(rgb.col))
 }
-        

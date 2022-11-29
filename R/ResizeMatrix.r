@@ -1,7 +1,6 @@
 #' Resize a matrix
 #'
 #' ResizeMatrix
-#' @keywords internal
 #' @description Resize a numericam matrix in new dimension.
 #' @param matrice.mtx <matrix>: a  numericam matrix to resize.
 #' @param newDim.num <integer>: the number of rows and cols in resized matrix.
@@ -14,6 +13,7 @@
 #' matrice.mtx
 #' ResizeMatrix(matrice.mtx=matrice.mtx, newDim.num=c(7,7))
 #' ResizeMatrix(matrice.mtx=matrice.mtx, newDim.num=c(13,13))
+
 ResizeMatrix <- function(matrice.mtx, newDim.num=dim(matrice.mtx)){
     # Rescaling
         newCoord.mtx <- as.matrix(expand.grid(seq_len(newDim.num[1]), seq_len(newDim.num[2])))
