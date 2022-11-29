@@ -82,28 +82,22 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
-<span class="r-in"><span><span class="va">x</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
-<span class="r-in"><span><span class="va">attribute.lst</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">AddAttr</span><span class="op">(</span><span class="va">x</span>,<span class="va">attribute.lst</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">AddAttr</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    3    5    7    9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    4    6    8   10</span>
-<span class="r-in"><span><span class="va">attribute.lst</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">AddAttr</span><span class="op">(</span><span class="va">x</span>,<span class="va">attribute.lst</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">AddAttr</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    3    5    7    9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    4    6    8   10</span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">AddAttr</span><span class="op">(</span><span class="va">x</span>,<span class="va">attribute.lst</span>,overwrite.bln<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in intersect(names(attributes(var.any)), names(attribute.lst)):</span> object 'attribute.lst' not found</span>
 <span class="r-in"><span><span class="va">x</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3    8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4    9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    5   10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    3    5    7    9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    4    6    8   10</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
