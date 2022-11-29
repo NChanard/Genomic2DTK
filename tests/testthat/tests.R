@@ -1,23 +1,11 @@
 #==============================
-# Libraries
-#==============================
-library(GenomicED)
-library(GenomicRanges)
-library(S4Vectors)
-
-#==============================
 # Data
 #==============================
-data("submatrixPF_Ctrl.mtx_lst")
-data("anchors_Peaks.gnr")
-data("baits_Peaks.gnr")
-data("submatrixRF_Ctrl.mtx_lst")
-data("submatrixRF.mtx_lst")
-data("anchors_Index.gnr")
-data("baits_Index.gnr")
-data("interactions.gni")
-data("HiC_ctrl.cmx_lst")
-data("domains.gnr")
+data("Beaf32_Peaks.gnr")
+data("TSS_Peaks.gnr")
+data("TADs_Domains.gnr")
+data("HiC_Ctrl.cmx_lst")
+data("HiC_HS.cmx_lst")
 
 #==============================
 # Global Variables
@@ -46,134 +34,152 @@ chromSize.dtf  <- data.frame(
 # # Import file in R
 # HiC_Ctrl.cmx_lst <- ImportHiC(
 #   file.pth    = HicOutput.pth,
-#   res.num     = 25000,
+#   res.num     = 100000,
 #   chrom_1.chr = c("2L", "2L", "2R"),
 #   chrom_2.chr = c("2L", "2R", "2R")
 # )
 # HiC_HS.cmx_lst <- ImportHiC(
 #   file.pth    = McoolOutput.pth,
-#   res.num     = 25000,
+#   res.num     = 100000,
 #   chrom_1.chr = c("2L", "2L", "2R"),
 #   chrom_2.chr = c("2L", "2R", "2R")
-#   )
+# )
 # ImportHiC(
 #   file.pth    = HicOutput.pth,
-#   res.num     = "25Kb",
+#   res.num     = "100Kb",
 #   chrom_1.chr = "2L",
 #   cores.num = 2
 # )
-# gc()
+
 #==============================
 # Test NormalizeHiC
 #==============================
-# HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
-# HiC_HS.cmx_lst   <- NormalizeHiC(HiC_HS.cmx_lst,   interaction.type="cis")
-# NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="VC", cores.num=2)
-# NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
-# NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
-# gc()
+HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
+HiC_HS.cmx_lst   <- NormalizeHiC(HiC_HS.cmx_lst,   interaction.type="cis")
+NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="VC", cores.num=2)
+NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
+NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
+
 #==============================
 # Test ExpectedHiC
 #==============================
-# HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
-# HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
-# gc()
+HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
+
+#==============================
+# Test SwitchMatrix
+#==============================
+SwitchMatrix(HiC_Ctrl.cmx_lst, matrixKind.chr="norm")
+SwitchMatrix(HiC_Ctrl.cmx_lst, matrixKind.chr="o/e")
+
 #==============================
 # Test IndexFeatures
 #==============================
-IndexFeatures(
-  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
-  constraint.gnr        = domains.gnr,
+Beaf32_Peaks.gnr <- IndexFeatures(
+  gRange.gnr_lst        = list(Beaf=Beaf32_Peaks.gnr), 
+  constraint.gnr        = TADs_Domains.gnr,
   chromSize.dtf         = chromSize.dtf,
-  binSize.num           = 25000,
-  method.chr            = "max",
-  variablesName.chr_vec = "score",
-  cores.num             = 1,
-  verbose.bln           = TRUE
-)
-IndexFeatures(
-  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr, TSS=baits_Peaks.gnr), 
-  constraint.gnr        = NULL,
-  chromSize.dtf         = chromSize.dtf,
-  binSize.num           = 25000,
+  binSize.num           = 100000,
   method.chr            = "max",
   variablesName.chr_vec = "score",
   cores.num             = 2,
-  verbose.bln           = FALSE
+  verbose.bln           = TRUE
 )
-gc()
+TSS_Index.gnr <- IndexFeatures(
+  gRange.gnr_lst        = list(TSS=TSS_Peaks.gnr), 
+  constraint.gnr        = TADs_Domains.gnr,
+  chromSize.dtf         = chromSize.dtf,
+  binSize.num           = 100000,
+  method.chr            = "max",
+  variablesName.chr_vec = "score",
+  cores.num             = 2,
+  verbose.bln           = TRUE
+)
+IndexFeatures(
+  gRange.gnr_lst        = list(TSS=TSS_Peaks.gnr), 
+  constraint.gnr        = NULL,
+  chromSize.dtf         = chromSize.dtf,
+  binSize.num           = 100000,
+  cores.num             = 1,
+  verbose.bln           = TRUE
+)
 #==============================
 # Test SearchPairs
 #==============================
-SearchPairs(
-  indexAnchor.gnr = anchors_Index.gnr,
-  indexBait.gnr   = baits_Index.gnr,
+Beaf_TSS.gni <- SearchPairs(
+  indexAnchor.gnr = Beaf32_Peaks.gnr,
+  indexBait.gnr   = TSS_Index.gnr,
   minDist.num     = NULL, 
   maxDist.num     = NULL,
   cores.num       = 2,
   verbose.bln     = TRUE
 )
 SearchPairs(
-  indexAnchor.gnr = anchors_Index.gnr,
+  indexAnchor.gnr = Beaf32_Peaks.gnr,
   minDist.num     = "1", 
-  maxDist.num     = "50Kb",
+  maxDist.num     = "1MB",
   cores.num       = 1,
   verbose.bln     = TRUE
 )
 SearchPairs(
-  indexAnchor.gnr = anchors_Index.gnr,
-  indexBait.gnr   = baits_Index.gnr,
+  indexAnchor.gnr = Beaf32_Peaks.gnr,
+  indexBait.gnr   = TSS_Index.gnr,
   minDist.num     = 1, 
-  maxDist.num     = 50000,
+  maxDist.num     = 1000000,
   cores.num       = 2,
-  verbose.bln     = FALSE
+  verbose.bln     = TRUE
 )
-gc()
+
+
 #==============================
 # Test ExtractSubmatrix
 #==============================
-# ExtractSubmatrix(
-#   feature.gn         = interactions.gni,
-#   hic.cmx_lst        = HiC_ctrl.cmx_lst,
-#   res.num            = NULL,
-#   referencePoint.chr = "rf",
-#   matriceDim.num     = 101,
-#   cores.num          = 1,
-#   verbose.bln        = TRUE
-# )
-# ExtractSubmatrix(
-#   feature.gn         = interactions.gni,
-#   hic.cmx_lst        = HiC_ctrl.cmx_lst,
-#   res.num            = NULL,
-#   referencePoint.chr = "pf",
-#   matriceDim.num     = 101,
-#   cores.num          = 2,
-#   verbose.bln        = TRUE
-# )
-# ExtractSubmatrix(
-#   feature.gn         = domains.gnr,
-#   hic.cmx_lst        = HiC_ctrl.cmx_lst,
-#   referencePoint.chr = "rf",
-#   matriceDim.num     = 101,
-#   cores.num          = 2,
-#   verbose.bln        = FALSE
-# )
-# gc()
+submatrixPF_Ctrl.mtx_lst <- ExtractSubmatrix(
+  feature.gn         = Beaf_TSS.gni,
+  hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+  res.num            = NULL,
+  referencePoint.chr = "pf",
+  matriceDim.num     = 21,
+  cores.num          = 1,
+  verbose.bln        = TRUE
+)
+submatrixPF_HS.mtx_lst <- ExtractSubmatrix(
+  feature.gn         = Beaf_TSS.gni,
+  hic.cmx_lst        = HiC_HS.cmx_lst,
+  res.num            = NULL,
+  referencePoint.chr = "pf",
+  matriceDim.num     = 21,
+  cores.num          = 1,
+  verbose.bln        = TRUE
+)
+submatrixRF_Ctrl.mtx_lst <- ExtractSubmatrix(
+  feature.gn         = Beaf_TSS.gni,
+  hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+  res.num            = NULL,
+  referencePoint.chr = "rf",
+  matriceDim.num     = 21,
+  cores.num          = 2,
+  verbose.bln        = TRUE
+)
+ExtractSubmatrix(
+  feature.gn         = TADs_Domains.gnr,
+  hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+  referencePoint.chr = "rf",
+  matriceDim.num     = 101,
+  cores.num          = 2,
+  verbose.bln        = FALSE
+)
+
+
 #==============================
 # Test FilterInteractions
 #==============================
 target.lst <- list(
-  anchor.Beaf.name = c("Beaf32_8","Beaf32_15"),
-  bait.Tss.name    = c("FBgn0031214","FBgn0005278"),
-  name             = c("2L:74_2L:77"),
-  distance         = function(columnElement){
-    return(14000==columnElement || columnElement == 3000)
-    }
+  anchor.Beaf.name = c("Beaf32_113"),
+  bait.TSS.name    = c("FBgn0267378")
   )
-
 selection.fun = function(){
-  Reduce(intersect, list(anchor.Beaf.name, bait.Tss.name ,distance) ) |>
-  setdiff(name)
+  Reduce(union, list(anchor.Beaf.name, bait.TSS.name) )
 }
 FilterInteractions(
   matrices.lst      = submatrixPF_Ctrl.mtx_lst,
@@ -197,7 +203,7 @@ FilterInteractions(
   target.lst        = target.lst,
   selection.fun     = NULL
 )
-gc()
+
 #==============================
 # Test GetQuantif
 #==============================
@@ -211,26 +217,26 @@ GetQuantif(
   area.fun      = "center",
   operation.fun = "mean"
 )
-gc()
+
 #==============================
 # Test OrienteMatrix
 #==============================
 OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
-gc()
+
 #==============================
 # Test Aggregation
 #==============================
 Aggregation(
-  matrices.lst = submatrixPF_Ctrl.mtx_lst, 
+  matrices.lst = submatrixRF_Ctrl.mtx_lst, 
   agg.fun      = "sum",
   trans.fun    = "qtl", 
   rm0.bln      = FALSE
 )
 diffAggreg.mtx <- Aggregation(
-  ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
-  matrices.lst        = submatrixRF.mtx_lst,
-  minDist             = "9Kb",
-  maxDist             = "11Kb",
+  ctrlMatrices.lst    = submatrixPF_Ctrl.mtx_lst,
+  matrices.lst        = submatrixPF_HS.mtx_lst,
+  minDist             = 1,
+  maxDist             = "5Mb",
   agg.fun             = "mean",
   rm0.bln             = FALSE,
   diff.fun            = "substraction",
@@ -241,7 +247,7 @@ diffAggreg.mtx <- Aggregation(
     ),
   statCompare.bln = TRUE
 )
-gc()
+
 #==============================
 # Test ggAPA and PlotAPA
 #==============================
@@ -264,7 +270,7 @@ ggAPA(
     blurSd.num   = 0.5,
     heatmap.col  = viridis(6)
 )
-gc()
+
 #==============================
 # Complete Tests
 #==============================

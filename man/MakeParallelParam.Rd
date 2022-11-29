@@ -9,6 +9,9 @@ MakeParallelParam(cores.num = 1, verbose.bln = FALSE)
 \arguments{
 \item{cores.num}{<numerical> : An integer to specify the number of cores. (Default 1)}
 }
+\value{
+return parrallel parameter according number of cores and OS to use with BiocParallel package.
+}
 \description{
 Create BiocParallel parameter according to OS.
 }
