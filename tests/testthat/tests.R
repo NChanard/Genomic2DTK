@@ -252,18 +252,18 @@ diffAggreg.mtx <- Aggregation(
 # Test ggAPA and PlotAPA
 #==============================
 PlotAPA(
-    apa.mtx                  = diffAggreg.mtx,
-    trimPrct.num             = 20,
-    minBoundary.num          = -2,
-    center.num               = 0,
-    maxBoundary.num          = 2,
-    minConditionBoundary.num = 0,
-    maxConditionBoundary.num = 2
+    apa.mtx        = diffAggreg.mtx,
+    trimPrct.num   = 20,
+    colMin.num     = -2,
+    colMid.num     = 0,
+    colMax.num     = 2,
+    colCondMin.num = 0,
+    colCondMax.num = 2
 )
 ggAPA(
     apa.mtx      = diffAggreg.mtx,
     title.chr    = "APA",
-    center.num   = 0,
+    colMid.num   = 0,
     trimPrct.num = NULL,
     bounds.chr   = "both",
     blurPass.num = 1,
