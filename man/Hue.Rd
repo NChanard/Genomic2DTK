@@ -41,4 +41,3 @@ Hue
 \examples{
 Hue(paletteLength.num=9)
 }
-\keyword{internal}

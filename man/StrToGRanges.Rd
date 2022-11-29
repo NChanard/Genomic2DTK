@@ -13,8 +13,10 @@ StrToGRanges(x.chr_vec)
 a GRanges object.
 }
 \description{
-StrToGRanges
 Convert ranges describe with string (i.e seqname:start-end:strand) in GRanges object.
+}
+\details{
+StrToGRanges
 }
 \examples{
 StrToGRanges("chr1:1-100:+")

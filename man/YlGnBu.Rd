@@ -32,4 +32,3 @@ YlGnBu
 \examples{
 YlGnBu(9)
 }
-\keyword{internal}

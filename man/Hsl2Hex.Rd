@@ -23,4 +23,3 @@ Hsl2Hex
 \examples{
 Hsl2Hex(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
 }
-\keyword{internal}

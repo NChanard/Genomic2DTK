@@ -31,4 +31,3 @@ QtlThreshold(x.num, prct.num=5, bounds.chr="lower")
 QtlThreshold(x.num, prct.num=5, bounds.chr="both")
 QtlThreshold(x.num, prct.num=5, bounds.chr="upper")
 }
-\keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BindFillRows.r
 \name{BindFillRows}
 \alias{BindFillRows}
-\title{Bind data frames after filling missing columns.}
+\title{Data frames row binding.}
 \usage{
 BindFillRows(data.lst_df, ...)
 }
@@ -26,4 +26,3 @@ df2 <- data.frame(a = c(11:15), b = c(16:20), c = LETTERS[1:5])
 BindFillRows(df1,df2)
 BindFillRows(list(df1,df2))
 }
-\keyword{internal}

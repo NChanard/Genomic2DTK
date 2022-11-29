@@ -28,4 +28,3 @@ Gauss
 Gauss(x=1)
 Gauss(x=1,y=2)
 }
-\keyword{internal}

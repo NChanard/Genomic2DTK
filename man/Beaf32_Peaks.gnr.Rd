@@ -3,7 +3,7 @@
 \docType{data}
 \name{Beaf32_Peaks.gnr}
 \alias{Beaf32_Peaks.gnr}
-\title{Drosophila Melanogaster Beaf32 peaks on 2L and 2R chromosomes.}
+\title{D.melanogaster Beaf-32 ChIP-seq;}
 \format{
 An object of class GRanges.
 }

@@ -32,4 +32,3 @@ viridis
 \examples{
 viridis(9)
 }
-\keyword{internal}

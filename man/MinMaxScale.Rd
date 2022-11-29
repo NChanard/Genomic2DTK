@@ -32,4 +32,3 @@ lines(density(y.num),col="green")
 plot(density(MinMaxScale(x.num)),col="red",xlim=c(min(MinMaxScale(y.num)),max(MinMaxScale(x.num))))
 lines(density(MinMaxScale(y.num)),col="green")
 }
-\keyword{internal}

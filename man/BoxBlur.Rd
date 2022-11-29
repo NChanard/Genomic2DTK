@@ -30,4 +30,3 @@ mat.mtx <- rnorm(10000,50,10)**3 |> matrix(100,100)
 heatmap(mat.mtx,Rowv=NA,Colv=NA)
 heatmap(BoxBlur(mat.mtx),Rowv=NA,Colv=NA)
 }
-\keyword{internal}

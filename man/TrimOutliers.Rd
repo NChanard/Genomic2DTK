@@ -31,4 +31,3 @@ SdThreshold(x.num)
 TrimOutliers(x.num)[990:1000]
 TrimOutliers(x.num, clip=TRUE)[990:1000]
 }
-\keyword{internal}

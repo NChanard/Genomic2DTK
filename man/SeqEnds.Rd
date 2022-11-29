@@ -13,8 +13,10 @@ SeqEnds(x.gnr)
 an integer vector.
 }
 \description{
-SeqEnds
 Get all sequences lengths for each ranges of a GRanges object.
+}
+\details{
+SeqEnds
 }
 \examples{
 GRange.grn <- GenomicRanges::GRanges(

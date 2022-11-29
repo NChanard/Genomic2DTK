@@ -18,4 +18,3 @@ Create BiocParallel parameter according to OS.
 \details{
 MakeParallelParam
 }
-\keyword{internal}

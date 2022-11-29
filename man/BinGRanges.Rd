@@ -39,8 +39,10 @@ BinGRanges(
 A binned GRanges.
 }
 \description{
-BinGRanges
 Bin a GRanges and allow to apply a summary method (e.g: 'mean', 'median', 'sum', 'max, 'min' ...) to a chossen numericals variables of ranges in a same bin.
+}
+\details{
+BinGRanges
 }
 \examples{
 GRange.gnr <- GenomicRanges::GRanges(

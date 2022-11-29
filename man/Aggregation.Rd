@@ -2,7 +2,7 @@
 % Please edit documentation in R/Aggregation.r
 \name{Aggregation}
 \alias{Aggregation}
-\title{Aggregated matrices list.}
+\title{Aggregation of matrices list.}
 \usage{
 Aggregation(
   ctrlMatrices.lst = NULL,
@@ -27,18 +27,18 @@ Aggregation(
 
 \item{maxDist.num}{<numeric>: The maximal distance between anchor and bait.}
 
-\item{trans.fun}{<chracter or function>: The function use to transforme or scale values in each submatrix before aggregation. If the parameter is character so:
+\item{trans.fun}{<function or chracter>: The function use to transforme or scale values in each submatrix before aggregation. If the parameter is character so:
 \itemize{
 \item "quantile" or "qtl" apply function dplyr::ntile(x,500)
-\item "percentile" or "prct" apply percentile on values in matrix
-\item "rank" apply a ranking on values in matrix
-\item "zscore" apply a scaling on values in matrix
-\item "minmax" apply a MinMaxScale on values in matrix
-\item "mu" apply a MeanScale on values in matrix
-\item other (Default) apply a log2 on 1+ratio
+\item "percentile" or "prct" apply percentile.
+\item "rank" apply a ranking.
+\item "zscore" apply a scaling.
+\item "minmax" apply a Genomic2DTK::MinMaxScale.
+\item "mu" apply a Genomic2DTK::MeanScale.
+\item other or NULL don't apply transformation (Default).
 }}
 
-\item{agg.fun}{<chracter or function>: The function use to aggregate each pixel in matrix. If the parameter is a character so:
+\item{agg.fun}{<function or chracter>: The function use to aggregate each pixel in matrix. If the parameter is a character so:
 \itemize{
 \item "50%" or "median" apply the median
 \item "+" or "sum" apply the sum
@@ -47,7 +47,7 @@ Aggregation(
 
 \item{rm0.bln}{<logical>: if TURE 0 are replace with NA. (Default FALSE)}
 
-\item{diff.fun}{<chracter or function>: The function use to compute differential. If the parameter is character so:
+\item{diff.fun}{<function or chracter>: The function use to compute differential. If the parameter is character so:
 \itemize{
 \item "-", "substract" or "substraction" apply a substraction
 \item "/" or "ratio" apply a ratio
@@ -65,40 +65,42 @@ Aggregation(
 A matrix
 }
 \description{
-Aggregated matrices list. Could apply a differential of each paired matrices in two list before and after aggregation.
+Aggregates all the matrices of a list (or two lists in case of differential aggregation) into a single matrix. This function allows to apply different aggregation (average, sum, ...), transformation (rank, percentage, ...) and differential (subtraction, ratio, ...) functions.
 }
 \details{
 Aggregation
 }
 \examples{
 \dontrun{
-# Classical Aggregation
-# submatrixRF_Ctrl.mtx_lst is a submatrix list obtain with ExtractSubmatrix function
-aggreg.mtx <- Aggregation(
-  matrices.lst = submatrixRF_Ctrl.mtx_lst, 
-  agg.fun      = "sum",
-  trans.fun    = "qtl", 
-  rm0.bln      = TRUE,
-  minDist      = 9000,
-  maxDist      = 11000
-)
-
-# Differential Aggregation
-# submatrixRF.mtx_lst is a second submatrix list obtain with ExtractSubmatrix function
-diffAggreg.mtx <- Aggregation(
-  ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
-  matrices.lst        = submatrixRF.mtx_lst,
-  minDist             = 9000,
-  maxDist             = 11000,
-  agg.fun             = "mean",
-  rm0.bln             = FALSE,
-  diff.fun            = "substraction",
-  scaleCorrection.bln = TRUE,
-  correctionArea.lst  =  list(
-    i = c(1:30),
-    j = c(72:101)
-    ),
-  statCompare.bln = TRUE
-)
+  # Classical Aggregation
+    # submatrixRF_Ctrl.mtx_lst is a submatrix list
+    # obtain with Genomic2DTK::ExtractSubmatrix function
+  aggreg.mtx <- Aggregation(
+    matrices.lst = submatrixRF_Ctrl.mtx_lst, 
+    agg.fun      = "sum",
+    trans.fun    = "qtl", 
+    rm0.bln      = TRUE,
+    minDist      = 9000,
+    maxDist      = 11000
+  )
+ 
+  # Differential Aggregation
+    # submatrixRF.mtx_lst is a second submatrix list
+    # obtain with Genomic2DTK::ExtractSubmatrix function
+  diffAggreg.mtx <- Aggregation(
+    ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
+    matrices.lst        = submatrixRF.mtx_lst,
+    minDist             = 9000,
+    maxDist             = 11000,
+    agg.fun             = "mean",
+    rm0.bln             = FALSE,
+    diff.fun            = "substraction",
+    scaleCorrection.bln = TRUE,
+    correctionArea.lst  =  list(
+      i = c(1:30),
+      j = c(72:101)
+      ),
+    statCompare.bln = TRUE
+  )
 }
 }

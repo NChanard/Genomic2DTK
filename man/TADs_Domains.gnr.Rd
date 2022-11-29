@@ -3,7 +3,7 @@
 \docType{data}
 \name{TADs_Domains.gnr}
 \alias{TADs_Domains.gnr}
-\title{Drosophila Melanogaster Tads on chromosome 2R and 2L ([F.Ramirez, 2018](https://doi.org/10.1038/s41467-017-02525-w))}
+\title{Drosophila Melanogaster TADs on chromosome 2R and 2L.}
 \format{
 An object of class GRanges.
 }
@@ -11,7 +11,7 @@ An object of class GRanges.
 data(TADs_Domains.gnr)
 }
 \description{
-Data from a HiC Seq experiment
+Drosophila Melanogaster TADs on chromosome 2R and 2L ([F.Ramirez, 2018](https://doi.org/10.1038/s41467-017-02525-w))
 }
 \examples{
 data(TADs_Domains.gnr)

@@ -3,7 +3,7 @@
 \docType{data}
 \name{HiC_Ctrl.cmx_lst}
 \alias{HiC_Ctrl.cmx_lst}
-\title{In situ Hi-C on non-heat treated S2 cells (Drosophila Melanogaster) with MboI on chromosome 2R and 2L download from [4DN](https://data.4dnucleome.org/experiment-set-replicates/4DNESFOADERB/) portal (Ray J, Munn PR, et al., 2019). This data is the result of the Genomic2DTK::ImportHiC function.}
+\title{In situ Hi-C on non-heat treated S2 cells (Drosophila Melanogaster).}
 \format{
 A a list of ContactMatrix objects. Each element correspond to the interaction matrix of two chromosomes.
 }
@@ -11,7 +11,7 @@ A a list of ContactMatrix objects. Each element correspond to the interaction ma
 data(HiC_Ctrl.cmx_lst)
 }
 \description{
-Data from a HiC Seq experiment
+In situ Hi-C on non-heat treated S2 cells (Drosophila Melanogaster) with MboI on chromosome 2R and 2L download from [4DN](https://data.4dnucleome.org/experiment-set-replicates/4DNESFOADERB/) portal (Ray J, Munn PR, et al., 2019). This data is the result of the Genomic2DTK::ImportHiC function.
 }
 \examples{
 data(HiC_Ctrl.cmx_lst)

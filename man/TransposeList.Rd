@@ -26,4 +26,3 @@ my_lst <- list(
 )
 TransposeList(my_lst)
 }
-\keyword{internal}

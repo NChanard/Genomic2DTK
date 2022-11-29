@@ -36,4 +36,3 @@ PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=NULL, side.chr=c('top','bot','
 PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('right','left') )
 PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('top') )
 }
-\keyword{internal}

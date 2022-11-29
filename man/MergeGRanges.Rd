@@ -17,8 +17,10 @@ MergeGRanges(..., sort.bln = FALSE, reduce.bln = FALSE)
 a GRange object.
 }
 \description{
-MergeGRanges
 Merge GRanges or a list of GRanges
+}
+\details{
+MergeGRanges
 }
 \examples{
 GRange_1.grn <- GenomicRanges::GRanges(

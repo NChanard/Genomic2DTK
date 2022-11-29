@@ -28,4 +28,3 @@ WrapFunction(myString_2)
 myFunction <- WrapFunction(myString_2)
 myFunction(c(1,2,3))
 }
-\keyword{internal}

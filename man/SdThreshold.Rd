@@ -31,4 +31,3 @@ SdThreshold(x.num, sdThreshold.num=2, bounds.chr="lower")
 SdThreshold(x.num, sdThreshold.num=2, bounds.chr="both")
 SdThreshold(x.num, sdThreshold.num=2, bounds.chr="upper")
 }
-\keyword{internal}

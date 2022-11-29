@@ -25,4 +25,3 @@ filePath.pth ="my/path/to/my/file.txt"
 GetFileName(path.pth=filePath.pth, ext.bln=FALSE)
 GetFileName(path.pth=filePath.pth, ext.bln=TRUE)
 }
-\keyword{internal}

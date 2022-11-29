@@ -40,4 +40,3 @@ set.seed(31415)
 x.num <- rnorm(100,50,200)
 BreakVector(x.num=x.num, n.num=9)
 }
-\keyword{internal}

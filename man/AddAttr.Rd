@@ -24,14 +24,10 @@ AddAttr
 }
 \examples{
 x <- 1:10
+x <- AddAttr(x, list(dim=c(2,5)))
 x
-attribute.lst = list(dim=c(2,5))
-x <- AddAttr(x,attribute.lst)
-x
-attribute.lst = list(dim=c(5,2))
-x <- AddAttr(x,attribute.lst)
+x <- AddAttr(x, list(dim=c(5,2)))
 x
 x <- AddAttr(x,attribute.lst,overwrite.bln=TRUE)
 x
 }
-\keyword{internal}

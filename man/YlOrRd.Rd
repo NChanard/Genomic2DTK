@@ -32,4 +32,3 @@ YlOrRd
 \examples{
 YlOrRd(9)
 }
-\keyword{internal}

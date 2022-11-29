@@ -15,8 +15,10 @@ GenomicSystem(x, digits.num = 3)
 the converted number or string.
 }
 \description{
-GenomicSystem
 Convert numbers of base into string with order of magnitude (Kbp, Mbp, Gbp) and vice versa.
+}
+\details{
+GenomicSystem
 }
 \examples{
 GenomicSystem(1540,3)
