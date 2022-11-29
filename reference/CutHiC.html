@@ -75,6 +75,58 @@
     <p>CutHiC</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Mega_Ctrl.cmx</span> <span class="op">&lt;-</span> <span class="fu"><a href="JoinHiC.html">JoinHiC</a></span><span class="op">(</span><span class="va">HiC_Ctrl.cmx_lst</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">CutHiC</span><span class="op">(</span><span class="va">Mega_Ctrl.cmx</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L_2L`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class: ContactMatrix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 236 236 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> type: dgCMatrix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rownames: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> colnames: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(5): name type kind symmetric resolution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> regions: 236</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2L_2R`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class: ContactMatrix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 236 253 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> type: dgCMatrix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rownames: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> colnames: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(5): name type kind symmetric resolution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> regions: 489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2R_2R`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class: ContactMatrix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 253 253 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> type: dgCMatrix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rownames: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> colnames: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(5): name type kind symmetric resolution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> regions: 253</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"resolution")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1e+05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"mtx")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "obs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"chromSize")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   name    length dimension</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2L    23<span style="text-decoration: underline;">513</span>712       236</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2R    25<span style="text-decoration: underline;">286</span>936       253</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"matricesKind")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   name  type  kind  symmetric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2L_2L cis   U     TRUE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2L_2R trans <span style="color: #BB0000;">NA</span>    FALSE    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2R_2R cis   U     TRUE     </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

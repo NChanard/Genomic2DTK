@@ -131,19 +131,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   d     chr2     1-100      * |        30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
-<span class="r-in"><span><span class="va">chromSize.dtf</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chr1"</span>,<span class="st">"chr2"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">350</span>,<span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">binSize.num</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
-<span class="r-in"><span><span class="va">binnedGRanges.gnr</span> <span class="op">&lt;-</span> <span class="fu">BinGRanges</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    gRange.gnr <span class="op">=</span> <span class="va">GRange.gnr</span>,</span></span>
-<span class="r-in"><span>    chromSize.dtf<span class="op">=</span><span class="va">chromSize.dtf</span>,</span></span>
-<span class="r-in"><span>    binSize.num<span class="op">=</span><span class="va">binSize.num</span>,</span></span>
-<span class="r-in"><span>    method.chr <span class="op">=</span><span class="st">"mean"</span>,</span></span>
-<span class="r-in"><span>    variablesName.chr_vec<span class="op">=</span><span class="st">"score"</span>,</span></span>
-<span class="r-in"><span>    na.rm<span class="op">=</span><span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="fu">BinGRanges</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    gRange.gnr            <span class="op">=</span> <span class="va">GRange.gnr</span>,</span></span>
+<span class="r-in"><span>    chromSize.dtf         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chr1"</span>,<span class="st">"chr2"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">350</span>,<span class="fl">100</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    binSize.num           <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>    method.chr            <span class="op">=</span> <span class="st">"mean"</span>,</span></span>
+<span class="r-in"><span>    variablesName.chr_vec <span class="op">=</span> <span class="st">"score"</span>,</span></span>
+<span class="r-in"><span>    na.rm                 <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="va">binnedGRanges.gnr</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 5 ranges and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames    ranges strand |     score         bin</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt; &lt;character&gt;</span>

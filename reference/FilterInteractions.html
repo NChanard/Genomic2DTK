@@ -92,64 +92,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nchanard.github.io/GenomicED/" class="external-link">GenomicED</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"submatrixPF_Ctrl.mtx_lst"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  anchor.Beaf.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beaf32_8"</span>,<span class="st">"Beaf32_15"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  bait.Tss.name    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FBgn0031214"</span>,<span class="st">"FBgn0005278"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  name             <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L:74_2L:77"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  distance         <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">columnElement</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">14000</span><span class="op">==</span><span class="va">columnElement</span> <span class="op">||</span> <span class="va">columnElement</span> <span class="op">==</span> <span class="fl">3000</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="op">}</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Extraction on InteractionSet</span></span></span>
-<span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span></span>
-<span class="r-in"><span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">selection.fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span>, <span class="va">bait.Tss.name</span> ,<span class="va">distance</span><span class="op">)</span> <span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Extraction on matrices list and with selection</span></span></span>
-<span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  matrices.lst <span class="op">=</span> <span class="va">submatrixPF_Ctrl.mtx_lst</span>,</span></span>
-<span class="r-in"><span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>  selection.fun     <span class="op">=</span> <span class="va">selection.fun</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Extraction on InteractionSet with InteractionsSet</span></span></span>
-<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>interactions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span></span>
-<span class="r-in"><span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Extraction on InteractionSet list and with GRanges</span></span></span>
-<span class="r-in"><span><span class="va">gRangesTarget.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span><span class="fu">InteractionSet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    first <span class="op">=</span> </span></span>
-<span class="r-in"><span>      <span class="va">gRangesTarget.gnr</span><span class="op">[[</span><span class="st">"first"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  interarctions.gni <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">submatrixPF_Ctrl.mtx_lst</span><span class="op">)</span><span class="op">$</span><span class="va">interactions</span>,</span></span>
-<span class="r-in"><span>  target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>  selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-</code></pre></div>
+    
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
