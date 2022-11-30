@@ -3,7 +3,7 @@
 \docType{data}
 \name{TSS_Peaks.gnr}
 \alias{TSS_Peaks.gnr}
-\title{Drosophila Melanogaster Transcription starting sites on 2L and 2R chromosomes.}
+\title{D.melanogaster Transcription starting sites.}
 \format{
 An object of class GRanges.
 }

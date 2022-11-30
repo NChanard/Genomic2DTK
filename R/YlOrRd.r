@@ -1,4 +1,4 @@
-#' Create a YlOrRd palette
+#' YlOrRd palette.
 #'
 #' YlOrRd
 #' @description Create a YlOrRd palette.

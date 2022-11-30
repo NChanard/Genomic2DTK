@@ -12,11 +12,11 @@
 #' x
 #' x <- AddAttr(x, list(dim=c(5,2)))
 #' x
-#' x <- AddAttr(x,  list(dim=c(5,2)), overwrite.bln=TRUE)
+#' x <- AddAttr(x, list(dim=c(5,2)), overwrite.bln=TRUE)
 #' x
 
 AddAttr <- function(var.any=NULL, attribute.lst=NULL, overwrite.bln=FALSE){
-    intersectAttr <- intersect(names(attributes(var.any)),  names(attribute.lst))
+    intersectAttr <- intersect(names(attributes(var.any)), names(attribute.lst))
     if(overwrite.bln & length(intersectAttr)){
         attribute.lst <- c(attributes(var.any)[which(names(attributes(var.any)) != intersectAttr)] , attribute.lst)
     }else if (length(intersectAttr)){

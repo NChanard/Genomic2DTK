@@ -2,7 +2,7 @@
 % Please edit documentation in R/VCnorm.r
 \name{VCnorm}
 \alias{VCnorm}
-\title{Compute Vanilla Count or Vanilla Count square root correction on hic chunk.}
+\title{Compute Vanilla Count Correction.}
 \usage{
 VCnorm(hic.cmx = NULL, qtlTh.num = 0.15, sqrt.bln = TRUE)
 }
@@ -21,4 +21,11 @@ Compute Vanilla Count or Vanilla Count square root correction normalization on h
 }
 \details{
 VCnorm
+}
+\examples{
+# Data
+data(HiC_Ctrl.cmx_lst)
+
+HiC_Ctrl_VC.cmx <- VCnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
+HiC_Ctrl_VC_SQRT.cmx <- VCnorm(HiC_Ctrl.cmx_lst[['2L_2L']], sqrt.bln=TRUE)
 }

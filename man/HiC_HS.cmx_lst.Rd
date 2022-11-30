@@ -3,7 +3,7 @@
 \docType{data}
 \name{HiC_HS.cmx_lst}
 \alias{HiC_HS.cmx_lst}
-\title{In situ Hi-C on heat treated S2 cells (Drosophila Melanogaster).}
+\title{In situ Hi-C heat treated.}
 \format{
 A a list of ContactMatrix objects. Each element correspond to the interaction matrix of two chromosomes.
 }

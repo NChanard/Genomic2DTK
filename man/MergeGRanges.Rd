@@ -2,7 +2,7 @@
 % Please edit documentation in R/MergeGRanges.r
 \name{MergeGRanges}
 \alias{MergeGRanges}
-\title{Merge GRanges or a list of GRanges}
+\title{Merge GRanges.}
 \usage{
 MergeGRanges(..., sort.bln = FALSE, reduce.bln = FALSE)
 }

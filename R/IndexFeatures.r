@@ -1,9 +1,9 @@
-#' Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().
+#' Indexes GRanges on genome.
 #' 
 #' IndexFeatures
-#' @description Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function.
+#' @description Function that indexes a GRanges object on binned genome and constraints. Needed prior Genomic2DTK::SearchPairs() function.
 #' @param gRange.gnr_lst <GRanges or GRangesList or list[GRanges]>: GRanges object, list of GRanges or GRangesList containing coordinates to index.
-#' @param constraint.gnr <GRanges>: GRanges object of constraint regions. Note that bins in the same constraint region only will be paired in SearchPairs(). If NULL chromosomes in chromSize.dtf are used as constraints (Default NULL)
+#' @param constraint.gnr <GRanges>: GRanges object of constraint regions. Note that bins in the same constraint region only will be paired in Genomic2DTK::SearchPairs(). If NULL chromosomes in chromSize.dtf are used as constraints (Default NULL)
 #' @param chromSize.dtf <data.frame>: A data.frame containing chromosomes names and lengths in base pairs (see example).
 #' @param binSize.num <integer>: Bin size in bp - corresponds to HiC matrix resolution.
 #' @param variablesName.chr_vec <character> : A character vector that specify the metadata columns of GRanges on which apply the summary method if multiple ranges are indexed in the same bin.
@@ -12,6 +12,7 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A GRanges object.
 #' @examples
+#' data(Beaf32_Peaks.gnr)
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
 #'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

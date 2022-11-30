@@ -8,7 +8,11 @@
 #' @param selection.fun <function>: A function that described how the target must be cross. (Defaul intersection of all targets)
 #' @return A list of elements index or a filtred matrices list with attributes updates.
 #' @examples
-#' # Index Beaf32 in TADs domains
+#' # Data
+#' data(Beaf32_Peaks.gnr)
+#' data(HiC_Ctrl.cmx_lst)
+#' 
+#' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
 #'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

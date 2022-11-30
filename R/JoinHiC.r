@@ -1,11 +1,12 @@
 
-#'  Merge HiC chunk as HiC map
+#' Merge HiC chunk.
 #' 
 #' JoinHiC
 #' @description Create mega contactMatrix from a list of contactMatrix.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @return A contactMatrix.
 #' @examples
+#' data(HiC_Ctrl.cmx_lst)
 #' Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
 
 JoinHiC <- function (hic.cmx_lst){

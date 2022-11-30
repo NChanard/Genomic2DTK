@@ -2,7 +2,7 @@
 % Please edit documentation in R/Hsl2Hex.r
 \name{Hsl2Hex}
 \alias{Hsl2Hex}
-\title{Convert a color in HSL to Hex.}
+\title{Convert HSL to Hex.}
 \usage{
 Hsl2Hex(hsl.col = NULL, alpha.bln = FALSE)
 }

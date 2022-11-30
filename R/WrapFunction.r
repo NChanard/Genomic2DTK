@@ -1,4 +1,4 @@
-#' Wrap a string into a function.
+#' Convert string to function.
 #'
 #' WrapFunction
 #' @description Wrap a string into a function.

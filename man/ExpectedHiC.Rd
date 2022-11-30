@@ -24,5 +24,6 @@ ExpectedHiC
 }
 \examples{
 # Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
+data(HiC_Ctrl.cmx_lst)
 ExpectedHiC(HiC_Ctrl.cmx_lst)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/YlOrRd.r
 \name{YlOrRd}
 \alias{YlOrRd}
-\title{Create a YlOrRd palette}
+\title{YlOrRd palette.}
 \usage{
 YlOrRd(
   paletteLength.num = NULL,

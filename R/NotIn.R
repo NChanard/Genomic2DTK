@@ -1,4 +1,4 @@
-#' Binary operator, inverse to \%in\%.
+#' Exclusion binary operator.
 #'
 #' NotIn
 #' @description Binary operator, inverse to \%in\%.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Hue.r
 \name{Hue}
 \alias{Hue}
-\title{Create an Hue palette.}
+\title{Hue palette.}
 \usage{
 Hue(
   paletteLength.num = 9,

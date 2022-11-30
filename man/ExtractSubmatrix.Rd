@@ -2,7 +2,7 @@
 % Please edit documentation in R/ExtractSubmatrix.r
 \name{ExtractSubmatrix}
 \alias{ExtractSubmatrix}
-\title{Submatrix extraction}
+\title{Submatrix extraction.}
 \usage{
 ExtractSubmatrix(
   feature.gn = NULL,
@@ -42,7 +42,11 @@ Extract matrices in the HiC maps list around genomic features.
 ExtractSubmatrix
 }
 \examples{
-# Index Beaf32 in TADs domains
+# Data
+data(Beaf32_Peaks.gnr)
+data(HiC_Ctrl.cmx_lst)
+
+# Index Beaf32
 Beaf32_Index.gnr <- IndexFeatures(
     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

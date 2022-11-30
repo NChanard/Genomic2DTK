@@ -10,7 +10,10 @@
 coverage](https://codecov.io/gh/NChanard/Genomic2DTK/branch/master/graph/badge.svg)](https://app.codecov.io/gh/NChanard/Genomic2DTK?branch=master)
 <!-- badges: end -->
 
-Genomic2DTK is a set of genomic interaction analysis tools.
+This package provides a set of functions useful in the analysis of
+genomic interaction data, including the import of classical HiC data
+formats into R, HiC normalisation. Finally, the main objective of this
+package is to facilitate and improve aggregation analysis.
 
 ## Installation
 

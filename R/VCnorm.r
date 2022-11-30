@@ -1,4 +1,4 @@
-#' Compute Vanilla Count or Vanilla Count square root correction on hic chunk.
+#' Compute Vanilla Count Correction.
 #'
 #' VCnorm
 #' @description Compute Vanilla Count or Vanilla Count square root correction normalization on hic maps.
@@ -7,6 +7,11 @@
 #' @param sqrt.bln <logical>: Whether the square root must be apply. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+#' # Data
+#' data(HiC_Ctrl.cmx_lst)
+#'
+#' HiC_Ctrl_VC.cmx <- VCnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
+#' HiC_Ctrl_VC_SQRT.cmx <- VCnorm(HiC_Ctrl.cmx_lst[['2L_2L']], sqrt.bln=TRUE)
 
 VCnorm <- function(hic.cmx=NULL, qtlTh.num=0.15, sqrt.bln=TRUE){
     pow.num <- ifelse(sqrt.bln,0.5,1)

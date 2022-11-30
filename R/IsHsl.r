@@ -1,4 +1,4 @@
-#' Check if a color is in HSL color format.
+#' Check HSL color format.
 #'
 #' IsHsl
 #' @description Check if a color is in HSL color format.

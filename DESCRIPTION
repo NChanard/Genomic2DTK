@@ -1,15 +1,21 @@
 Type: Package
 Package: Genomic2DTK
 Title: Set of genomic interaction analysis tools
-Version: 0.1.0
+Version: 0.99.0
 Author: Nicolas Chanard \<nicolas.chanard@univ-tlse3.fr>
 Maintainer: Nicolas Chanard \<nicolas.chanard@univ-tlse3.fr>
-Description: Set of genomic interaction analysis tools.
+Description:
+    Genomic2DTK provides a set of functions useful in the analysis
+    of genomic interaction data. This package include the import of
+    classical HiC data formats into R, HiC normalisation. Finally, 
+    the main objective of this package is to facilitate and improve
+    aggregation analysis.
+biocViews: Software, HiC, DataImport, DataRepresentation, Normalization, Visualization
 License: MIT + file LICENSE
 URL: https://nchanard.github.io/Genomic2DTK/,
     https://github.com/NChanard/Genomic2DTK
 Depends:
-    R (>= 4.1),
+    R (>= 4.2.0),
     InteractionSet
 Imports:
     BiocGenerics,
@@ -32,17 +38,14 @@ Imports:
     tidyr
 Suggests:
     covr,
-    GenomicED,
     kableExtra,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder:
     knitr
-Remotes:
-    github::NChanard/GenomicED
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 LazyDataCompression: xz
 RoxygenNote: 7.2.2
 Config/testthat/edition: 3

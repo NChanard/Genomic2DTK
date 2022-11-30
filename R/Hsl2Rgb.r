@@ -1,4 +1,4 @@
-#' Convert a color in HSL to RGB.
+#' Convert HSL to RGB.
 #'
 #' Hsl2Rgb
 #' @description Convert a color in HSl (Hue,Saturation,Light) format to RGB format.

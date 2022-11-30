@@ -2,7 +2,7 @@
 % Please edit documentation in R/StrToGRanges.r
 \name{StrToGRanges}
 \alias{StrToGRanges}
-\title{Convert String in GRanges object}
+\title{Convert String to GRanges.}
 \usage{
 StrToGRanges(x.chr_vec)
 }

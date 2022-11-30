@@ -2,7 +2,7 @@
 % Please edit documentation in R/NormalizeHiC.r
 \name{NormalizeHiC}
 \alias{NormalizeHiC}
-\title{Compute HiC map matrix-balancing normalization.}
+\title{Compute HiC matrix-balancing.}
 \usage{
 NormalizeHiC(
   hic.cmx_lst,
@@ -39,6 +39,8 @@ Apply a matrix-balancing normalization method to a list of contacts matrix.
 NormalizeHiC
 }
 \examples{
+data(HiC_Ctrl.cmx_lst)
+
 HiC_Ctrl_ICE.cmx_lst     <- NormalizeHiC(HiC_Ctrl.cmx_lst,
     interaction.type="cis",
     method.chr="ICE")

@@ -1,4 +1,4 @@
-#' Convert a color in HSL to Hex.
+#' Convert HSL to Hex.
 #'
 #' Hsl2Hex
 #' @description Convert a color in HSL (Hue,Saturation,Light) to hexadecimal format.

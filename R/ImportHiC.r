@@ -11,7 +11,7 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Prepare Temp Directory
 #' options(timeout = 3600)

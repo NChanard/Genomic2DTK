@@ -39,7 +39,7 @@ Import ..hic, .cool, .mcool or .bedpe data
 ImportHiC
 }
 \examples{
-\dontrun{
+\donttest{
 
 # Prepare Temp Directory
 options(timeout = 3600)

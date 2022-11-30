@@ -2,7 +2,7 @@
 % Please edit documentation in R/IndexFeatures.r
 \name{IndexFeatures}
 \alias{IndexFeatures}
-\title{Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function. Note that bins in the same constraint region only will be paired in SearchPairs().}
+\title{Indexes GRanges on genome.}
 \usage{
 IndexFeatures(
   gRange.gnr_lst = NULL,
@@ -18,7 +18,7 @@ IndexFeatures(
 \arguments{
 \item{gRange.gnr_lst}{<GRanges or GRangesList or list[GRanges]>: GRanges object, list of GRanges or GRangesList containing coordinates to index.}
 
-\item{constraint.gnr}{<GRanges>: GRanges object of constraint regions. Note that bins in the same constraint region only will be paired in SearchPairs(). If NULL chromosomes in chromSize.dtf are used as constraints (Default NULL)}
+\item{constraint.gnr}{<GRanges>: GRanges object of constraint regions. Note that bins in the same constraint region only will be paired in Genomic2DTK::SearchPairs(). If NULL chromosomes in chromSize.dtf are used as constraints (Default NULL)}
 
 \item{chromSize.dtf}{<data.frame>: A data.frame containing chromosomes names and lengths in base pairs (see example).}
 
@@ -36,12 +36,13 @@ IndexFeatures(
 A GRanges object.
 }
 \description{
-Function that indexes a GRanges object on binned genome and constraints. Needed prior SearchPairs() function.
+Function that indexes a GRanges object on binned genome and constraints. Needed prior Genomic2DTK::SearchPairs() function.
 }
 \details{
 IndexFeatures
 }
 \examples{
+data(Beaf32_Peaks.gnr)
 Beaf32_Index.gnr <- IndexFeatures(
     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

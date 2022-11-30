@@ -1,4 +1,4 @@
-#' Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.
+#' Creates pairs from genomic index.
 #' 
 #' SearchPairs
 #' @description Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.
@@ -10,25 +10,18 @@
 #' @param verbose.bln <logical>: If TRUE show the progression in console. (Default TRUE)
 #' @return A GInteractions object.
 #' @examples
-#' library(GenomicED)
+#' # Data
+#' data(Beaf32_Peaks.gnr)
+#'
+#' # Index Beaf32
+#' Beaf32_Index.gnr <- IndexFeatures(
+#'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+#'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+#'     binSize.num    = 100000
+#' )
 #' 
-#' data(anchors_Index.gnr)
-#' anchors_Index.gnr[1]
-#' 
-#' data(baits_Index.gnr)
-#' baits_Index.gnr[1]
-#' 
-#' \dontrun{
-#' interactions.gni <- SearchPairs(
-#'     indexAnchor.gnr = anchors_Index.gnr,
-#'     indexBait.gnr   = baits_Index.gnr,
-#'     minDist.num     = 9000, 
-#'     maxDist.num     = 11000,
-#'     cores.num       = 1,
-#'     verbose.bln     = FALSE
-#'     )
-#' 
-#' }
+#' # Beaf32 <-> Beaf32 Pairing
+#' Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
 
 SearchPairs = function(indexAnchor.gnr=NULL, indexBait.gnr=NULL, minDist.num=NULL, maxDist.num=NULL, verbose.bln=TRUE, cores.num=1){
     if(is.character(minDist.num)){

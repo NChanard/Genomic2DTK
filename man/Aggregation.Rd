@@ -71,7 +71,12 @@ Aggregates all the matrices of a list (or two lists in case of differential aggr
 Aggregation
 }
 \examples{
-# Index Beaf32 in TADs domains
+# Data
+data(Beaf32_Peaks.gnr)
+data(HiC_Ctrl.cmx_lst)
+data(HiC_HS.cmx_lst)
+
+# Index Beaf32
 Beaf32_Index.gnr <- IndexFeatures(
     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

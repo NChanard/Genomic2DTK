@@ -1,4 +1,4 @@
-#' Draw aggregation plot.
+#' Draw multiple aggregation plot.
 #' 
 #' PlotAPA
 #' @description Draw aggregation plot from aggregation matrices.
@@ -11,7 +11,12 @@
 #' @param colCondMax.num <matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.
 #' @return None
 #' @examples
-#' # Index Beaf32 in TADs domains
+#' # Data
+#' data(Beaf32_Peaks.gnr)
+#' data(HiC_Ctrl.cmx_lst)
+#' data(HiC_HS.cmx_lst)
+#'
+#' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
 #'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

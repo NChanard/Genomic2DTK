@@ -1,4 +1,4 @@
-#' Create an Hue palette.
+#' Hue palette.
 #'
 #' Hue
 #' @description Create an Hue palette.

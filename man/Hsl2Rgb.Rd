@@ -2,7 +2,7 @@
 % Please edit documentation in R/Hsl2Rgb.r
 \name{Hsl2Rgb}
 \alias{Hsl2Rgb}
-\title{Convert a color in HSL to RGB.}
+\title{Convert HSL to RGB.}
 \usage{
 Hsl2Rgb(hsl.col = NULL, alpha.bln = FALSE)
 }

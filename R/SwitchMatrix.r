@@ -1,4 +1,4 @@
-#' Change values in hic chunk
+#' Change values of HiC map.
 #'
 #' SwitchMatrix
 #' @description Change values in matrix with observed, balanced, observed/expected or expected values according to what are be done in hic.
@@ -6,6 +6,22 @@
 #' @param matrixKind.chr <character>: The kind of matrix you want.
 #' @return A contactMatrix list.
 #' @examples
+#' # Data
+#' data(HiC_Ctrl.cmx_lst)
+#'
+#' # Preprocess HiC
+#' HiC.cmx_lst <- HiC_Ctrl.cmx_lst |>
+#'     NormalizeHiC(
+#'         interaction.type="cis",
+#'         method.chr="ICE") |> 
+#'     ExpectedHiC()
+#' 
+#' # Switch values in matrix
+#' HiC_Ctrl_Obs.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="obs")
+#' HiC_Ctrl_Norm.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="norm")
+#' HiC_Ctrl_oe.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="o/e")
+#' HiC_Ctrl_exp.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="exp")
+
 
 SwitchMatrix <- function(hic.cmx_lst, matrixKind.chr=c("obs", "norm", "o/e", "exp")){
     if(!(matrixKind.chr %in% c("obs", "norm", "o/e", "exp"))){

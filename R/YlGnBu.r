@@ -1,4 +1,4 @@
-#' Create a YlGnBu palette
+#' YlGnBu palette.
 #'
 #' YlGnBu
 #' @description Create a YlGnBu palette.

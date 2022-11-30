@@ -22,7 +22,11 @@
 #' @param paletteLength.num <numeric> : The number of color in the palette. (Default 51)
 #' @return A ggplot object.
 #' @examples
-#' # Index Beaf32 in TADs domains
+#' # Data
+#' data(Beaf32_Peaks.gnr)
+#' data(HiC_Ctrl.cmx_lst)
+#' 
+#' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
 #'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),

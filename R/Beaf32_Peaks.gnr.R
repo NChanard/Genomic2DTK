@@ -1,4 +1,4 @@
-#' D.melanogaster Beaf-32 ChIP-seq;
+#' D.melanogaster Beaf-32 ChIP-seq.
 #' 
 #' @description Drosophila Melanogaster Beaf32 peaks on 2L and 2R chromosomes.
 #' @docType data

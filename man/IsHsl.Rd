@@ -2,7 +2,7 @@
 % Please edit documentation in R/IsHsl.r
 \name{IsHsl}
 \alias{IsHsl}
-\title{Check if a color is in HSL color format.}
+\title{Check HSL color format.}
 \usage{
 IsHsl(color.col = NULL)
 }

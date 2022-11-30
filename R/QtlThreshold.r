@@ -1,4 +1,4 @@
-#' Find threshold for outliers triming based on quantiles.
+#' Find threshold for outliers based on quantiles.
 #'
 #' QtlThreshold
 #' @description Find threshold for outliers triming based on quantiles.

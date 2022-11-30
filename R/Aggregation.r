@@ -35,7 +35,12 @@
 #' @param statCompare.bln <logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.
 #' @return A matrix
 #' @examples
-#' # Index Beaf32 in TADs domains
+#' # Data
+#' data(Beaf32_Peaks.gnr)
+#' data(HiC_Ctrl.cmx_lst)
+#' data(HiC_HS.cmx_lst)
+#' 
+#' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
 #'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
@@ -69,7 +74,7 @@
 
 Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NULL, maxDist.num=NULL, trans.fun=NULL, agg.fun="mean", rm0.bln=FALSE, diff.fun="substraction", scaleCorrection.bln=FALSE, correctionArea.lst = NULL, statCompare.bln=FALSE){
     # subFunctions
-        .PrepareMtxList =  function(matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln=FALSE, trans.fun=NULL){
+        .PrepareMtxList <- function(matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln=FALSE, trans.fun=NULL){
                 interactions.gni <- attributes(matrices.lst)$interactions
             # Filter on distances
                 if(!is.na(minDist.num)){
@@ -109,7 +114,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
         }
     # Get attributes
         matDim.num <- attributes(matrices.lst)$matriceDim
-        totMtx.num  <- length(matrices.lst)
+        totMtx.num <- length(matrices.lst)
         attributes.lst <- attributes(matrices.lst)
         if("names" %in% names(attributes.lst)){attributes.lst <- attributes.lst[-which(names(attributes.lst)=="names")]}
     # Differential Function
@@ -140,16 +145,16 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                 tolower(trans.fun) %in% c("zscore")                 ~ "function(mat.mtx){matrix(scale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
                 tolower(trans.fun) %in% c("minmax")                 ~ "function(mat.mtx){matrix(MinMaxScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}", 
                 tolower(trans.fun) %in% c("mu")                     ~ "function(mat.mtx){matrix(MeanScale(c(mat.mtx)),dim(mat.mtx)[[1]],dim(mat.mtx)[[2]])}",
-                TRUE                                                ~  "NULL"
+                TRUE                                                ~ "NULL"
                 )
             trans.fun <- WrapFunction(trans.fun)
-        }        
+        }
     # Prepare Matrix List
         if(is.null(minDist.num)){minDist.num<-NA}
         if(is.null(maxDist.num)){maxDist.num<-NA}
         matrices.lst <- .PrepareMtxList(matrices.lst=matrices.lst, minDist.num=minDist.num, maxDist.num=maxDist.num, rm0.bln=rm0.bln, trans.fun=trans.fun)
     # Aggregate
-        agg.mtx <-  apply(simplify2array(matrices.lst),1:2,agg.fun)
+        agg.mtx <- apply(simplify2array(matrices.lst),1:2,agg.fun)
         gc()
     # Differential Case else Return
         if(!is.null(ctrlMatrices.lst)){
@@ -244,7 +249,7 @@ Aggregation <- function(ctrlMatrices.lst=NULL, matrices.lst=NULL, minDist.num=NU
                     ) 
                 return(aggDiff.mtx)
         }else{
-            agg.mtx <-  
+            agg.mtx <- 
                 AddAttr(
                     var.any = agg.mtx,
                     attribute.lst = c(

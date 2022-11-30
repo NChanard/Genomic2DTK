@@ -2,7 +2,7 @@
 % Please edit documentation in R/ICEnorm.r
 \name{ICEnorm}
 \alias{ICEnorm}
-\title{Compute Iterative Correction on hic chunk.}
+\title{Compute Iterative Correction.}
 \usage{
 ICEnorm(hic.cmx, qtlTh.num = 0.15, maxIter.num = 50)
 }
@@ -24,5 +24,5 @@ ICEnorm
 }
 \examples{
 data(HiC_Ctrl.cmx_lst)
-HiC_Ctrl_Norm.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
+HiC_Ctrl_ICE.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
 }

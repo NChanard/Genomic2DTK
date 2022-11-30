@@ -3,7 +3,7 @@
 \docType{data}
 \name{Beaf32_Peaks.gnr}
 \alias{Beaf32_Peaks.gnr}
-\title{D.melanogaster Beaf-32 ChIP-seq;}
+\title{D.melanogaster Beaf-32 ChIP-seq.}
 \format{
 An object of class GRanges.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/NotIn.R
 \name{NotIn}
 \alias{NotIn}
-\title{Binary operator, inverse to \%in\%.}
+\title{Exclusion binary operator.}
 \usage{
 NotIn(lhs, rhs)
 }

@@ -8,6 +8,7 @@
 #' @return A matrices list.
 #' @examples
 #' # Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
+#' data(HiC_Ctrl.cmx_lst)
 #' ExpectedHiC(HiC_Ctrl.cmx_lst)
 
 ExpectedHiC <- function(hic.cmx_lst, verbose.bln=TRUE, cores.num=1){

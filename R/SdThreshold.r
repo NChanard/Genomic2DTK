@@ -1,4 +1,4 @@
-#' Find threshold for outliers triming based on standard deviation.
+#' Find threshold for outliers based on sd.
 #'
 #' SdThreshold
 #' @description Find threshold for outliers triming based on standard deviation.

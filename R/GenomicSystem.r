@@ -1,4 +1,4 @@
-#' Convert numbers of base pairs into string and vice versa.
+#' Base pairs convertion.
 #'
 #' GenomicSystem
 #' @description Convert numbers of base into string with order of magnitude (Kbp, Mbp, Gbp) and vice versa.

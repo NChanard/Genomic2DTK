@@ -2,7 +2,7 @@
 % Please edit documentation in R/IsRgb.r
 \name{IsRgb}
 \alias{IsRgb}
-\title{Check if a color is in RGB color format.}
+\title{Check RGB color format.}
 \usage{
 IsRgb(color.col = NULL)
 }

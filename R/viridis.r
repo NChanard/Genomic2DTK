@@ -1,4 +1,4 @@
-#' Create a viridis palette
+#' viridis palette.
 #'
 #' viridis
 #' @description Create a viridis palette.

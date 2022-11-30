@@ -2,7 +2,7 @@
 % Please edit documentation in R/CutHiC.r
 \name{CutHiC}
 \alias{CutHiC}
-\title{Cut HiC map in HiC chunks.}
+\title{Cut HiC map in chunks.}
 \usage{
 CutHiC(megaHic.cmx, verbose.bln = TRUE)
 }
@@ -21,6 +21,7 @@ Cut a mega contactMatrix (join of multiple chromosomic maps) inq a list of conta
 CutHiC
 }
 \examples{
+data(HiC_Ctrl.cmx_lst)
 Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
 CutHiC(Mega_Ctrl.cmx)
 }

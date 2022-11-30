@@ -2,7 +2,7 @@
 % Please edit documentation in R/JoinHiC.r
 \name{JoinHiC}
 \alias{JoinHiC}
-\title{Merge HiC chunk as HiC map}
+\title{Merge HiC chunk.}
 \usage{
 JoinHiC(hic.cmx_lst)
 }
@@ -19,5 +19,6 @@ Create mega contactMatrix from a list of contactMatrix.
 JoinHiC
 }
 \examples{
+data(HiC_Ctrl.cmx_lst)
 Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
 }

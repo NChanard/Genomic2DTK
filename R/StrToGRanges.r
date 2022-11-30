@@ -1,4 +1,4 @@
-#' Convert String in GRanges object
+#' Convert String to GRanges.
 #'
 #' StrToGRanges
 #' @description Convert ranges describe with string (i.e seqname:start-end:strand) in GRanges object.

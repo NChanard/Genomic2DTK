@@ -1,4 +1,4 @@
-#' Check if a color is in RGB color format.
+#' Check RGB color format.
 #'
 #' IsRgb
 #' @description Check if a color is in RGB color format.

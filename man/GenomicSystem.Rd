@@ -2,7 +2,7 @@
 % Please edit documentation in R/GenomicSystem.r
 \name{GenomicSystem}
 \alias{GenomicSystem}
-\title{Convert numbers of base pairs into string and vice versa.}
+\title{Base pairs convertion.}
 \usage{
 GenomicSystem(x, digits.num = 3)
 }

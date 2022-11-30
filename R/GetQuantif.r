@@ -1,4 +1,4 @@
-#' Compute quantification on extracted submatrix.
+#' Compute quantification on extracted submatrices.
 #'
 #' GetQuantif
 #' @description Function that computes quantification of contact frequencies in a given area and returns it in a named vector.
@@ -28,7 +28,11 @@
 #' @param name.chr <character>: The name of a column in GInteraction attributes of matrices.lst used as named in the output vector (Default NULL). By default, sub-matrices IDs are used.
 #' @return A GRange object.
 #' @examples
-#' # Index Beaf32 in TADs domains
+#' # Data
+#' data(Beaf32_Peaks.gnr)
+#' data(HiC_Ctrl.cmx_lst)
+#' 
+#' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
 #'     chromSize.dtf  = data.frame(

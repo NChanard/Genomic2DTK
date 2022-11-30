@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeParallelParam.r
 \name{MakeParallelParam}
 \alias{MakeParallelParam}
-\title{Create parallel parameter}
+\title{Configure parallel parameters.}
 \usage{
 MakeParallelParam(cores.num = 1, verbose.bln = FALSE)
 }

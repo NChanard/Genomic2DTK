@@ -1,4 +1,4 @@
-#' Cut HiC map in HiC chunks.
+#' Cut HiC map in chunks.
 #' 
 #' CutHiC
 #' @description Cut a mega contactMatrix (join of multiple chromosomic maps) inq a list of contactMatrix.
@@ -6,6 +6,7 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+#' data(HiC_Ctrl.cmx_lst)
 #' Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
 #' CutHiC(Mega_Ctrl.cmx)
 

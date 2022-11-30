@@ -1,4 +1,4 @@
-#' Drosophila Melanogaster Transcription starting sites on 2L and 2R chromosomes.
+#' D.melanogaster Transcription starting sites.
 #'
 #' @description Data from a CHip Seq experiment
 #' @docType data

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchPairs.r
 \name{SearchPairs}
 \alias{SearchPairs}
-\title{Creates pairs of coordinates from indexed anchor and bait genomic coordinates according to distance constraints.}
+\title{Creates pairs from genomic index.}
 \usage{
 SearchPairs(
   indexAnchor.gnr = NULL,
@@ -36,23 +36,16 @@ Creates pairs of coordinates from indexed anchor and bait genomic coordinates ac
 SearchPairs
 }
 \examples{
-library(GenomicED)
+# Data
+data(Beaf32_Peaks.gnr)
 
-data(anchors_Index.gnr)
-anchors_Index.gnr[1]
+# Index Beaf32
+Beaf32_Index.gnr <- IndexFeatures(
+    gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+    chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+    binSize.num    = 100000
+)
 
-data(baits_Index.gnr)
-baits_Index.gnr[1]
-
-\dontrun{
-interactions.gni <- SearchPairs(
-    indexAnchor.gnr = anchors_Index.gnr,
-    indexBait.gnr   = baits_Index.gnr,
-    minDist.num     = 9000, 
-    maxDist.num     = 11000,
-    cores.num       = 1,
-    verbose.bln     = FALSE
-    )
-
-}
+# Beaf32 <-> Beaf32 Pairing
+Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
 }

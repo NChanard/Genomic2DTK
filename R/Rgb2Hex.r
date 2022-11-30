@@ -1,4 +1,4 @@
-#' Convert a color in RGB to hexadecimal format.
+#' Convert RGB to Hex.
 #'
 #' Rgb2Hex
 #' @description Convert a color in RGB format to hexadecimal format.

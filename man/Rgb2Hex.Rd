@@ -2,7 +2,7 @@
 % Please edit documentation in R/Rgb2Hex.r
 \name{Rgb2Hex}
 \alias{Rgb2Hex}
-\title{Convert a color in RGB to hexadecimal format.}
+\title{Convert RGB to Hex.}
 \usage{
 Rgb2Hex(rgb.col = NULL, alpha.bln = FALSE)
 }

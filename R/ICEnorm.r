@@ -1,4 +1,4 @@
-#' Compute Iterative Correction on hic chunk.
+#' Compute Iterative Correction.
 #' 
 #' ICEnorm
 #' @description Compute Iterative Correction (Vanilla Count) on hic maps.
@@ -8,7 +8,7 @@
 #' @return A normalized contactMatrix
 #' @examples
 #' data(HiC_Ctrl.cmx_lst)
-#' HiC_Ctrl_Norm.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
+#' HiC_Ctrl_ICE.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
 
 ICEnorm <- function(hic.cmx,  qtlTh.num=0.15, maxIter.num=50){
     # Removed Low counts bins

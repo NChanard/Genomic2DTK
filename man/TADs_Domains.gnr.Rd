@@ -3,7 +3,7 @@
 \docType{data}
 \name{TADs_Domains.gnr}
 \alias{TADs_Domains.gnr}
-\title{Drosophila Melanogaster TADs on chromosome 2R and 2L.}
+\title{D.melanogaster TADs.}
 \format{
 An object of class GRanges.
 }

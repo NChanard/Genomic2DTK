@@ -1,4 +1,4 @@
-#' Compute HiC map matrix-balancing normalization.
+#' Compute HiC matrix-balancing.
 #' 
 #' NormalizeHiC
 #' @description Apply a matrix-balancing normalization method to a list of contacts matrix.
@@ -11,6 +11,8 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+#' data(HiC_Ctrl.cmx_lst)
+#' 
 #' HiC_Ctrl_ICE.cmx_lst     <- NormalizeHiC(HiC_Ctrl.cmx_lst,
 #'     interaction.type="cis",
 #'     method.chr="ICE")

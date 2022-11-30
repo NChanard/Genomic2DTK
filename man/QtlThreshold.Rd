@@ -2,7 +2,7 @@
 % Please edit documentation in R/QtlThreshold.r
 \name{QtlThreshold}
 \alias{QtlThreshold}
-\title{Find threshold for outliers triming based on quantiles.}
+\title{Find threshold for outliers based on quantiles.}
 \usage{
 QtlThreshold(x.num = NULL, prct.num = 5, bounds.chr = "both")
 }

@@ -1,4 +1,4 @@
-#' Create parallel parameter
+#' Configure parallel parameters.
 #'
 #' MakeParallelParam
 #' @description Create BiocParallel parameter according to OS.

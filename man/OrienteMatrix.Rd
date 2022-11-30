@@ -2,7 +2,7 @@
 % Please edit documentation in R/OrienteMatrix.r
 \name{OrienteMatrix}
 \alias{OrienteMatrix}
-\title{extracted matrix orientation}
+\title{Extracted matrix orientation}
 \usage{
 OrienteMatrix(matrice.mtx)
 }
@@ -19,6 +19,10 @@ Oriente extracted Matrix according to the anchors and bait order. Apply a 180° 
 OrienteMatrix
 }
 \examples{
+# Data
+data(Beaf32_Peaks.gnr)
+data(HiC_Ctrl.cmx_lst)
+
 # Index Beaf32 in TADs domains
 Beaf32_Index.gnr <- IndexFeatures(
     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 

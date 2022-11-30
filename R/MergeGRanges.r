@@ -1,4 +1,4 @@
-#' Merge GRanges or a list of GRanges
+#' Merge GRanges.
 #' 
 #' MergeGRanges
 #' @description Merge GRanges or a list of GRanges

@@ -223,3 +223,8 @@ ggAPA(
   title.chr = "APA Beaf <-> Beaf"
   )
 ```
+
+# SessionInfo
+```{r, eval = TRUE}
+sessionInfo()
+```

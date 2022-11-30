@@ -2,7 +2,7 @@
 % Please edit documentation in R/WrapFunction.r
 \name{WrapFunction}
 \alias{WrapFunction}
-\title{Wrap a string into a function.}
+\title{Convert string to function.}
 \usage{
 WrapFunction(...)
 }

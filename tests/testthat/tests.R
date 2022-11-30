@@ -17,41 +17,6 @@ chromSize.dtf  <- data.frame(
 )
 
 #==============================
-# Test ImportHiC
-#==============================
-# # Download HiC File
-# options(timeout = 3600)
-# temp.dir <- file.path(tempdir(), "HIC_DATA")
-# dir.create(temp.dir)
-# Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
-# HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
-# download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
-
-# Mcool.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"
-# McoolOutput.pth <- file.path(temp.dir, "HeatShock_HIC.mcool")
-# download.file(Mcool.url, McoolOutput.pth, method = 'curl', extra = '-k')
-
-# # Import file in R
-# HiC_Ctrl.cmx_lst <- ImportHiC(
-#   file.pth    = HicOutput.pth,
-#   res.num     = 100000,
-#   chrom_1.chr = c("2L", "2L", "2R"),
-#   chrom_2.chr = c("2L", "2R", "2R")
-# )
-# HiC_HS.cmx_lst <- ImportHiC(
-#   file.pth    = McoolOutput.pth,
-#   res.num     = 100000,
-#   chrom_1.chr = c("2L", "2L", "2R"),
-#   chrom_2.chr = c("2L", "2R", "2R")
-# )
-# ImportHiC(
-#   file.pth    = HicOutput.pth,
-#   res.num     = "100Kb",
-#   chrom_1.chr = "2L",
-#   cores.num = 2
-# )
-
-#==============================
 # Test NormalizeHiC
 #==============================
 NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="VC")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/YlGnBu.r
 \name{YlGnBu}
 \alias{YlGnBu}
-\title{Create a YlGnBu palette}
+\title{YlGnBu palette.}
 \usage{
 YlGnBu(
   paletteLength.num = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SdThreshold.r
 \name{SdThreshold}
 \alias{SdThreshold}
-\title{Find threshold for outliers triming based on standard deviation.}
+\title{Find threshold for outliers based on sd.}
 \usage{
 SdThreshold(x.num = NULL, sdThreshold.num = 3, bounds.chr = "both")
 }

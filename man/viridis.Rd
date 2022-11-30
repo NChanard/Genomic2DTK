@@ -2,7 +2,7 @@
 % Please edit documentation in R/viridis.r
 \name{viridis}
 \alias{viridis}
-\title{Create a viridis palette}
+\title{viridis palette.}
 \usage{
 viridis(
   paletteLength.num = NULL,
