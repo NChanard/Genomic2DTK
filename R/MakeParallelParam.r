@@ -6,6 +6,8 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return  return parrallel parameter according number of cores and OS to use with BiocParallel package.
 #' @exemple
+#' multicoreParam <- MakeParallelParam(2)
+#' BiocParallel::bplapply(BPPARAM = multicoreParam, seq_len(3), sqrt)
 
 MakeParallelParam <- function(cores.num = 1, verbose.bln = FALSE){
     if(!is.numeric(cores.num) | cores.num<2 | .Platform$OS.type=="windows"){

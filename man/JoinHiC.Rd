@@ -18,3 +18,6 @@ Create mega contactMatrix from a list of contactMatrix.
 \details{
 JoinHiC
 }
+\examples{
+Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
+}

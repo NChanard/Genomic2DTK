@@ -72,123 +72,119 @@ Create a ggplot object used for plot aggregation.
 ggAPA
 }
 \examples{
-\dontrun{
-   
-   # Index Beaf32 in TADs domains
-   Beaf32_Index.gnr <- IndexFeatures(
-       gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
-       chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
-       binSize.num    = 100000
-   )
+# Index Beaf32 in TADs domains
+Beaf32_Index.gnr <- IndexFeatures(
+    gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+    chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+    binSize.num    = 100000
+)
 
-   # Beaf32 <-> Beaf32 Pairing
-   Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
-   Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
-   
-   # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
-   interactions_PF.mtx_lst  <- ExtractSubmatrix(
-       feature.gn         = Beaf_Beaf.gni,
-       hic.cmx_lst        = HiC_Ctrl.cmx_lst,
-       referencePoint.chr = "pf"
-   )
+# Beaf32 <-> Beaf32 Pairing
+Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
+Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
 
-   # Aggregate matrices in one matrix
-   aggreg.mtx <- Aggregation(interactions_PF.mtx_lst)
-   
-   # Visualization
-   ggAPA(
-       apa.mtx = aggreg.mtx
-   )
+# Matrices extractions center on Beaf32 <-> Beaf32 point interaction
+interactions_PF.mtx_lst  <- ExtractSubmatrix(
+    feature.gn         = Beaf_Beaf.gni,
+    hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+    referencePoint.chr = "pf"
+)
 
-   # Add Title
-   ggAPA(
-       apa.mtx = aggreg.mtx,
-       title.chr = "APA"
-   )
+# Aggregate matrices in one matrix
+aggreg.mtx <- Aggregation(interactions_PF.mtx_lst)
 
-   # Trim values
-   ggAPA(
-       apa.mtx      = aggreg.mtx,
-       title.chr    = "APA 30\% trimmed on upper side of distribution",
-       trimPrct.num = 30,
-       bounds.chr   = "upper"
-   )
-   ggAPA(
-       apa.mtx      = aggreg.mtx,
-       title.chr    = "APA 30\% trimmed on lower side of distribution",
-       trimPrct.num = 30,
-       bounds.chr   = "lower"
-   )
-   ggAPA(
-       apa.mtx      = aggreg.mtx,
-       title.chr    = "APA 15\% trimmed on each side of distribution",
-       trimPrct.num = 30,
-       bounds.chr   = "both"
-   )
-   
-   # Change Minimal, Central and Maximal Colors scale value
-   ggAPA(
-       apa.mtx    = aggreg.mtx,
-       title.chr  = "APA [min 200, center 300, max 600]",
-       colMin.num = 200,
-       colMid.num = 300,
-       colMax.num = 600
-   )
+# Visualization
+ggAPA(
+    apa.mtx = aggreg.mtx
+)
 
-   # Change Color
-   ggAPA(
-       apa.mtx     = aggreg.mtx,
-       title.chr   = "APA",
-       heatmap.col = viridis(6),
-       na.col      = "black"
-   )
-   ggAPA(
-       apa.mtx     = aggreg.mtx,
-       title.chr   = "APA",
-       heatmap.col = c("black", "white"),
-   )
+# Add Title
+ggAPA(
+    apa.mtx = aggreg.mtx,
+    title.chr = "APA"
+)
 
-   # Change Color distribution
-   ggAPA(
-       apa.mtx       = aggreg.mtx,
-       title.chr     = "APA [100,150,200,250,300,350,600]",
-       colBreaks.num = c(100,150,200,250,300,350,600) # Choosen Breaks
-   )
-   ggAPA(
-       apa.mtx    = aggreg.mtx,
-       title.chr  = "APA",
-       colorScale = "density" # color distribution based on density
-   )
-   ggAPA(
-       apa.mtx   = aggreg.mtx,
-       title.chr = "APA",
-       bias.num  = 2 #(>1 wait on extremums)
-   )
-   ggAPA(
-       apa.mtx   = aggreg.mtx,
-       title.chr = "APA",
-       bias.num  = 0.5 # (<1 wait on center)
-   )
+# Trim values
+ggAPA(
+    apa.mtx      = aggreg.mtx,
+    title.chr    = "APA 30\% trimmed on upper side of distribution",
+    trimPrct.num = 30,
+    bounds.chr   = "upper"
+)
+ggAPA(
+    apa.mtx      = aggreg.mtx,
+    title.chr    = "APA 30\% trimmed on lower side of distribution",
+    trimPrct.num = 30,
+    bounds.chr   = "lower"
+)
+ggAPA(
+    apa.mtx      = aggreg.mtx,
+    title.chr    = "APA 15\% trimmed on each side of distribution",
+    trimPrct.num = 30,
+    bounds.chr   = "both"
+)
 
-   # Apply a Blurr
-   ggAPA(
-       apa.mtx      = aggreg.mtx,
-       title.chr    = "APA",
-       blurPass.num = 1,
-       blurSd.num   = 0.5
-   )
+# Change Minimal, Central and Maximal Colors scale value
+ggAPA(
+    apa.mtx    = aggreg.mtx,
+    title.chr  = "APA [min 200, center 300, max 600]",
+    colMin.num = 200,
+    colMid.num = 300,
+    colMax.num = 600
+)
 
-   # ggplot2 object modifications  
-   # Since the function returns a ggplot object, it is possible
-   # to modify it following the ggplot2 grammar.
-   ggAPA(
-       apa.mtx     = aggreg.mtx,
-       title.chr   = "APA",
-   ) + 
-   ggplot2::labs(
-       title    = "New title",
-       subtitle = "and subtitle"
-   )
+# Change Color
+ggAPA(
+    apa.mtx     = aggreg.mtx,
+    title.chr   = "APA",
+    heatmap.col = viridis(6),
+    na.col      = "black"
+)
+ggAPA(
+    apa.mtx     = aggreg.mtx,
+    title.chr   = "APA",
+    heatmap.col = c("black", "white"),
+)
 
-}
+# Change Color distribution
+ggAPA(
+    apa.mtx       = aggreg.mtx,
+    title.chr     = "APA [100,150,200,250,300,350,600]",
+    colBreaks.num = c(100,150,200,250,300,350,600) # Choosen Breaks
+)
+ggAPA(
+    apa.mtx    = aggreg.mtx,
+    title.chr  = "APA",
+    colorScale = "density" # color distribution based on density
+)
+ggAPA(
+    apa.mtx   = aggreg.mtx,
+    title.chr = "APA",
+    bias.num  = 2 #(>1 wait on extremums)
+)
+ggAPA(
+    apa.mtx   = aggreg.mtx,
+    title.chr = "APA",
+    bias.num  = 0.5 # (<1 wait on center)
+)
+
+# Apply a Blurr
+ggAPA(
+    apa.mtx      = aggreg.mtx,
+    title.chr    = "APA",
+    blurPass.num = 1,
+    blurSd.num   = 0.5
+)
+
+# ggplot2 object modifications  
+# Since the function returns a ggplot object, it is possible
+# to modify it following the ggplot2 grammar.
+ggAPA(
+    apa.mtx     = aggreg.mtx,
+    title.chr   = "APA",
+) + 
+ggplot2::labs(
+    title    = "New title",
+    subtitle = "and subtitle"
+)
 }

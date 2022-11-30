@@ -5,15 +5,29 @@
 #' @param matrice.mtx <matrix or List[matrix]>: matrix or matricies list to oriente 
 #' @return Oriented matrix or matricies list
 #' @examples
-#' library(GenomicED)
-#' data("submatrixPF_Ctrl.mtx_lst")
+#' # Index Beaf32 in TADs domains
+#' Beaf32_Index.gnr <- IndexFeatures(
+#'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+#'     chromSize.dtf  = data.frame(
+#'         seqnames = c('2L', '2R'),
+#'         seqlengths = c(23513712,25286936)
+#'         ),
+#'     binSize.num    = 100000
+#' ) 
 #' 
+#' # Beaf32 <-> Beaf32 Pairing
+#' Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
+#' Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
 #' 
-#' head(attributes(submatrixPF_Ctrl.mtx_lst)$interactions$orientation)
+#' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
+#' interactions_PF.mtx_lst  <- ExtractSubmatrix(
+#'     feature.gn         = Beaf_Beaf.gni,
+#'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+#'     referencePoint.chr = "pf"
+#' )
 #' 
-#' submatrixPF_Ctrl_oriented.mtx_lst <- OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
-#' 
-#' head(attributes(submatrixPF_Ctrl_oriented.mtx_lst)$interactions$orientation)
+#' # Matrices Orientation
+#' oriented_Interactions_PF.mtx_lst <- OrienteMatrix(interactions_PF.mtx_lst)
 
 OrienteMatrix <- function(matrice.mtx){
     if(is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)){

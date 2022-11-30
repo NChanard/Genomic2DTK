@@ -11,6 +11,17 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A matrices list.
 #' @examples
+#' HiC_Ctrl_ICE.cmx_lst     <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+#'     interaction.type="cis",
+#'     method.chr="ICE")
+#'     
+#' HiC_Ctrl_VC.cmx_lst      <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+#'     interaction.type=c("cis","trans"),
+#'     method.chr="VC")
+#' 
+#' HiC_Ctrl_VC_SQRT.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+#'     interaction.type="all",
+#'     method.chr="VC_SQRT")
 
 NormalizeHiC <- function(hic.cmx_lst, method.chr="ICE", interaction.type=NULL, maxIter.num=50, qtlTh.num=0.15, cores.num=1, verbose.bln=TRUE ){
     if (!is.null(interaction.type) && "all" %in% interaction.type){

@@ -28,33 +28,32 @@
 #' @param name.chr <character>: The name of a column in GInteraction attributes of matrices.lst used as named in the output vector (Default NULL). By default, sub-matrices IDs are used.
 #' @return A GRange object.
 #' @examples
-#'\dontrun{
-#'    # Index Beaf32 in TADs domains
-#'    Beaf32_Index.gnr <- IndexFeatures(
-#'        gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
-#'        chromSize.dtf  = data.frame(
-#'            seqnames = c('2L', '2R'),
-#'            seqlengths = c(23513712,25286936)
-#'            ),
-#'        binSize.num    = 100000
-#'    )
+#' # Index Beaf32 in TADs domains
+#' Beaf32_Index.gnr <- IndexFeatures(
+#'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+#'     chromSize.dtf  = data.frame(
+#'         seqnames = c('2L', '2R'),
+#'         seqlengths = c(23513712,25286936)
+#'         ),
+#'     binSize.num    = 100000
+#' ) 
 #'
-#'    # Beaf32 <-> Beaf32 Pairing
-#'    Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
-#'    Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
-#'    
-#'    # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
-#'    interactions_PF.mtx_lst  <- ExtractSubmatrix(
-#'        feature.gn         = Beaf_Beaf.gni,
-#'        hic.cmx_lst        = HiC_Ctrl.cmx_lst,
-#'        referencePoint.chr = "pf"
-#'    )
-#'    GetQuantif(
-#'        matrices.lst  = interactions_PF.mtx_lst,
-#'        area.fun      = "center",
-#'        operation.fun = "mean"
-#'    ) |> head()
-#'}
+#' # Beaf32 <-> Beaf32 Pairing
+#' Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
+#' Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
+#'
+#' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
+#' interactions_PF.mtx_lst  <- ExtractSubmatrix(
+#'     feature.gn         = Beaf_Beaf.gni,
+#'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+#'     referencePoint.chr = "pf"
+#' )
+#' GetQuantif(
+#'     matrices.lst  = interactions_PF.mtx_lst,
+#'     area.fun      = "center",
+#'     operation.fun = "mean"
+#' ) |> head()
+
 
 GetQuantif = function(matrices.lst, area.fun="center", operation.fun="mean_rm0", name.chr=NULL){
     # Define operation function

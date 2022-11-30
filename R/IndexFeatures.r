@@ -12,30 +12,11 @@
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
 #' @return A GRanges object.
 #' @examples
-#' library(GenomicED)
-#' data("anchors_Peaks.gnr")
-#' anchors_Peaks.gnr[1]
-#'
-#'
-#' seqlengths.num <- c('2L'=23513712, '2R'=25286936)
-#' chromSize.dtf  <- data.frame(
-#'   seqnames   = names(seqlengths.num ), 
-#'   seqlengths = seqlengths.num
-#'   )
-#' binSize.num <- 10000
-#' \dontrun{
-#' anchors_Index.gnr <- IndexFeatures(
-#'   gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
-#'   constraint.gnr        = NULL,
-#'   chromSize.dtf         = chromSize.dtf,
-#'   binSize.num           = binSize.num,
-#'   method.chr            = "max",
-#'   variablesName.chr_vec = "score",
-#'   cores.num             = 1,
-#'   verbose.bln           = FALSE
-#'   )
-#'
-#' }
+#' Beaf32_Index.gnr <- IndexFeatures(
+#'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+#'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+#'     binSize.num    = 100000
+#' )
 
 IndexFeatures <- function(gRange.gnr_lst=NULL, constraint.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL,cores.num=1, verbose.bln=TRUE){
     # Constraint Informations

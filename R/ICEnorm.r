@@ -7,6 +7,8 @@
 #' @param maxIter.num <numerical>: The maximum iteration number.
 #' @return A normalized contactMatrix
 #' @examples
+#' data(HiC_Ctrl.cmx_lst)
+#' HiC_Ctrl_Norm.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
 
 ICEnorm <- function(hic.cmx,  qtlTh.num=0.15, maxIter.num=50){
     # Removed Low counts bins

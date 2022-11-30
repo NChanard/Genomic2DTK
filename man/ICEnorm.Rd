@@ -22,3 +22,7 @@ Compute Iterative Correction (Vanilla Count) on hic maps.
 \details{
 ICEnorm
 }
+\examples{
+data(HiC_Ctrl.cmx_lst)
+HiC_Ctrl_Norm.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
+}

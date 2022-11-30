@@ -42,28 +42,9 @@ Function that indexes a GRanges object on binned genome and constraints. Needed 
 IndexFeatures
 }
 \examples{
-library(GenomicED)
-data("anchors_Peaks.gnr")
-anchors_Peaks.gnr[1]
-
-
-seqlengths.num <- c('2L'=23513712, '2R'=25286936)
-chromSize.dtf  <- data.frame(
-  seqnames   = names(seqlengths.num ), 
-  seqlengths = seqlengths.num
-  )
-binSize.num <- 10000
-\dontrun{
-anchors_Index.gnr <- IndexFeatures(
-  gRange.gnr_lst        = list(Beaf=anchors_Peaks.gnr), 
-  constraint.gnr        = NULL,
-  chromSize.dtf         = chromSize.dtf,
-  binSize.num           = binSize.num,
-  method.chr            = "max",
-  variablesName.chr_vec = "score",
-  cores.num             = 1,
-  verbose.bln           = FALSE
-  )
-
-}
+Beaf32_Index.gnr <- IndexFeatures(
+    gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+    chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+    binSize.num    = 100000
+)
 }

@@ -71,36 +71,35 @@ Aggregates all the matrices of a list (or two lists in case of differential aggr
 Aggregation
 }
 \examples{
-\dontrun{
-  # Classical Aggregation
-    # submatrixRF_Ctrl.mtx_lst is a submatrix list
-    # obtain with Genomic2DTK::ExtractSubmatrix function
-  aggreg.mtx <- Aggregation(
-    matrices.lst = submatrixRF_Ctrl.mtx_lst, 
-    agg.fun      = "sum",
-    trans.fun    = "qtl", 
-    rm0.bln      = TRUE,
-    minDist      = 9000,
-    maxDist      = 11000
-  )
- 
-  # Differential Aggregation
-    # submatrixRF.mtx_lst is a second submatrix list
-    # obtain with Genomic2DTK::ExtractSubmatrix function
-  diffAggreg.mtx <- Aggregation(
-    ctrlMatrices.lst    = submatrixRF_Ctrl.mtx_lst,
-    matrices.lst        = submatrixRF.mtx_lst,
-    minDist             = 9000,
-    maxDist             = 11000,
-    agg.fun             = "mean",
-    rm0.bln             = FALSE,
-    diff.fun            = "substraction",
-    scaleCorrection.bln = TRUE,
-    correctionArea.lst  =  list(
-      i = c(1:30),
-      j = c(72:101)
-      ),
-    statCompare.bln = TRUE
-  )
-}
+# Index Beaf32 in TADs domains
+Beaf32_Index.gnr <- IndexFeatures(
+    gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+    chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+    binSize.num    = 100000
+)
+
+# Beaf32 <-> Beaf32 Pairing
+Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
+Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
+
+# Matrices extractions center on Beaf32 <-> Beaf32 point interaction
+interactions_Ctrl.mtx_lst  <- ExtractSubmatrix(
+    feature.gn         = Beaf_Beaf.gni,
+    hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+    referencePoint.chr = "pf"
+)
+interactions_HS.mtx_lst  <- ExtractSubmatrix(
+    feature.gn         = Beaf_Beaf.gni,
+    hic.cmx_lst        = HiC_HS.cmx_lst,
+    referencePoint.chr = "pf"
+)
+
+# Aggregate matrices in one matrix
+aggreg.mtx <- Aggregation(interactions_Ctrl.mtx_lst)
+
+# Differential Aggregation
+aggregDiff.mtx <- Aggregation(
+    ctrlMatrices.lst = interactions_Ctrl.mtx_lst,
+    matrices.lst     = interactions_HS.mtx_lst
+    )
 }

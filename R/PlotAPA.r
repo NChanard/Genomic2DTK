@@ -11,19 +11,43 @@
 #' @param colCondMax.num <matrix>: Avalaible for plotting differantial aggregation. The maxiaml value in color scale in the classsical aggregation plot. If Null automaticaly find.
 #' @return None
 #' @examples
-#' library(GenomicED)
-#' data(aggreg.mtx)
-#' 
-#' 
-#' PlotAPA(
-#'     apa.mtx        = aggreg.mtx,
-#'     trimPrct.num   = 20,
-#'     colMin.num     = -2,
-#'     colMid.num     = 0,
-#'     colMax.num     = 2,
-#'     colCondMin.num = 0,
-#'     colCondMax.num = 2
+#' # Index Beaf32 in TADs domains
+#' Beaf32_Index.gnr <- IndexFeatures(
+#'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
+#'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+#'     binSize.num    = 100000
 #' )
+#' 
+#' # Beaf32 <-> Beaf32 Pairing
+#' Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
+#' Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
+#' 
+#' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
+#' interactions_Ctrl.mtx_lst  <- ExtractSubmatrix(
+#'     feature.gn         = Beaf_Beaf.gni,
+#'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+#'     referencePoint.chr = "pf"
+#' )
+#' interactions_HS.mtx_lst  <- ExtractSubmatrix(
+#'     feature.gn         = Beaf_Beaf.gni,
+#'     hic.cmx_lst        = HiC_HS.cmx_lst,
+#'     referencePoint.chr = "pf"
+#' )
+#' 
+#' # Aggregate matrices in one matrix
+#' aggreg.mtx <- Aggregation(interactions_Ctrl.mtx_lst)
+#' 
+#' # MultiPlot Aggregation
+#' PlotAPA(aggreg.mtx)
+#'
+#' # Differential Aggregation
+#' aggregDiff.mtx <- Aggregation(
+#'     ctrlMatrices.lst = interactions_Ctrl.mtx_lst,
+#'     matrices.lst     = interactions_HS.mtx_lst,
+#'     )
+#'
+#' # MultiPlot Differential Aggregation
+#' PlotAPA(aggregDiff.mtx)
 
 PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, colMin.num=NULL, colMid.num=NULL, colMax.num=NULL, colCondMin.num=NULL, colCondMax.num=NULL){
     .ggDensity <- function(data.lst=NULL, colour.col=NULL, mean.bln=TRUE, title.chr=NULL){
@@ -172,23 +196,25 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, colMin.num=NULL, colMid.num=N
                 print(plot.gp)
             }
         # Delta + Auto Scale + Center
-            plot.gp <- ggAPA(
-                apa.mtx=attributes(apa.mtx)$matrices$aggCorrectedDelta, 
-                heatmap.col=heatmap.col,
-                colMid.num=colMid.num,
-                title.chr="Differential of corrected agregated matrices"
-            ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",colMid.num,")"))
-            print(plot.gp)
-        # Delta + Trim Scale + Center
-            if(!is.null(trimPrct.num) && 0<trimPrct.num){
+            if (!is.null(attributes(apa.mtx)$matrices$aggCorrectedDelta)){
                 plot.gp <- ggAPA(
                     apa.mtx=attributes(apa.mtx)$matrices$aggCorrectedDelta, 
                     heatmap.col=heatmap.col,
-                    trimPrct.num=trimPrct.num,
                     colMid.num=colMid.num,
                     title.chr="Differential of corrected agregated matrices"
-                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",colMid.num,")"))
+                ) + ggplot2::labs(subtitle=paste0("scale (auto), center(",colMid.num,")"))
                 print(plot.gp)
+        # Delta + Trim Scale + Center
+                if(!is.null(trimPrct.num) && 0<trimPrct.num){
+                    plot.gp <- ggAPA(
+                        apa.mtx=attributes(apa.mtx)$matrices$aggCorrectedDelta, 
+                        heatmap.col=heatmap.col,
+                        trimPrct.num=trimPrct.num,
+                        colMid.num=colMid.num,
+                        title.chr="Differential of corrected agregated matrices"
+                    ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%), center(",colMid.num,")"))
+                    print(plot.gp)
+                }
             }
         # Control + Auto Scale
             plot.gp <- ggAPA(
@@ -247,32 +273,34 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, colMin.num=NULL, colMid.num=N
                 print(plot.gp)
             }
         # Corrected condition + Auto Scale
-            plot.gp <- ggAPA(
-                apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                heatmap.col=viridis(51),
-                title.chr="Agregation corrected"
-            ) + ggplot2::labs(subtitle="scale (auto)")
-            print(plot.gp)
+            if(!is.null(attributes(apa.mtx)$matrices$aggCorrected)){
+                plot.gp <- ggAPA(
+                    apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
+                    heatmap.col=viridis(51),
+                    title.chr="Agregation corrected"
+                ) + ggplot2::labs(subtitle="scale (auto)")
+                print(plot.gp)
         # Corrected condition + Trim Scale
-            if(!is.null(trimPrct.num) && 0<trimPrct.num){
-                plot.gp <- ggAPA(
-                    apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                    heatmap.col=viridis(51),
-                    trimPrct.num=trimPrct.num,
-                    title.chr="Agregation corrected"
-                ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%)"))
-                print(plot.gp)
-            }
+                if(!is.null(trimPrct.num) && 0<trimPrct.num){
+                    plot.gp <- ggAPA(
+                        apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
+                        heatmap.col=viridis(51),
+                        trimPrct.num=trimPrct.num,
+                        title.chr="Agregation corrected"
+                    ) + ggplot2::labs(subtitle=paste0("scale (rm ",trimPrct.num,"%)"))
+                    print(plot.gp)
+                }
         # Corrected condition + MinMax Scale
-            if(!is.null(colCondMin.num) || !is.null(colCondMax.num)){
-                plot.gp <- ggAPA(
-                    apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                    heatmap.col=viridis(51),
-                    colMin.num=colCondMin.num,
-                    colMax.num=colCondMax.num,
-                    title.chr="Agregation corrected"
-                ) + ggplot2::labs(subtitle=paste0("scale (",colCondMin.num,";",colCondMax.num,")"))
-                print(plot.gp)
+                if(!is.null(colCondMin.num) || !is.null(colCondMax.num)){
+                    plot.gp <- ggAPA(
+                        apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
+                        heatmap.col=viridis(51),
+                        colMin.num=colCondMin.num,
+                        colMax.num=colCondMax.num,
+                        title.chr="Agregation corrected"
+                    ) + ggplot2::labs(subtitle=paste0("scale (",colCondMin.num,";",colCondMax.num,")"))
+                    print(plot.gp)
+                }
             }
         # Grouped Scale(Condition & Control)
             colBreaks.num <- BreakVector(
@@ -295,25 +323,27 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, colMin.num=NULL, colMid.num=N
             ) + ggplot2::labs(subtitle="scale (grouped with control)")
             print(plot.gp)
         # Grouped Scale(Corrected condition & Control)
-            colBreaks.num <- BreakVector(
-                x.num=c(c(attributes(apa.mtx)$matrices$aggCorrected), c(attributes(apa.mtx)$matrices$aggCtrl)),
-                n.num=51)
+            if (!is.null(attributes(apa.mtx)$matrices$aggCorrected)){
+                colBreaks.num <- BreakVector(
+                    x.num=c(c(attributes(apa.mtx)$matrices$aggCorrected), c(attributes(apa.mtx)$matrices$aggCtrl)),
+                    n.num=51)
         # Control + Grouped Scale(with corrected condition)
-            plot.gp <- ggAPA(
-                apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
-                heatmap.col=viridis(51),
-                colBreaks.num=colBreaks.num,
-                title.chr="Agregation control"
-            ) + ggplot2::labs(subtitle="scale (grouped with condition corrected)")
-            print(plot.gp)
+                plot.gp <- ggAPA(
+                    apa.mtx=attributes(apa.mtx)$matrices$aggCtrl, 
+                    heatmap.col=viridis(51),
+                    colBreaks.num=colBreaks.num,
+                    title.chr="Agregation control"
+                ) + ggplot2::labs(subtitle="scale (grouped with condition corrected)")
+                print(plot.gp)
         # Corrected condition + Grouped Scale(with Control)
-            plot.gp <- ggAPA(
-                apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
-                heatmap.col=viridis(51),
-                colBreaks.num=colBreaks.num,
-                title.chr="Agregation corrected"
-            ) + ggplot2::labs(subtitle="scale (grouped with control)")
-            print(plot.gp)
+                plot.gp <- ggAPA(
+                    apa.mtx=attributes(apa.mtx)$matrices$aggCorrected, 
+                    heatmap.col=viridis(51),
+                    colBreaks.num=colBreaks.num,
+                    title.chr="Agregation corrected"
+                ) + ggplot2::labs(subtitle="scale (grouped with control)")
+                print(plot.gp)
+        }
         # Density
 
             plot.gp <- .ggDensity(
@@ -331,45 +361,46 @@ PlotAPA = function(apa.mtx = NULL, trimPrct.num=0, colMin.num=NULL, colMid.num=N
                 colour.col=Hue(3)[2:3],
                 title.chr="Condition and control densities")
             print(plot.gp)
-            
-            plot.gp <- .ggDensity(
-                data.lst=list(deltaCorrected=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrectedDelta))),
-                colour.col=Hue(3)[[1]],
-                title.chr="Differential of corrected agregated matrices density")
-            print(plot.gp)
-
-            data.lst <- list(
-                control=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCtrl)),
-                correctedCondition=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrected))
-            )
-            plot.gp <- .ggDensity(
-                data.lst=data.lst,
-                colour.col=Hue(3)[2:3],
-                title.chr="Condition corrected and control densities")
-            print(plot.gp)
+            if (!is.null(attributes(apa.mtx)$matrices$aggCorrectedDelta)){
+                plot.gp <- .ggDensity(
+                    data.lst=list(deltaCorrected=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrectedDelta))),
+                    colour.col=Hue(3)[[1]],
+                    title.chr="Differential of corrected agregated matrices density")
+                print(plot.gp)
+            }
+            if (!is.null(attributes(apa.mtx)$matrices$aggCorrected)){
+                data.lst <- list(
+                    control=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCtrl)),
+                    correctedCondition=stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrected))
+                )
+                plot.gp <- .ggDensity(
+                    data.lst=data.lst,
+                    colour.col=Hue(3)[2:3],
+                    title.chr="Condition corrected and control densities")
+                print(plot.gp)
+            }
     }
     # Attributes
             grid::grid.newpage()
             attr.ndx <- apa.mtx |>
                 attributes() |>
                 names() |>
-                NotIn(c("dim","matrices","interactions", "dimnames"))
+                NotIn(c("dim","matrices","interactions", "dimnames", "correctionArea"))
             attr.lst <- attributes(apa.mtx)[attr.ndx]
-            attr.lst$aggregationMethod <- function(pxl){pxl[is.na(pxl)]<-0;mean(pxl,na.rm=TRUE)}
             attr1.ndx <- attr.lst |>
                 lapply(class) |>
                 unlist() |>
                 NotIn(c("matrix", "list","GInteractions","function")) 
             attr1.lst <- attr.lst[attr1.ndx] |>
-                        lapply(as.character) |>
+                        lapply(function(attr){as.character(attr)|> paste0(collapse=",")}) |>
                         unlist()
             attr2.ndx <- unlist(lapply(attr.lst, class)) %in% "function"
             attr2.lst <- attr.lst[attr2.ndx] |>
-                        lapply(function(function.fun){
-                            function.chr <- deparse(function.fun)
-                            function.chr[3:(length(function.chr)-1)] |>
+                        lapply(function(fun){
+                            fun.chr <- deparse(fun)
+                            fun.chr <- fun.chr[3:(length(fun.chr)-1)] |>
                             paste0(collapse=";\n")
-                            return(gsub(" ","",function.chr))
+                            return(gsub(" ","",fun.chr))
                             }) |>
                         unlist()
             attr.lst <- c(attr1.lst, attr2.lst)
