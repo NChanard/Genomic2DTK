@@ -20,3 +20,7 @@ Create BiocParallel parameter according to OS.
 \details{
 MakeParallelParam
 }
+\examples{
+multicoreParam <- MakeParallelParam(2)
+BiocParallel::bplapply(BPPARAM = multicoreParam, seq_len(3), sqrt)
+}
