@@ -20,13 +20,13 @@
 #' HiC_Ctrl_Obs.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="obs")
 #' HiC_Ctrl_Norm.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="norm")
 #' HiC_Ctrl_oe.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="o/e")
-#' HiC_Ctrl_exp.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="exp")
+#' HiC_Ctrl_exp.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="Exp")
 
 
 SwitchMatrix <- function(hic.cmx_lst, matrixKind.chr = c("obs", "norm",
     "o/e", "exp")) {
     if (!(matrixKind.chr %in% c("obs", "norm", "o/e", "exp"))) {
-        stop("ERROR: matrixKind.chr must be one of \"obs\", \"norm\", \"o/e\", \"exp\".")
+        stop("matrixKind.chr must be one of \"obs\", \"norm\", \"o/e\", \"exp\".")
     }
     if (attributes(hic.cmx_lst)$mtx != matrixKind.chr) {
         lapply(names(hic.cmx_lst), function(hicName.chr) {
@@ -41,6 +41,6 @@ SwitchMatrix <- function(hic.cmx_lst, matrixKind.chr = c("obs", "norm",
         attributes(hic.cmx_lst)$mtx <- matrixKind.chr
         return(hic.cmx_lst)
     } else {
-        message(paste0("\nhic.cmx_lst is already ", matrixKind.chr, ".\n"))
+        message("\nhic.cmx_lst is already ", matrixKind.chr, ".\n")
     }
 }

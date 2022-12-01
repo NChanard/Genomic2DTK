@@ -67,7 +67,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr = "ICE", interaction.type = NUL
             transMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type ==
                 "trans") |>
                 dplyr::pull("name")
-            print(paste0(paste(transMatricesNames.chr, collapse = ", "),
+            message(paste0(paste(transMatricesNames.chr, collapse = ", "),
                 " remove from output."))
             if (length(transMatricesNames.chr)) {
                 attr.lst <- attributes(hic.cmx_lst)
@@ -84,7 +84,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr = "ICE", interaction.type = NUL
                   AddAttr(attr.lst)
             }
         } else {
-            print("No cis matrix, Normalisation won't be applied on cis matrices")
+            message("No cis matrix, Normalisation won't be applied on cis matrices")
         }
 
     } else if (!is.null(interaction.type) && "trans" %in% interaction.type &&
@@ -120,7 +120,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr = "ICE", interaction.type = NUL
             cisMatricesNames.chr <- dplyr::filter(matricesKind.tbl, matricesKind.tbl$type ==
                 "cis") |>
                 dplyr::pull("name")
-            print(paste0(paste(cisMatricesNames.chr, collapse = ", "),
+            message(paste0(paste(cisMatricesNames.chr, collapse = ", "),
                 " remove from output."))
             if (length(cisMatricesNames.chr)) {
                 attr.lst <- attributes(hic.cmx_lst)
@@ -137,7 +137,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr = "ICE", interaction.type = NUL
                   AddAttr(attr.lst)
             }
         } else {
-            print("No trans matrix, Normalisation won't be applied on trans matrices")
+            message("No trans matrix, Normalisation won't be applied on trans matrices")
         }
     } else {
         matricesKind.tbl <- attributes(hic.cmx_lst)$matricesKind
@@ -166,7 +166,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr = "ICE", interaction.type = NUL
                     })
                 }
             } else {
-                print("No cis matrix, Normalisation won't be applied on cis matrices")
+                message("No cis matrix, Normalisation won't be applied on cis matrices")
             }
         }
         if (is.null(interaction.type) | "trans" %in% interaction.type) {
@@ -198,7 +198,7 @@ NormalizeHiC <- function(hic.cmx_lst, method.chr = "ICE", interaction.type = NUL
                 trans.cmx_lst <- CutHiC(megaHic.cmx, verbose.bln = verbose.bln)
                 hic.cmx_lst[transMatricesNames.chr] <- trans.cmx_lst[transMatricesNames.chr]
             } else {
-                print("No trans matrix, Normalisation won't be applied on trans matrices")
+                message("No trans matrix, Normalisation won't be applied on trans matrices")
             }
         }
     }

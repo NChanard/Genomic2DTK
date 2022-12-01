@@ -10,7 +10,7 @@
 
 Hsl2Rgb <- function(hsl.col = NULL, alpha.bln = FALSE) {
     if (3 > length(hsl.col) | length(hsl.col) > 4) {
-        cat("Error, need 3 or 4 values beetween 0 and 255, first value for hue, second for saturation, third for light and last for alpha")
+        stop("Need 3 or 4 values beetween 0 and 255, first value for hue, second for saturation, third for light and last for alpha")
     } else {
         if (IsHsl(hsl.col)) {
             if (length(hsl.col) == 3) {
@@ -45,7 +45,7 @@ Hsl2Rgb <- function(hsl.col = NULL, alpha.bln = FALSE) {
                 rgb.col <- c(rgb.col, alpha = alpha.num)
             }
         } else {
-            cat("Error, need 3 or 4 values beetween 0 and 255, first value for hue, second for saturation, third for light and last for alpha")
+            stop("Need 3 or 4 values beetween 0 and 255, first value for hue, second for saturation, third for light and last for alpha")
         }
     }
     return(round(rgb.col))

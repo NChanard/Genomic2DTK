@@ -89,7 +89,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
     plot.gp <- ggAPA(apa.mtx = apa.mtx, heatmap.col = heatmap.col, title.chr = ifelse(differential.bln,
         yes = "Agregation of differential matrices", no = "Agregation")) +
         ggplot2::labs(subtitle = "scale (auto), center()")
-    print(plot.gp)
+    plot(plot.gp)
     # Auto Scale + Center
     if (!is.null(colMid.num)) {
         plot.gp <- ggAPA(apa.mtx = apa.mtx, heatmap.col = heatmap.col,
@@ -97,7 +97,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                 yes = "Agregation of differential matrices", no = "Agregation")) +
             ggplot2::labs(subtitle = paste0("scale (auto), center(", colMid.num,
                 ")"))
-        print(plot.gp)
+        plot(plot.gp)
     }
     # Trim Scale + Center
     if (!is.null(trimPrct.num) && 0 < trimPrct.num) {
@@ -106,7 +106,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                 yes = "Agregation of differential matrices", no = "Agregation")) +
             ggplot2::labs(subtitle = paste0("scale (rm ", trimPrct.num,
                 "%), center(", colMid.num, ")"))
-        print(plot.gp)
+        plot(plot.gp)
     }
     # MinMax Scale + Center
     if (!is.null(colMin.num) || !is.null(colMax.num)) {
@@ -115,7 +115,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
             title.chr = ifelse(differential.bln, yes = "Agregation of differential matrices",
                 no = "Agregation")) + ggplot2::labs(subtitle = paste0("scale (",
             colMin.num, ";", colMax.num, "), center(", colMid.num, ")"))
-        print(plot.gp)
+        plot(plot.gp)
     }
     if (differential.bln) {
         # Pval + Auto Scale
@@ -128,7 +128,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
             plot.gp <- ggplot2::ggplot() + ggplot2::theme_void() + ggplot2::annotate("text",
                 x = 1, y = 1, label = "Not enough pval computed to plot a pval matrix (<3) or nothing significant")
         }
-        print(plot.gp)
+        plot(plot.gp)
         # FiltPval + Auto Scale + Center
         if (!is.null(attributes(apa.mtx)$matrices$aggDiffPvalFilt) && sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >=
             3) {
@@ -140,7 +140,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
             plot.gp <- ggplot2::ggplot() + ggplot2::theme_void() + ggplot2::annotate("text",
                 x = 1, y = 1, label = "Not enough pval computed to plot a pval matrix (<3) or nothing significant")
         }
-        print(plot.gp)
+        plot(plot.gp)
         # FiltPval + Trim Scale + Center
         if (!is.null(attributes(apa.mtx)$matrices$aggDiffPvalFilt) && sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >=
             3) {
@@ -153,13 +153,13 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
             plot.gp <- ggplot2::ggplot() + ggplot2::theme_void() + ggplot2::annotate("text",
                 x = 1, y = 1, label = "Not enough pval computed to plot a pval matrix (<3) or nothing significant")
         }
-        print(plot.gp)
+        plot(plot.gp)
         # Delta + Auto Scale + Center
         plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggDelta,
             heatmap.col = heatmap.col, colMid.num = colMid.num, title.chr = "Differential of agregated matrices") +
             ggplot2::labs(subtitle = paste0("scale (auto), center(", colMid.num,
                 ")"))
-        print(plot.gp)
+        plot(plot.gp)
         # Delta + Trim Scale + Center
         if (!is.null(trimPrct.num) && 0 < trimPrct.num) {
             plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggDelta,
@@ -167,7 +167,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                 colMid.num = colMid.num, title.chr = "Differential of agregated matrices") +
                 ggplot2::labs(subtitle = paste0("scale (rm ", trimPrct.num,
                   "%), center(", colMid.num, ")"))
-            print(plot.gp)
+            plot(plot.gp)
         }
         # Delta + Auto Scale + Center
         if (!is.null(attributes(apa.mtx)$matrices$aggCorrectedDelta)) {
@@ -175,7 +175,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                 heatmap.col = heatmap.col, colMid.num = colMid.num, title.chr = "Differential of corrected agregated matrices") +
                 ggplot2::labs(subtitle = paste0("scale (auto), center(",
                   colMid.num, ")"))
-            print(plot.gp)
+            plot(plot.gp)
             # Delta + Trim Scale + Center
             if (!is.null(trimPrct.num) && 0 < trimPrct.num) {
                 plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCorrectedDelta,
@@ -183,21 +183,21 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                   colMid.num = colMid.num, title.chr = "Differential of corrected agregated matrices") +
                   ggplot2::labs(subtitle = paste0("scale (rm ", trimPrct.num,
                     "%), center(", colMid.num, ")"))
-                print(plot.gp)
+                plot(plot.gp)
             }
         }
         # Control + Auto Scale
         plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCtrl,
             heatmap.col = viridis(51), title.chr = "Agregation control") +
             ggplot2::labs(subtitle = "scale (auto)")
-        print(plot.gp)
+        plot(plot.gp)
         # Control + Trim Scale
         if (!is.null(trimPrct.num) && 0 < trimPrct.num) {
             plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCtrl,
                 heatmap.col = viridis(51), trimPrct.num = trimPrct.num,
                 title.chr = "Agregation control") + ggplot2::labs(subtitle = paste0("scale (rm ",
                 trimPrct.num, "%)"))
-            print(plot.gp)
+            plot(plot.gp)
         }
         # Control + MinMax Scale
         if (!is.null(colCondMin.num) || !is.null(colCondMax.num)) {
@@ -206,19 +206,19 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                 colMax.num = colCondMax.num, title.chr = "Agregation control") +
                 ggplot2::labs(subtitle = paste0("scale (", colCondMin.num,
                   ";", colCondMax.num, ")"))
-            print(plot.gp)
+            plot(plot.gp)
         }
         # Condition + Auto Scale
         plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$agg, heatmap.col = viridis(51),
             title.chr = "Agregation") + ggplot2::labs(subtitle = "scale (auto)")
-        print(plot.gp)
+        plot(plot.gp)
         # Condition + Trim Scale
         if (!is.null(trimPrct.num) && 0 < trimPrct.num) {
             plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$agg,
                 heatmap.col = viridis(51), trimPrct.num = trimPrct.num,
                 title.chr = "Agregation") + ggplot2::labs(subtitle = paste0("scale (rm ",
                 trimPrct.num, "%)"))
-            print(plot.gp)
+            plot(plot.gp)
         }
         # Condition + MinMax Scale
         if (!is.null(colCondMin.num) || !is.null(colCondMax.num)) {
@@ -227,21 +227,21 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                 colMax.num = colCondMax.num, title.chr = "Agregation") +
                 ggplot2::labs(subtitle = paste0("scale (", colCondMin.num,
                   ";", colCondMax.num, ")"))
-            print(plot.gp)
+            plot(plot.gp)
         }
         # Corrected condition + Auto Scale
         if (!is.null(attributes(apa.mtx)$matrices$aggCorrected)) {
             plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCorrected,
                 heatmap.col = viridis(51), title.chr = "Agregation corrected") +
                 ggplot2::labs(subtitle = "scale (auto)")
-            print(plot.gp)
+            plot(plot.gp)
             # Corrected condition + Trim Scale
             if (!is.null(trimPrct.num) && 0 < trimPrct.num) {
                 plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCorrected,
                   heatmap.col = viridis(51), trimPrct.num = trimPrct.num,
                   title.chr = "Agregation corrected") + ggplot2::labs(subtitle = paste0("scale (rm ",
                   trimPrct.num, "%)"))
-                print(plot.gp)
+                plot(plot.gp)
             }
             # Corrected condition + MinMax Scale
             if (!is.null(colCondMin.num) || !is.null(colCondMax.num)) {
@@ -250,7 +250,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
                   colMax.num = colCondMax.num, title.chr = "Agregation corrected") +
                   ggplot2::labs(subtitle = paste0("scale (", colCondMin.num,
                     ";", colCondMax.num, ")"))
-                print(plot.gp)
+                plot(plot.gp)
             }
         }
         # Grouped Scale(Condition & Control)
@@ -260,12 +260,12 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
         plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCtrl,
             heatmap.col = viridis(51), colBreaks.num = colBreaks.num, title.chr = "Agregation control") +
             ggplot2::labs(subtitle = "scale (grouped with condition)")
-        print(plot.gp)
+        plot(plot.gp)
         # Condition + Grouped Scale(with Control)
         plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$agg, heatmap.col = viridis(51),
             colBreaks.num = colBreaks.num, title.chr = "Agregation") +
             ggplot2::labs(subtitle = "scale (grouped with control)")
-        print(plot.gp)
+        plot(plot.gp)
         # Grouped Scale(Corrected condition & Control)
         if (!is.null(attributes(apa.mtx)$matrices$aggCorrected)) {
             colBreaks.num <- BreakVector(x.num = c(c(attributes(apa.mtx)$matrices$aggCorrected),
@@ -274,35 +274,35 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL,
             plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCtrl,
                 heatmap.col = viridis(51), colBreaks.num = colBreaks.num,
                 title.chr = "Agregation control") + ggplot2::labs(subtitle = "scale (grouped with condition corrected)")
-            print(plot.gp)
+            plot(plot.gp)
             # Corrected condition + Grouped Scale(with Control)
             plot.gp <- ggAPA(apa.mtx = attributes(apa.mtx)$matrices$aggCorrected,
                 heatmap.col = viridis(51), colBreaks.num = colBreaks.num,
                 title.chr = "Agregation corrected") + ggplot2::labs(subtitle = "scale (grouped with control)")
-            print(plot.gp)
+            plot(plot.gp)
         }
         # Density
 
         plot.gp <- .ggDensity(data.lst = list(differential = stats::na.omit(c(apa.mtx))),
             colour.col = Hue(3)[[1]], title.chr = "Agregation of differential matrices density")
-        print(plot.gp)
+        plot(plot.gp)
 
         data.lst <- list(control = stats::na.omit(c(attributes(apa.mtx)$matrices$aggCtrl)),
             condition = stats::na.omit(c(attributes(apa.mtx)$matrices$agg)))
         plot.gp <- .ggDensity(data.lst = data.lst, colour.col = Hue(3)[2:3],
             title.chr = "Condition and control densities")
-        print(plot.gp)
+        plot(plot.gp)
         if (!is.null(attributes(apa.mtx)$matrices$aggCorrectedDelta)) {
             plot.gp <- .ggDensity(data.lst = list(deltaCorrected = stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrectedDelta))),
                 colour.col = Hue(3)[[1]], title.chr = "Differential of corrected agregated matrices density")
-            print(plot.gp)
+            plot(plot.gp)
         }
         if (!is.null(attributes(apa.mtx)$matrices$aggCorrected)) {
             data.lst <- list(control = stats::na.omit(c(attributes(apa.mtx)$matrices$aggCtrl)),
                 correctedCondition = stats::na.omit(c(attributes(apa.mtx)$matrices$aggCorrected)))
             plot.gp <- .ggDensity(data.lst = data.lst, colour.col = Hue(3)[2:3],
                 title.chr = "Condition corrected and control densities")
-            print(plot.gp)
+            plot(plot.gp)
         }
     }
     # Attributes

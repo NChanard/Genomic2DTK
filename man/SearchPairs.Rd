@@ -9,7 +9,7 @@ SearchPairs(
   indexBait.gnr = NULL,
   minDist.num = NULL,
   maxDist.num = NULL,
-  verbose.bln = TRUE,
+  verbose.bln = FALSE,
   cores.num = 1
 )
 }
@@ -22,7 +22,7 @@ SearchPairs(
 
 \item{maxDist.num}{<numeric>: Maximal distance between anchors and baits. (Default NULL)}
 
-\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default TRUE)}
+\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default FALSE)}
 
 \item{cores.num}{<integer> : Number of cores to use. (Default 1)}
 }

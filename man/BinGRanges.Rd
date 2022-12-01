@@ -13,7 +13,7 @@ BinGRanges(
   na.rm = TRUE,
   cores.num = 1,
   reduce.bln = TRUE,
-  verbose.bln = TRUE
+  verbose.bln = FALSE
 )
 }
 \arguments{
@@ -33,7 +33,7 @@ BinGRanges(
 
 \item{reduce.bln}{<logical> : whether duplicated Bin must been reduced with de summary method. (Default TRUE)}
 
-\item{verbose.bln}{<logical>: if TRUE show the progression in console. (Default TRUE)}
+\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default FALSE)}
 }
 \value{
 A binned GRanges.

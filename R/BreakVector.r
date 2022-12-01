@@ -38,7 +38,7 @@ BreakVector <- function(x.num = NULL, min.num = NULL, center.num = NULL,
         breaks.num <- stats::quantile(x.num, na.rm = TRUE, probs = seq(0,
             1, length.out = n.num))
     } else {
-        stop("Error, method.chr muste be one of 'linear' or 'density'.\n")
+        stop("Method.chr muste be one of 'linear' or 'density'.\n")
     }
     return(breaks.num[!duplicated(breaks.num)])
 }

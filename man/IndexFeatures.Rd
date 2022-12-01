@@ -12,7 +12,7 @@ IndexFeatures(
   method.chr = "mean",
   variablesName.chr_vec = NULL,
   cores.num = 1,
-  verbose.bln = TRUE
+  verbose.bln = FALSE
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ IndexFeatures(
 
 \item{cores.num}{<integer> : Number of cores used. (Default 1)}
 
-\item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
+\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default FALSE)}
 }
 \value{
 A GRanges object.

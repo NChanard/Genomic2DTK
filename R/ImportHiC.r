@@ -59,7 +59,7 @@ ImportHiC <- function(file.pth = NULL, res.num = NULL, chromSize.dtf = NULL,
     if (is.null(chrom_2.chr)) {
         chrom_2.chr <- chrom_1.chr
     } else if (length(chrom_1.chr) != length(chrom_2.chr)) {
-        stop("ERROR: chrom_1.chr and chrom_2.chr must have the same length")
+        stop("chrom_1.chr and chrom_2.chr must have the same length")
     }
     chrom.chr <- c(chrom_1.chr, chrom_2.chr) |>
         unlist() |>
@@ -92,7 +92,7 @@ ImportHiC <- function(file.pth = NULL, res.num = NULL, chromSize.dtf = NULL,
             i = ceiling(hic.gnp@first@ranges@start/res.num), chrom_2 = as.vector(hic.gnp@second@seqnames),
             j = ceiling(hic.gnp@second@ranges@start/res.num), counts = hic.gnp@elementMetadata$score)
     } else {
-        stop("ERROR: file must be .hic, .cool, .mcool, .hdf5, .HDF5 or .bedpe")
+        stop("file must be .hic, .cool, .mcool, .hdf5, .HDF5 or .bedpe")
     }
     # Standardize seqlevelsStyle of chromSize.dtf according to
     # chrom.chr

@@ -4,12 +4,12 @@
 \alias{ExpectedHiC}
 \title{Genomic distance bias correction.}
 \usage{
-ExpectedHiC(hic.cmx_lst, verbose.bln = TRUE, cores.num = 1)
+ExpectedHiC(hic.cmx_lst, verbose.bln = FALSE, cores.num = 1)
 }
 \arguments{
 \item{hic.cmx_lst}{<List[contactMatrix]>: The HiC maps list.}
 
-\item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
+\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default FALSE)}
 
 \item{cores.num}{<numerical> : Number of cores to be used. (Default 1)}
 }

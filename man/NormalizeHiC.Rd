@@ -11,7 +11,7 @@ NormalizeHiC(
   maxIter.num = 50,
   qtlTh.num = 0.15,
   cores.num = 1,
-  verbose.bln = TRUE
+  verbose.bln = FALSE
 )
 }
 \arguments{
@@ -27,7 +27,7 @@ NormalizeHiC(
 
 \item{cores.num}{<numerical> : Number of cores to be used. (Default 1)}
 
-\item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
+\item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default FALSE)}
 }
 \value{
 A matrices list.
