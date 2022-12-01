@@ -142,100 +142,76 @@
 #'     subtitle = "and subtitle"
 #' )
 
-ggAPA = function(
-        apa.mtx = NULL,
-        title.chr = NULL,
-        trimPrct.num=0, # NULL or [0-100]. Percentage of trimming
-        bounds.chr="both", # inferior, bot # which boundary must be trim, if it's both, trim half of the percentage in inferior and superior see QtlThreshold
-        colMin.num=NULL, # Minimal value of Heatmap, force color range. If Null automaticaly find
-        colMid.num=NULL, # Center value of Heatmap, force color range.  If Null automaticaly find
-        colMax.num=NULL, # Maximal value of Heatmap, force color range.  If Null automaticaly find
-        colBreaks.num=NULL, # Repartition of colors. If Null automaticaly find
-        blurPass.num=0, # Number of blur pass
-        blurBox.num=NULL, # if null automaticaly compute for 3 Sd
-        blurSize.num=NULL, # Size of box applied to blurr if null automaticaly compute for 3 Sd
-        blurSd.num=0.5, # SD of gaussian smooth
-        lowerTri.num=NULL,
-        heatmap.col=NULL, # Heatmap color list. If null automaticaly compute
-        na.col="#F2F2F2", # color of NA values
-        colorScale.chr="linear",# or "density" ; shape of color scale
-        bias.num=1, # bias of color scale see colorRampPalette
-        paletteLength.num = 51
-    ){
-        #############
-        # Trimming
-        #############
-                if(!is.null(colBreaks.num)){
-                    colMin.num <- min(colBreaks.num)
-                    colMax.num <- max(colBreaks.num)
-                }
-                vec.num <- c(apa.mtx)
-                if(is.null(trimPrct.num)){trimPrct.num <- 0}
-                if(trimPrct.num!=0 || !is.null(colMin.num) || !is.null(colMax.num)){
-                    bounds.num_vec <- vec.num |>
-                        QtlThreshold(prct.num=trimPrct.num, bounds.chr=bounds.chr) |>
-                        stats::setNames(NULL)
-                    bounds.num_lst <- list(bounds.num_vec, list(colMin.num, colMax.num))
-                    bounds.num_lst <- TransposeList(bounds.num_lst)
-                    bounds.num_vec <- c(max(unlist(bounds.num_lst[1]),na.rm=TRUE),min(unlist(bounds.num_lst[2]), na.rm=TRUE))
-                }else{
-                    bounds.num_vec <- NULL
-                }
-                if(!is.null(bounds.num_vec)){
-                    apa.mtx <- TrimOutliers(x.num=apa.mtx,tresholds.num=bounds.num_vec, clip.bln=TRUE)
-                    vec.num <- c(apa.mtx)
-                }
-        #############
-        # Smoothing
-        #############
-            if (blurPass.num){
-                for(i in seq_len(blurPass.num)){
-                    apa.mtx <- BoxBlur(mat.mtx=apa.mtx, sd.num=blurSd.num, box.num=blurBox.num, boxSize.num=blurSize.num)
-                }
-                if(!is.null(lowerTri.num)){
-                    apa.mtx[lower.tri(apa.mtx, diag=FALSE)] <- lowerTri.num
-                }
-                vec.num <- c(apa.mtx)
-            }
-        #############
-        # Breaks
-        #############
-            if(is.null(colBreaks.num)){
-                colBreaks.num <- BreakVector(
-                    x.num=vec.num,
-                    min.num=colMin.num,
-                    center.num=colMid.num,
-                    max.num=colMax.num,
-                    n.num=paletteLength.num,
-                    method.chr=colorScale.chr
-                )
-                colMin.num <- min(colBreaks.num)
-                colMax.num <- max(colBreaks.num)
-            }
-        #############
-        # Colors
-        #############
-            if(is.null(heatmap.col)){
-                heatmap.col <- dplyr::case_when(
-                    !is.null(colMid.num) && max(colBreaks.num)<=colMid.num  ~ rev(YlGnBu(paletteLength.num=paletteLength.num,bias=bias.num)),
-                    !is.null(colMid.num) && colMid.num<=min(colBreaks.num)  ~ YlOrRd(paletteLength.num=paletteLength.num,bias=bias.num ),
-                    TRUE                                                    ~ c(rev(YlGnBu(paletteLength.num=floor((paletteLength.num-1)/2),bias=bias.num)), "#FFFFD8", YlOrRd(paletteLength.num=ceiling((paletteLength.num-1)/2), bias=bias.num))
-                )
-            }
-        #############
-        # Raster
-        #############
-            data.dtf <- MeltSpm(apa.mtx)
-            plot.ggp <- ggplot2::ggplot(data.dtf, ggplot2::aes(data.dtf$j, data.dtf$i)) +
-                ggplot2::geom_raster(ggplot2::aes(fill=data.dtf$x)) +
-                ggplot2::scale_fill_gradientn(colours=heatmap.col, values=MinMaxScale(colBreaks.num), na.value=na.col, limits=c(colMin.num,colMax.num)) +
-                ggplot2::scale_y_reverse(breaks=seq_along(colnames(apa.mtx)), labels=colnames(apa.mtx)) +
-                ggplot2::scale_x_continuous(breaks=seq_along(rownames(apa.mtx)), labels=rownames(apa.mtx)) +
-                ggplot2::labs(title=title.chr, y=dimnames(apa.mtx)[[2]], x=dimnames(apa.mtx)[[2]]) +
-                ggplot2::theme_classic() + ggplot2::theme(
-                    axis.line.y=ggplot2::element_blank(), axis.ticks.y=ggplot2::element_blank(),
-                    axis.line.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank(),
-                    legend.title=ggplot2::element_blank()
-                )
-            return(plot.ggp)
+ggAPA <- function(apa.mtx = NULL, title.chr = NULL, trimPrct.num = 0, bounds.chr = "both",
+    colMin.num = NULL, colMid.num = NULL, colMax.num = NULL, colBreaks.num = NULL,
+    blurPass.num = 0, blurBox.num = NULL, blurSize.num = NULL, blurSd.num = 0.5,
+    lowerTri.num = NULL, heatmap.col = NULL, na.col = "#F2F2F2", colorScale.chr = "linear",
+    bias.num = 1, paletteLength.num = 51) {
+    # Trimming
+    if (!is.null(colBreaks.num)) {
+        colMin.num <- min(colBreaks.num)
+        colMax.num <- max(colBreaks.num)
+    }
+    vec.num <- c(apa.mtx)
+    if (is.null(trimPrct.num)) {
+        trimPrct.num <- 0
+    }
+    if (trimPrct.num != 0 || !is.null(colMin.num) || !is.null(colMax.num)) {
+        bounds.num_vec <- vec.num |>
+            QtlThreshold(prct.num = trimPrct.num, bounds.chr = bounds.chr) |>
+            stats::setNames(NULL)
+        bounds.num_lst <- list(bounds.num_vec, list(colMin.num, colMax.num))
+        bounds.num_lst <- TransposeList(bounds.num_lst)
+        bounds.num_vec <- c(max(unlist(bounds.num_lst[1]), na.rm = TRUE),
+            min(unlist(bounds.num_lst[2]), na.rm = TRUE))
+    } else {
+        bounds.num_vec <- NULL
+    }
+    if (!is.null(bounds.num_vec)) {
+        apa.mtx <- TrimOutliers(x.num = apa.mtx, tresholds.num = bounds.num_vec,
+            clip.bln = TRUE)
+        vec.num <- c(apa.mtx)
+    }
+    # Smoothing
+    if (blurPass.num) {
+        for (i in seq_len(blurPass.num)) {
+            apa.mtx <- BoxBlur(mat.mtx = apa.mtx, sd.num = blurSd.num,
+                box.num = blurBox.num, boxSize.num = blurSize.num)
+        }
+        if (!is.null(lowerTri.num)) {
+            apa.mtx[lower.tri(apa.mtx, diag = FALSE)] <- lowerTri.num
+        }
+        vec.num <- c(apa.mtx)
+    }
+    # Breaks
+    if (is.null(colBreaks.num)) {
+        colBreaks.num <- BreakVector(x.num = vec.num, min.num = colMin.num,
+            center.num = colMid.num, max.num = colMax.num, n.num = paletteLength.num,
+            method.chr = colorScale.chr)
+        colMin.num <- min(colBreaks.num)
+        colMax.num <- max(colBreaks.num)
+    }
+    # Colors
+    if (is.null(heatmap.col)) {
+        heatmap.col <- dplyr::case_when(!is.null(colMid.num) && max(colBreaks.num) <=
+            colMid.num ~ rev(YlGnBu(paletteLength.num = paletteLength.num,
+            bias = bias.num)), !is.null(colMid.num) && colMid.num <= min(colBreaks.num) ~
+            YlOrRd(paletteLength.num = paletteLength.num, bias = bias.num),
+            TRUE ~ c(rev(YlGnBu(paletteLength.num = floor((paletteLength.num -
+                1)/2), bias = bias.num)), "#FFFFD8", YlOrRd(paletteLength.num = ceiling((paletteLength.num -
+                1)/2), bias = bias.num)))
+    }
+    # Raster
+    data.dtf <- MeltSpm(apa.mtx)
+    plot.ggp <- ggplot2::ggplot(data.dtf, ggplot2::aes(data.dtf$j, data.dtf$i)) +
+        ggplot2::geom_raster(ggplot2::aes(fill = data.dtf$x)) + ggplot2::scale_fill_gradientn(colours = heatmap.col,
+        values = MinMaxScale(colBreaks.num), na.value = na.col, limits = c(colMin.num,
+            colMax.num)) + ggplot2::scale_y_reverse(breaks = seq_along(colnames(apa.mtx)),
+        labels = colnames(apa.mtx)) + ggplot2::scale_x_continuous(breaks = seq_along(rownames(apa.mtx)),
+        labels = rownames(apa.mtx)) + ggplot2::labs(title = title.chr,
+        y = dimnames(apa.mtx)[[2]], x = dimnames(apa.mtx)[[2]]) + ggplot2::theme_classic() +
+        ggplot2::theme(axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank(),
+            axis.line.x = ggplot2::element_blank(), axis.ticks.x = ggplot2::element_blank(),
+            legend.title = ggplot2::element_blank())
+    return(plot.ggp)
 }

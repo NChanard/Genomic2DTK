@@ -11,21 +11,27 @@
 #' GaussBox(scale.chr="1")
 #' GaussBox(scale.chr="int")
 
-GaussBox <- function(sd.num=1, boxSize.num=NULL, scale.chr="1") {
-    if(is.null(boxSize.num)){boxSize.num=1+4*sd.num}
-    x.num <-as.vector(scale(seq_len(boxSize.num),scale=FALSE,center=TRUE))
-    box <- lapply(x.num,function(x){
-        xInterval.num <- seq((x-0.5),(x+0.5),by=0.01) |>
-            lapply(function(xi){Gauss(x=xi,sd.num=sd.num)}) |>
+GaussBox <- function(sd.num = 1, boxSize.num = NULL, scale.chr = "1") {
+    if (is.null(boxSize.num)) {
+        boxSize.num <- 1 + 4 * sd.num
+    }
+    x.num <- as.vector(scale(seq_len(boxSize.num), scale = FALSE, center = TRUE))
+    box <- lapply(x.num, function(x) {
+        xInterval.num <- seq((x - 0.5), (x + 0.5), by = 0.01) |>
+            lapply(function(xi) {
+                Gauss(x = xi, sd.num = sd.num)
+            }) |>
             unlist() |>
             mean()
-        return(xInterval.num )
+        return(xInterval.num)
     }) |>
-    unlist()
-    if(scale.chr == "1" ){
-        box  <- {box/sum(abs(box))}
-    }else if(scale.chr == "int" ){
-        box  <- ceiling(box/box[1])
+        unlist()
+    if (scale.chr == "1") {
+        box <- {
+            box/sum(abs(box))
+        }
+    } else if (scale.chr == "int") {
+        box <- ceiling(box/box[1])
     }
     return(box)
 }

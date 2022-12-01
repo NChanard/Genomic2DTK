@@ -15,7 +15,7 @@ License: MIT + file LICENSE
 URL: https://nchanard.github.io/Genomic2DTK/,
     https://github.com/NChanard/Genomic2DTK
 Depends:
-    R (>= 4.2.0),
+    R (>= 4.1),
     InteractionSet
 Imports:
     BiocGenerics,

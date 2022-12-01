@@ -11,11 +11,11 @@
 #' BindFillRows(df1,df2)
 #' BindFillRows(list(df1,df2))
 
-BindFillRows <- function(data.lst_df,...){
-    if(is.data.frame(data.lst_df)){
-        data.lst_df <- list(data.lst_df,...)
+BindFillRows <- function(data.lst_df, ...) {
+    if (is.data.frame(data.lst_df)) {
+        data.lst_df <- list(data.lst_df, ...)
     }
-    data.lst_df <- lapply(seq_along(data.lst_df), function(data.ndx){
+    data.lst_df <- lapply(seq_along(data.lst_df), function(data.ndx) {
         data.df <- data.lst_df[[data.ndx]]
         dataNames.chr <- lapply(data.lst_df[-data.ndx], names) |>
             unlist() |>
@@ -23,5 +23,5 @@ BindFillRows <- function(data.lst_df,...){
         data.df[setdiff(dataNames.chr, names(data.df))] <- NA
         return(data.df)
     })
-    return(do.call(rbind,data.lst_df))
+    return(do.call(rbind, data.lst_df))
 }

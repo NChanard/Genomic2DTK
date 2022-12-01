@@ -29,60 +29,73 @@
 #'     na.rm                 = TRUE
 #' )
 
-BinGRanges = function (gRange.gnr=NULL, chromSize.dtf=NULL, binSize.num=NULL, method.chr="mean", variablesName.chr_vec=NULL, na.rm=TRUE, cores.num=1, reduce.bln=TRUE, verbose.bln=TRUE){
-    if(is.null(chromSize.dtf)){
+BinGRanges <- function(gRange.gnr = NULL, chromSize.dtf = NULL, binSize.num = NULL,
+    method.chr = "mean", variablesName.chr_vec = NULL, na.rm = TRUE, cores.num = 1,
+    reduce.bln = TRUE, verbose.bln = TRUE) {
+    if (is.null(chromSize.dtf)) {
         seqlengths.lst <- GenomeInfoDb::seqlengths(gRange.gnr)
-    }else{
-        seqlengths.lst <- dplyr::pull(chromSize.dtf,2) |>
-            stats::setNames(dplyr::pull(chromSize.dtf,1))
-        seqlengths.lst <- seqlengths.lst[intersect(names(seqlengths.lst), levels(GenomeInfoDb::seqnames(gRange.gnr)@values))]
-        gRange.gnr <- GenomeInfoDb::keepSeqlevels(gRange.gnr,value=names(seqlengths.lst), "coarse")
+    } else {
+        seqlengths.lst <- dplyr::pull(chromSize.dtf, 2) |>
+            stats::setNames(dplyr::pull(chromSize.dtf, 1))
+        seqlengths.lst <- seqlengths.lst[intersect(names(seqlengths.lst),
+            levels(GenomeInfoDb::seqnames(gRange.gnr)@values))]
+        gRange.gnr <- GenomeInfoDb::keepSeqlevels(gRange.gnr, value = names(seqlengths.lst),
+            "coarse")
         GenomeInfoDb::seqlengths(gRange.gnr) <- seqlengths.lst
     }
-    binnedGenome.gnr <- GenomicRanges::tileGenome(seqlengths.lst, tilewidth=binSize.num, cut.last.tile.in.chrom=TRUE)
+    binnedGenome.gnr <- GenomicRanges::tileGenome(seqlengths.lst, tilewidth = binSize.num,
+        cut.last.tile.in.chrom = TRUE)
     ovlp.dtf <- GenomicRanges::findOverlaps(binnedGenome.gnr, gRange.gnr)
     binnedGRanges.gnr <- binnedGenome.gnr[ovlp.dtf@from]
     S4Vectors::mcols(binnedGRanges.gnr) <- S4Vectors::mcols(gRange.gnr[ovlp.dtf@to])
-    binnedGRanges.gnr$bin <-  paste0(GenomeInfoDb::seqnames(binnedGRanges.gnr),":", ceiling(BiocGenerics::start(binnedGRanges.gnr)/binSize.num))
+    binnedGRanges.gnr$bin <- paste0(GenomeInfoDb::seqnames(binnedGRanges.gnr),
+        ":", ceiling(BiocGenerics::start(binnedGRanges.gnr)/binSize.num))
     dupplicated.lgk <- duplicated(binnedGRanges.gnr$bin)
-    dupplicated.id  <- binnedGRanges.gnr$bin[dupplicated.lgk]
-    if(reduce.bln && length(dupplicated.id)){
+    dupplicated.id <- binnedGRanges.gnr$bin[dupplicated.lgk]
+    if (reduce.bln && length(dupplicated.id)) {
         binnedGRange.tbl <- tibble::tibble(data.frame(binnedGRanges.gnr))
-        nodup_binnedGRange.tbl <- dplyr::slice(binnedGRange.tbl, which(NotIn(binnedGRange.tbl$bin, dupplicated.id)) )
-        dup_binnedGRange.tbl   <- dplyr::slice(binnedGRange.tbl, which(binnedGRange.tbl$bin %in% dupplicated.id) ) 
-        dup_binnedGRange.tbl   <- dplyr::group_by(dup_binnedGRange.tbl, bin=dup_binnedGRange.tbl$bin) |>
+        nodup_binnedGRange.tbl <- dplyr::slice(binnedGRange.tbl, which(NotIn(binnedGRange.tbl$bin,
+            dupplicated.id)))
+        dup_binnedGRange.tbl <- dplyr::slice(binnedGRange.tbl, which(binnedGRange.tbl$bin %in%
+            dupplicated.id))
+        dup_binnedGRange.tbl <- dplyr::group_by(dup_binnedGRange.tbl, bin = dup_binnedGRange.tbl$bin) |>
             tidyr::nest()
         multicoreParam <- MakeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)
-        dup_binnedGRange.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam, seq_len(nrow(dup_binnedGRange.tbl)),function(row.ndx){
-            rowName.chr <- dup_binnedGRange.tbl$bin[[row.ndx]]
-            row <- dup_binnedGRange.tbl$data[[row.ndx]]
-            row.lst <- lapply(seq_along(row),function(col.ndx){
-                col <- dplyr::pull(row,col.ndx)
-                colName.chr <- names(row)[col.ndx]
-                if(is.numeric(col) & colName.chr %in% variablesName.chr_vec){
-                    return(as.numeric(eval(parse(text=method.chr))(as.numeric(col),na.rm=na.rm)))
-                }else if(length(unique(col))==1){
+        dup_binnedGRange.lst <- BiocParallel::bplapply(BPPARAM = multicoreParam,
+            seq_len(nrow(dup_binnedGRange.tbl)), function(row.ndx) {
+                rowName.chr <- dup_binnedGRange.tbl$bin[[row.ndx]]
+                row <- dup_binnedGRange.tbl$data[[row.ndx]]
+                row.lst <- lapply(seq_along(row), function(col.ndx) {
+                  col <- dplyr::pull(row, col.ndx)
+                  colName.chr <- names(row)[col.ndx]
+                  if (is.numeric(col) & colName.chr %in% variablesName.chr_vec) {
+                    return(as.numeric(eval(parse(text = method.chr))(as.numeric(col),
+                      na.rm = na.rm)))
+                  } else if (length(unique(col)) == 1) {
                     return(unique(col))
-                }else{
+                  } else {
                     return(list(col))
-                }
-            }) |>
-                stats::setNames(names(row))
-            row.tbl <- tibble::as_tibble(row.lst) |>
-                tibble::add_column(bin =  rowName.chr)
-            return(row.tbl)
-        }) 
+                  }
+                }) |>
+                  stats::setNames(names(row))
+                row.tbl <- tibble::as_tibble(row.lst) |>
+                  tibble::add_column(bin = rowName.chr)
+                return(row.tbl)
+            })
         dup_binnedGRange.dtf <- BindFillRows(dup_binnedGRange.lst)
         dup_binnedGRange.tbl <- tibble::tibble(dup_binnedGRange.dtf)
-        dup_binnedGRange.tbl <- dplyr::mutate(dup_binnedGRange.tbl, strand=as.factor(dup_binnedGRange.tbl$strand))
+        dup_binnedGRange.tbl <- dplyr::mutate(dup_binnedGRange.tbl, strand = as.factor(dup_binnedGRange.tbl$strand))
 
-        for(colName.chr in names(dup_binnedGRange.tbl)){
-            method.chr <- dplyr::pull(dup_binnedGRange.tbl,dplyr::all_of(colName.chr)) |> class()
-            method.fun <- eval(parse(text=paste0("as.",method.chr)))
-            nodup_binnedGRange.tbl <- nodup_binnedGRange.tbl |> dplyr::mutate(dplyr::across(dplyr::all_of(colName.chr),method.fun))
+        for (colName.chr in names(dup_binnedGRange.tbl)) {
+            method.chr <- dplyr::pull(dup_binnedGRange.tbl, dplyr::all_of(colName.chr)) |>
+                class()
+            method.fun <- eval(parse(text = paste0("as.", method.chr)))
+            nodup_binnedGRange.tbl <- nodup_binnedGRange.tbl |>
+                dplyr::mutate(dplyr::across(dplyr::all_of(colName.chr),
+                  method.fun))
         }
-        binnedGRange.tbl <- dplyr::bind_rows(dup_binnedGRange.tbl,nodup_binnedGRange.tbl)
-        binnedGRanges.gnr <- methods::as(binnedGRange.tbl,'GRanges')
+        binnedGRange.tbl <- dplyr::bind_rows(dup_binnedGRange.tbl, nodup_binnedGRange.tbl)
+        binnedGRanges.gnr <- methods::as(binnedGRange.tbl, "GRanges")
     }
     binnedGRanges.gnr <- sort(binnedGRanges.gnr)
     GenomeInfoDb::seqinfo(binnedGRanges.gnr) <- GenomeInfoDb::seqinfo(gRange.gnr)

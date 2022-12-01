@@ -97,47 +97,64 @@
 #' ) |> str(max.level=1)
 
 
-FilterInteractions = function(matrices.lst=NULL, interarctions.gni=NULL, target.lst=NULL, selection.fun=function(){Reduce(intersect,interarctions.ndx_lst)}) {
-    if(!is.null(matrices.lst) && !is.null(attributes(matrices.lst)$interactions)){interarctions.gni <- attributes(matrices.lst)$interactions}
-    interarctions.ndx_lst <- lapply(seq_along(target.lst), function(target.ndx){
-        columnName.chr = names(target.lst)[target.ndx]
-        if(is.function(target.lst[[target.ndx]])){
-            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr], target.lst[[target.ndx]]) |> unlist() |> which()
-        }else if(is.character(target.lst[[target.ndx]])){
-            lapply(S4Vectors::mcols(interarctions.gni)[,columnName.chr],function(columnElement){
-                res.lgk <- intersect(as.character(columnElement),target.lst[[columnName.chr]]) |> length() |> as.logical()
-                return(res.lgk)
-                }) |> unlist() |> which()
-        }else if(inherits(target.lst[[target.ndx]],"GRanges")){
-            GenomicRanges::findOverlaps(InteractionSet::anchors(interarctions.gni)[[columnName.chr]],target.lst[[target.ndx]])@from
-        }else if(inherits(target.lst[[target.ndx]],"GInteractions")){
-            InteractionSet::findOverlaps(interarctions.gni,target.lst[[target.ndx]])@from
+FilterInteractions <- function(matrices.lst = NULL, interarctions.gni = NULL,
+    target.lst = NULL, selection.fun = function() {
+        Reduce(intersect, interarctions.ndx_lst)
+    }) {
+    if (!is.null(matrices.lst) && !is.null(attributes(matrices.lst)$interactions)) {
+        interarctions.gni <- attributes(matrices.lst)$interactions
+    }
+    interarctions.ndx_lst <- lapply(seq_along(target.lst), function(target.ndx) {
+        columnName.chr <- names(target.lst)[target.ndx]
+        if (is.function(target.lst[[target.ndx]])) {
+            lapply(S4Vectors::mcols(interarctions.gni)[, columnName.chr],
+                target.lst[[target.ndx]]) |>
+                unlist() |>
+                which()
+        } else if (is.character(target.lst[[target.ndx]])) {
+            lapply(S4Vectors::mcols(interarctions.gni)[, columnName.chr],
+                function(columnElement) {
+                  res.lgk <- intersect(as.character(columnElement), target.lst[[columnName.chr]]) |>
+                    length() |>
+                    as.logical()
+                  return(res.lgk)
+                }) |>
+                unlist() |>
+                which()
+        } else if (inherits(target.lst[[target.ndx]], "GRanges")) {
+            GenomicRanges::findOverlaps(InteractionSet::anchors(interarctions.gni)[[columnName.chr]],
+                target.lst[[target.ndx]])@from
+        } else if (inherits(target.lst[[target.ndx]], "GInteractions")) {
+            InteractionSet::findOverlaps(interarctions.gni, target.lst[[target.ndx]])@from
         }
-    }) |> stats::setNames(names(target.lst))
-    if(length(target.lst)==1){
+    }) |>
+        stats::setNames(names(target.lst))
+    if (length(target.lst) == 1) {
         interarctions.ndx <- unlist(interarctions.ndx_lst)
-    }else if(!is.null(selection.fun)){
-        for(target.ndx in seq_along(interarctions.ndx_lst)){
-           assign(names(interarctions.ndx_lst)[target.ndx], interarctions.ndx_lst[[target.ndx]], envir = parent.frame())
+    } else if (!is.null(selection.fun)) {
+        for (target.ndx in seq_along(interarctions.ndx_lst)) {
+            assign(names(interarctions.ndx_lst)[target.ndx], interarctions.ndx_lst[[target.ndx]],
+                envir = parent.frame())
         }
         interarctions.ndx <- selection.fun()
-    }else{
+    } else {
         return(interarctions.ndx_lst)
     }
-    if(!is.null(matrices.lst)){
+    if (!is.null(matrices.lst)) {
         matrices.filt.lst <- matrices.lst[interarctions.ndx]
         # recover attributes DD221107 # TODO
-        attributes(matrices.filt.lst)$interactions = attributes(matrices.lst)$interactions[interarctions.ndx]
-        attributes(matrices.filt.lst)$resolution = attributes(matrices.lst)$resolution
-        attributes(matrices.filt.lst)$referencePoint = attributes(matrices.lst)$referencePoint
-        attributes(matrices.filt.lst)$matriceDim = attributes(matrices.lst)$matriceDim
-        attributes(matrices.filt.lst)$target = target.lst
-        attributes(matrices.filt.lst)$selection = selection.fun
-        #  |>
-        #     AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx], target=target.lst, selection=selection.fun)) |>
-        #     AddAttr(attribute.lst=attributes(matrices.lst))
-            return(matrices.filt.lst)
-    }else{
+        attributes(matrices.filt.lst)$interactions <- attributes(matrices.lst)$interactions[interarctions.ndx]
+        attributes(matrices.filt.lst)$resolution <- attributes(matrices.lst)$resolution
+        attributes(matrices.filt.lst)$referencePoint <- attributes(matrices.lst)$referencePoint
+        attributes(matrices.filt.lst)$matriceDim <- attributes(matrices.lst)$matriceDim
+        attributes(matrices.filt.lst)$target <- target.lst
+        attributes(matrices.filt.lst)$selection <- selection.fun
+        # |>
+        # AddAttr(attribute.lst=list(interactions=interarctions.gni[interarctions.ndx],
+        # target=target.lst, selection=selection.fun)) |>
+        # AddAttr(attribute.lst=attributes(matrices.lst))
+        return(matrices.filt.lst)
+    } else {
         return(interarctions.ndx)
     }
 }
