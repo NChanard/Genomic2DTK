@@ -45,7 +45,5 @@ Suggests:
 VignetteBuilder:
     knitr
 Encoding: UTF-8
-LazyData: false
-LazyDataCompression: xz
 RoxygenNote: 7.2.2
 Config/testthat/edition: 3
