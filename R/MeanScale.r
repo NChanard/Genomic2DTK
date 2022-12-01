@@ -14,4 +14,7 @@
 #' plot(density(MeanScale(x.num)),col="red",xlim=c(min(MeanScale(y.num)),max(MeanScale(x.num) )))
 #' lines(density(MeanScale(y.num)),col="green")
 
-MeanScale <- function(x.num){(x.num-mean(x.num,na.rm=TRUE))/(max(x.num,na.rm=TRUE)-min(x.num,na.rm=TRUE))}
+MeanScale <- function(x.num) {
+    (x.num - mean(x.num, na.rm = TRUE))/(max(x.num, na.rm = TRUE) - min(x.num,
+        na.rm = TRUE))
+}

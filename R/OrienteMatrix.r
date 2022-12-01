@@ -33,17 +33,19 @@
 #' # Matrices Orientation
 #' oriented_Interactions_PF.mtx_lst <- OrienteMatrix(interactions_PF.mtx_lst)
 
-OrienteMatrix <- function(matrice.mtx){
-    if(is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)){
+OrienteMatrix <- function(matrice.mtx) {
+    if (is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)) {
         orientedMatrice.mtx <- matrice.mtx
-        print(paste0(length(which(!attributes(matrice.mtx)$interactions$orientation)), " matrices are oriented"))
-        orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)] <- lapply(orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)], OrienteMatrix) 
+        print(paste0(length(which(!attributes(matrice.mtx)$interactions$orientation)),
+            " matrices are oriented"))
+        orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)] <- lapply(orientedMatrice.mtx[which(!attributes(matrice.mtx)$interactions$orientation)],
+            OrienteMatrix)
         orientedMatrice.mtx <- AddAttr(orientedMatrice.mtx, attributes(matrice.mtx))
         attributes(orientedMatrice.mtx)$interactions$orientation <- TRUE
         attributes(orientedMatrice.mtx)$interactions$submatrix.name <- attributes(orientedMatrice.mtx)$interactions$name
         names(orientedMatrice.mtx) <- attributes(orientedMatrice.mtx)$interactions$name
         return(orientedMatrice.mtx)
-    }else{
-        return(t(apply(as.data.frame(apply(matrice.mtx,1,rev)),1,rev)))
+    } else {
+        return(t(apply(as.data.frame(apply(matrice.mtx, 1, rev)), 1, rev)))
     }
 }

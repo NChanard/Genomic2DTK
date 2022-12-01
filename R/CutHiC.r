@@ -3,14 +3,14 @@
 #' CutHiC
 #' @description Cut a mega contactMatrix (join of multiple chromosomic maps) inq a list of contactMatrix.
 #' @param megaHic.cmx <contactMatrix>: The HiC megamap.
-#' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
+#' @param verbose.bln <logical>: If TRUE show the progression in console. (Default FALSE)
 #' @return A matrices list.
 #' @examples
 #' data(HiC_Ctrl.cmx_lst)
 #' Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
 #' CutHiC(Mega_Ctrl.cmx)
 
-CutHiC <- function(megaHic.cmx, verbose.bln = TRUE) {
+CutHiC <- function(megaHic.cmx, verbose.bln = FALSE) {
     res.num <- megaHic.cmx@metadata$resolution
     mtx.chr <- megaHic.cmx@metadata$mtx
     chromSize.dtf <- megaHic.cmx@metadata$chromSize

@@ -9,7 +9,7 @@
 #' @param matriceDim.num <numeric>: The size of matrices in output. (Default 21).
 #' @param shiftFactor.num <numeric>: Onlt when "referencePoint.chr" is "rf". Factor defining how much of the distance between anchor and bait is extracted before and after the region (Default 1). Ex: for shiftFactor.num=2, extracted matrices will be 2*regionSize+regionSize+2*regionSize.
 #' @param cores.num <integer> : An integer to specify the number of cores. (Default 1)
-#' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
+#' @param verbose.bln <logical>: If TRUE show the progression in console. (Default FALSE)
 #' @return A matrices list.
 #' @examples
 #' # Data
@@ -43,7 +43,7 @@
 
 ExtractSubmatrix <- function(feature.gn = NULL, hic.cmx_lst = NULL, referencePoint.chr = "pf",
     res.num = NULL, matriceDim.num = 21, shiftFactor.num = 1, cores.num = 1,
-    verbose.bln = TRUE) {
+    verbose.bln = FALSE) {
     .GInteractionFormatting <- function(feature.gn, res.num) {
         if (inherits(feature.gn, "GRanges")) {
             feature.gni <- InteractionSet::GInteractions(GenomicRanges::resize(feature.gn,

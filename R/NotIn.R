@@ -11,4 +11,4 @@
 #' NotIn("A", c("A","B","C"))
 #' NotIn("A", c("B","C","D"))
 
-'NotIn' <- function(lhs,rhs) return(match(lhs, rhs, nomatch = 0L) == 0L)
+"NotIn" <- function(lhs, rhs) return(match(lhs, rhs, nomatch = 0L) == 0L)

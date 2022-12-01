@@ -10,7 +10,7 @@
 #' @param na.rm <logical> : a logical value indicating whether 'NA' values should be stripped before the computation proceeds. (Default TRUE)
 #' @param cores.num <numerical> : the number of cores. (Default 1)
 #' @param reduce.bln <logical> : whether duplicated Bin must been reduced with de summary method. (Default TRUE)
-#' @param verbose.bln <logical>: if TRUE show the progression in console. (Default TRUE)
+#' @param verbose.bln <logical>: If TRUE show the progression in console. (Default FALSE)
 #' @return A binned GRanges.
 #' @examples
 #' GRange.gnr <- GenomicRanges::GRanges(
@@ -31,7 +31,7 @@
 
 BinGRanges <- function(gRange.gnr = NULL, chromSize.dtf = NULL, binSize.num = NULL,
     method.chr = "mean", variablesName.chr_vec = NULL, na.rm = TRUE, cores.num = 1,
-    reduce.bln = TRUE, verbose.bln = TRUE) {
+    reduce.bln = TRUE, verbose.bln = FALSE) {
     if (is.null(chromSize.dtf)) {
         seqlengths.lst <- GenomeInfoDb::seqlengths(gRange.gnr)
     } else {

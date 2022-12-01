@@ -12,22 +12,21 @@
 #' )
 #' TransposeList(my_lst)
 
-TransposeList <- function(var.nlst){
+TransposeList <- function(var.nlst) {
     var.nlst |>
         lapply(length) |>
         unlist() |>
         max() |>
         seq_len() |>
-        lapply(function(newLst.ndx){
+        lapply(function(newLst.ndx) {
             new.lst <- var.nlst |>
-                lapply(function(ele.lst){
-                    if(length(ele.lst) >= newLst.ndx){
-                        return(ele.lst[[newLst.ndx]])
-                    }
-                    else{
-                        return(NA)
-                    }
-                    }) |>
+                lapply(function(ele.lst) {
+                  if (length(ele.lst) >= newLst.ndx) {
+                    return(ele.lst[[newLst.ndx]])
+                  } else {
+                    return(NA)
+                  }
+                }) |>
                 unlist()
             return(new.lst[!is.na(new.lst)])
         })

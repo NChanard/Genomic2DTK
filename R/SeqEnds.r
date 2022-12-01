@@ -14,4 +14,6 @@
 #' )
 #' SeqEnds(GRange.grn)
 
-SeqEnds <- function(x.gnr){GenomeInfoDb::seqlengths(x.gnr)[as.character(GenomeInfoDb::seqnames(x.gnr))]}
+SeqEnds <- function(x.gnr) {
+    GenomeInfoDb::seqlengths(x.gnr)[as.character(GenomeInfoDb::seqnames(x.gnr))]
+}

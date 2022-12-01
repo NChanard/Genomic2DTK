@@ -4,14 +4,14 @@
 #' @description Function that normalises HiC matrices by expected values computing by genomic distance.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @param cores.num <numerical> : Number of cores to be used. (Default 1)
-#' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)
+#' @param verbose.bln <logical>: If TRUE show the progression in console. (Default FALSE)
 #' @return A matrices list.
 #' @examples
 #' # Note: run Genomic2DTK::NormalizeHiC before ExpectedHiC calculation.
 #' data(HiC_Ctrl.cmx_lst)
 #' ExpectedHiC(HiC_Ctrl.cmx_lst)
 
-ExpectedHiC <- function(hic.cmx_lst, verbose.bln = TRUE, cores.num = 1) {
+ExpectedHiC <- function(hic.cmx_lst, verbose.bln = FALSE, cores.num = 1) {
     resolution.num <- attributes(hic.cmx_lst)$resolution
     matricesNames.chr <- names(hic.cmx_lst)
     multicoreParam <- MakeParallelParam(cores.num = cores.num, verbose.bln = verbose.bln)

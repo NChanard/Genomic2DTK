@@ -14,18 +14,18 @@
 #' meltedMat.tbl <- MeltSpm(mat.spm)
 #' meltedMat.tbl[order(meltedMat.tbl$i),]
 
-MeltSpm = function(mat.spm=NULL){
-        if(NotIn("dgCMatrix",class(mat.spm))){mat.spm=methods::as(mat.spm, "dgCMatrix")}
-        dp.num <- diff(mat.spm@p)
-        mat.tbl <- tibble::tibble(
-            i=as.integer(mat.spm@i+1),
-            j=seq_len(mat.spm@Dim[2]) |> lapply(function(j.ndx){
-                    rep.num <- dp.num[j.ndx] 
-                    return(rep(j.ndx,rep.num)) 
-                }) |>
-                unlist(),
-            x=mat.spm@x
-        ) |>
-        AddAttr(list(matrice.attr=attributes(mat.spm)[which(NotIn(names(attributes(mat.spm)),c("i","p","Dimnames","x","factors","class")))]))
-        return(mat.tbl)
+MeltSpm <- function(mat.spm = NULL) {
+    if (NotIn("dgCMatrix", class(mat.spm))) {
+        mat.spm <- methods::as(mat.spm, "dgCMatrix")
+    }
+    dp.num <- diff(mat.spm@p)
+    mat.tbl <- tibble::tibble(i = as.integer(mat.spm@i + 1), j = seq_len(mat.spm@Dim[2]) |>
+        lapply(function(j.ndx) {
+            rep.num <- dp.num[j.ndx]
+            return(rep(j.ndx, rep.num))
+        }) |>
+        unlist(), x = mat.spm@x) |>
+        AddAttr(list(matrice.attr = attributes(mat.spm)[which(NotIn(names(attributes(mat.spm)),
+            c("i", "p", "Dimnames", "x", "factors", "class")))]))
+    return(mat.tbl)
 }
