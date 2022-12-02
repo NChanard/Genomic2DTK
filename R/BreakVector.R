@@ -11,10 +11,13 @@
 #' @return Numerical vector of breaks.
 #' @examples
 #' set.seed(31415)
-#' BreakVector(x.num=rnorm(100,50,200), n.num=9)
-
-BreakVector <- function(x.num = NULL, min.num = NULL, center.num = NULL,
-    max.num = NULL, n.num = 10, method.chr = "linear") {
+#' BreakVector(x.num = rnorm(100, 50, 200), n.num = 9)
+#'
+BreakVector <- function(
+    x.num = NULL, min.num = NULL,
+    center.num = NULL, max.num = NULL,
+    n.num = 10, method.chr = "linear"
+) {
     n.num <- n.num + 1
     if (method.chr == "linear") {
         x.num <- x.num[which(!is.na(x.num))]
@@ -25,18 +28,39 @@ BreakVector <- function(x.num = NULL, min.num = NULL, center.num = NULL,
             max.num <- max(x.num, na.rm = TRUE)
         }
         if (is.null(center.num)) {
-            breaks.num <- seq(min.num, max.num, length.out = n.num)
+            breaks.num <- seq(
+                min.num, max.num,
+                length.out = n.num
+            )
         } else if (min.num < center.num & center.num < max.num) {
-            breaks.num <- c(seq(min.num, center.num, length.out = n.num%/%2 +
-                1), seq(center.num, max.num, length.out = n.num%/%2 + 1))
+            breaks.num <- c(
+                seq(
+                    min.num, center.num,
+                    length.out = n.num%/%2 + 1
+                ),
+                seq(
+                    center.num, max.num,
+                    length.out = n.num%/%2 + 1
+                )
+            )
         } else {
             center.num <- stats::median(x.num, na.rm = TRUE)
-            breaks.num <- c(seq(min.num, center.num, length.out = n.num%/%2 +
-                1), seq(center.num, max.num, length.out = n.num%/%2 + 1))
+            breaks.num <- c(
+                seq(
+                    min.num, center.num,
+                    length.out = n.num%/%2 + 1
+                ),
+                seq(
+                    center.num, max.num,
+                    length.out = n.num%/%2 + 1
+                )
+            )
         }
     } else if (method.chr == "density") {
-        breaks.num <- stats::quantile(x.num, na.rm = TRUE, probs = seq(0,
-            1, length.out = n.num))
+        breaks.num <- stats::quantile(
+            x.num, na.rm = TRUE,
+            probs = seq(0, 1, length.out = n.num)
+        )
     } else {
         stop("Method.chr muste be one of 'linear' or 'density'.\n")
     }
