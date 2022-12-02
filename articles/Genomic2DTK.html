@@ -50,9 +50,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -198,13 +195,13 @@ View
 <p>The second part of the test data is downloaded directly from the <a href="https://data.4dnucleome.org" class="external-link">4DN</a> platform. It consists of data
 from HiC experiments in .hic format (juicer format).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span> </span>
 <span><span class="va">temp.dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"HIC_DATA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">temp.dir</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">Hic.url</span> <span class="op">&lt;-</span> <span class="st">"https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"</span></span>
 <span><span class="va">HicOutput.pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp.dir</span>, <span class="st">"Control_HIC.hic"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Hic.url</span>, <span class="va">HicOutput.pth</span>, method <span class="op">=</span> <span class="st">"curl"</span>, extra <span class="op">=</span> <span class="st">"-k"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Hic.url</span>, <span class="va">HicOutput.pth</span>, method <span class="op">=</span> <span class="st">'curl'</span>, extra <span class="op">=</span> <span class="st">'-k'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="additional-genome-informations">Additional genome informations<a class="anchor" aria-label="anchor" href="#additional-genome-informations"></a>
@@ -214,11 +211,11 @@ process are a data.frame containing chromosomes names and sized and the
 binSize, corresponding to the HiC matrices resolution. We complete the
 data with 2L and 2R chromosome sizes and HiC map resolution.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span> <span class="op">=</span> <span class="fl">23513712</span>, <span class="st">"2R"</span> <span class="op">=</span> <span class="fl">25286936</span><span class="op">)</span></span>
-<span><span class="va">chromSize.dtf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span><span class="op">)</span>,</span>
-<span>    seqlengths <span class="op">=</span> <span class="va">seqlengths.num</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span><span class="op">=</span><span class="fl">23513712</span>, <span class="st">'2R'</span><span class="op">=</span><span class="fl">25286936</span><span class="op">)</span></span>
+<span><span class="va">chromSize.dtf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span>
+<span>  seqlengths <span class="op">=</span> <span class="va">seqlengths.num</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="va">binSize.num</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></code></pre></div>
 </div>
 </div>
@@ -235,10 +232,10 @@ structure.</p>
 .cool, .mcool, .h5, .hdf5.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ImportHiC.html">ImportHiC</a></span><span class="op">(</span></span>
-<span>    file.pth      <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span>
-<span>    res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
-<span>    chrom_1.chr   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  file.pth      <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span>
+<span>  res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
+<span>  chrom_1.chr   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="balancing">Balancing<a class="anchor" aria-label="anchor" href="#balancing"></a>
@@ -436,10 +433,10 @@ step allows the features to be splitted and grouped into bins that
 correspond to the resolution of the HiC matrix.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span>
-<span>    gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span>
-<span>    chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
-<span>    binSize.num           <span class="op">=</span> <span class="va">binSize.num</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span>
+<span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
+<span>  binSize.num           <span class="op">=</span> <span class="va">binSize.num</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="beaf32---beaf32-putatives-pairs">Beaf32 &lt;-&gt; Beaf32 putatives pairs<a class="anchor" aria-label="anchor" href="#beaf32---beaf32-putatives-pairs"></a>
@@ -450,10 +447,10 @@ only the pairs for which the peaks of Beaf32 are at least 25KB and at
 most 100Kb apart are retained.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf_Pairs.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SearchPairs.html">SearchPairs</a></span><span class="op">(</span></span>
-<span>    indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf_Index.gnr</span>,</span>
-<span>    minDist.num     <span class="op">=</span> <span class="st">"25KB"</span>,</span>
-<span>    maxDist.num     <span class="op">=</span> <span class="st">"100KB"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf_Index.gnr</span>,</span>
+<span>  minDist.num     <span class="op">=</span> <span class="st">"25KB"</span>,</span>
+<span>  maxDist.num     <span class="op">=</span> <span class="st">"100KB"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -466,9 +463,9 @@ extraction is a list of matrices where each matrix corresponds to a
 pair.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
-<span>    feature.gn  <span class="op">=</span> <span class="va">Beaf_Pairs.gni</span>,</span>
-<span>    hic.cmx_lst <span class="op">=</span> <span class="va">hic.cmx_lst</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  feature.gn  <span class="op">=</span> <span class="va">Beaf_Pairs.gni</span>,</span>
+<span>  hic.cmx_lst <span class="op">=</span> <span class="va">hic.cmx_lst</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="aggregation">Aggregation<a class="anchor" aria-label="anchor" href="#aggregation"></a>
 </h3>
@@ -485,9 +482,9 @@ square that correspond to the topological associated domains formed
 between beaf32 loci.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
-<span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
-<span>    title.chr <span class="op">=</span> <span class="st">"APA Beaf &lt;-&gt; Beaf"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
+<span>  title.chr <span class="op">=</span> <span class="st">"APA Beaf &lt;-&gt; Beaf"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 </div>
 </div>
@@ -530,7 +527,7 @@ between beaf32 loci.</p>
 <span><span class="co">#&gt; [13] rlang_1.0.6            jquerylib_0.1.4        Matrix_1.5-1          </span></span>
 <span><span class="co">#&gt; [16] rmarkdown_2.18         pkgdown_2.0.6          labeling_0.4.2        </span></span>
 <span><span class="co">#&gt; [19] textshaping_0.3.6      desc_1.4.2             BiocParallel_1.30.4   </span></span>
-<span><span class="co">#&gt; [22] stringr_1.4.1          munsell_0.5.0          RCurl_1.98-1.9        </span></span>
+<span><span class="co">#&gt; [22] stringr_1.5.0          munsell_0.5.0          RCurl_1.98-1.9        </span></span>
 <span><span class="co">#&gt; [25] DelayedArray_0.22.0    compiler_4.2.2         xfun_0.35             </span></span>
 <span><span class="co">#&gt; [28] pkgconfig_2.0.3        systemfonts_1.0.4      strawr_0.0.9          </span></span>
 <span><span class="co">#&gt; [31] htmltools_0.5.3        tidyselect_1.2.0       tibble_3.1.8          </span></span>
