@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -139,11 +145,11 @@
 
 
 <dt>colorScale.chr</dt>
-<dd><p>&lt;character&gt; :  shape of color scale on of "linear" or "density" based. (Default "linear")</p></dd>
+<dd><p>&lt;character&gt; : shape of color scale on of "linear" or "density" based. (Default "linear")</p></dd>
 
 
 <dt>bias.num</dt>
-<dd><p>&lt;numeric&gt; : a positive number.  Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)</p></dd>
+<dd><p>&lt;numeric&gt; : a positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)</p></dd>
 
 
 <dt>paletteLength.num</dt>
@@ -169,9 +175,9 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Index Beaf32</span></span></span>
 <span class="r-in"><span><span class="va">Beaf32_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    chromSize.dtf  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span>, <span class="st">'2R'</span><span class="op">)</span>, seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>,<span class="fl">25286936</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    binSize.num    <span class="op">=</span> <span class="fl">100000</span></span></span>
+<span class="r-in"><span>    gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    chromSize.dtf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>, seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>, <span class="fl">25286936</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    binSize.num <span class="op">=</span> <span class="fl">100000</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Beaf32 &lt;-&gt; Beaf32 Pairing</span></span></span>
@@ -179,9 +185,9 @@
 <span class="r-in"><span><span class="va">Beaf_Beaf.gni</span> <span class="op">&lt;-</span> <span class="va">Beaf_Beaf.gni</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span><span class="op">]</span> <span class="co"># subset 2000 first for exemple</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Matrices extractions center on Beaf32 &lt;-&gt; Beaf32 point interaction</span></span></span>
-<span class="r-in"><span><span class="va">interactions_PF.mtx_lst</span>  <span class="op">&lt;-</span> <span class="fu"><a href="ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    feature.gn         <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
-<span class="r-in"><span>    hic.cmx_lst        <span class="op">=</span> <span class="va">HiC_Ctrl.cmx_lst</span>,</span></span>
+<span class="r-in"><span><span class="va">interactions_PF.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    feature.gn <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>    hic.cmx_lst <span class="op">=</span> <span class="va">HiC_Ctrl.cmx_lst</span>,</span></span>
 <span class="r-in"><span>    referencePoint.chr <span class="op">=</span> <span class="st">"pf"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -215,10 +221,10 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Trim values</span></span></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx      <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr    <span class="op">=</span> <span class="st">"APA 30% trimmed on upper side of distribution"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA 30% trimmed on upper side of distribution"</span>,</span></span>
 <span class="r-in"><span>    trimPrct.num <span class="op">=</span> <span class="fl">30</span>,</span></span>
-<span class="r-in"><span>    bounds.chr   <span class="op">=</span> <span class="st">"upper"</span></span></span>
+<span class="r-in"><span>    bounds.chr <span class="op">=</span> <span class="st">"upper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no non-missing arguments to max; returning -Inf</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
@@ -229,10 +235,10 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx      <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr    <span class="op">=</span> <span class="st">"APA 30% trimmed on lower side of distribution"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA 30% trimmed on lower side of distribution"</span>,</span></span>
 <span class="r-in"><span>    trimPrct.num <span class="op">=</span> <span class="fl">30</span>,</span></span>
-<span class="r-in"><span>    bounds.chr   <span class="op">=</span> <span class="st">"lower"</span></span></span>
+<span class="r-in"><span>    bounds.chr <span class="op">=</span> <span class="st">"lower"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no non-missing arguments to min; returning Inf</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
@@ -243,10 +249,10 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx      <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr    <span class="op">=</span> <span class="st">"APA 15% trimmed on each side of distribution"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA 15% trimmed on each side of distribution"</span>,</span></span>
 <span class="r-in"><span>    trimPrct.num <span class="op">=</span> <span class="fl">30</span>,</span></span>
-<span class="r-in"><span>    bounds.chr   <span class="op">=</span> <span class="st">"both"</span></span></span>
+<span class="r-in"><span>    bounds.chr <span class="op">=</span> <span class="st">"both"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
@@ -258,8 +264,8 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Change Minimal, Central and Maximal Colors scale value</span></span></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr  <span class="op">=</span> <span class="st">"APA [min 200, center 300, max 600]"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA [min 200, center 300, max 600]"</span>,</span></span>
 <span class="r-in"><span>    colMin.num <span class="op">=</span> <span class="fl">200</span>,</span></span>
 <span class="r-in"><span>    colMid.num <span class="op">=</span> <span class="fl">300</span>,</span></span>
 <span class="r-in"><span>    colMax.num <span class="op">=</span> <span class="fl">600</span></span></span>
@@ -274,10 +280,10 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Change Color</span></span></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
 <span class="r-in"><span>    heatmap.col <span class="op">=</span> <span class="fu"><a href="viridis.html">viridis</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    na.col      <span class="op">=</span> <span class="st">"black"</span></span></span>
+<span class="r-in"><span>    na.col <span class="op">=</span> <span class="st">"black"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
@@ -287,8 +293,8 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
 <span class="r-in"><span>    heatmap.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"white"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
@@ -301,9 +307,9 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Change Color distribution</span></span></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr     <span class="op">=</span> <span class="st">"APA [100,150,200,250,300,350,600]"</span>,</span></span>
-<span class="r-in"><span>    colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">150</span>,<span class="fl">200</span>,<span class="fl">250</span>,<span class="fl">300</span>,<span class="fl">350</span>,<span class="fl">600</span><span class="op">)</span> <span class="co"># Choosen Breaks</span></span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA [100,150,200,250,300,350,600]"</span>,</span></span>
+<span class="r-in"><span>    colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">250</span>, <span class="fl">300</span>, <span class="fl">350</span>, <span class="fl">600</span><span class="op">)</span> <span class="co"># Choosen Breaks</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
@@ -313,8 +319,8 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr  <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
 <span class="r-in"><span>    colorScale <span class="op">=</span> <span class="st">"density"</span> <span class="co"># color distribution based on density</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
@@ -325,9 +331,9 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx   <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
 <span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
-<span class="r-in"><span>    bias.num  <span class="op">=</span> <span class="fl">2</span> <span class="co">#(&gt;1 wait on extremums)</span></span></span>
+<span class="r-in"><span>    bias.num <span class="op">=</span> <span class="fl">2</span> <span class="co"># (&gt;1 wait on extremums)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
@@ -337,9 +343,9 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx   <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
 <span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
-<span class="r-in"><span>    bias.num  <span class="op">=</span> <span class="fl">0.5</span> <span class="co"># (&lt;1 wait on center)</span></span></span>
+<span class="r-in"><span>    bias.num <span class="op">=</span> <span class="fl">0.5</span> <span class="co"># (&lt;1 wait on center)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
@@ -351,10 +357,10 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Apply a Blurr</span></span></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx      <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr    <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
 <span class="r-in"><span>    blurPass.num <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>    blurSd.num   <span class="op">=</span> <span class="fl">0.5</span></span></span>
+<span class="r-in"><span>    blurSd.num <span class="op">=</span> <span class="fl">0.5</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
@@ -364,17 +370,17 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span>
 <span class="r-plt img"><img src="ggAPA-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># ggplot2 object modifications  </span></span></span>
+<span class="r-in"><span><span class="co"># ggplot2 object modifications</span></span></span>
 <span class="r-in"><span><span class="co"># Since the function returns a ggplot object, it is possible</span></span></span>
 <span class="r-in"><span><span class="co"># to modify it following the ggplot2 grammar.</span></span></span>
 <span class="r-in"><span><span class="fu">ggAPA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
-<span class="r-in"><span>    title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">+</span> </span></span>
-<span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    title    <span class="op">=</span> <span class="st">"New title"</span>,</span></span>
-<span class="r-in"><span>    subtitle <span class="op">=</span> <span class="st">"and subtitle"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span></span>
+<span class="r-in"><span>    title.chr <span class="op">=</span> <span class="st">"APA"</span>,</span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        title <span class="op">=</span> <span class="st">"New title"</span>,</span></span>
+<span class="r-in"><span>        subtitle <span class="op">=</span> <span class="st">"and subtitle"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$x` is discouraged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Use of `data.dtf$j` is discouraged.</span>

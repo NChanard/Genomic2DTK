@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -118,7 +124,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   j     chr3   110-120      - |        10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
-<span class="r-in"><span><span class="fu">MergeGRanges</span><span class="op">(</span><span class="va">GRange_1.grn</span>,<span class="va">GRange_2.grn</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">MergeGRanges</span><span class="op">(</span><span class="va">GRange_1.grn</span>, <span class="va">GRange_2.grn</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 10 ranges and 1 metadata column:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     seqnames    ranges strand |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;</span>
@@ -134,7 +140,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   j     chr3   110-120      - |        10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 3 sequences from an unspecified genome; no seqlengths</span>
-<span class="r-in"><span><span class="va">GRange.lst</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GRange_1.grn</span>,<span class="va">GRange_2.grn</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">GRange.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">GRange_1.grn</span>, <span class="va">GRange_2.grn</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">MergeGRanges</span><span class="op">(</span><span class="va">GRange.lst</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 10 ranges and 1 metadata column:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     seqnames    ranges strand |     score</span>
@@ -151,7 +157,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   j     chr3   110-120      - |        10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 3 sequences from an unspecified genome; no seqlengths</span>
-<span class="r-in"><span><span class="fu">MergeGRanges</span><span class="op">(</span><span class="va">GRange.lst</span>, reduce.bln<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">MergeGRanges</span><span class="op">(</span><span class="va">GRange.lst</span>, reduce.bln <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GRanges object with 8 ranges and 0 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames    ranges strand</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt;</span>
@@ -165,6 +171,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [8]     chr3   107-117      *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 3 sequences from an unspecified genome; no seqlengths</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

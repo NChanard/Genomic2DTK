@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -85,8 +91,8 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1111</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x.num</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x.num</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">x.num</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">x.num</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x.num</span><span class="op">[</span><span class="fl">990</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2.361631 2.398251 2.433557 2.446661 2.502845 2.543264 2.581767 2.615129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 2.666985 2.817221 2.973465</span>
@@ -95,9 +101,10 @@
 <span class="r-in"><span><span class="fu">TrimOutliers</span><span class="op">(</span><span class="va">x.num</span><span class="op">)</span><span class="op">[</span><span class="fl">990</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2.361631 2.398251 2.433557 2.446661 2.502845 2.543264 2.581767 2.615129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 2.666985 2.817221       NA</span>
-<span class="r-in"><span><span class="fu">TrimOutliers</span><span class="op">(</span><span class="va">x.num</span>, clip<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">990</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">TrimOutliers</span><span class="op">(</span><span class="va">x.num</span>, clip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">990</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2.361631 2.398251 2.433557 2.446661 2.502845 2.543264 2.581767 2.615129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 2.666985 2.817221 2.949928</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

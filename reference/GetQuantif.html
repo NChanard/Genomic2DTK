@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -88,7 +94,7 @@
 <li><p>"sum_rm0": apply a sum after replace 0 with NA</p></li>
 <li><p>"median": apply a median</p></li>
 <li><p>"sum": apply a sum</p></li>
-<li><p>"mean" or other character:  apply a mean</p></li>
+<li><p>"mean" or other character: apply a mean</p></li>
 </ul></dd>
 
 
@@ -115,31 +121,32 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Index Beaf32</span></span></span>
 <span class="r-in"><span><span class="va">Beaf32_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    chromSize.dtf  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>        seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span>, <span class="st">'2R'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>        seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>,<span class="fl">25286936</span><span class="op">)</span></span></span>
-<span class="r-in"><span>        <span class="op">)</span>,</span></span>
-<span class="r-in"><span>    binSize.num    <span class="op">=</span> <span class="fl">100000</span></span></span>
-<span class="r-in"><span><span class="op">)</span> </span></span>
+<span class="r-in"><span>    gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    chromSize.dtf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>, <span class="fl">25286936</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    binSize.num <span class="op">=</span> <span class="fl">100000</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Beaf32 &lt;-&gt; Beaf32 Pairing</span></span></span>
 <span class="r-in"><span><span class="va">Beaf_Beaf.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="SearchPairs.html">SearchPairs</a></span><span class="op">(</span>indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf32_Index.gnr</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Beaf_Beaf.gni</span> <span class="op">&lt;-</span> <span class="va">Beaf_Beaf.gni</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span><span class="op">]</span> <span class="co"># subset 2000 first for exemple</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Matrices extractions center on Beaf32 &lt;-&gt; Beaf32 point interaction</span></span></span>
-<span class="r-in"><span><span class="va">interactions_PF.mtx_lst</span>  <span class="op">&lt;-</span> <span class="fu"><a href="ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    feature.gn         <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
-<span class="r-in"><span>    hic.cmx_lst        <span class="op">=</span> <span class="va">HiC_Ctrl.cmx_lst</span>,</span></span>
+<span class="r-in"><span><span class="va">interactions_PF.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    feature.gn <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
+<span class="r-in"><span>    hic.cmx_lst <span class="op">=</span> <span class="va">HiC_Ctrl.cmx_lst</span>,</span></span>
 <span class="r-in"><span>    referencePoint.chr <span class="op">=</span> <span class="st">"pf"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">GetQuantif</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    matrices.lst  <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
-<span class="r-in"><span>    area.fun      <span class="op">=</span> <span class="st">"center"</span>,</span></span>
+<span class="r-in"><span>    matrices.lst <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
+<span class="r-in"><span>    area.fun <span class="op">=</span> <span class="st">"center"</span>,</span></span>
 <span class="r-in"><span>    operation.fun <span class="op">=</span> <span class="st">"mean"</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2L:11_2L:11 2L:11_2L:12 2L:11_2L:17 2L:11_2L:20 2L:11_2L:22 2L:11_2L:23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  43065.5000  31422.8750   1866.5556    779.7778    788.0000    760.1111 </span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

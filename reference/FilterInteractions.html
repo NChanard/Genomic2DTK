@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -101,8 +107,8 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Index Beaf32</span></span></span>
 <span class="r-in"><span><span class="va">Beaf32_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf<span class="op">=</span><span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    chromSize.dtf  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span>, <span class="st">'2R'</span><span class="op">)</span>, seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>,<span class="fl">25286936</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    gRange.gnr_lst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    chromSize.dtf  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>, seqlengths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23513712</span>, <span class="fl">25286936</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    binSize.num    <span class="op">=</span> <span class="fl">100000</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -119,14 +125,18 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a target</span></span></span>
 <span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    anchor.Beaf.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beaf32_108"</span>, <span class="st">"Beaf32_814"</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    distance         <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span><span class="op">)</span><span class="op">{</span><span class="va">dist</span> <span class="op">&lt;</span> <span class="fl">300000</span><span class="op">}</span></span></span>
+<span class="r-in"><span>    anchor.Beaf.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beaf32_108"</span>, <span class="st">"Beaf32_814"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    distance         <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="va">dist</span> <span class="op">&lt;</span> <span class="fl">300000</span></span></span>
+<span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># We target the Beaf32&lt;-&gt;Beaf32 interactions that are less than 300Kb away</span></span></span>
 <span class="r-in"><span><span class="co"># and have peak Beaf32_2 and Beaf32_191 as anchors (i.e. left).</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a selection</span></span></span>
-<span class="r-in"><span><span class="va">selection.fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span> , <span class="va">distance</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">selection.fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">anchor.Beaf.name</span>, <span class="va">distance</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="co"># We select the Beaf32&lt;-&gt;Beaf32 interactions that satisfy both targeting</span></span></span>
 <span class="r-in"><span><span class="co"># criteria (intersection).</span></span></span>
 <span class="r-in"><span></span></span>
@@ -135,7 +145,7 @@
 <span class="r-in"><span>    interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
 <span class="r-in"><span>    target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
 <span class="r-in"><span>    selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ anchor.Beaf.name: int [1:30] 10 78 147 215 284 352 421 489 558 626 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ distance        : int [1:56] 1 2 3 138 139 140 141 275 276 277 ...</span>
@@ -148,7 +158,7 @@
 <span class="r-in"><span>    matrices.lst      <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
 <span class="r-in"><span>    target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
 <span class="r-in"><span>    selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ anchor.Beaf.name: int [1:12] 1 69 126 194 251 319 376 444 501 569 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ distance        : int [1:15] 1 2 126 127 253 379 380 504 505 506 ...</span>
@@ -157,19 +167,19 @@
 <span class="r-in"><span><span class="co"># Add the selection on InteractionSet Filtration</span></span></span>
 <span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
-<span class="r-in"><span>    target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>    selection.fun     <span class="op">=</span> <span class="va">selection.fun</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    target.lst <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>    selection.fun <span class="op">=</span> <span class="va">selection.fun</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  int [1:3] 1106 1243 1380</span>
 <span class="r-in"><span><span class="co"># This return the intersection of the index vector that satisfy both</span></span></span>
 <span class="r-in"><span><span class="co"># targeting criteria.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Add the selection on Matrices List Filtration</span></span></span>
 <span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    matrices.lst      <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
-<span class="r-in"><span>    target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>    selection.fun     <span class="op">=</span> <span class="va">selection.fun</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    matrices.lst <span class="op">=</span> <span class="va">interactions_PF.mtx_lst</span>,</span></span>
+<span class="r-in"><span>    target.lst <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>    selection.fun <span class="op">=</span> <span class="va">selection.fun</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ 2L:11_2L:11: num [1:21, 1:21] 93476 NA NA NA NA ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ 2L:11_2L:12: num [1:21, 1:21] 29913 135797 NA NA NA ...</span>
@@ -179,8 +189,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "matriceDim")= num 21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "target")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "selection")=function ()  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "srcref")= 'srcref' int [1:8] 32 17 32 66 17 66 32 32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x563b9586b668&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "srcref")= 'srcref' int [1:8] 34 18 36 1 18 1 34 36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x5585b979bce8&gt; </span>
 <span class="r-in"><span><span class="co"># This return the filtred matrices.lst, i.e the matrices.lst for which</span></span></span>
 <span class="r-in"><span><span class="co"># the Beaf32&lt;-&gt;Beaf32 interactions satisfy both targeting criteria.</span></span></span>
 <span class="r-in"><span></span></span>
@@ -188,22 +198,23 @@
 <span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>interactions <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
-<span class="r-in"><span>    target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>    selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    target.lst <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>    selection.fun <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Named int [1:3] 1 2 138</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "names")= chr [1:3] "interactions1" "interactions2" "interactions3"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Filtration  with GRanges as filtration criteria</span></span></span>
-<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>first <span class="op">=</span>  <span class="fu">InteractionSet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="va">Beaf_Beaf.gni</span><span class="op">)</span><span class="op">[[</span><span class="st">"first"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Filtration with GRanges as filtration criteria</span></span></span>
+<span class="r-in"><span><span class="va">target.lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>first <span class="op">=</span> <span class="fu">InteractionSet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="va">Beaf_Beaf.gni</span><span class="op">)</span><span class="op">[[</span><span class="st">"first"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">FilterInteractions</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    interarctions.gni <span class="op">=</span> <span class="va">Beaf_Beaf.gni</span>,</span></span>
-<span class="r-in"><span>    target.lst        <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
-<span class="r-in"><span>    selection.fun     <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    target.lst <span class="op">=</span> <span class="va">target.lst</span>,</span></span>
+<span class="r-in"><span>    selection.fun <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span>max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Named int [1:30] 1 2 138 139 275 276 412 413 549 550 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "names")= chr [1:30] "first1" "first2" "first3" "first4" ...</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

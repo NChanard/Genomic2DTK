@@ -50,6 +50,12 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -95,19 +101,19 @@ text-align: justify}
 </style>
 <style type="text/css">
 pre {
-  max-height: 300px;
-  overflow-y: auto;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 pre[class] {
-  max-height: 300px;
+    max-height: 300px;
 }
 </style>
 <style type="text/css">
 .scroll-100 {
-  max-height: 100px;
-  overflow-y: auto;
-  background-color: inherit;
+    max-height: 100px;
+    overflow-y: auto;
+    background-color: inherit;
 }
 </style>
 <div class="section level2">
@@ -216,9 +222,9 @@ data with 2L and 2R chromosome sizes and HiC map resolution.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seqlengths.num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2L'</span><span class="op">=</span><span class="fl">23513712</span>, <span class="st">'2R'</span><span class="op">=</span><span class="fl">25286936</span><span class="op">)</span></span>
 <span><span class="va">chromSize.dtf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span>
-<span>  seqlengths <span class="op">=</span> <span class="va">seqlengths.num</span></span>
-<span>  <span class="op">)</span></span>
+<span>    seqnames   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">seqlengths.num</span> <span class="op">)</span>, </span>
+<span>    seqlengths <span class="op">=</span> <span class="va">seqlengths.num</span></span>
+<span>    <span class="op">)</span></span>
 <span><span class="va">binSize.num</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></code></pre></div>
 </div>
 </div>
@@ -235,10 +241,10 @@ structure.</p>
 .cool, .mcool, .h5, .hdf5.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ImportHiC.html">ImportHiC</a></span><span class="op">(</span></span>
-<span>  file.pth      <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span>
-<span>  res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
-<span>  chrom_1.chr   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    file.pth      <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span>
+<span>    res.num       <span class="op">=</span> <span class="va">binSize.num</span>,</span>
+<span>    chrom_1.chr   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="balancing">Balancing<a class="anchor" aria-label="anchor" href="#balancing"></a>
@@ -317,38 +323,21 @@ accessed via:</p>
 </li>
 <li>
 <strong>chromSize</strong> : the size of the chromosomes in the
-tibble format.
-<ul>
-<li>
-<em>seqnames</em> : the sequence name (chromosome name).<br>
-</li>
-<li>
-<em>seqlengths</em> : the sequence length in base pairs.<br>
-</li>
-<li>
-<em>dimension</em> : the sequence length in base bins<br>
-</li>
-</ul>
+tibble format.<br>
+- <em>seqnames</em> : the sequence name (chromosome name).<br>
+- <em>seqlengths</em> : the sequence length in base pairs.<br>
+- <em>dimension</em> : the sequence length in base bins<br>
 </li>
 <li>
 <strong>matricesKind</strong> : the kind of matrix that composes the
-list in the tibble format.
-<ul>
-<li>
-<em>name</em> : the matrix name.</li>
-<li>
-<em>type</em> : interaction type. <em>“Cis”</em> for interactions on
-the same chromosome and <em>“Trans”</em> for interactions on different
-chromosomes.<br>
-</li>
-<li>
-<em>kind</em> : the matrix kind. U for upper triangle matrices, L
-for lower triangle matrices, NA for rectangular or square matrices.</li>
-<li>
+list in the tibble format.<br>
+- <em>name</em> : the matrix name. - <em>type</em> : interaction type.
+<em>“Cis”</em> for interactions on the same chromosome and
+<em>“Trans”</em> for interactions on different chromosomes.<br>
+- <em>kind</em> : the matrix kind. U for upper triangle matrices, L for
+lower triangle matrices, NA for rectangular or square matrices. -
 <em>symmetric</em> : a boolean that indicates whether the matrix is
 symmetric (lower triangle identical to upper triangle).<br>
-</li>
-</ul>
 </li>
 <li>
 <strong>mtx</strong> : the kind of values in matrix. For exemple
@@ -436,10 +425,10 @@ step allows the features to be splitted and grouped into bins that
 correspond to the resolution of the HiC matrix.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf_Index.gnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/IndexFeatures.html">IndexFeatures</a></span><span class="op">(</span></span>
-<span>  gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span>
-<span>  chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
-<span>  binSize.num           <span class="op">=</span> <span class="va">binSize.num</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    gRange.gnr_lst        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Beaf <span class="op">=</span> <span class="va">Beaf32_Peaks.gnr</span><span class="op">)</span>,</span>
+<span>    chromSize.dtf         <span class="op">=</span> <span class="va">chromSize.dtf</span>,</span>
+<span>    binSize.num           <span class="op">=</span> <span class="va">binSize.num</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="beaf32---beaf32-putatives-pairs">Beaf32 &lt;-&gt; Beaf32 putatives pairs<a class="anchor" aria-label="anchor" href="#beaf32---beaf32-putatives-pairs"></a>
@@ -450,10 +439,10 @@ only the pairs for which the peaks of Beaf32 are at least 25KB and at
 most 100Kb apart are retained.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf_Pairs.gni</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SearchPairs.html">SearchPairs</a></span><span class="op">(</span></span>
-<span>  indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf_Index.gnr</span>,</span>
-<span>  minDist.num     <span class="op">=</span> <span class="st">"25KB"</span>,</span>
-<span>  maxDist.num     <span class="op">=</span> <span class="st">"100KB"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    indexAnchor.gnr <span class="op">=</span> <span class="va">Beaf_Index.gnr</span>,</span>
+<span>    minDist.num     <span class="op">=</span> <span class="st">"25KB"</span>,</span>
+<span>    maxDist.num     <span class="op">=</span> <span class="st">"100KB"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -466,9 +455,9 @@ extraction is a list of matrices where each matrix corresponds to a
 pair.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Beaf.mtx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExtractSubmatrix.html">ExtractSubmatrix</a></span><span class="op">(</span></span>
-<span>  feature.gn  <span class="op">=</span> <span class="va">Beaf_Pairs.gni</span>,</span>
-<span>  hic.cmx_lst <span class="op">=</span> <span class="va">hic.cmx_lst</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    feature.gn  <span class="op">=</span> <span class="va">Beaf_Pairs.gni</span>,</span>
+<span>    hic.cmx_lst <span class="op">=</span> <span class="va">hic.cmx_lst</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="aggregation">Aggregation<a class="anchor" aria-label="anchor" href="#aggregation"></a>
 </h3>
@@ -485,9 +474,9 @@ square that correspond to the topological associated domains formed
 between beaf32 loci.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
-<span>  apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
-<span>  title.chr <span class="op">=</span> <span class="st">"APA Beaf &lt;-&gt; Beaf"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    apa.mtx <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
+<span>    title.chr <span class="op">=</span> <span class="st">"APA Beaf &lt;-&gt; Beaf"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="Genomic2DTK_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 </div>
 </div>

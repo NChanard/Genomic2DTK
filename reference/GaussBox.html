@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -84,15 +90,16 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">GaussBox</span><span class="op">(</span>sd.num<span class="op">=</span><span class="fl">5</span>, scale.chr<span class="op">=</span><span class="st">"none"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">GaussBox</span><span class="op">(</span>sd.num <span class="op">=</span> <span class="fl">5</span>, scale.chr <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.01085322 0.01585008 0.02224289 0.02999424 0.03886614 0.04839406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.05790283 0.06657247 0.07354898 0.07808109 0.07965302 0.07808109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.07354898 0.06657247 0.05790283 0.04839406 0.03886614 0.02999424</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.02224289 0.01585008 0.01085322</span>
-<span class="r-in"><span><span class="fu">GaussBox</span><span class="op">(</span>scale.chr<span class="op">=</span><span class="st">"1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">GaussBox</span><span class="op">(</span>scale.chr <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06149471 0.24477773 0.38745511 0.24477773 0.06149471</span>
-<span class="r-in"><span><span class="fu">GaussBox</span><span class="op">(</span>scale.chr<span class="op">=</span><span class="st">"int"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">GaussBox</span><span class="op">(</span>scale.chr <span class="op">=</span> <span class="st">"int"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 4 7 4 1</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

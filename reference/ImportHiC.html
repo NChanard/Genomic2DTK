@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/InDepth.html">Genomic2DTK - In depth tutorial</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -116,34 +122,40 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">temp.dir</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Download .hic file</span></span></span>
-<span class="r-in"><span><span class="va">Hic.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Hic.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"https://4dn-open-data-public.s3.amazonaws.com/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"fourfront-webprod/wfoutput/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">HicOutput.pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp.dir</span>, <span class="st">"Control_HIC.hic"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Hic.url</span>, <span class="va">HicOutput.pth</span>, method <span class="op">=</span> <span class="st">'curl'</span>, extra <span class="op">=</span> <span class="st">'-k'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Hic.url</span>, <span class="va">HicOutput.pth</span>, method <span class="op">=</span> <span class="st">"curl"</span>, extra <span class="op">=</span> <span class="st">"-k"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Import .hic file</span></span></span>
 <span class="r-in"><span><span class="va">HiC_Ctrl.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu">ImportHiC</span><span class="op">(</span></span></span>
-<span class="r-in"><span>file.pth    <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span></span>
-<span class="r-in"><span>res.num     <span class="op">=</span> <span class="fl">100000</span>,</span></span>
-<span class="r-in"><span>chrom_1.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>chrom_2.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span>, <span class="st">"2R"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    file.pth <span class="op">=</span> <span class="va">HicOutput.pth</span>,</span></span>
+<span class="r-in"><span>    res.num <span class="op">=</span> <span class="fl">100000</span>,</span></span>
+<span class="r-in"><span>    chrom_1.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    chrom_2.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span>, <span class="st">"2R"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Download .mcool file</span></span></span>
-<span class="r-in"><span><span class="va">Mcool.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Mcool.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"https://4dn-open-data-public.s3.amazonaws.com/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"fourfront-webprod/wfoutput/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">McoolOutput.pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp.dir</span>, <span class="st">"HeatShock_HIC.mcool"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Mcool.url</span>, <span class="va">McoolOutput.pth</span>, method <span class="op">=</span> <span class="st">'curl'</span>, extra <span class="op">=</span> <span class="st">'-k'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">Mcool.url</span>, <span class="va">McoolOutput.pth</span>, method <span class="op">=</span> <span class="st">"curl"</span>, extra <span class="op">=</span> <span class="st">"-k"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Import .mcool file</span></span></span>
 <span class="r-in"><span><span class="va">HiC_HS.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu">ImportHiC</span><span class="op">(</span></span></span>
-<span class="r-in"><span>file.pth    <span class="op">=</span> <span class="va">McoolOutput.pth</span>,</span></span>
-<span class="r-in"><span>res.num     <span class="op">=</span> <span class="fl">100000</span>,</span></span>
-<span class="r-in"><span>chrom_1.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>chrom_2.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span>, <span class="st">"2R"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    file.pth <span class="op">=</span> <span class="va">McoolOutput.pth</span>,</span></span>
+<span class="r-in"><span>    res.num <span class="op">=</span> <span class="fl">100000</span>,</span></span>
+<span class="r-in"><span>    chrom_1.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2L"</span>, <span class="st">"2R"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    chrom_2.chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2L"</span>, <span class="st">"2R"</span>, <span class="st">"2R"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
