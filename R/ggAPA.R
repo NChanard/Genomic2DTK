@@ -25,39 +25,39 @@
 #' # Data
 #' data(Beaf32_Peaks.gnr)
 #' data(HiC_Ctrl.cmx_lst)
-#' 
+#'
 #' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
-#'     gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
-#'     chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+#'     gRange.gnr_lst = list(Beaf = Beaf32_Peaks.gnr),
+#'     chromSize.dtf  = data.frame(seqnames = c("2L", "2R"), seqlengths = c(23513712, 25286936)),
 #'     binSize.num    = 100000
 #' )
-#' 
+#'
 #' # Beaf32 <-> Beaf32 Pairing
 #' Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
 #' Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
-#' 
+#'
 #' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
 #' interactions_PF.mtx_lst  <- ExtractSubmatrix(
 #'     feature.gn         = Beaf_Beaf.gni,
 #'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
 #'     referencePoint.chr = "pf"
 #' )
-#' 
+#'
 #' # Aggregate matrices in one matrix
 #' aggreg.mtx <- Aggregation(interactions_PF.mtx_lst)
-#' 
+#'
 #' # Visualization
 #' ggAPA(
 #'     apa.mtx = aggreg.mtx
 #' )
-#' 
+#'
 #' # Add Title
 #' ggAPA(
 #'     apa.mtx = aggreg.mtx,
 #'     title.chr = "APA"
 #' )
-#' 
+#'
 #' # Trim values
 #' ggAPA(
 #'     apa.mtx      = aggreg.mtx,
@@ -77,7 +77,7 @@
 #'     trimPrct.num = 30,
 #'     bounds.chr   = "both"
 #' )
-#' 
+#'
 #' # Change Minimal, Central and Maximal Colors scale value
 #' ggAPA(
 #'     apa.mtx    = aggreg.mtx,
@@ -86,7 +86,7 @@
 #'     colMid.num = 300,
 #'     colMax.num = 600
 #' )
-#' 
+#'
 #' # Change Color
 #' ggAPA(
 #'     apa.mtx     = aggreg.mtx,
@@ -99,12 +99,12 @@
 #'     title.chr   = "APA",
 #'     heatmap.col = c("black", "white"),
 #' )
-#' 
+#'
 #' # Change Color distribution
 #' ggAPA(
 #'     apa.mtx       = aggreg.mtx,
 #'     title.chr     = "APA [100,150,200,250,300,350,600]",
-#'     colBreaks.num = c(100,150,200,250,300,350,600) # Choosen Breaks
+#'     colBreaks.num = c(100, 150, 200, 250, 300, 350, 600) # Choosen Breaks
 #' )
 #' ggAPA(
 #'     apa.mtx    = aggreg.mtx,
@@ -114,14 +114,14 @@
 #' ggAPA(
 #'     apa.mtx   = aggreg.mtx,
 #'     title.chr = "APA",
-#'     bias.num  = 2 #(>1 wait on extremums)
+#'     bias.num  = 2 # (>1 wait on extremums)
 #' )
 #' ggAPA(
 #'     apa.mtx   = aggreg.mtx,
 #'     title.chr = "APA",
 #'     bias.num  = 0.5 # (<1 wait on center)
 #' )
-#' 
+#'
 #' # Apply a Blurr
 #' ggAPA(
 #'     apa.mtx      = aggreg.mtx,
@@ -129,24 +129,31 @@
 #'     blurPass.num = 1,
 #'     blurSd.num   = 0.5
 #' )
-#' 
-#' # ggplot2 object modifications  
+#'
+#' # ggplot2 object modifications
 #' # Since the function returns a ggplot object, it is possible
 #' # to modify it following the ggplot2 grammar.
 #' ggAPA(
 #'     apa.mtx     = aggreg.mtx,
 #'     title.chr   = "APA",
-#' ) + 
-#' ggplot2::labs(
-#'     title    = "New title",
-#'     subtitle = "and subtitle"
-#' )
-
-ggAPA <- function(apa.mtx = NULL, title.chr = NULL, trimPrct.num = 0, bounds.chr = "both",
-    colMin.num = NULL, colMid.num = NULL, colMax.num = NULL, colBreaks.num = NULL,
-    blurPass.num = 0, blurBox.num = NULL, blurSize.num = NULL, blurSd.num = 0.5,
-    lowerTri.num = NULL, heatmap.col = NULL, na.col = "#F2F2F2", colorScale.chr = "linear",
-    bias.num = 1, paletteLength.num = 51) {
+#' ) +
+#'     ggplot2::labs(
+#'         title    = "New title",
+#'         subtitle = "and subtitle"
+#'     )
+ggAPA <- function(
+    apa.mtx = NULL, title.chr = NULL,
+    trimPrct.num = 0, bounds.chr = "both",
+    colMin.num = NULL, colMid.num = NULL,
+    colMax.num = NULL, colBreaks.num = NULL,
+    blurPass.num = 0, blurBox.num = NULL,
+    blurSize.num = NULL,
+    blurSd.num = 0.5, lowerTri.num = NULL,
+    heatmap.col = NULL,
+    na.col = "#F2F2F2",
+    colorScale.chr = "linear",
+    bias.num = 1, paletteLength.num = 51
+) {
     # Trimming
     if (!is.null(colBreaks.num)) {
         colMin.num <- min(colBreaks.num)
@@ -156,62 +163,141 @@ ggAPA <- function(apa.mtx = NULL, title.chr = NULL, trimPrct.num = 0, bounds.chr
     if (is.null(trimPrct.num)) {
         trimPrct.num <- 0
     }
-    if (trimPrct.num != 0 || !is.null(colMin.num) || !is.null(colMax.num)) {
+    if (trimPrct.num != 0 ||
+        !is.null(colMin.num) ||
+        !is.null(colMax.num)
+    ) {
         bounds.num_vec <- vec.num |>
-            QtlThreshold(prct.num = trimPrct.num, bounds.chr = bounds.chr) |>
+            QtlThreshold(
+                prct.num = trimPrct.num,
+                bounds.chr = bounds.chr
+            ) |>
             stats::setNames(NULL)
-        bounds.num_lst <- list(bounds.num_vec, list(colMin.num, colMax.num))
+        bounds.num_lst <- list(
+            bounds.num_vec,
+            list(
+                colMin.num,
+                colMax.num
+            )
+        )
         bounds.num_lst <- TransposeList(bounds.num_lst)
-        bounds.num_vec <- c(max(unlist(bounds.num_lst[1]), na.rm = TRUE),
-            min(unlist(bounds.num_lst[2]), na.rm = TRUE))
+        bounds.num_vec <- c(
+            max(
+                unlist(bounds.num_lst[1]),
+                na.rm = TRUE
+            ),
+            min(
+                unlist(bounds.num_lst[2]),
+                na.rm = TRUE
+            )
+        )
     } else {
         bounds.num_vec <- NULL
     }
     if (!is.null(bounds.num_vec)) {
-        apa.mtx <- TrimOutliers(x.num = apa.mtx, tresholds.num = bounds.num_vec,
-            clip.bln = TRUE)
+        apa.mtx <- TrimOutliers(
+            x.num = apa.mtx,
+            tresholds.num = bounds.num_vec,
+            clip.bln = TRUE
+        )
         vec.num <- c(apa.mtx)
     }
     # Smoothing
     if (blurPass.num) {
         for (i in seq_len(blurPass.num)) {
-            apa.mtx <- BoxBlur(mat.mtx = apa.mtx, sd.num = blurSd.num,
-                box.num = blurBox.num, boxSize.num = blurSize.num)
+            apa.mtx <- BoxBlur(
+                mat.mtx = apa.mtx,
+                sd.num = blurSd.num,
+                box.num = blurBox.num,
+                boxSize.num = blurSize.num
+            )
         }
         if (!is.null(lowerTri.num)) {
-            apa.mtx[lower.tri(apa.mtx, diag = FALSE)] <- lowerTri.num
+            apa.mtx[lower.tri(
+                apa.mtx,
+                diag = FALSE
+            )] <- lowerTri.num
         }
         vec.num <- c(apa.mtx)
     }
     # Breaks
     if (is.null(colBreaks.num)) {
-        colBreaks.num <- BreakVector(x.num = vec.num, min.num = colMin.num,
-            center.num = colMid.num, max.num = colMax.num, n.num = paletteLength.num,
-            method.chr = colorScale.chr)
+        colBreaks.num <- BreakVector(
+            x.num = vec.num,
+            min.num = colMin.num,
+            center.num = colMid.num,
+            max.num = colMax.num,
+            n.num = paletteLength.num,
+            method.chr = colorScale.chr
+        )
         colMin.num <- min(colBreaks.num)
         colMax.num <- max(colBreaks.num)
     }
     # Colors
     if (is.null(heatmap.col)) {
-        heatmap.col <- dplyr::case_when(!is.null(colMid.num) && max(colBreaks.num) <=
-            colMid.num ~ rev(YlGnBu(paletteLength.num = paletteLength.num,
-            bias = bias.num)), !is.null(colMid.num) && colMid.num <= min(colBreaks.num) ~
-            YlOrRd(paletteLength.num = paletteLength.num, bias = bias.num),
-            TRUE ~ c(rev(YlGnBu(paletteLength.num = floor((paletteLength.num -
-                1)/2), bias = bias.num)), "#FFFFD8", YlOrRd(paletteLength.num = ceiling((paletteLength.num -
-                1)/2), bias = bias.num)))
+        heatmap.col <- dplyr::case_when(
+            !is.null(colMid.num) && max(colBreaks.num) <= colMid.num ~
+                rev(YlGnBu(
+                    paletteLength.num = paletteLength.num,
+                    bias = bias.num
+                )),
+            !is.null(colMid.num) && colMid.num <= min(colBreaks.num) ~
+                YlOrRd(
+                    paletteLength.num = paletteLength.num,
+                    bias = bias.num
+                ),
+            TRUE ~
+                c(
+                    rev(YlGnBu(
+                        paletteLength.num = floor((paletteLength.num -1)/2),
+                        bias = bias.num
+                    )),
+                    "#FFFFD8",
+                    YlOrRd(
+                        paletteLength.num = ceiling((paletteLength.num -1)/2),
+                        bias = bias.num
+                    )
+                )
+        )
     }
     # Raster
     data.dtf <- MeltSpm(apa.mtx)
-    plot.ggp <- ggplot2::ggplot(data.dtf, ggplot2::aes(data.dtf$j, data.dtf$i)) +
-        ggplot2::geom_raster(ggplot2::aes(fill = data.dtf$x)) + ggplot2::scale_fill_gradientn(colours = heatmap.col,
-        values = MinMaxScale(colBreaks.num), na.value = na.col, limits = c(colMin.num,
-            colMax.num)) + ggplot2::scale_y_reverse(breaks = seq_along(colnames(apa.mtx)),
-        labels = colnames(apa.mtx)) + ggplot2::scale_x_continuous(breaks = seq_along(rownames(apa.mtx)),
-        labels = rownames(apa.mtx)) + ggplot2::labs(title = title.chr,
-        y = dimnames(apa.mtx)[[2]], x = dimnames(apa.mtx)[[2]]) + ggplot2::theme_classic() +
-        ggplot2::theme(axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank(),
-            axis.line.x = ggplot2::element_blank(), axis.ticks.x = ggplot2::element_blank(),
-            legend.title = ggplot2::element_blank())
+    plot.ggp <- ggplot2::ggplot(
+        data.dtf, ggplot2::aes(
+            data.dtf$j,
+            data.dtf$i
+        )
+    ) +
+    ggplot2::geom_raster(ggplot2::aes(fill = data.dtf$x)) +
+    ggplot2::scale_fill_gradientn(
+        colours  = heatmap.col,
+        values   = MinMaxScale(colBreaks.num),
+        na.value = na.col,
+        limits   = c(
+            colMin.num,
+            colMax.num
+        )
+    ) +
+    ggplot2::scale_y_reverse(
+        breaks = seq_along(colnames(apa.mtx)),
+        labels = colnames(apa.mtx)
+    ) +
+    ggplot2::scale_x_continuous(
+        breaks = seq_along(rownames(apa.mtx)),
+        labels = rownames(apa.mtx)
+    ) +
+    ggplot2::labs(
+        title = title.chr,
+        y = dimnames(apa.mtx)[[2]],
+        x = dimnames(apa.mtx)[[2]]
+    ) +
+    ggplot2::theme_classic() +
+    ggplot2::theme(
+        axis.line.y  = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.line.x  = ggplot2::element_blank(),
+        axis.ticks.x = ggplot2::element_blank(),
+        legend.title = ggplot2::element_blank()
+    )
     return(plot.ggp)
 }

@@ -9,10 +9,14 @@
 #' @return  A vector of color.
 #' @examples
 #' YlGnBu(9)
-
+#'
 YlGnBu <- function(paletteLength.num = NULL, space.chr = "rgb", interpolate.chr = "linear",
-    bias.num = 1) {
-    (grDevices::colorRampPalette(colors = c("#FFFFD9", "#EDF8B1", "#C7E9B4",
-        "#7FCDBB", "#41B6C4", "#1D91C0", "#225EA8", "#253494", "#081D58"),
-        space = space.chr, interpolate = interpolate.chr, bias = bias.num))(paletteLength.num)
+                   bias.num = 1) {
+    (grDevices::colorRampPalette(
+        colors = c(
+            "#FFFFD9", "#EDF8B1", "#C7E9B4",
+            "#7FCDBB", "#41B6C4", "#1D91C0", "#225EA8", "#253494", "#081D58"
+        ),
+        space = space.chr, interpolate = interpolate.chr, bias = bias.num
+    ))(paletteLength.num)
 }

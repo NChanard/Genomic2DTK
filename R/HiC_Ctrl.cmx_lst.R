@@ -8,5 +8,5 @@
 #' @examples
 #' data(HiC_Ctrl.cmx_lst)
 #' HiC_Ctrl.cmx_lst
-
+#'
 "HiC_Ctrl.cmx_lst"

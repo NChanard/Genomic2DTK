@@ -8,5 +8,5 @@
 #' @examples
 #' data(TSS_Peaks.gnr)
 #' TSS_Peaks.gnr
-
+#'
 "TSS_Peaks.gnr"

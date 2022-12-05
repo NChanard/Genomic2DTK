@@ -6,14 +6,13 @@
 #' @param newDim.num <integer>: the number of rows and cols in resized matrix.
 #' @return resized matrix.
 #' @examples
-#' matrice.mtx <- matrix(0,11,11)
-#' matrice.mtx[which(as.logical(seq_len(11*11)%%2))] <- seq_len(ceiling((11*11)/2))
-#' matrice.mtx[2,] <- 100
-#' matrice.mtx[,7] <- 200
+#' matrice.mtx <- matrix(0, 11, 11)
+#' matrice.mtx[which(as.logical(seq_len(11 * 11) %% 2))] <- seq_len(ceiling((11 * 11) / 2))
+#' matrice.mtx[2, ] <- 100
+#' matrice.mtx[, 7] <- 200
 #' matrice.mtx
-#' ResizeMatrix(matrice.mtx=matrice.mtx, newDim.num=c(7,7))
-#' ResizeMatrix(matrice.mtx=matrice.mtx, newDim.num=c(13,13))
-
+#' ResizeMatrix(matrice.mtx = matrice.mtx, newDim.num = c(7, 7))
+#' ResizeMatrix(matrice.mtx = matrice.mtx, newDim.num = c(13, 13))
 ResizeMatrix <- function(matrice.mtx, newDim.num = dim(matrice.mtx)) {
     # Rescaling
     newCoord.mtx <- as.matrix(expand.grid(seq_len(newDim.num[1]), seq_len(newDim.num[2])))
@@ -31,9 +30,13 @@ ResizeMatrix <- function(matrice.mtx, newDim.num = dim(matrice.mtx)) {
     # Output
     resizedMatrice.mtx <- matrix(NA, nrow = newDim.num[1], ncol = newDim.num[2])
     resizedMatrice.mtx[newCoord.mtx] <- matrice.mtx[cbind(col.ndx, row.ndx)] *
-        (1 - xGap.num) * (1 - yGap.num) + matrice.mtx[cbind(col.ndx + 1,
-        row.ndx)] * xGap.num * (1 - yGap.num) + matrice.mtx[cbind(col.ndx,
-        row.ndx + 1)] * (1 - xGap.num) * yGap.num + matrice.mtx[cbind(col.ndx +
-        1, row.ndx + 1)] * xGap.num * yGap.num
+        (1 - xGap.num) * (1 - yGap.num) + matrice.mtx[cbind(
+            col.ndx + 1,
+            row.ndx
+        )] * xGap.num * (1 - yGap.num) + matrice.mtx[cbind(
+            col.ndx,
+            row.ndx + 1
+        )] * (1 - xGap.num) * yGap.num + matrice.mtx[cbind(col.ndx +
+            1, row.ndx + 1)] * xGap.num * yGap.num
     return(resizedMatrice.mtx)
 }

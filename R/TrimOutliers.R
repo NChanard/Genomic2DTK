@@ -8,13 +8,13 @@
 #' @return trimed Numerical vector.
 #' @examples
 #' set.seed(1111)
-#' x.num = rnorm(1000)
-#' x.num = sort(x.num)
+#' x.num <- rnorm(1000)
+#' x.num <- sort(x.num)
 #' x.num[990:1000]
 #' SdThreshold(x.num)
 #' TrimOutliers(x.num)[990:1000]
-#' TrimOutliers(x.num, clip=TRUE)[990:1000]
-
+#' TrimOutliers(x.num, clip = TRUE)[990:1000]
+#'
 TrimOutliers <- function(x.num, tresholds.num = SdThreshold(x.num), clip.bln = FALSE) {
     if (clip.bln) {
         x.num[which(x.num > tresholds.num[2])] <- tresholds.num[2]

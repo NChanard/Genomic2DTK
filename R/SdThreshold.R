@@ -11,17 +11,19 @@
 #' x.num <- rnorm(1000)
 #' x.num <- sort(x.num)
 #' x.num
-#' SdThreshold(x.num, sdThreshold.num=2, bounds.chr="lower")
-#' SdThreshold(x.num, sdThreshold.num=2, bounds.chr="both")
-#' SdThreshold(x.num, sdThreshold.num=2, bounds.chr="upper")
-
+#' SdThreshold(x.num, sdThreshold.num = 2, bounds.chr = "lower")
+#' SdThreshold(x.num, sdThreshold.num = 2, bounds.chr = "both")
+#' SdThreshold(x.num, sdThreshold.num = 2, bounds.chr = "upper")
+#'
 SdThreshold <- function(x.num = NULL, sdThreshold.num = 3, bounds.chr = "both") {
     mu.num <- mean(x.num, na.rm = TRUE)
     sdev.num <- stats::sd(x.num, na.rm = TRUE)
     upper.num <- mu.num + (sdThreshold.num * sdev.num)
     lower.num <- mu.num - (sdThreshold.num * sdev.num)
-    tresholds.num <- dplyr::case_when(bounds.chr == "both" ~ c(lower.num,
-        upper.num), bounds.chr == "upper" ~ c(NA, upper.num), bounds.chr ==
+    tresholds.num <- dplyr::case_when(bounds.chr == "both" ~ c(
+        lower.num,
+        upper.num
+    ), bounds.chr == "upper" ~ c(NA, upper.num), bounds.chr ==
         "lower" ~ c(lower.num, NA))
     return(tresholds.num)
 }

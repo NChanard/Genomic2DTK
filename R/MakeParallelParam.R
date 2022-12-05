@@ -8,7 +8,7 @@
 #' @examples
 #' multicoreParam <- MakeParallelParam(2)
 #' BiocParallel::bplapply(BPPARAM = multicoreParam, seq_len(3), sqrt)
-
+#'
 MakeParallelParam <- function(cores.num = 1, verbose.bln = FALSE) {
     if (!is.numeric(cores.num) | cores.num < 2 | .Platform$OS.type == "windows") {
         return(BiocParallel::SerialParam(progressbar = verbose.bln))

@@ -10,8 +10,13 @@
 #' GetFileName(path.pth=filePath.pth, ext.bln=FALSE)
 #' GetFileName(path.pth=filePath.pth, ext.bln=TRUE)
 
-GetFileName <- function(path.pth = NULL, ext.bln = FALSE) {
-    ifelse(ext.bln, fileName.str <- basename(path.pth), fileName.str <- sub(pattern = "(.*)\\..*$",
-        replacement = "\\1", basename(path.pth)))
+GetFileName <- function(
+    path.pth = NULL, ext.bln = FALSE
+) {
+    ifelse(ext.bln,
+        fileName.str <- basename(path.pth),
+        fileName.str <- sub(pattern = "(.*)\\..*$",
+        replacement = "\\1", basename(path.pth))
+    )
     return(fileName.str)
 }

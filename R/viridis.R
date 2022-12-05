@@ -9,10 +9,11 @@
 #' @return  A vector of color.
 #' @examples
 #' viridis(9)
-
+#'
 viridis <- function(paletteLength.num = NULL, space.chr = "rgb", interpolate.chr = "linear",
-    bias.num = 1) {
-    (grDevices::colorRampPalette(colors = c("#440154", "#440256", "#450457",
+                    bias.num = 1) {
+    (grDevices::colorRampPalette(colors = c(
+        "#440154", "#440256", "#450457",
         "#450559", "#46075A", "#46085C", "#460A5D", "#460B5E", "#470D60",
         "#470E61", "#471063", "#471164", "#471365", "#481467", "#481668",
         "#481769", "#48186A", "#481A6C", "#481B6D", "#481C6E", "#481D6F",
@@ -55,5 +56,6 @@ viridis <- function(paletteLength.num = NULL, space.chr = "rgb", interpolate.chr
         "#D0E11C", "#D2E21B", "#D5E21A", "#D8E219", "#DAE319", "#DDE318",
         "#DFE318", "#E2E418", "#E5E419", "#E7E419", "#EAE51A", "#ECE51B",
         "#EFE51C", "#F1E51D", "#F4E61E", "#F6E620", "#F8E621", "#FBE723",
-        "#FDE725"), space = space.chr, interpolate = interpolate.chr, bias = bias.num))(paletteLength.num)
+        "#FDE725"
+    ), space = space.chr, interpolate = interpolate.chr, bias = bias.num))(paletteLength.num)
 }

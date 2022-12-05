@@ -8,14 +8,16 @@
 #' @param side.chr <character>: side to pad, must be one or some of 'top','bot','right' or 'left'. (Default c('top','bot','right','left') )
 #' @return a matrix.
 #' @examples
-#' mat.mtx = matrix(seq_len(25),5,5)
-#' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('top','bot','right','left') )
-#' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=NULL, side.chr=c('top','bot','right','left') )
-#' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('right','left') )
-#' PadMtx(mat.mtx=mat.mtx,  padSize.num=1, value.num=0, side.chr=c('top') )
-
-PadMtx <- function(mat.mtx = NULL, padSize.num = 1, value.num = 0, side.chr = c("top",
-    "bot", "right", "left")) {
+#' mat.mtx <- matrix(seq_len(25), 5, 5)
+#' PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("top", "bot", "right", "left"))
+#' PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = NULL, side.chr = c("top", "bot", "right", "left"))
+#' PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("right", "left"))
+#' PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("top"))
+#'
+PadMtx <- function(mat.mtx = NULL, padSize.num = 1, value.num = 0, side.chr = c(
+                       "top",
+                       "bot", "right", "left"
+                   )) {
     if ("top" %in% side.chr) {
         if (!is.null(value.num)) {
             row.lst <- rep(list(rep(value.num, dim(mat.mtx)[2])), padSize.num)
@@ -30,8 +32,7 @@ PadMtx <- function(mat.mtx = NULL, padSize.num = 1, value.num = 0, side.chr = c(
             row.lst <- rep(list(rep(value.num, dim(mat.mtx)[2])), padSize.num)
             row.pad <- do.call(rbind, row.lst)
         } else {
-            row.pad <- mat.mtx[(nrow(mat.mtx) - padSize.num + 1):nrow(mat.mtx),
-                ]
+            row.pad <- mat.mtx[(nrow(mat.mtx) - padSize.num + 1):nrow(mat.mtx), ]
         }
         mat.mtx <- rbind(mat.mtx, row.pad)
     }

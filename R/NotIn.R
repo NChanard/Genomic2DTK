@@ -6,9 +6,11 @@
 #' @param rhs <vector or NULL>: values to be compared against lhs
 #' @return  A boolean.
 #' @examples
-#' "A" |> NotIn(c("A","B","C"))
-#' "A" |> NotIn(c("B","C","D"))
-#' NotIn("A", c("A","B","C"))
-#' NotIn("A", c("B","C","D"))
-
-"NotIn" <- function(lhs, rhs) return(match(lhs, rhs, nomatch = 0L) == 0L)
+#' "A" |> NotIn(c("A", "B", "C"))
+#' "A" |> NotIn(c("B", "C", "D"))
+#' NotIn("A", c("A", "B", "C"))
+#' NotIn("A", c("B", "C", "D"))
+#'
+"NotIn" <- function(lhs, rhs) {
+    return(match(lhs, rhs, nomatch = 0L) == 0L)
+}

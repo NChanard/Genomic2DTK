@@ -1,5 +1,5 @@
 #' Merge GRanges.
-#' 
+#'
 #' MergeGRanges
 #' @description Merge GRanges or a list of GRanges
 #' @param ... <GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList.
@@ -21,11 +21,11 @@
 #' )
 #' GRange_1.grn
 #' GRange_2.grn
-#' MergeGRanges(GRange_1.grn,GRange_2.grn)
-#' GRange.lst = list(GRange_1.grn,GRange_2.grn)
+#' MergeGRanges(GRange_1.grn, GRange_2.grn)
+#' GRange.lst <- list(GRange_1.grn, GRange_2.grn)
 #' MergeGRanges(GRange.lst)
-#' MergeGRanges(GRange.lst, reduce.bln=TRUE)
-
+#' MergeGRanges(GRange.lst, reduce.bln = TRUE)
+#'
 MergeGRanges <- function(..., sort.bln = FALSE, reduce.bln = FALSE) {
     mergedGrange.grn <- unlist(GenomicRanges::GRangesList(...))
     if (sort.bln) {

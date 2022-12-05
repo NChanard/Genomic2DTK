@@ -12,11 +12,11 @@
 #' # Index Beaf32 in TADs domains
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf = Beaf32_Peaks.gnr),
-#'     chromSize.dtf  = data.frame(
+#'     chromSize.dtf = data.frame(
 #'         seqnames = c("2L", "2R"),
 #'         seqlengths = c(23513712, 25286936)
 #'     ),
-#'     binSize.num    = 100000
+#'     binSize.num = 100000
 #' )
 #'
 #' # Beaf32 <-> Beaf32 Pairing
@@ -24,7 +24,7 @@
 #' Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
 #'
 #' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
-#' interactions_PF.mtx_lst  <- ExtractSubmatrix(
+#' interactions_PF.mtx_lst <- ExtractSubmatrix(
 #'     feature.gn         = Beaf_Beaf.gni,
 #'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
 #'     referencePoint.chr = "pf"
@@ -34,7 +34,7 @@
 #' oriented_Interactions_PF.mtx_lst <- OrienteMatrix(interactions_PF.mtx_lst)
 #'
 OrienteMatrix <- function(matrice.mtx) {
-    if(is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)){
+    if (is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)) {
         orientedMatrice.mtx <- matrice.mtx
         message(
             length(which(!attributes(matrice.mtx)$interactions$orientation)),
@@ -42,12 +42,12 @@ OrienteMatrix <- function(matrice.mtx) {
         )
         orientedMatrice.mtx[which(
             !attributes(matrice.mtx)$interactions$orientation
-            )] <- lapply(
-                orientedMatrice.mtx[which(
-                    !attributes(matrice.mtx)$interactions$orientation
-                )],
-                OrienteMatrix
-            )
+        )] <- lapply(
+            orientedMatrice.mtx[which(
+                !attributes(matrice.mtx)$interactions$orientation
+            )],
+            OrienteMatrix
+        )
         orientedMatrice.mtx <- AddAttr(
             orientedMatrice.mtx,
             attributes(matrice.mtx)
