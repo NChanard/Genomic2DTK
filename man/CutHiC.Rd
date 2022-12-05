@@ -24,4 +24,5 @@ CutHiC
 data(HiC_Ctrl.cmx_lst)
 Mega_Ctrl.cmx <- JoinHiC(HiC_Ctrl.cmx_lst)
 CutHiC(Mega_Ctrl.cmx)
+
 }

@@ -23,7 +23,8 @@ One dimension Gaussian kernel.
 GaussBox
 }
 \examples{
-GaussBox(sd.num=5, scale.chr="none")
-GaussBox(scale.chr="1")
-GaussBox(scale.chr="int")
+GaussBox(sd.num = 5, scale.chr = "none")
+GaussBox(scale.chr = "1")
+GaussBox(scale.chr = "int")
+
 }

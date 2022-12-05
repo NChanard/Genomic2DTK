@@ -41,11 +41,12 @@ data(Beaf32_Peaks.gnr)
 
 # Index Beaf32
 Beaf32_Index.gnr <- IndexFeatures(
-    gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
-    chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
-    binSize.num    = 100000
+    gRange.gnr_lst = list(Beaf = Beaf32_Peaks.gnr),
+    chromSize.dtf = data.frame(seqnames = c("2L", "2R"), seqlengths = c(23513712, 25286936)),
+    binSize.num = 100000
 )
 
 # Beaf32 <-> Beaf32 Pairing
 Beaf_Beaf.gni <- SearchPairs(indexAnchor.gnr = Beaf32_Index.gnr)
+
 }

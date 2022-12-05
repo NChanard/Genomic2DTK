@@ -27,7 +27,8 @@ set.seed(1111)
 x.num <- rnorm(1000)
 x.num <- sort(x.num)
 x.num
-SdThreshold(x.num, sdThreshold.num=2, bounds.chr="lower")
-SdThreshold(x.num, sdThreshold.num=2, bounds.chr="both")
-SdThreshold(x.num, sdThreshold.num=2, bounds.chr="upper")
+SdThreshold(x.num, sdThreshold.num = 2, bounds.chr = "lower")
+SdThreshold(x.num, sdThreshold.num = 2, bounds.chr = "both")
+SdThreshold(x.num, sdThreshold.num = 2, bounds.chr = "upper")
+
 }

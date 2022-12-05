@@ -21,12 +21,12 @@
 #' )
 #' GRange.gnr
 #' BinGRanges(
-#'     gRange.gnr            = GRange.gnr,
-#'     chromSize.dtf         = data.frame(c("chr1", "chr2"), c(350, 100)),
-#'     binSize.num           = 100,
-#'     method.chr            = "mean",
+#'     gRange.gnr = GRange.gnr,
+#'     chromSize.dtf = data.frame(c("chr1", "chr2"), c(350, 100)),
+#'     binSize.num = 100,
+#'     method.chr = "mean",
 #'     variablesName.chr_vec = "score",
-#'     na.rm                 = TRUE
+#'     na.rm = TRUE
 #' )
 #'
 BinGRanges <- function(

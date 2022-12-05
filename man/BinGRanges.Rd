@@ -47,17 +47,18 @@ BinGRanges
 \examples{
 GRange.gnr <- GenomicRanges::GRanges(
     seqnames = S4Vectors::Rle(c("chr1", "chr2"), c(3, 1)),
-    ranges = IRanges::IRanges(c(1,201,251,1), end = c(200,250,330,100), names = letters[seq_len(4)]),
+    ranges = IRanges::IRanges(c(1, 201, 251, 1), end = c(200, 250, 330, 100), names = letters[seq_len(4)]),
     strand = S4Vectors::Rle(BiocGenerics::strand(c("*")), 4),
-    score = c(50,NA,100,30)
-    )
+    score = c(50, NA, 100, 30)
+)
 GRange.gnr
 BinGRanges(
-    gRange.gnr            = GRange.gnr,
-    chromSize.dtf         = data.frame(c("chr1","chr2"),c(350,100)),
-    binSize.num           = 100,
-    method.chr            = "mean",
+    gRange.gnr = GRange.gnr,
+    chromSize.dtf = data.frame(c("chr1", "chr2"), c(350, 100)),
+    binSize.num = 100,
+    method.chr = "mean",
     variablesName.chr_vec = "score",
-    na.rm                 = TRUE
+    na.rm = TRUE
 )
+
 }

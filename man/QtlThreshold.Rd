@@ -27,7 +27,8 @@ set.seed(1111)
 x.num <- 0:100
 x.num <- sort(x.num)
 x.num
-QtlThreshold(x.num, prct.num=5, bounds.chr="lower")
-QtlThreshold(x.num, prct.num=5, bounds.chr="both")
-QtlThreshold(x.num, prct.num=5, bounds.chr="upper")
+QtlThreshold(x.num, prct.num = 5, bounds.chr = "lower")
+QtlThreshold(x.num, prct.num = 5, bounds.chr = "both")
+QtlThreshold(x.num, prct.num = 5, bounds.chr = "upper")
+
 }

@@ -39,5 +39,6 @@ Create an Hue palette.
 Hue
 }
 \examples{
-Hue(paletteLength.num=9)
+Hue(paletteLength.num = 9)
+
 }

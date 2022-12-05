@@ -25,4 +25,5 @@ ICEnorm
 \examples{
 data(HiC_Ctrl.cmx_lst)
 HiC_Ctrl_ICE.cmx <- ICEnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
+
 }

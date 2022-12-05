@@ -15,11 +15,11 @@
 #' data(Beaf32_Peaks.gnr)
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf = Beaf32_Peaks.gnr),
-#'     chromSize.dtf  = data.frame(
+#'     chromSize.dtf = data.frame(
 #'         seqnames = c("2L", "2R"),
 #'         seqlengths = c(23513712, 25286936)
 #'     ),
-#'     binSize.num    = 100000
+#'     binSize.num = 100000
 #' )
 #'
 IndexFeatures <- function(

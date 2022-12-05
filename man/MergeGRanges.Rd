@@ -37,8 +37,9 @@ GRange_2.grn <- GenomicRanges::GRanges(
 )
 GRange_1.grn
 GRange_2.grn
-MergeGRanges(GRange_1.grn,GRange_2.grn)
-GRange.lst = list(GRange_1.grn,GRange_2.grn)
+MergeGRanges(GRange_1.grn, GRange_2.grn)
+GRange.lst <- list(GRange_1.grn, GRange_2.grn)
 MergeGRanges(GRange.lst)
-MergeGRanges(GRange.lst, reduce.bln=TRUE)
+MergeGRanges(GRange.lst, reduce.bln = TRUE)
+
 }

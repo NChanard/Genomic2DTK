@@ -21,6 +21,7 @@ IsHsl
 \examples{
 IsHsl("red")
 IsHsl("#FFFFFF")
-IsHsl(c(125,125,125))
-IsHsl(c(43.8,0.873,0.492))
+IsHsl(c(125, 125, 125))
+IsHsl(c(43.8, 0.873, 0.492))
+
 }

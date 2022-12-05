@@ -18,7 +18,7 @@ YlOrRd(
 
 \item{interpolate.chr}{<numeric>: use spline or linear interpolation. See ?grDevices::colorRamp for more details. (Default "linear")}
 
-\item{bias.num}{<numeric>: a positive number.  Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
+\item{bias.num}{<numeric>: a positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
 }
 \value{
 A vector of color.
@@ -31,4 +31,5 @@ YlOrRd
 }
 \examples{
 YlOrRd(9)
+
 }

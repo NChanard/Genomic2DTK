@@ -21,5 +21,6 @@ Convert a color in HSL (Hue,Saturation,Light) to hexadecimal format.
 Hsl2Hex
 }
 \examples{
-Hsl2Hex(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
+Hsl2Hex(c(43.8, 0.873, 0.492, 0.498), alpha.bln = TRUE)
+
 }

@@ -13,7 +13,7 @@ BoxBlur(mat.mtx, box.num = NULL, boxSize.num = NULL, sd.num = 1)
 
 \item{boxSize.num}{<numeric>: if box.num is NULL, size of kernel for 'GaussBox' function. (Default NULL)}
 
-\item{sd.num}{<numeric>: if box.num is NULL,  standard deviation parameter for 'GaussBox' function. (Default NULL)}
+\item{sd.num}{<numeric>: if box.num is NULL, standard deviation parameter for 'GaussBox' function. (Default NULL)}
 }
 \value{
 Blurred matrix.
@@ -26,7 +26,8 @@ BoxBlur
 }
 \examples{
 set.seed(981643)
-mat.mtx <- rnorm(10000,50,10)**3 |> matrix(100,100)
-heatmap(mat.mtx, Rowv=NA, Colv=NA)
-heatmap(BoxBlur(mat.mtx), Rowv=NA, Colv=NA)
+mat.mtx <- rnorm(10000, 50, 10)**3 |> matrix(100, 100)
+heatmap(mat.mtx, Rowv = NA, Colv = NA)
+heatmap(BoxBlur(mat.mtx), Rowv = NA, Colv = NA)
+
 }

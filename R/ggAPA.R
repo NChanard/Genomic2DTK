@@ -17,8 +17,8 @@
 #' @param lowerTri.num <numeric> : The value that replace all value in the lower triangle of matrice (Usefull when blur is apply). (Default NULL)
 #' @param heatmap.col <character> : Heatmap color list. If null automaticaly compute. (Default NULL)
 #' @param na.col <character> : color of NA values. (Default "#F2F2F2")
-#' @param colorScale.chr <character> :  shape of color scale on of "linear" or "density" based. (Default "linear")
-#' @param bias.num <numeric> : a positive number.  Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)
+#' @param colorScale.chr <character> : shape of color scale on of "linear" or "density" based. (Default "linear")
+#' @param bias.num <numeric> : a positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)
 #' @param paletteLength.num <numeric> : The number of color in the palette. (Default 51)
 #' @return A ggplot object.
 #' @examples
@@ -29,8 +29,8 @@
 #' # Index Beaf32
 #' Beaf32_Index.gnr <- IndexFeatures(
 #'     gRange.gnr_lst = list(Beaf = Beaf32_Peaks.gnr),
-#'     chromSize.dtf  = data.frame(seqnames = c("2L", "2R"), seqlengths = c(23513712, 25286936)),
-#'     binSize.num    = 100000
+#'     chromSize.dtf = data.frame(seqnames = c("2L", "2R"), seqlengths = c(23513712, 25286936)),
+#'     binSize.num = 100000
 #' )
 #'
 #' # Beaf32 <-> Beaf32 Pairing
@@ -38,9 +38,9 @@
 #' Beaf_Beaf.gni <- Beaf_Beaf.gni[seq_len(2000)] # subset 2000 first for exemple
 #'
 #' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
-#' interactions_PF.mtx_lst  <- ExtractSubmatrix(
-#'     feature.gn         = Beaf_Beaf.gni,
-#'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+#' interactions_PF.mtx_lst <- ExtractSubmatrix(
+#'     feature.gn = Beaf_Beaf.gni,
+#'     hic.cmx_lst = HiC_Ctrl.cmx_lst,
 #'     referencePoint.chr = "pf"
 #' )
 #'
@@ -60,28 +60,28 @@
 #'
 #' # Trim values
 #' ggAPA(
-#'     apa.mtx      = aggreg.mtx,
-#'     title.chr    = "APA 30% trimmed on upper side of distribution",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA 30% trimmed on upper side of distribution",
 #'     trimPrct.num = 30,
-#'     bounds.chr   = "upper"
+#'     bounds.chr = "upper"
 #' )
 #' ggAPA(
-#'     apa.mtx      = aggreg.mtx,
-#'     title.chr    = "APA 30% trimmed on lower side of distribution",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA 30% trimmed on lower side of distribution",
 #'     trimPrct.num = 30,
-#'     bounds.chr   = "lower"
+#'     bounds.chr = "lower"
 #' )
 #' ggAPA(
-#'     apa.mtx      = aggreg.mtx,
-#'     title.chr    = "APA 15% trimmed on each side of distribution",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA 15% trimmed on each side of distribution",
 #'     trimPrct.num = 30,
-#'     bounds.chr   = "both"
+#'     bounds.chr = "both"
 #' )
 #'
 #' # Change Minimal, Central and Maximal Colors scale value
 #' ggAPA(
-#'     apa.mtx    = aggreg.mtx,
-#'     title.chr  = "APA [min 200, center 300, max 600]",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA [min 200, center 300, max 600]",
 #'     colMin.num = 200,
 #'     colMid.num = 300,
 #'     colMax.num = 600
@@ -89,56 +89,56 @@
 #'
 #' # Change Color
 #' ggAPA(
-#'     apa.mtx     = aggreg.mtx,
-#'     title.chr   = "APA",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA",
 #'     heatmap.col = viridis(6),
-#'     na.col      = "black"
+#'     na.col = "black"
 #' )
 #' ggAPA(
-#'     apa.mtx     = aggreg.mtx,
-#'     title.chr   = "APA",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA",
 #'     heatmap.col = c("black", "white"),
 #' )
 #'
 #' # Change Color distribution
 #' ggAPA(
-#'     apa.mtx       = aggreg.mtx,
-#'     title.chr     = "APA [100,150,200,250,300,350,600]",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA [100,150,200,250,300,350,600]",
 #'     colBreaks.num = c(100, 150, 200, 250, 300, 350, 600) # Choosen Breaks
 #' )
 #' ggAPA(
-#'     apa.mtx    = aggreg.mtx,
-#'     title.chr  = "APA",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA",
 #'     colorScale = "density" # color distribution based on density
 #' )
 #' ggAPA(
-#'     apa.mtx   = aggreg.mtx,
+#'     apa.mtx = aggreg.mtx,
 #'     title.chr = "APA",
-#'     bias.num  = 2 # (>1 wait on extremums)
+#'     bias.num = 2 # (>1 wait on extremums)
 #' )
 #' ggAPA(
-#'     apa.mtx   = aggreg.mtx,
+#'     apa.mtx = aggreg.mtx,
 #'     title.chr = "APA",
-#'     bias.num  = 0.5 # (<1 wait on center)
+#'     bias.num = 0.5 # (<1 wait on center)
 #' )
 #'
 #' # Apply a Blurr
 #' ggAPA(
-#'     apa.mtx      = aggreg.mtx,
-#'     title.chr    = "APA",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA",
 #'     blurPass.num = 1,
-#'     blurSd.num   = 0.5
+#'     blurSd.num = 0.5
 #' )
 #'
 #' # ggplot2 object modifications
 #' # Since the function returns a ggplot object, it is possible
 #' # to modify it following the ggplot2 grammar.
 #' ggAPA(
-#'     apa.mtx     = aggreg.mtx,
-#'     title.chr   = "APA",
+#'     apa.mtx = aggreg.mtx,
+#'     title.chr = "APA",
 #' ) +
 #'     ggplot2::labs(
-#'         title    = "New title",
+#'         title = "New title",
 #'         subtitle = "and subtitle"
 #'     )
 ggAPA <- function(

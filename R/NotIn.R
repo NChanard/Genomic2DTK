@@ -4,7 +4,7 @@
 #' @description Binary operator, inverse to \%in\%.
 #' @param lhs <vector or NULL>: values to be compared against rhs
 #' @param rhs <vector or NULL>: values to be compared against lhs
-#' @return  A boolean.
+#' @return A boolean.
 #' @examples
 #' "A" |> NotIn(c("A", "B", "C"))
 #' "A" |> NotIn(c("B", "C", "D"))

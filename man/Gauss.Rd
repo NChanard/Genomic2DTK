@@ -13,7 +13,7 @@ Gauss(x = NULL, y = NULL, sd.num = 1, mu = 0)
 
 \item{sd.num}{<numeric>: standard deviation parameter of the gaussian. (Default 1)}
 
-\item{mu}{<numeric>:  mean deviation parameter of the gaussian. (Default 0)}
+\item{mu}{<numeric>: mean deviation parameter of the gaussian. (Default 0)}
 }
 \value{
 Result of Gaussian formula
@@ -25,6 +25,7 @@ Gaussian formula in 1 or 2 dimension.
 Gauss
 }
 \examples{
-Gauss(x=1)
-Gauss(x=1,y=2)
+Gauss(x = 1)
+Gauss(x = 1, y = 2)
+
 }

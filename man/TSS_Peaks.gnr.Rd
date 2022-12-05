@@ -16,5 +16,6 @@ Data from a CHip Seq experiment
 \examples{
 data(TSS_Peaks.gnr)
 TSS_Peaks.gnr
+
 }
 \keyword{datasets}

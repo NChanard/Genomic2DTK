@@ -21,9 +21,10 @@ Convert numbers of base into string with order of magnitude (Kbp, Mbp, Gbp) and 
 GenomicSystem
 }
 \examples{
-GenomicSystem(1540,3)
-GenomicSystem(1540,2)
+GenomicSystem(1540, 3)
+GenomicSystem(1540, 2)
 GenomicSystem("1Mbp")
 GenomicSystem("1Kbp")
 GenomicSystem("1k")
+
 }

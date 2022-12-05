@@ -29,8 +29,8 @@
 #'
 #' # Import .hic file
 #' HiC_Ctrl.cmx_lst <- ImportHiC(
-#'     file.pth    = HicOutput.pth,
-#'     res.num     = 100000,
+#'     file.pth = HicOutput.pth,
+#'     res.num = 100000,
 #'     chrom_1.chr = c("2L", "2L", "2R"),
 #'     chrom_2.chr = c("2L", "2R", "2R")
 #' )
@@ -46,8 +46,8 @@
 #'
 #' # Import .mcool file
 #' HiC_HS.cmx_lst <- ImportHiC(
-#'     file.pth    = McoolOutput.pth,
-#'     res.num     = 100000,
+#'     file.pth = McoolOutput.pth,
+#'     res.num = 100000,
 #'     chrom_1.chr = c("2L", "2L", "2R"),
 #'     chrom_2.chr = c("2L", "2R", "2R")
 #' )

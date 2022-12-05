@@ -16,5 +16,6 @@ Drosophila Melanogaster TADs on chromosome 2R and 2L ([F.Ramirez, 2018](https://
 \examples{
 data(TADs_Domains.gnr)
 TADs_Domains.gnr
+
 }
 \keyword{datasets}

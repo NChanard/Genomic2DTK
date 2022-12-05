@@ -16,5 +16,6 @@ In situ Hi-C on non-heat treated S2 cells (Drosophila Melanogaster) with MboI on
 \examples{
 data(HiC_Ctrl.cmx_lst)
 HiC_Ctrl.cmx_lst
+
 }
 \keyword{datasets}

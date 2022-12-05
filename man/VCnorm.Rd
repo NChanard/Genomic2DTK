@@ -26,6 +26,7 @@ VCnorm
 # Data
 data(HiC_Ctrl.cmx_lst)
 
-HiC_Ctrl_VC.cmx <- VCnorm(HiC_Ctrl.cmx_lst[['2L_2L']])
-HiC_Ctrl_VC_SQRT.cmx <- VCnorm(HiC_Ctrl.cmx_lst[['2L_2L']], sqrt.bln=TRUE)
+HiC_Ctrl_VC.cmx <- VCnorm(HiC_Ctrl.cmx_lst[["2L_2L"]])
+HiC_Ctrl_VC_SQRT.cmx <- VCnorm(HiC_Ctrl.cmx_lst[["2L_2L"]], sqrt.bln = TRUE)
+
 }

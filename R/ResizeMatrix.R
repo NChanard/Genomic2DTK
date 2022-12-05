@@ -2,7 +2,7 @@
 #'
 #' ResizeMatrix
 #' @description Resize a numericam matrix in new dimension.
-#' @param matrice.mtx <matrix>: a  numericam matrix to resize.
+#' @param matrice.mtx <matrix>: a numerical matrix to resize.
 #' @param newDim.num <integer>: the number of rows and cols in resized matrix.
 #' @return resized matrix.
 #' @examples

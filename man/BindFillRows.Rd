@@ -23,6 +23,7 @@ BindFillRows
 \examples{
 df1 <- data.frame(a = seq_len(5), b = c(6:10))
 df2 <- data.frame(a = c(11:15), b = c(16:20), c = LETTERS[seq_len(5)])
-BindFillRows(df1,df2)
-BindFillRows(list(df1,df2))
+BindFillRows(df1, df2)
+BindFillRows(list(df1, df2))
+
 }

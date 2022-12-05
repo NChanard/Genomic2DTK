@@ -41,15 +41,19 @@ NormalizeHiC
 \examples{
 data(HiC_Ctrl.cmx_lst)
 
-HiC_Ctrl_ICE.cmx_lst     <- NormalizeHiC(HiC_Ctrl.cmx_lst,
-    interaction.type="cis",
-    method.chr="ICE")
-    
-HiC_Ctrl_VC.cmx_lst      <- NormalizeHiC(HiC_Ctrl.cmx_lst,
-    interaction.type=c("cis","trans"),
-    method.chr="VC")
+HiC_Ctrl_ICE.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+    interaction.type = "cis",
+    method.chr = "ICE"
+)
+
+HiC_Ctrl_VC.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+    interaction.type = c("cis", "trans"),
+    method.chr = "VC"
+)
 
 HiC_Ctrl_VC_SQRT.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
-    interaction.type="all",
-    method.chr="VC_SQRT")
+    interaction.type = "all",
+    method.chr = "VC_SQRT"
+)
+
 }

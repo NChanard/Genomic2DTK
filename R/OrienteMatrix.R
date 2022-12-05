@@ -25,8 +25,8 @@
 #'
 #' # Matrices extractions center on Beaf32 <-> Beaf32 point interaction
 #' interactions_PF.mtx_lst <- ExtractSubmatrix(
-#'     feature.gn         = Beaf_Beaf.gni,
-#'     hic.cmx_lst        = HiC_Ctrl.cmx_lst,
+#'     feature.gn = Beaf_Beaf.gni,
+#'     hic.cmx_lst = HiC_Ctrl.cmx_lst,
 #'     referencePoint.chr = "pf"
 #' )
 #'

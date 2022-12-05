@@ -38,8 +38,8 @@ data(HiC_Ctrl.cmx_lst)
 
 # Index Beaf32
 Beaf32_Index.gnr <- IndexFeatures(
-    gRange.gnr_lst = list(Beaf=Beaf32_Peaks.gnr), 
-    chromSize.dtf  = data.frame(seqnames = c('2L', '2R'), seqlengths = c(23513712,25286936)),
+    gRange.gnr_lst = list(Beaf = Beaf32_Peaks.gnr),
+    chromSize.dtf  = data.frame(seqnames = c("2L", "2R"), seqlengths = c(23513712, 25286936)),
     binSize.num    = 100000
 )
 
@@ -56,14 +56,18 @@ interactions_PF.mtx_lst  <- ExtractSubmatrix(
 
 # Create a target
 target.lst <- list(
-    anchor.Beaf.name = c("Beaf32_108", "Beaf32_814"), 
-    distance         = function(dist){dist < 300000}
+    anchor.Beaf.name = c("Beaf32_108", "Beaf32_814"),
+    distance         = function(dist) {
+        dist < 300000
+    }
 )
 # We target the Beaf32<->Beaf32 interactions that are less than 300Kb away
 # and have peak Beaf32_2 and Beaf32_191 as anchors (i.e. left).
 
 # Create a selection
-selection.fun = function(){intersect(anchor.Beaf.name , distance)}
+selection.fun <- function() {
+    intersect(anchor.Beaf.name, distance)
+}
 # We select the Beaf32<->Beaf32 interactions that satisfy both targeting
 # criteria (intersection).
 
@@ -72,7 +76,7 @@ FilterInteractions(
     interarctions.gni = Beaf_Beaf.gni,
     target.lst        = target.lst,
     selection.fun     = NULL
-) |> str(max.level=1)
+) |> str(max.level = 1)
 # Returns a named list (the names match the targeting criteria).
 # Each element is an index vector of Beaf32<->Beaf32 interactions
 # that satisfy the given criteria.
@@ -82,24 +86,24 @@ FilterInteractions(
     matrices.lst      = interactions_PF.mtx_lst,
     target.lst        = target.lst,
     selection.fun     = NULL
-) |> str(max.level=1)
+) |> str(max.level = 1)
 # Return the same kind of result.
 
 # Add the selection on InteractionSet Filtration
 FilterInteractions(
     interarctions.gni = Beaf_Beaf.gni,
-    target.lst        = target.lst,
-    selection.fun     = selection.fun
-) |> str(max.level=1)
+    target.lst = target.lst,
+    selection.fun = selection.fun
+) |> str(max.level = 1)
 # This return the intersection of the index vector that satisfy both
 # targeting criteria.
 
 # Add the selection on Matrices List Filtration
 FilterInteractions(
-    matrices.lst      = interactions_PF.mtx_lst,
-    target.lst        = target.lst,
-    selection.fun     = selection.fun
-) |> str(max.level=1)
+    matrices.lst = interactions_PF.mtx_lst,
+    target.lst = target.lst,
+    selection.fun = selection.fun
+) |> str(max.level = 1)
 # This return the filtred matrices.lst, i.e the matrices.lst for which
 # the Beaf32<->Beaf32 interactions satisfy both targeting criteria.
 
@@ -107,16 +111,17 @@ FilterInteractions(
 target.lst <- list(interactions = Beaf_Beaf.gni[seq_len(2)])
 FilterInteractions(
     interarctions.gni = Beaf_Beaf.gni,
-    target.lst        = target.lst,
-    selection.fun     = NULL
-) |> str(max.level=1)
+    target.lst = target.lst,
+    selection.fun = NULL
+) |> str(max.level = 1)
 
 
-# Filtration  with GRanges as filtration criteria
-target.lst <- list(first =  InteractionSet::anchors(Beaf_Beaf.gni)[["first"]][seq_len(2)])
+# Filtration with GRanges as filtration criteria
+target.lst <- list(first = InteractionSet::anchors(Beaf_Beaf.gni)[["first"]][seq_len(2)])
 FilterInteractions(
     interarctions.gni = Beaf_Beaf.gni,
-    target.lst        = target.lst,
-    selection.fun     = NULL
-) |> str(max.level=1)
+    target.lst = target.lst,
+    selection.fun = NULL
+) |> str(max.level = 1)
+
 }

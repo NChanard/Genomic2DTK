@@ -24,10 +24,11 @@ TrimOutliers
 }
 \examples{
 set.seed(1111)
-x.num = rnorm(1000)
-x.num = sort(x.num)
+x.num <- rnorm(1000)
+x.num <- sort(x.num)
 x.num[990:1000]
 SdThreshold(x.num)
 TrimOutliers(x.num)[990:1000]
-TrimOutliers(x.num, clip=TRUE)[990:1000]
+TrimOutliers(x.num, clip = TRUE)[990:1000]
+
 }

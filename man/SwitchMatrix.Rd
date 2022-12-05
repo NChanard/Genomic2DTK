@@ -27,13 +27,15 @@ data(HiC_Ctrl.cmx_lst)
 # Preprocess HiC
 HiC.cmx_lst <- HiC_Ctrl.cmx_lst |>
     NormalizeHiC(
-        interaction.type="cis",
-        method.chr="ICE") |> 
+        interaction.type = "cis",
+        method.chr = "ICE"
+    ) |>
     ExpectedHiC()
 
 # Switch values in matrix
-HiC_Ctrl_Obs.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="obs")
-HiC_Ctrl_Norm.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="norm")
-HiC_Ctrl_oe.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="o/e")
-HiC_Ctrl_exp.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr="exp")
+HiC_Ctrl_Obs.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr = "obs")
+HiC_Ctrl_Norm.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr = "norm")
+HiC_Ctrl_oe.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr = "o/e")
+HiC_Ctrl_exp.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr = "exp")
+
 }

@@ -20,5 +20,6 @@ StrToGRanges
 }
 \examples{
 StrToGRanges("chr1:1-100:+")
-StrToGRanges(c("chr1:1-100:+","chr2:400-500:-","chr1:10-50:*"))
+StrToGRanges(c("chr1:1-100:+", "chr2:400-500:-", "chr1:10-50:*"))
+
 }

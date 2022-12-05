@@ -21,5 +21,6 @@ Convert a color in RGB format to hexadecimal format.
 Rgb2Hex
 }
 \examples{
-Rgb2Hex(c(235,176,16,127),alpha.bln=TRUE)
+Rgb2Hex(c(235, 176, 16, 127), alpha.bln = TRUE)
+
 }

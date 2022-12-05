@@ -21,8 +21,9 @@ Binary operator, inverse to \%in\%.
 NotIn
 }
 \examples{
-"A" |> NotIn(c("A","B","C"))
-"A" |> NotIn(c("B","C","D"))
-NotIn("A", c("A","B","C"))
-NotIn("A", c("B","C","D"))
+"A" |> NotIn(c("A", "B", "C"))
+"A" |> NotIn(c("B", "C", "D"))
+NotIn("A", c("A", "B", "C"))
+NotIn("A", c("B", "C", "D"))
+
 }

@@ -21,5 +21,6 @@ Convert a color in HSl (Hue,Saturation,Light) format to RGB format.
 Hsl2Rgb
 }
 \examples{
-Hsl2Rgb(c(43.8,0.873,0.492,0.498),alpha.bln=TRUE)
+Hsl2Rgb(c(43.8, 0.873, 0.492, 0.498), alpha.bln = TRUE)
+
 }

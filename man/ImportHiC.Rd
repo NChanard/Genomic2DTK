@@ -47,32 +47,38 @@ temp.dir <- file.path(tempdir(), "HIC_DATA")
 dir.create(temp.dir)
 
 # Download .hic file
-Hic.url <- paste0("https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/",
-    "7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic")
+Hic.url <- paste0(
+    "https://4dn-open-data-public.s3.amazonaws.com/",
+    "fourfront-webprod/wfoutput/",
+    "7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
+)
 HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
-download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
+download.file(Hic.url, HicOutput.pth, method = "curl", extra = "-k")
 
 # Import .hic file
 HiC_Ctrl.cmx_lst <- ImportHiC(
-file.pth    = HicOutput.pth,
-res.num     = 100000,
-chrom_1.chr = c("2L", "2L", "2R"),
-chrom_2.chr = c("2L", "2R", "2R")
+    file.pth = HicOutput.pth,
+    res.num = 100000,
+    chrom_1.chr = c("2L", "2L", "2R"),
+    chrom_2.chr = c("2L", "2R", "2R")
 )
 
 # Download .mcool file
-Mcool.url <- paste0("https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/",
-    "4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool")
+Mcool.url <- paste0(
+    "https://4dn-open-data-public.s3.amazonaws.com/",
+    "fourfront-webprod/wfoutput/",
+    "4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"
+)
 McoolOutput.pth <- file.path(temp.dir, "HeatShock_HIC.mcool")
-download.file(Mcool.url, McoolOutput.pth, method = 'curl', extra = '-k')
+download.file(Mcool.url, McoolOutput.pth, method = "curl", extra = "-k")
 
 # Import .mcool file
 HiC_HS.cmx_lst <- ImportHiC(
-file.pth    = McoolOutput.pth,
-res.num     = 100000,
-chrom_1.chr = c("2L", "2L", "2R"),
-chrom_2.chr = c("2L", "2R", "2R")
+    file.pth = McoolOutput.pth,
+    res.num = 100000,
+    chrom_1.chr = c("2L", "2L", "2R"),
+    chrom_2.chr = c("2L", "2R", "2R")
 )
-
 }
+
 }

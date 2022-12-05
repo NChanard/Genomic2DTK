@@ -25,10 +25,11 @@ Apply a function on the values over two RLE and return one RLE.
 ReduceRun
 }
 \examples{
-first.rle = rle(c("A","A","B"))
-second.rle = rle(c("A","B","B"))
-ReduceRun(first.rle=first.rle, second.rle=second.rle, reduceFun.chr="paste", sep="_" )
-first.rle = S4Vectors::Rle(c(1,2,3))
-second.rle = S4Vectors::Rle(c(5,5,5))
-ReduceRun(first.rle=first.rle, second.rle=second.rle, reduceFun.chr="sum")
+first.rle <- rle(c("A", "A", "B"))
+second.rle <- rle(c("A", "B", "B"))
+ReduceRun(first.rle = first.rle, second.rle = second.rle, reduceFun.chr = "paste", sep = "_")
+first.rle <- S4Vectors::Rle(c(1, 2, 3))
+second.rle <- S4Vectors::Rle(c(5, 5, 5))
+ReduceRun(first.rle = first.rle, second.rle = second.rle, reduceFun.chr = "sum")
+
 }
