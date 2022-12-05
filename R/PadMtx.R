@@ -14,10 +14,10 @@
 #' PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("right", "left"))
 #' PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("top"))
 #'
-PadMtx <- function(mat.mtx = NULL, padSize.num = 1, value.num = 0, side.chr = c(
-                       "top",
-                       "bot", "right", "left"
-                   )) {
+PadMtx <- function(
+    mat.mtx = NULL, padSize.num = 1, value.num = 0,
+    side.chr = c("top", "bot", "right", "left")
+) {
     if ("top" %in% side.chr) {
         if (!is.null(value.num)) {
             row.lst <- rep(list(rep(value.num, dim(mat.mtx)[2])), padSize.num)
@@ -32,7 +32,9 @@ PadMtx <- function(mat.mtx = NULL, padSize.num = 1, value.num = 0, side.chr = c(
             row.lst <- rep(list(rep(value.num, dim(mat.mtx)[2])), padSize.num)
             row.pad <- do.call(rbind, row.lst)
         } else {
-            row.pad <- mat.mtx[(nrow(mat.mtx) - padSize.num + 1):nrow(mat.mtx), ]
+            row.pad <- mat.mtx[
+                (nrow(mat.mtx) - padSize.num + 1):nrow(mat.mtx),
+            ]
         }
         mat.mtx <- rbind(mat.mtx, row.pad)
     }
@@ -50,7 +52,9 @@ PadMtx <- function(mat.mtx = NULL, padSize.num = 1, value.num = 0, side.chr = c(
             col.lst <- rep(list(rep(value.num, dim(mat.mtx)[1])), padSize.num)
             col.pad <- do.call(cbind, col.lst)
         } else {
-            col.pad <- mat.mtx[, (ncol(mat.mtx) - padSize.num + 1):ncol(mat.mtx)]
+            col.pad <- mat.mtx[,
+                (ncol(mat.mtx) - padSize.num + 1):ncol(mat.mtx)
+            ]
         }
         mat.mtx <- cbind(mat.mtx, col.pad)
     }

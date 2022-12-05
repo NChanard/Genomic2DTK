@@ -16,8 +16,12 @@
 #' plot(density(MinMaxScale(x.num)), col = "red", xlim = c(min(MinMaxScale(y.num)), max(MinMaxScale(x.num))))
 #' lines(density(MinMaxScale(y.num)), col = "green")
 #'
-MinMaxScale <- function(x.num, min.num = (0), max.num = 1) {
-    min.num + (((x.num - min(x.num, na.rm = TRUE)) * (max.num - min.num)) / (max(x.num,
-        na.rm = TRUE
-    ) - min(x.num, na.rm = TRUE)))
+MinMaxScale <- function(
+    x.num, min.num = (0), max.num = 1
+) {
+    min.num +
+    (
+        ((x.num - min(x.num, na.rm = TRUE)) * (max.num - min.num)) /
+        (max(x.num, na.rm = TRUE ) - min(x.num, na.rm = TRUE))
+    )
 }

@@ -33,8 +33,12 @@
 #' # Matrices Orientation
 #' oriented_Interactions_PF.mtx_lst <- OrienteMatrix(interactions_PF.mtx_lst)
 #'
-OrienteMatrix <- function(matrice.mtx) {
-    if (is.list(matrice.mtx) && !is.null(attributes(matrice.mtx)$interactions)) {
+OrienteMatrix <- function(
+    matrice.mtx
+) {
+    if (is.list(matrice.mtx) &&
+        !is.null(attributes(matrice.mtx)$interactions)
+    ) {
         orientedMatrice.mtx <- matrice.mtx
         message(
             length(which(!attributes(matrice.mtx)$interactions$orientation)),

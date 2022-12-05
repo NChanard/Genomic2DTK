@@ -15,7 +15,9 @@
 #' sum(c(NA, NA, NA), na.rm = TRUE)
 #' sum(c(NA, NA, NA))
 #'
-Plus <- function(x) {
+Plus <- function(
+    x
+) {
     if (all(is.na(x))) {
         c(x[0], NA)
     } else {

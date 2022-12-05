@@ -14,6 +14,8 @@
 #' myFunction <- WrapFunction(myString_2)
 #' myFunction(c(1, 2, 3))
 #'
-WrapFunction <- function(...) {
+WrapFunction <- function(
+    ...
+) {
     eval(parse(text = paste(..., collapse = " ")))
 }

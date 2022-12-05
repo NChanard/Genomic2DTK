@@ -54,9 +54,13 @@
 #' # MultiPlot Differential Aggregation
 #' PlotAPA(aggregDiff.mtx)
 #'
-PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.num = NULL,
-                    colMax.num = NULL, colCondMin.num = NULL, colCondMax.num = NULL) {
-    .ggDensity <- function(data.lst = NULL, colour.col = NULL, mean.bln = TRUE, title.chr = NULL) {
+PlotAPA <- function(
+    apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.num = NULL,
+    colMax.num = NULL, colCondMin.num = NULL, colCondMax.num = NULL
+) {
+    .ggDensity <- function(
+        data.lst = NULL, colour.col = NULL, mean.bln = TRUE, title.chr = NULL
+    ) {
         data.lst_tbl <- lapply(
             seq_along(data.lst),
             function(element.ndx) {
@@ -110,8 +114,11 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
     }
     # Plot Auto Scale
     plot.gp <- ggAPA(
-        apa.mtx = apa.mtx, heatmap.col = heatmap.col, title.chr = ifelse(
-            differential.bln, yes = "Agregation of differential matrices",
+        apa.mtx = apa.mtx,
+        heatmap.col = heatmap.col,
+        title.chr = ifelse(
+            differential.bln,
+            yes = "Agregation of differential matrices",
             no = "Agregation"
         )
     ) +
@@ -148,7 +155,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
             ggplot2::labs(
                 subtitle =
                     paste0(
-                        "scale(rm ", trimPrct.num, "%), center(", colMid.num, ")"
+                        "scale(rm ",trimPrct.num,"%), center(",colMid.num,")"
                     )
             )
         plot(plot.gp)
@@ -161,7 +168,8 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
             colMin.num = colMin.num,
             colMid.num = colMid.num,
             colMax.num = colMax.num,
-            title.chr = ifelse(differential.bln,
+            title.chr = ifelse(
+                differential.bln,
                 yes = "Agregation of differential matrices",
                 no = "Agregation"
             )
@@ -178,7 +186,8 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
     if (differential.bln) {
         # Pval + Auto Scale
         if (!is.null(attributes(apa.mtx)$matrices$pVal) &&
-            sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >= 3) {
+            sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >= 3
+        ) {
             plot.gp <- ggAPA(
                 apa.mtx = attributes(apa.mtx)$matrices$pVal,
                 heatmap.col = YlOrRd(9),
@@ -201,7 +210,8 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
         plot(plot.gp)
         # FiltPval + Auto Scale + Center
         if (!is.null(attributes(apa.mtx)$matrices$aggDiffPvalFilt) &&
-            sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >= 3) {
+            sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >= 3
+        ) {
             plot.gp <- ggAPA(
                 apa.mtx = attributes(apa.mtx)$matrices$aggDiffPvalFilt,
                 heatmap.col = heatmap.col,
@@ -210,7 +220,8 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
             ) +
                 ggplot2::labs(
                     subtitle = paste0(
-                        "filtred by p.values, scale(auto), center(", colMid.num, ")"
+                        "filtred by p.values, scale(auto), center(",
+                        colMid.num,")"
                     )
                 )
         } else {
@@ -229,7 +240,8 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
         plot(plot.gp)
         # FiltPval + Trim Scale + Center
         if (!is.null(attributes(apa.mtx)$matrices$aggDiffPvalFilt) &&
-            sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >= 3) {
+            sum(!is.na(attributes(apa.mtx)$matrices$pVal)) >= 3
+        ) {
             plot.gp <- ggAPA(
                 apa.mtx = attributes(apa.mtx)$matrices$aggDiffPvalFilt,
                 heatmap.col = heatmap.col,
@@ -279,7 +291,7 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
             ) +
                 ggplot2::labs(
                     subtitle = paste0(
-                        "scale(rm ", trimPrct.num, "%), center(", colMid.num, ")"
+                        "scale(rm ", trimPrct.num, "%), center(",colMid.num,")"
                     )
                 )
             plot(plot.gp)
@@ -329,12 +341,13 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
                 heatmap.col = viridis(51),
                 trimPrct.num = trimPrct.num, title.chr = "Agregation control"
             ) +
-                ggplot2::labs(subtitle = paste0("scale(rm ", trimPrct.num, "%)"))
+                ggplot2::labs(subtitle = paste0("scale(rm ",trimPrct.num,"%)"))
             plot(plot.gp)
         }
         # Control + MinMax Scale
         if (!is.null(colCondMin.num) ||
-            !is.null(colCondMax.num)) {
+            !is.null(colCondMax.num)
+        ) {
             plot.gp <- ggAPA(
                 apa.mtx = attributes(apa.mtx)$matrices$aggCtrl,
                 heatmap.col = viridis(51),
@@ -363,7 +376,9 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
                 heatmap.col = viridis(51),
                 trimPrct.num = trimPrct.num, title.chr = "Agregation"
             ) +
-                ggplot2::labs(subtitle = paste0("scale (rm ", trimPrct.num, "%)"))
+                ggplot2::labs(
+                    subtitle = paste0("scale (rm ",trimPrct.num,"%)")
+                )
             plot(plot.gp)
         }
         # Condition + MinMax Scale
@@ -375,7 +390,10 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
                 title.chr = "Agregation"
             ) +
                 ggplot2::labs(
-                    subtitle = paste0("scale(", colCondMin.num, ";", colCondMax.num, ")")
+                    subtitle = paste0(
+                        "scale(", colCondMin.num, ";",
+                        colCondMax.num, ")"
+                    )
                 )
             plot(plot.gp)
         }
@@ -396,7 +414,9 @@ PlotAPA <- function(apa.mtx = NULL, trimPrct.num = 0, colMin.num = NULL, colMid.
                     trimPrct.num = trimPrct.num,
                     title.chr = "Agregation corrected"
                 ) +
-                    ggplot2::labs(subtitle = paste0("scale (rm ", trimPrct.num, "%)"))
+                    ggplot2::labs(
+                        subtitle = paste0("scale (rm ", trimPrct.num, "%)")
+                    )
                 plot(plot.gp)
             }
             # Corrected condition + MinMax Scale

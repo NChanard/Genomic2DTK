@@ -12,7 +12,9 @@
 #' )
 #' TransposeList(my_lst)
 #'
-TransposeList <- function(var.nlst) {
+TransposeList <- function(
+    var.nlst
+) {
     var.nlst |>
         lapply(length) |>
         unlist() |>

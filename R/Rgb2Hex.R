@@ -8,9 +8,15 @@
 #' @examples
 #' Rgb2Hex(c(235, 176, 16, 127), alpha.bln = TRUE)
 #'
-Rgb2Hex <- function(rgb.col = NULL, alpha.bln = FALSE) {
+Rgb2Hex <- function(
+    rgb.col = NULL, alpha.bln = FALSE
+) {
     if (3 > length(rgb.col) | length(rgb.col) > 4) {
-        stop("Need 3 or 4 values beetween 0 and 255, first value for red, second for green, third for blue and last for alpha")
+        err.chr <- paste0(
+            "Need 3 or 4 values beetween 0 and 255, first value for red, ",
+            "second for green, third for blue and last for alpha"
+        )
+        stop(err.chr)
     } else {
         if (IsRgb(rgb.col)) {
             if (length(rgb.col) == 3) {
@@ -30,7 +36,11 @@ Rgb2Hex <- function(rgb.col = NULL, alpha.bln = FALSE) {
                 unlist()
             hex.col <- paste0(c("#", hex.col), collapse = "")
         } else {
-            stop("Need 3 or 4 values beetween 0 and 255, first value for red, second for green, third for blue and last for alpha")
+            err.chr <- paste0(
+                "Need 3 or 4 values beetween 0 and 255, first value for red, ",
+                "second for green, third for blue and last for alpha"
+            )
+            stop(err.chr)
         }
     }
     if (!alpha.bln) {
