@@ -96,3 +96,9 @@ reference:
   - MakeParallelParam
   - NotIn
   - WrapFunction
+
+articles:
+- title: Tutorials
+  navbar: ~
+  contents:
+  - InDepth

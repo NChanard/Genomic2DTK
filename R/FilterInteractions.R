@@ -92,7 +92,7 @@
 #' ) |> str(max.level = 1)
 #'
 #'
-#' # Filtration  with GRanges as filtration criteria
+#' # Filtration with GRanges as filtration criteria
 #' target.lst <- list(first =  InteractionSet::anchors(Beaf_Beaf.gni)[["first"]][seq_len(2)])
 #' FilterInteractions(
 #'     interarctions.gni = Beaf_Beaf.gni,
