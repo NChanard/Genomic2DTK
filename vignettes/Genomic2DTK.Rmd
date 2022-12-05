@@ -4,11 +4,11 @@ author: "Nicolas Chanard"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 description: >
-  Quick tutorial about Genomic2DTK functions.
+    Quick tutorial about Genomic2DTK functions.
 vignette: >
-  %\VignetteIndexEntry{Genomic2DTK - Quick start}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\usepackage[UTF-8]{inputenc}
+    %\VignetteIndexEntry{Genomic2DTK - Quick start}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\usepackage[UTF-8]{inputenc}
 ---
 <style>
 body {
@@ -16,19 +16,19 @@ text-align: justify}
 </style>
 ```{css, echo=FALSE}
 pre {
-  max-height: 300px;
-  overflow-y: auto;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 pre[class] {
-  max-height: 300px;
+    max-height: 300px;
 }
 ```
 ```{css, echo=FALSE}
 .scroll-100 {
-  max-height: 100px;
-  overflow-y: auto;
-  background-color: inherit;
+    max-height: 100px;
+    overflow-y: auto;
+    background-color: inherit;
 }
 ```
 ```{r, Options, echo = FALSE, message = FALSE}
@@ -66,11 +66,11 @@ data("Beaf32_Peaks.gnr")
 Beaf_Peaks.dtf <- Beaf32_Peaks.gnr |> as.data.frame() |> head(n=3L)
 Beaf_Peaks.dtf <- Beaf_Peaks.dtf[,-c(4)]
 knitr::kable(Beaf_Peaks.dtf[,c(1:4,6,5)],
-  col.names = c(
-    "seq","start","end","strand",
-    "name","score"),
-  align  = "rccccc",
-  digits = 1
+    col.names = c(
+        "seq","start","end","strand",
+        "name","score"),
+    align  = "rccccc",
+    digits = 1
 )
 ```
 </details>  
@@ -94,9 +94,9 @@ We complete the data with 2L and 2R chromosome sizes and HiC map resolution.
 ```{r, eval = TRUE}
 seqlengths.num <- c('2L'=23513712, '2R'=25286936)
 chromSize.dtf  <- data.frame(
-  seqnames   = names(seqlengths.num ), 
-  seqlengths = seqlengths.num
-  )
+    seqnames   = names(seqlengths.num ), 
+    seqlengths = seqlengths.num
+    )
 binSize.num <- 1000
 ```
 
@@ -112,10 +112,10 @@ Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool,
 
 ```{r, eval = TRUE, results = FALSE}
 hic.cmx_lst <- ImportHiC(
-  file.pth      = HicOutput.pth,
-  res.num       = binSize.num,
-  chrom_1.chr   = c("2L", "2R")
-  )
+    file.pth      = HicOutput.pth,
+    res.num       = binSize.num,
+    chrom_1.chr   = c("2L", "2R")
+    )
 ```
 
 
@@ -146,14 +146,14 @@ str(attributes(hic.cmx_lst))
 1. **names** : the names of list elements (ContactMatrix).
 2. **resolution** : the resolution of the HiC map.  
 3. **chromSize** : the size of the chromosomes in the tibble format.   
-    - *seqnames* : the sequence name (chromosome name).  
-    - *seqlengths* : the sequence length in base pairs.  
-    - *dimension* : the sequence length in base bins  
+        - *seqnames* : the sequence name (chromosome name).  
+        - *seqlengths* : the sequence length in base pairs.  
+        - *dimension* : the sequence length in base bins  
 4. **matricesKind** : the kind of matrix that composes the list in the tibble format.   
-    - *name* : the matrix name. 
-    - *type* : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.  
-    - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
-    - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
+        - *name* : the matrix name. 
+        - *type* : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.  
+        - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
+        - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
 5. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
 6. **expected** : a tiblle of expected count as a function of genomic distance 
 
@@ -182,20 +182,20 @@ To integrate them with the HiC data, which are represented by 2D matrices, these
 The first step is the indexing of the features on the genome. This step allows the features to be splitted and grouped into bins that correspond to the resolution of the HiC matrix.
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Index.gnr <- IndexFeatures(
-  gRange.gnr_lst        = list(Beaf = Beaf32_Peaks.gnr),
-  chromSize.dtf         = chromSize.dtf,
-  binSize.num           = binSize.num
-  )
+    gRange.gnr_lst        = list(Beaf = Beaf32_Peaks.gnr),
+    chromSize.dtf         = chromSize.dtf,
+    binSize.num           = binSize.num
+    )
 ```
 
 ## Beaf32 <-> Beaf32 putatives pairs
 The second step is to search for pairs of bins. We put here two distance constraints in order to limit the number of pairs kept. Thus, only the pairs for which the peaks of Beaf32 are at least 25KB and at most 100Kb apart are retained.
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Pairs.gni <- SearchPairs(
-  indexAnchor.gnr = Beaf_Index.gnr,
-  minDist.num     = "25KB",
-  maxDist.num     = "100KB"
-  )
+    indexAnchor.gnr = Beaf_Index.gnr,
+    minDist.num     = "25KB",
+    maxDist.num     = "100KB"
+    )
 ```
 
 # Aggregation Analysis
@@ -204,9 +204,9 @@ Once the data has been pre-processed, the analysis can be performed to integrate
 The first step is to extract the HiC data centred on the previously formed loci pairs. The result of the extraction is a list of matrices where each matrix corresponds to a pair.
 ```{r, eval = TRUE, results = FALSE}
 Beaf.mtx_lst <- ExtractSubmatrix(
-  feature.gn  = Beaf_Pairs.gni,
-  hic.cmx_lst = hic.cmx_lst
-  )
+    feature.gn  = Beaf_Pairs.gni,
+    hic.cmx_lst = hic.cmx_lst
+    )
 ```
 
 ## Aggregation
@@ -219,9 +219,9 @@ aggreg.mtx <- Aggregation(Beaf.mtx_lst)
 Finaly, we can plot the aggregated matrix. Here we can see a red square that correspond to the topological associated domains formed between beaf32 loci.
 ```{r, eval = TRUE, fig.dim = c(7,7), warning=FALSE}
 ggAPA(
-  apa.mtx = aggreg.mtx,
-  title.chr = "APA Beaf <-> Beaf"
-  )
+    apa.mtx = aggreg.mtx,
+    title.chr = "APA Beaf <-> Beaf"
+    )
 ```
 
 # SessionInfo
