@@ -13,15 +13,15 @@ chromSize.dtf  <- data.frame(
 )
 
 # Test NormalizeHiC
-NormalizeHiC(HiC_Ctrl.cmx_lst, method.chr="VC")
-NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
-NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
-HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
-HiC_HS.cmx_lst   <- NormalizeHiC(HiC_HS.cmx_lst,   interaction.type="cis")
+BalanceHiC(HiC_Ctrl.cmx_lst, method.chr="VC")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
+HiC_Ctrl.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
+HiC_HS.cmx_lst   <- BalanceHiC(HiC_HS.cmx_lst,   interaction.type="cis")
 
-# Test ExpectedHiC
-HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
-HiC_HS.cmx_lst   <- ExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
+# Test OverExpectedHiC
+HiC_Ctrl.cmx_lst <- OverExpectedHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst   <- OverExpectedHiC(HiC_HS.cmx_lst, cores.num = 2)
 
 # Test SwitchMatrix
 SwitchMatrix(HiC_Ctrl.cmx_lst, matrixKind.chr="norm")
@@ -190,15 +190,6 @@ diffAggreg.mtx <- Aggregation(
 )
 
 # Test ggAPA and PlotAPA
-PlotAPA(
-    apa.mtx        = diffAggreg.mtx,
-    trimPrct.num   = 20,
-    colMin.num     = -2,
-    colMid.num     = 0,
-    colMax.num     = 2,
-    colCondMin.num = 0,
-    colCondMax.num = 2
-)
 ggAPA(
     apa.mtx      = diffAggreg.mtx,
     title.chr    = "APA",

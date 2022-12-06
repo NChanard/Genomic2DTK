@@ -14,12 +14,12 @@ reference:
 - title: HiC
   desc: "Functions for HiC data preprocessing."
   contents:
+  - BalanceHiC
   - CutHiC
-  - ExpectedHiC
   - ImportHiC
   - ICEnorm
   - JoinHiC
-  - NormalizeHiC
+  - OverExpectedHiC
   - SwitchMatrix
   - VCnorm
 
@@ -52,7 +52,6 @@ reference:
   - Hue
   - IsHsl
   - IsRgb
-  - PlotAPA
   - Rgb2Hex
   - viridis
   - YlGnBu

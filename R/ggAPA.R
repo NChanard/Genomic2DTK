@@ -264,11 +264,11 @@ ggAPA <- function(
     data.dtf <- MeltSpm(apa.mtx)
     plot.ggp <- ggplot2::ggplot(
         data.dtf, ggplot2::aes(
-            data.dtf$j,
-            data.dtf$i
+            .data$j,
+            .data$i
         )
     ) +
-    ggplot2::geom_raster(ggplot2::aes(fill = data.dtf$x)) +
+    ggplot2::geom_raster(ggplot2::aes(fill = .data$x)) +
     ggplot2::scale_fill_gradientn(
         colours  = heatmap.col,
         values   = MinMaxScale(colBreaks.num),

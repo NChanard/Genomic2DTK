@@ -1,6 +1,6 @@
 #' Compute HiC matrix-balancing.
 #'
-#' NormalizeHiC
+#' BalanceHiC
 #' @description Apply a matrix-balancing normalization method to a list of contacts matrix.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @param method.chr <character> : The kind of normalization method. One of "ICE", "VC" or "VC_SQRT" (Default "ICE")
@@ -13,22 +13,22 @@
 #' @examples
 #' data(HiC_Ctrl.cmx_lst)
 #'
-#' HiC_Ctrl_ICE.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+#' HiC_Ctrl_ICE.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst,
 #'     interaction.type = "cis",
 #'     method.chr = "ICE"
 #' )
 #'
-#' HiC_Ctrl_VC.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+#' HiC_Ctrl_VC.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst,
 #'     interaction.type = c("cis", "trans"),
 #'     method.chr = "VC"
 #' )
 #'
-#' HiC_Ctrl_VC_SQRT.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst,
+#' HiC_Ctrl_VC_SQRT.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst,
 #'     interaction.type = "all",
 #'     method.chr = "VC_SQRT"
 #' )
 #'
-NormalizeHiC <- function(
+BalanceHiC <- function(
     hic.cmx_lst, method.chr = "ICE", interaction.type = NULL, maxIter.num = 50,
     qtlTh.num = 0.15, cores.num = 1, verbose.bln = FALSE
 ) {

@@ -122,12 +122,12 @@ hic.cmx_lst <- ImportHiC(
 ## Balancing
 Genomic2TK forces the import in the R environment of the raw counts matrix, it is thus necessary to perform the balancing step (Defaut: Iterative Correction) which makes it possible to correct the biases inherent to the loci by balancing the sums of each line and of each column to make them comparable.
 ```{r, eval = TRUE, results = FALSE}
-hic.cmx_lst <- NormalizeHiC(hic.cmx_lst)
+hic.cmx_lst <- BalanceHiC(hic.cmx_lst)
 ```
 ## Expected
 Once the bias inherent to the loci has been corrected, the bias due to the genomic distance between two loci must be corrected. To do this, the matrix is corrected by the expected values for each genomic distance.
 ```{r, eval = TRUE, results = FALSE}
-hic.cmx_lst <- ExpectedHiC(hic.cmx_lst)
+hic.cmx_lst <- OverExpectedHiC(hic.cmx_lst)
 ```
 
 ## HiC data format: ContactMatrix list (cmx_lst) structure 

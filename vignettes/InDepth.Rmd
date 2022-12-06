@@ -180,7 +180,7 @@ attributes(HiC_Ctrl.cmx_lst)
         - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
         - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
 5. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
-6. **expected** : This attributes is relatives to the ExpectedHiC function it give a tiblle of expected count as a function of genomic distance
+6. **expected** : This attributes is relatives to the OverExpectedHiC function it give a tiblle of expected count as a function of genomic distance
 
 Each contactmatrix in the list have metadata. These are accessed via:
 ```{r, eval = TRUE}
@@ -197,7 +197,7 @@ S4Vectors::metadata(HiC_Ctrl.cmx_lst[["2L_2L"]])
 7. **observed** : the raw observed counts of the sparse matrix.
 8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).  
 9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.  
-10. **expected** : This attributes is relatives to the ExpectedHiC function it give the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
+10. **expected** : This attributes is relatives to the OverExpectedHiC function it give the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
 
 ## Additional genome informations
 General genomic informations used by the functions all along the process are a data.frame containing chromosomes names and sized and the binSize, corresponding to the HiC matrices resolution.
@@ -217,8 +217,8 @@ ___
 ## Balancing
 Genomic2TK forces the import in the R environment of the raw counts matrix, it is thus necessary to perform the balancing step (Defaut: Iterative Correction) which makes it possible to correct the biases inherent to the loci by balancing the sums of each line and of each column to make them comparable.
 ```{r, eval = TRUE, results = FALSE}
-HiC_Ctrl.cmx_lst <- NormalizeHiC(HiC_Ctrl.cmx_lst)
-HiC_HS.cmx_lst <- NormalizeHiC(HiC_HS.cmx_lst)
+HiC_Ctrl.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst <- BalanceHiC(HiC_HS.cmx_lst)
 ```
 
 ### Tips
@@ -231,8 +231,8 @@ HiC_HS.cmx_lst <- NormalizeHiC(HiC_HS.cmx_lst)
 ## Expected
 Once the bias inherent to the loci has been corrected, the bias due to the genomic distance between two loci must be corrected. To do this, the matrix is corrected by the expected values for each genomic distance.
 ```{r, eval = TRUE, results = FALSE}
-HiC_Ctrl.cmx_lst <- ExpectedHiC(HiC_Ctrl.cmx_lst)
-HiC_HS.cmx_lst <- ExpectedHiC(HiC_HS.cmx_lst)
+HiC_Ctrl.cmx_lst <- OverExpectedHiC(HiC_Ctrl.cmx_lst)
+HiC_HS.cmx_lst <- OverExpectedHiC(HiC_HS.cmx_lst)
 ```
 
 ___
@@ -1253,22 +1253,6 @@ ggplot2::labs(
         subtitle = "and subtitle"
 )
 ```
-
-### Multiplot aggregation function:
-PlotAPA() function plots multiple pages of aggregated matrices with different visualisation parameters.
-
-```{r, eval = TRUE}
-PlotAPA(
-        apa.mtx =        diffAggreg.mtx,
-        trimPrct.num =   20,
-        colMin.num =     -2,
-        colMid.num =     0,
-        colMax.num =     2,
-        colCondMin.num = 0,
-        colCondMax.num = 2
-)
-```
-
 ___
 # SessionInfo
 ```{r, eval = TRUE}
