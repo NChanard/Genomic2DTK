@@ -255,7 +255,7 @@ Iterative Correction) which makes it possible to correct the biases
 inherent to the loci by balancing the sums of each line and of each
 column to make them comparable.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NormalizeHiC.html">NormalizeHiC</a></span><span class="op">(</span><span class="va">hic.cmx_lst</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BalanceHiC.html">BalanceHiC</a></span><span class="op">(</span><span class="va">hic.cmx_lst</span><span class="op">)</span></span>
 <span><span class="co">#&gt; No trans matrix, Normalisation won't be applied on trans matrices</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -266,7 +266,7 @@ to the genomic distance between two loci must be corrected. To do this,
 the matrix is corrected by the expected values for each genomic
 distance.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExpectedHiC.html">ExpectedHiC</a></span><span class="op">(</span><span class="va">hic.cmx_lst</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hic.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OverExpectedHiC.html">OverExpectedHiC</a></span><span class="op">(</span><span class="va">hic.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="hic-data-format-contactmatrix-list-cmx_lst-structure">HiC data format: ContactMatrix list (cmx_lst) structure<a class="anchor" aria-label="anchor" href="#hic-data-format-contactmatrix-list-cmx_lst-structure"></a>

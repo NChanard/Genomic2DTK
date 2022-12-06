@@ -518,8 +518,8 @@ symmetric (lower triangle identical to upper triangle).<br>
 observed counts, normalized counts, observed/expected, etc.</li>
 <li>
 <strong>expected</strong> : This attributes is relatives to the
-ExpectedHiC function it give a tiblle of expected count as a function of
-genomic distance</li>
+OverExpectedHiC function it give a tiblle of expected count as a
+function of genomic distance</li>
 </ol>
 <p>Each contactmatrix in the list have metadata. These are accessed
 via:</p>
@@ -576,7 +576,7 @@ observed counts, normalized counts, observed/expected, etc.<br>
 </li>
 <li>
 <strong>expected</strong> : This attributes is relatives to the
-ExpectedHiC function it give the expected vector to apply on the
+OverExpectedHiC function it give the expected vector to apply on the
 normalized counts to obtaine the observed/expected counts. (normalized
 counts/expected = observed/expected).</li>
 </ol>
@@ -611,8 +611,8 @@ Iterative Correction) which makes it possible to correct the biases
 inherent to the loci by balancing the sums of each line and of each
 column to make them comparable.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HiC_Ctrl.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NormalizeHiC.html">NormalizeHiC</a></span><span class="op">(</span><span class="va">HiC_Ctrl.cmx_lst</span><span class="op">)</span></span>
-<span><span class="va">HiC_HS.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NormalizeHiC.html">NormalizeHiC</a></span><span class="op">(</span><span class="va">HiC_HS.cmx_lst</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">HiC_Ctrl.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BalanceHiC.html">BalanceHiC</a></span><span class="op">(</span><span class="va">HiC_Ctrl.cmx_lst</span><span class="op">)</span></span>
+<span><span class="va">HiC_HS.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BalanceHiC.html">BalanceHiC</a></span><span class="op">(</span><span class="va">HiC_HS.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="tips">Tips<a class="anchor" aria-label="anchor" href="#tips"></a>
 </h4>
@@ -634,8 +634,8 @@ to the genomic distance between two loci must be corrected. To do this,
 the matrix is corrected by the expected values for each genomic
 distance.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HiC_Ctrl.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExpectedHiC.html">ExpectedHiC</a></span><span class="op">(</span><span class="va">HiC_Ctrl.cmx_lst</span><span class="op">)</span></span>
-<span><span class="va">HiC_HS.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ExpectedHiC.html">ExpectedHiC</a></span><span class="op">(</span><span class="va">HiC_HS.cmx_lst</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">HiC_Ctrl.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OverExpectedHiC.html">OverExpectedHiC</a></span><span class="op">(</span><span class="va">HiC_Ctrl.cmx_lst</span><span class="op">)</span></span>
+<span><span class="va">HiC_HS.cmx_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/OverExpectedHiC.html">OverExpectedHiC</a></span><span class="op">(</span><span class="va">HiC_HS.cmx_lst</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -3487,26 +3487,14 @@ the control.</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>        apa.mtx   <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr <span class="op">=</span> <span class="st">"APA"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-101-1.png" width="672">
 #### With Orientation</p>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>        apa.mtx   <span class="op">=</span> <span class="va">orientedAggreg.mtx</span>,</span>
 <span>        title.chr <span class="op">=</span> <span class="st">"APA"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-102-1.png" width="672">
 ### Further visualisation parameters:</p>
 </div>
@@ -3523,13 +3511,7 @@ tail or both tails of the distribution.</p>
 <span>        bounds.chr   <span class="op">=</span> <span class="st">"upper"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in max(unlist(bounds.num_lst[1]), na.rm = TRUE): no non-missing</span></span>
-<span><span class="co">#&gt; arguments to max; returning -Inf</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; arguments to max; returning -Inf</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-103-1.png" width="672"></p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
@@ -3539,13 +3521,7 @@ tail or both tails of the distribution.</p>
 <span>        bounds.chr   <span class="op">=</span> <span class="st">"lower"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in min(unlist(bounds.num_lst[2]), na.rm = TRUE): no non-missing</span></span>
-<span><span class="co">#&gt; arguments to min; returning Inf</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; arguments to min; returning Inf</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-103-2.png" width="672"></p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
@@ -3553,13 +3529,7 @@ tail or both tails of the distribution.</p>
 <span>        title.chr    <span class="op">=</span> <span class="st">"APA 30% trimmed"</span>,</span>
 <span>        trimPrct.num <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>        bounds.chr   <span class="op">=</span> <span class="st">"both"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-103-3.png" width="672"></p>
 </div>
 <div class="section level5">
@@ -3575,13 +3545,7 @@ tail or both tails of the distribution.</p>
 <span>        title.chr       <span class="op">=</span> <span class="st">"APA [0-1]"</span>,</span>
 <span>        colMin.num <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>        colMax.num <span class="op">=</span> <span class="fl">1</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-104-1.png" width="672"></p>
 </div>
 <div class="section level6">
@@ -3593,13 +3557,7 @@ tail or both tails of the distribution.</p>
 <span>        apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr  <span class="op">=</span> <span class="st">"APA center on 0.2"</span>,</span>
 <span>        colMid.num <span class="op">=</span> <span class="fl">0.5</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-105-1.png" width="672"></p>
 </div>
 <div class="section level6">
@@ -3611,39 +3569,21 @@ tail or both tails of the distribution.</p>
 <span>        apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr     <span class="op">=</span> <span class="st">"APA [0, .25, .50, .30, .75, 1]"</span>,</span>
 <span>        colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-106-1.png" width="672"></p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>        apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr     <span class="op">=</span> <span class="st">"APA [0, .15, .20, .25, 1]"</span>,</span>
 <span>        colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.15</span>,<span class="fl">0.20</span>,<span class="fl">0.25</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-106-2.png" width="672"></p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>        apa.mtx       <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr     <span class="op">=</span> <span class="st">"APA [0, .5, .6, .8, 1]"</span>,</span>
 <span>        colBreaks.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.4</span>,<span class="fl">0.5</span>,<span class="fl">0.7</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-106-3.png" width="672"></p>
 </div>
 <div class="section level6">
@@ -3655,39 +3595,21 @@ tail or both tails of the distribution.</p>
 <span>        apa.mtx    <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr  <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>        colorScale <span class="op">=</span> <span class="st">"density"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-107-1.png" width="672"></p>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>        apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>        bias.num    <span class="op">=</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-107-2.png" width="672"></p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggAPA.html">ggAPA</a></span><span class="op">(</span></span>
 <span>        apa.mtx     <span class="op">=</span> <span class="va">aggreg.mtx</span>,</span>
 <span>        title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>        bias.num    <span class="op">=</span> <span class="fl">0.5</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-107-3.png" width="672"></p>
 </div>
 <div class="section level6">
@@ -3701,13 +3623,7 @@ values.</p>
 <span>        title.chr   <span class="op">=</span> <span class="st">"APA"</span>,</span>
 <span>        heatmap.col <span class="op">=</span> <span class="fu"><a href="../reference/viridis.html">viridis</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,</span>
 <span>        na.col      <span class="op">=</span> <span class="st">"black"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-108-1.png" width="672"></p>
 </div>
 </div>
@@ -3723,13 +3639,7 @@ some noise.</p>
 <span>        blurPass.num      <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>        blurSd.num        <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>        lowerTri.num      <span class="op">=</span> <span class="cn">NA</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDepth_files/figure-html/unnamed-chunk-109-1.png" width="672"></p>
 </div>
 <div class="section level5">
@@ -3745,206 +3655,10 @@ following the ggplot2 grammar</p>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>        title    <span class="op">=</span> <span class="st">"New title"</span>,</span>
 <span>        subtitle <span class="op">=</span> <span class="st">"and subtitle"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-110-1.png" width="672"></p>
-</div>
-</div>
-<div class="section level4">
-<h4 id="multiplot-aggregation-function">Multiplot aggregation function:<a class="anchor" aria-label="anchor" href="#multiplot-aggregation-function"></a>
-</h4>
-<p>PlotAPA() function plots multiple pages of aggregated matrices with
-different visualisation parameters.</p>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="InDepth_files/figure-html/unnamed-chunk-110-1.png" width="672">
+___ # SessionInfo</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/PlotAPA.html">PlotAPA</a></span><span class="op">(</span></span>
-<span>        apa.mtx <span class="op">=</span>        <span class="va">diffAggreg.mtx</span>,</span>
-<span>        trimPrct.num <span class="op">=</span>   <span class="fl">20</span>,</span>
-<span>        colMin.num <span class="op">=</span>     <span class="op">-</span><span class="fl">2</span>,</span>
-<span>        colMid.num <span class="op">=</span>     <span class="fl">0</span>,</span>
-<span>        colMax.num <span class="op">=</span>     <span class="fl">2</span>,</span>
-<span>        colCondMin.num <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>        colCondMax.num <span class="op">=</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre></div>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-1.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-2.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-3.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-4.png" width="700"><img src="InDepth_files/figure-html/unnamed-chunk-111-5.png" width="700"><img src="InDepth_files/figure-html/unnamed-chunk-111-6.png" width="700"><img src="InDepth_files/figure-html/unnamed-chunk-111-7.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-8.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-9.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-10.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-11.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-12.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-13.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-14.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-15.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-16.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-17.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-18.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-19.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-20.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-21.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-22.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-23.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `data.dtf$x` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `x` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$j` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `j` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `data.dtf$i` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `i` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-24.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `grp.mean` instead.</span></span>
-<span><span class="co">#&gt; Warning: Use of `mu.tbl$class` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `class` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-25.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `grp.mean` instead.</span></span>
-<span><span class="co">#&gt; Use of `mu.tbl$class` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `class` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-26.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `grp.mean` instead.</span></span>
-<span><span class="co">#&gt; Use of `mu.tbl$class` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `class` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-27.png" width="700"></p>
-<pre><code><span><span class="co">#&gt; Warning: Use of `mu.tbl$grp.mean` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `grp.mean` instead.</span></span>
-<span><span class="co">#&gt; Use of `mu.tbl$class` is discouraged.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `class` instead.</span></span></code></pre>
-<p><img src="InDepth_files/figure-html/unnamed-chunk-111-28.png" width="700"><img src="InDepth_files/figure-html/unnamed-chunk-111-29.png" width="700"></p>
-<hr>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="sessioninfo">SessionInfo<a class="anchor" aria-label="anchor" href="#sessioninfo"></a>
-</h2>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.2.2 (2022-10-31)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
@@ -3994,11 +3708,14 @@ different visualisation parameters.</p>
 <span><span class="co">#&gt; [55] grid_4.2.2             RCurl_1.98-1.9         rhdf5filters_1.8.0    </span></span>
 <span><span class="co">#&gt; [58] rstudioapi_0.14        labeling_0.4.2         bitops_1.0-7          </span></span>
 <span><span class="co">#&gt; [61] rmarkdown_2.18         gtable_0.3.1           codetools_0.2-18      </span></span>
-<span><span class="co">#&gt; [64] R6_2.5.1               gridExtra_2.3          knitr_1.41            </span></span>
-<span><span class="co">#&gt; [67] dplyr_1.0.10           fastmap_1.1.0          utf8_1.2.2            </span></span>
-<span><span class="co">#&gt; [70] rprojroot_2.0.3        ragg_1.2.4             desc_1.4.2            </span></span>
-<span><span class="co">#&gt; [73] stringi_1.7.8          parallel_4.2.2         Rcpp_1.0.9            </span></span>
-<span><span class="co">#&gt; [76] vctrs_0.5.1            tidyselect_1.2.0       xfun_0.35</span></span></code></pre></div>
+<span><span class="co">#&gt; [64] R6_2.5.1               knitr_1.41             dplyr_1.0.10          </span></span>
+<span><span class="co">#&gt; [67] fastmap_1.1.0          utf8_1.2.2             rprojroot_2.0.3       </span></span>
+<span><span class="co">#&gt; [70] ragg_1.2.4             desc_1.4.2             stringi_1.7.8         </span></span>
+<span><span class="co">#&gt; [73] parallel_4.2.2         Rcpp_1.0.9             vctrs_0.5.1           </span></span>
+<span><span class="co">#&gt; [76] tidyselect_1.2.0       xfun_0.35</span></span></code></pre></div>
+</div>
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

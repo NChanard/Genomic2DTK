@@ -34,6 +34,9 @@
     <loc>/reference/Aggregation.html</loc>
   </url>
   <url>
+    <loc>/reference/BalanceHiC.html</loc>
+  </url>
+  <url>
     <loc>/reference/Beaf32_Peaks.gnr.html</loc>
   </url>
   <url>
@@ -50,9 +53,6 @@
   </url>
   <url>
     <loc>/reference/CutHiC.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ExpectedHiC.html</loc>
   </url>
   <url>
     <loc>/reference/ExtractSubmatrix.html</loc>
@@ -127,19 +127,16 @@
     <loc>/reference/MinMaxScale.html</loc>
   </url>
   <url>
-    <loc>/reference/NormalizeHiC.html</loc>
-  </url>
-  <url>
     <loc>/reference/NotIn.html</loc>
   </url>
   <url>
     <loc>/reference/OrienteMatrix.html</loc>
   </url>
   <url>
-    <loc>/reference/PadMtx.html</loc>
+    <loc>/reference/OverExpectedHiC.html</loc>
   </url>
   <url>
-    <loc>/reference/PlotAPA.html</loc>
+    <loc>/reference/PadMtx.html</loc>
   </url>
   <url>
     <loc>/reference/Plus.html</loc>
