@@ -196,7 +196,7 @@ NormalizeHiC <- function(
                 attr.lst$matricesKind <- dplyr::filter(
                     attr.lst$matricesKind,
                     NotIn(attr.lst$matricesKind$name, cisMatricesNames.chr)
-                 )
+                )
                 chroms.chr <- attr.lst$matricesKind$name |>
                     strsplit("_") |>
                     unlist() |>

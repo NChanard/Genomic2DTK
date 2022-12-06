@@ -121,7 +121,7 @@ megaHic.cmx, verbose.bln = FALSE
                             col.regions
                         )@from
                     ]@x
-               )
+                )
             }
             # Metadata
             hic.cmx@metadata <- dplyr::filter(

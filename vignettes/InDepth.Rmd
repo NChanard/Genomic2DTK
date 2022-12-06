@@ -288,7 +288,7 @@ baits_Index.gnr |>
 By using features names and bin IDs, it is possible to filter or subset indexed features.
 Example: Subset indexed TSS that are not in the same bin than an indexed Beaf32 peak.
 ```{r, eval = TRUE}
-non_Overlaps.ndx <- SuperTK::NotIn(baits_Index.gnr$bin,anchors_Index.gnr$bin)
+non_Overlaps.ndx <- NotIn(baits_Index.gnr$bin,anchors_Index.gnr$bin)
 baits_Index.gnr <- baits_Index.gnr[non_Overlaps.ndx,]
 ```
 <details>  
@@ -459,7 +459,7 @@ sort()
 
 Step 2: Filter and reduce TAD boundaries GRanges object according to HiC resolution (binSize) + Store TAD names.
 ```{r, eval = TRUE}
-domains_Border_Bin.gnr <- GenomicTK::BinGRanges(
+domains_Border_Bin.gnr <- BinGRanges(
     gRange.gnr  = domains_Border.gnr,
     binSize.num = binSize.num,
     verbose.bln = FALSE
@@ -1222,7 +1222,7 @@ here is an option to change the color of heatmap and color of NA values.
 ggAPA(
         apa.mtx     = aggreg.mtx,
         title.chr   = "APA",
-        heatmap.col = SuperTK::viridis(6),
+        heatmap.col = viridis(6),
         na.col      = "black"
 )
 ```
