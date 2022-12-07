@@ -35,28 +35,64 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
 ```
 
-# Library
-Genomic2DTK is a package that allows to perform aggregation analyses. In a first step, these analyses consist in extracting 3D conformation data at specific genome loci. Then, in a second step, to aggregate the extracted signal on all the loci to visualize it. In this tutorial you will see how to quickly perform this type of analysis.
-However, we invite you to have a closer look at the documentation and other articles that present in more depth the possibilities of Genomic2DTK which allows for example the exploration and quantification of the signal at a single locus or the performance of differential analysis.
+This package provides a set of functions useful in the analysis of 3D genomic interactions.
+It includes the import of standard HiC data formats into R and HiC normalisation procedures.
+The main objective of this package is to improve the visualization and quantification of the analysis of HiC contacts through aggreagtion.
 
-## Install libraries
+# Requirements
+
+## Installation
 ```{r, eval = FALSE}
 remotes::install_github("NChanard/Genomic2DTK")
 ```
 
-## Load libraries
-```{r, eval = TRUE}
+## Load library
+```{r, eval = TRUE, message = FALSE}
 library(Genomic2DTK)
-```
+```  
 
 ___
 # Test dataset
-The testing dataset is obtained from *Drosophila melanogaster S2 cells*.
-A first part of this data is provided directly in this package and it consist of genomic location data (ChIP-seq and annotations). An other part of testing dataset is downloaded directly from the [4DN](https://data.4dnucleome.org) platform and it consists of 3D structure data of the genome (HiC maps in two different conditions).
 
-## Genomic location and annotation data
-### ChIP-seq peaks
-Subset of ChIP-seq peaks of Beaf-32 protein in wild type condition in GRanges format (bed). These kind of data could be import in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
+## Description
+
+Data were obtained from *Drosophila melanogaster S2 cells*.  
+1. HiC test dataset Directly downloaded from the [4DN](https://data.4dnucleome.org) platform.  
+* Control Condition  
+* Heat Shock Condition  
+2. Genomic coordinates:  
+* ChIPseq peaks of Beaf-32 protein in wild type cells ([GSM1278639](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1278639)).  
+* Reference annotation data for TSS from the UCSC database.  
+* Topologically associating domains (TAD) annotations were defined as described ([F. Ramirez, 2018](https://doi.org/10.1038/s41467-017-02525-w)).  
+
+## 1. Genomic 3D structure
+For a test, please download HiC data in .hic format (Juicer) and .mcool format (HiCExplorer). Examples for each format are provided below.
+
+### Temp directory preparation
+```{r, eval = TRUE, message = FALSE}
+options(timeout = 3600)
+temp.dir <- file.path(tempdir(), "HIC_DATA")
+dir.create(temp.dir)
+```
+
+### Control condition (.hic File)
+```{r, eval = TRUE, message = FALSE}
+Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
+HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
+download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
+```
+
+### Heat shock condition (.mcool File)
+```{r, eval = TRUE, message = FALSE}
+Mcool.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"
+McoolOutput.pth <- file.path(temp.dir, "HeatShock_HIC.mcool")
+download.file(Mcool.url, McoolOutput.pth, method = "curl", extra = "-k")
+```
+
+## 2 Genomic location and annotation data
+These kind of data can be imported in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
+
+### ChIPseq peaks of Beaf-32 protein
 ```{r, eval = TRUE}
 data("Beaf32_Peaks.gnr")
 ```
@@ -75,9 +111,7 @@ knitr::kable(Beaf_Peaks.dtf[,c(1:4,6,5)],
 ```
 </details>  
 
-
-### Reference annontation
-Data from the UCSC data base.  
+### TSS annontation
 ```{r, eval = TRUE}
 data("TSS_Peaks.gnr")
 ```
@@ -95,9 +129,7 @@ knitr::kable(TSS_Peaks.dtf[,c(1:4,6,5)],
 ```
 </details>  
 
-
-### Domains annotation
-Data from TAD calling on HIC data in wild type (bed or bedpe format) ([F. Ramirez, 2018](https://doi.org/10.1038/s41467-017-02525-w)).  
+### TADs annotation
 ```{r, eval = TRUE}
 data("TADs_Domains.gnr")
 ```
@@ -115,93 +147,9 @@ knitr::kable(domains.dtf[,c(1:4,7,5,6)],
 ```
 </details>  
 
-
-## Genomic 3D structure
-The second part of the test data is downloaded directly from the [4DN](https://data.4dnucleome.org) platform. It consists of data from HiC experiments in .hic or .mcool format in to conditions (Control and Heat shock)
-
-### Prepare Temp Directory  
-```{r, eval = TRUE, message = FALSE}
-options(timeout = 3600)
-temp.dir <- file.path(tempdir(), "HIC_DATA")
-dir.create(temp.dir)
-```
-
-### Download and Import control condition (.hic File)
-```{r, eval = TRUE, message = FALSE}
-Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
-HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
-download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
-
-HiC_Ctrl.cmx_lst <- ImportHiC(
-        file.pth    = HicOutput.pth,
-        res.num     = 1000,
-        chrom_1.chr = c("2L", "2L", "2R"),
-        chrom_2.chr = c("2L", "2R", "2R")
-)
-
-```
-
-### Download and Import Heat shock condition (.mcool File)
-```{r, eval = TRUE, message = FALSE}
-Mcool.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/4f1479a2-4226-4163-ba99-837f2c8f4ac0/4DNFI8DRD739.mcool"
-McoolOutput.pth <- file.path(temp.dir, "HeatShock_HIC.mcool")
-download.file(Mcool.url, McoolOutput.pth, method = "curl", extra = "-k")
-
-HiC_HS.cmx_lst <- ImportHiC(
-        file.pth    = McoolOutput.pth,
-        res.num     = 1000,
-        chrom_1.chr = c("2L", "2L", "2R"),
-        chrom_2.chr = c("2L", "2R", "2R")
-)
-```
-
-### HiC data format: ContactMatrix list (cmx_lst) structure 
-Each element of the list corresponds to a ContactMatrix object (dgCMatrix object, sparse matrix format) storing contact frequencies for one chromosomes (cis-interactions, ex: "2L_2L") or between two chromosomes (trans-interactions, ex: "2L_2R").  
-HiC data format is based on [InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html) package, for more details on sparse matrices format, see [Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf).
-```{r, eval = TRUE}
-str(HiC_Ctrl.cmx_lst,max.level = 4)
-#>
-```
-The list object have some generals attributes. These attributes are accessed via:
-```{r, eval = TRUE}
-attributes(HiC_Ctrl.cmx_lst)
-#>
-```
-
-1. **names** : the names of list elements (ContactMatrix).
-2. **resolution** : the resolution of the HiC map.  
-3. **chromSize** : the size of the chromosomes in the tibble format.   
-        - *seqnames* : the sequence name (chromosome name).  
-        - *seqlengths* : the sequence length in base pairs.  
-        - *dimension* : the sequence length in base bins  
-4. **matricesKind** : the kind of matrix that composes the list in the tibble format.   
-        - *name* : the matrix name. 
-        - *type* : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.  
-        - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
-        - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
-5. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
-6. **expected** : This attributes is relatives to the OverExpectedHiC function it give a tiblle of expected count as a function of genomic distance
-
-Each contactmatrix in the list have metadata. These are accessed via:
-```{r, eval = TRUE}
-S4Vectors::metadata(HiC_Ctrl.cmx_lst[["2L_2L"]])
-#>
-```
-
-1. **name** : the name of the ContactMatrix.
-2. **type** : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.
-3. **kind** : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square
-4. **symmetric** : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
-5. **resolution** : the resolution of the HiC map.  
-6. **removedCounts** : A sparse matrix (dgCMatrix) of all counts that are removed beacause there are on very low count row or very low count columns.
-7. **observed** : the raw observed counts of the sparse matrix.
-8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).  
-9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.  
-10. **expected** : This attributes is relatives to the OverExpectedHiC function it give the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
-
 ## Additional genome informations
-General genomic informations used by the functions all along the process are a data.frame containing chromosomes names and sized and the binSize, corresponding to the HiC matrices resolution.
-We complete the data with 2L and 2R chromosome sizes and HiC map resolution.
+Required genomic informations used by the functions during the entire pipeline are a data.frame containing chromosomes names and sized and the binSize, corresponding to the HiC matrices at the same resolution.
+
 ```{r, eval = TRUE}
 seqlengths.num <- c('2L'=23513712, '2R'=25286936)
 chromSize.dtf  <- data.frame(
@@ -212,10 +160,31 @@ binSize.num <- 1000
 ```
 
 ___
-# HiC Preprocess
+# 1 Import HiC
+
+## Import
+Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool, .h5, .hdf5. The pacakage imports only the raw counts in R. Therefore it is necessary to perform the balancing and observed/expected correction steps.
+```{r, eval = TRUE, message = FALSE}
+HiC_Ctrl.cmx_lst <- ImportHiC(
+        file.pth    = HicOutput.pth,
+        res.num     = 1000,
+        chrom_1.chr = c("2L", "2L", "2R"),
+        chrom_2.chr = c("2L", "2R", "2R")
+)
+```
+
+```{r, eval = TRUE, message = FALSE}
+HiC_HS.cmx_lst <- ImportHiC(
+        file.pth    = McoolOutput.pth,
+        res.num     = 1000,
+        chrom_1.chr = c("2L", "2L", "2R"),
+        chrom_2.chr = c("2L", "2R", "2R")
+)
+```
 
 ## Balancing
-Genomic2TK forces the import in the R environment of the raw counts matrix, it is thus necessary to perform the balancing step (Defaut: Iterative Correction) which makes it possible to correct the biases inherent to the loci by balancing the sums of each line and of each column to make them comparable.
+The balancing is done such that every bin of the matrix has approximately the same number of contacts within the contactMatrix.
+
 ```{r, eval = TRUE, results = FALSE}
 HiC_Ctrl.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst)
 HiC_HS.cmx_lst <- BalanceHiC(HiC_HS.cmx_lst)
@@ -223,26 +192,73 @@ HiC_HS.cmx_lst <- BalanceHiC(HiC_HS.cmx_lst)
 
 ### Tips
 
-1. In the interaction.type parameter if you paste "cis" or "trans" the function will return only this kind of chunks in the contact matrix list. All other kind are removed from the result.
-2. In the interaction.type parameter if you paste c("cis","trans") the function will normalize separetly "cis" chunks from "trans". But if you paste "all" all chunks will normalized together.
+1. In the interaction.type parameter it is required to define "cis" or "trans". Then the function will return only ContactMatrices in the corresponding category ("cis" or "trans"). All other categories will be removed from the result.
+2. In the interaction.type parameter if you type c("cis","trans") the function will normalize separetly "cis" or "trans". If you type "all" the function will normalize "cis" and "trans" matrices together.
 
 
 
-## Expected
-Once the bias inherent to the loci has been corrected, the bias due to the genomic distance between two loci must be corrected. To do this, the matrix is corrected by the expected values for each genomic distance.
+## Observed/Expected Correction
+To correct effects due to genomic distance the matrix is corrected by the expected values for each genomic distance.
 ```{r, eval = TRUE, results = FALSE}
 HiC_Ctrl.cmx_lst <- OverExpectedHiC(HiC_Ctrl.cmx_lst)
 HiC_HS.cmx_lst <- OverExpectedHiC(HiC_HS.cmx_lst)
 ```
 
+### Tips
+1. After runing `OverExpectedHiC` function, expected counts can be plotted as a function of genomic distances with tibble by taking the expected attributes.
+
+## HiC data format: ContactMatrix list structure 
+Each element of the list corresponds to a ContactMatrix object (dgCMatrix object, sparse matrix format) storing contact frequencies for one chromosomes (cis-interactions, ex: "2L_2L") or between two chromosomes (trans-interactions, ex: "2L_2R").
+HiC data format is based on [InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html) and [Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf) packages.
+```{r, eval = TRUE}
+str(HiC_Ctrl.cmx_lst,max.level = 4)
+#>
+```
+The list has the attributes described below. These attributes are accessible via:
+```{r, eval = TRUE}
+attributes(HiC_Ctrl.cmx_lst)
+#>
+```
+
+1. **names** : the names of list elements (ContactMatrix).
+2. **resolution** : the resolution of the HiC map.  
+3. **chromSize** : the size of the chromosomes in the tibble format.   
+        - *seqnames* : the sequence name (chromosome name).  
+        - *seqlengths* : the sequence length in base pairs.  
+        - *dimension* : the sequence length in number of bins. 
+4. **matricesKind** : the kind of matrix that composes the list in the tibble format.  
+        - *name* : the matrix name. 
+        - *type* : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.  
+        - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
+        - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
+5. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
+6. **expected** : This attribute is related to the `OverExpectedHiC` function. It gives a tibble with the expected counts as a function of genomic distance.
+
+Each contactmatrix in the list have metadata. These are accessible via:
+```{r, eval = TRUE}
+S4Vectors::metadata(HiC_Ctrl.cmx_lst[["2L_2L"]])
+#>
+```
+
+1. **name** : the name of the ContactMatrix.
+2. **type** : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes (or arms).  
+3. **kind** : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square
+4. **symmetric** : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
+5. **resolution** : resolution of the HiC map.  
+6. **removedCounts** : A sparse matrix (dgCMatrix) of the removed counts (counts that are below the threshold on rows or columns as described in `BalanceHiC`).
+7. **observed** : observed counts of the sparse matrix.
+8. **normalizer** : the balancer vector that converts the observed counts into normalized counts. (observed * normalizer = normalized counts).  
+9. **mtx** : the kind of values in matrix. For example observed counts, normalized counts, observed/expected, etc.  
+10. **expected** : This attributes is related to the `OverExpectedHiC` function. It gives the expected vector that convert the normalized counts into the observed/expected counts (normalized counts / expected = observed/expected).
+
 ___
 # Indexing
-This part of the data corresponds to the positioning data on the genome. 
-To integrate them with the HiC data, which are represented by 2D matrices, these data have to be processed in some way.
+This part of the data corresponds to the positioning data (ChIPseq peaks, genomic features and annotations, genes, etc) on the genome. 
+To integrate such annotations with HiC data in 2D matrices, annotations must be processed as followed.
 
-The first step is the indexing of the features on the genome. This step allows the features to be splitted and grouped into bins that correspond to the resolution of the HiC matrix.
+The first step is the indexing of the features. It allows the features to be splitted and grouped into bins corresponding to the HiC bin size.
 
-## Indexing example 1: Anchors from Beaf32 ChIP-seq binding sites (peak calling output bed file)
+## Example 1: Anchors from Beaf32 ChIP-seq peaks (bed file)
 ```{r, message = FALSE, eval = TRUE}
 anchors_Index.gnr <- IndexFeatures(
     gRange.gnr_lst        = list(Beaf=Beaf32_Peaks.gnr), 
@@ -263,7 +279,7 @@ anchors_Index.gnr |>
 ```
 </details>  
 
-## Indexing example 2: Baits from TSS (transcription start sites reference annotation)
+## Example 2: Baits from TSS (transcription start sites from UCSC)
 ```{r, eval = TRUE}
 baits_Index.gnr <- IndexFeatures(
     gRange.gnr_lst        = list(Tss=TSS_Peaks.gnr),
@@ -284,9 +300,9 @@ baits_Index.gnr |>
 ```
 </details>  
 
-## Filter or subset indexed features:
-By using features names and bin IDs, it is possible to filter or subset indexed features.
-Example: Subset indexed TSS that are not in the same bin than an indexed Beaf32 peak.
+## Filter indexed features:
+By using features names and bin IDs, it is possible to filter a subset of features.
+Example: Subset TSS that are not in the same bin than a Beaf32 peak.
 ```{r, eval = TRUE}
 non_Overlaps.ndx <- NotIn(baits_Index.gnr$bin,anchors_Index.gnr$bin)
 baits_Index.gnr <- baits_Index.gnr[non_Overlaps.ndx,]
@@ -303,16 +319,16 @@ baits_Index.gnr |>
 
 
 ## Tips
-1. It is possible to index multiple features in the same time by submitting a named list of GRanges. Names given in the list of GRanges are then used to filter indexed features and pairs.  
-2. If contraint.gnr is set, anchors and baits will be paired when located within the same region only. If contraint.gnr is NULL, chromosomes are used as constraints.  
-3. When multiples ranges are in a same bin (ex: 3 ChIP-seq peaks in the same 10kb bin), associated numeric variables in metadata (`variablesName.chr_vec`) can be summarized according to the defined method (`method.chr`), Example: Maximum peak score of the bin is kept in metadata column `score`.  
+1. It is possible to index multiple features at the same time by submitting a named list of GRanges. Names given in the list of GRanges can then be used to filter indexed features and pairs.  
+2. If constraint.gnr is defined, then anchors and baits will be paired when located within the same region only. If contraint.gnr is NULL, entire chromosomes (or arms) are used as constraints.  
+3. When multiple ranges are in a same bin (ex: 3 ChIP-seq peaks in the same 10kb bin), associated numeric variables in metadata (`variablesName.chr_vec`) can be summarized according to the defined method (`method.chr`), Example: Max peak score of the bin is kept in metadata column `score`.  
 
 ___
 # Search Pairs 
 
 ## Pairing
-SearchPairs function takes as input one or two indexed features and returns all putative pairs within the same constraint (ex: wihtin the same TAD).
-If only one indexed features is set in indexAnchor.gnr, SearchPairs will return symetrical homotypic pairs A<->A, if indexAnchor.gnr and indexBait.gnr are set, it will return asymetrical heterotypic pairs A<->B 
+`SearchPairs` function takes as input one or two indexed features and returns all putative pairs within the same constraint (ex: wihtin the same TAD).  
+If only one indexed features is defined in indexAnchor.gnr, `SearchPairs` will return symetrical homotypic pairs (A<->A), if indexAnchor.gnr and indexBait.gnr are defined, it will return asymetrical heterotypic pairs (A<->B).
 
 ```{r, eval = TRUE}
 interactions.gni <- SearchPairs(
@@ -353,8 +369,8 @@ interactions.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
 
 
 ## Tips
-1. If `indexBait.gnr` is NULL, SearchPairs will return homotypic pairs with `indexAnchor.gnr`.
-2. Minimum and maximum distances between pairs' anchors can be set. Note that it is also possible to filter pairs within a specific distance during following steps.
+1. If `indexBait.gnr` is NULL, `SearchPairs` will return homotypic pairs with `indexAnchor.gnr`.
+2. Minimum and maximum distances between pairs anchors can be set. Note that it is also possible tofilter pairs within a specific distance later on.
 
 
 ___
@@ -367,8 +383,8 @@ ___
 knitr::include_graphics("images/Extractions_of_LRI.png")
 ```
 
-### Interactions defined with GInteraction or Pairs GRanges.
-In extracted matrices, the middle of Y axis corresponds to the center of the first element and interact with the center of second element in the middle of X axis.  
+### Interactions defined with GInteraction or Pairs of GRanges.
+In extracted matrices, the middle of the Y axis corresponds to the center of the first element and interacts with the center of second element in the middle of the X axis.  
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/LRI_GInteractions.png")
@@ -384,7 +400,7 @@ interactions_PFmatrix.lst <- ExtractSubmatrix(
 ```
 
 ### Interactions defined with GRanges.
-The middle of Y axis corresponds to the start of the range and interact with the middle of X axis which corresponds with the end of the ranges.  
+The middle of the Y axis corresponds to the start of the range and interacts with the middle of the X axis which corresponds to the end of the range.  
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/LRI_GRanges.png")
@@ -400,13 +416,13 @@ domains_PFmatrix.lst <- ExtractSubmatrix(
 
 ## Case 2: Interactions around genomic regions or domains.
 
-In this case, extracted matrices are resized and scaled in order to fit all regions to the same number of bins.
+In this case, extracted matrices are resized and scaled in order to fit all regions into the same area.
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Extractions_of_Regions.png")
 ```
 
-### Regions defined with GInteraction object or Pairs GRanges  
+### Regions defined with GInteraction object or Pairs of GRanges  
 The region's start is defined by the center of the first element and the region's end by the center of the second element.  
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Regions_GInteractions.png")
@@ -440,14 +456,14 @@ domains_RFmatrix.lst <- ExtractSubmatrix(
     )
 ```
 
-## Case 3: Interactions along the diagonal.
+## Case 3: Interactions along the chromosome axis.
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Extractions_of_Ponctuals_Interactions.png")
 ```
 
-### Example with TAD:
-Step 1: generate a GRanges object of TAD boundaries by concatenating starts and ends of TADs.
+### Example to analyse interactions in the context of TADs:
+**Step 1:** generate a GRanges object of TAD boundaries by concatenating starts and ends of TADs.
 ```{r, eval = TRUE}
 domains_Border.gnr <- c(
         GenomicRanges::resize(TADs_Domains.gnr, 1, "start"),
@@ -457,7 +473,7 @@ sort()
 ```
 </details>  
 
-Step 2: Filter and reduce TAD boundaries GRanges object according to HiC resolution (binSize) + Store TAD names.
+**Step 2:** Filter and reduce TAD boundaries GRanges object according to HiC resolution (binSize) + Store TAD names.
 ```{r, eval = TRUE}
 domains_Border_Bin.gnr <- BinGRanges(
     gRange.gnr  = domains_Border.gnr,
@@ -489,7 +505,8 @@ knitr::kable(domains_Border_Bin.dtf[,c(1:4,7,5,6,8,9)],
 ```
 </details>  
 
-Now we have a GRanges object. And for the exemples below we will need the same informations but in an GInteraction object.  
+**Step 3:** This defines a GRanges object. In the folowing examples, the same informations is needed in a GInteraction object class.  
+
 ```{r, eval = TRUE}
 domains_Border_Bin.gni <- InteractionSet::GInteractions(domains_Border_Bin.gnr,domains_Border_Bin.gnr)
 ```
@@ -526,7 +543,7 @@ border_PFmatrix.lst <- ExtractSubmatrix(
 )
 ```
 ### Ponctual interactions defined with GInteractions
-Here the first element (blue on scheme) is in the same bin as the second (red on scheme).  
+Here the first (blue on scheme) and the second (red on scheme) elements are the same.  
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Ponctuals_Interactions_GInteractions.png")
 ```
@@ -539,19 +556,19 @@ border_PFmatrix.lst <- ExtractSubmatrix(
 )
 ```
 
-
 ## Tips
-1. If `res.num` is null, the function heritates the resolution `hic.cmx_lst` attributes.
-2. referencePoint.chr is automatically set as "pf" if every anchors and baits are on the same bin (Case of Ex: Extraction of submatrices around TAD boundaries).
+1. If `res.num` is NULL, the function will atuomatically use the resolution of the `hic.cmx_lst` attributes.
+2. referencePoint.chr is automatically set as "pf" if every anchors and baits are on the same bin (see examples).
 
 ___
 # Filtrations
 
-The modularity of the workflow allows the user to filter interactions, pairs or extracted submatrices at any step of the analysis process.
-FilterInteractions() function takes as input a GInteraction object or a list of submatrices, a list defining targets to filter and a selection function defining how target elements will be filtered.
+The modularity of the workflow allows the user to filter interactions, pairs or extracted submatrices at any step of the analysis.
+`FilterInteractions` function takes as input either a GInteraction object or a list of submatrices, and a list of targets of choice and a selection function defining how targets are filtered.
 
 ## Target list definition:
-Target list must have a particular structure. First it is a named list. Each name of each element must be the name of column in the GInteraction that you want filter (or in the attributes "interactions" of the matrices list you want filter. Then each element must be a character list to match to this column or a function that will test each row in the column and return a bolean.  
+Target list must be defined by a named list corresponding to the same names of each element  and correspond to the column of the GInteraction (or the attributes "interactions" of the matrices to be filtered).
+Then each element must be a character list to match this column or a function that will test each row in the column and return a bolean.
 
 ```{r, eval = FALSE}
 structureTarget.lst <- list(
@@ -560,8 +577,8 @@ structureTarget.lst <- list(
     )
 ```
 
-Interactions, pairs or extracted submatrices are filtered by metadata elements inherited from GRanges objects used in SearchPairs().
-Those metadata are stored in the attributes of the submatrices list and are accessible as follow: 
+Interactions, pairs or extracted submatrices are filtered by metadata elements from GRanges objects used in `SearchPairs`.
+Those metadata are stored in the attributes of the list of submatrices that are accessible as follow: 
 ```{r, eval = FALSE}
 attributes(interactions_RFmatrix_ctrl.lst)$interactions
 names(S4Vectors::mcols(attributes(interactions_RFmatrix_ctrl.lst)$interactions))
@@ -600,9 +617,10 @@ interactions_RFmatrix_ctrl.dtf[,c(1:11,13,12,17,16,18,15,14,20,19,21)] |>
 
 ### Example of target list:
 
-In this example, Pairs will be filtered on anchor.Beaf.name, bait.Tss.name, name (which correpond to submatrix IDs) and distance.
-The aim of the example is to filter Pairs or submatrices that have:
-1. "Beaf32_8" and "Beaf32_15" in **anchor.Beaf.name**
+In this example, Pairs will be filtered on anchor.Beaf.name, bait.Tss.name, name (which correponds to the submatrix IDs) and distance.
+The aim of the example is to filter Pairs or submatrices that have:  
+
+1. "Beaf32_8" and "Beaf32_15" in **anchor.Beaf.name**  
 2. "FBgn0031214" and "FBgn0005278" in **bait.Tss.name**  
 3. **distance** exactly equal to 14000 or 3000  
 And to exclude Pairs or submatrices that have:
@@ -620,8 +638,8 @@ target.lst <- list(
 ```
 
 ## Selection Function definition:
-The selection function defines which operations (union(), intersect(), setdiff()...) are done to filter the set of Pairs with target elements.
-For more operation examples, see *Selection function tips and examples* section.
+The selection function defines which operations (union(), intersect(), setdiff()...) are used to filter the set of Pairs with target elements.
+For more examples, see *Selection function tips and examples* section.
 
 ### Example of selection function according to the example target
 
@@ -637,7 +655,7 @@ selection.fun = function(){
 ## Filtration with selection
 
 ### Example of GInteraction object filtration  
-With a GInteraction object as input, FilterInteractions() will return the indices of filtered elements.
+With a GInteraction object as input, `FilterInteractions` will return the indices of filtered elements.
 
 With the target.lst and selection.fun defined above:
 ```{r, eval = TRUE}
@@ -649,7 +667,7 @@ FilterInteractions(
 ```
 
 ### Example of Matrices list filtration
-With a matrices list as input, FilterInteractions() will return the filtered matrices list, with updated attributes.
+With a matrices list as input, `FilterInteractions` will return the filtered matrices list, with updated attributes.
 
 With the target.lst and selection.fun defined above:
 ```{r, eval = TRUE}
@@ -660,13 +678,14 @@ filtred_interactions_RFmatrix_ctrl.lst <- FilterInteractions(
     )
 ```
 
-## Specific case 1: Only one target and no selection
-For example, we want to filter the top 100 first elements, so we target the 100 first names
+## Specific case 1: Only one target (and therefore no selection needed)
+For example, to filter the top 100 first elements, select the top 100 first names
 ```{r, eval = TRUE}
 first100_target.lst = list(
     submatrix.name = names(interactions_RFmatrix_ctrl.lst)[1:100]
     )
 ```
+
 ### GInteraction filtration
 ```{r, eval = TRUE}
 FilterInteractions(
@@ -688,6 +707,7 @@ attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions
 ```{r, eval = TRUE}
 attributes(interactions_RFmatrix_ctrl.lst[1:20])$interactions
 ```
+
 ## Specific case 2: Sampling
 ```{r, eval = TRUE}
 nSample.num = 3
@@ -713,9 +733,9 @@ attributes(sampled_interactions_RFmatrix_ctrl.lst)$interactions
 ```
 
 
-## Specific case 3: FilterInteractions() without selection function  
+## Specific case 3: Filtration without selection function  
 
-Without any selection function, FilterInteractions() will return all indices corresponding to each target in the list.
+Without any selection function, `FilterInteractions` will return all indices corresponding to each target in the list.
 Then, the indices of interest can be selected in a second step.
 For the examples we take the folowing targets:
 ```{r, eval = TRUE}
@@ -750,7 +770,7 @@ str()
 
 ## Tips  
 
-1. Filter a GInteraction object allows to cross the selected index.  
+1. Filter a GInteraction object allows to intersect the selected index.  
 2. Filter a matrices list without selection is better than filter the interaction attributes of the matrices list
 
 
@@ -760,22 +780,22 @@ a <- c("A","B","D","G")
 b <- c("E","B","C","G")
 c <- c("A","F","C","G")
 ```
-1. Which is common to A, B and C
+1. What is common to A, B and C
 ```{r, eval = TRUE}
 Reduce(intersect, list(a,b,c)) |> sort()
 intersect(a,b) |> intersect(c) |> sort()
 ```
-2. Which is in A and/or B and/or C
+2. What is in A and/or B and/or C
 ```{r, eval = TRUE}
 Reduce(union, list(a,b,c)) |> sort()
 union(a,b) |> union(c) |> sort()
 ```
-3. Which is only in A
+3. What is only in A
 ```{r, eval = TRUE}
 Reduce(setdiff,list(a,b,c)) |> sort()
 setdiff(a,b) |> setdiff(c) |> sort()
 ```
-4. Which is common in A with B, and not in C
+4. What is common in A with B, and not in C
 ```{r, eval = TRUE}
 intersect(a,b) |> setdiff(c) |> sort()
 ```
@@ -791,7 +811,7 @@ union(a,b) |> intersect(c) |> sort()
 ```{r, eval = TRUE}
 union(a,b) |> setdiff(c) |> sort()
 ```
-8. Which is present only once
+8. What is present only once
 ```{r, eval = TRUE}
 d <- c(a,b,c)
 setdiff(d,d[duplicated(d)]) |> sort()
@@ -799,20 +819,20 @@ setdiff(d,d[duplicated(d)]) |> sort()
 
 ___
 # Orientation
-ExtractSubmatrix() returns submatrices orientated according to 5'->3' orientation of the chromosome. In the case of heterotypic or asymetric pairs (anchor != bait), anchors and baits are thus mixed on Y and X axis of the matrices. 
+`ExtractSubmatrix` returns submatrices orientated according to 5'->3' orientation of the chromosome. In the case of heterotypic or asymetric pairs (anchor != bait), anchors and baits are thus mixed on Y and X axis of the matrices. 
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Orientation_extraction.png")
 ```
 
-OrienteMatrix() function allows to force all matrices to be orientated in a way that anchors will be systematically on Y axis and baits on X axis.
+`OrienteMatrix` function allows to force all matrices to be orientated in a way that anchors will be systematically on Y axis and baits on X axis.
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Orientation.png")
 ```
 
-## Acces orientation information
-First, lets look how two matrices are oriented (column orientation of metadata of the interactions attribute). Below we can see that the first matrix is correctly oriented (value is TRUE) but not the second one.
+## Information about the orientation
+
 ```{r, eval = TRUE}
 attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions$orientation
 ```
@@ -820,28 +840,27 @@ attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions$orientation
 2. The 14th matrice is not well oriented, i.e. the **bait   TSS  is in Y axis** and the **anchor Beaf in X axis**  
 
 ## Orientation on matrices list
-
 ```{r, eval = TRUE}
 oriented_first100_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst)
 ```
 
-## Orientation on only one matrice.
-The function could also oriente only one matrix but in this case there is no attribute verification so you can oriente a matrix that don't need orentation.
+## Orientation of one matrix only.
+**Warning** This procedure force orientation even if not needed.
 ```{r, eval = FALSE}
 orientedMatrix.mtx <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst[[1]])
 ```
 
 ___
 # Quantifications
-GetQuantif() function takes as input a list of submatrices and returns a vector of contact frequencies on a given area, compute with a given function:
+`GetQuantif` function takes as input a list of submatrices and returns a vector of contact frequencies in a given type of regions where these contacts are computed with a function.
 
 ## Basic quantifications
-the `GetQuantif` function has some default area and function (see `Genomic2DTK::GetQuantif`).
+The `GetQuantif` function has some default area and function (see `GetQuantif`).
 
-1. **area**: Key word defining on which area the values are extracted in each matrices.  
-2. **operation** Key word defining which operation is done on extracted values for each matrices.  
+1. **area**: The region where the contacts values are extracted in each matrix.  
+2. **operation** The function that is done on extracted values for each matrix.  
 
-Example: Interactions values on the centered 3x3 square centred, averaged after removing all zeros.
+Example: Average of the values in the centered 3x3 square.
 
 ```{r, eval = TRUE}
 center.num <- GetQuantif(
@@ -954,13 +973,13 @@ head()
 ___
 # Aggregations
 
-Aggregation() function takes as input a list of submatrices and returns an aggregated matrix using a user defined aggregation function.
+`Aggregation` function takes as input a list of submatrices and returns an aggregated matrix using a user defined aggregation function.
 
 ## One sample aggregation
 
 ### Basic aggregation  
 
-Aggregation() function has some default aggregation functions like `sum`, `mean` or `median` (see `Genomic2DTK::Aggregation`)
+`Aggregation` function has some default aggregation functions like `sum`, `mean` or `median` (see `Aggregation`)
 
 ```{r, eval = TRUE}
 agg_sum.mtx <- Aggregation(
@@ -982,7 +1001,7 @@ agg_mean.mtx <- Aggregation(
 ```
 
 ## Two samples differential aggregation
-Aggregation() function can take as input two list of submatrices from two samples or conditions and returns a differential aggregated matrix.
+`Aggregation` function can take as input two list of submatrices from two samples or conditions and returns a differential aggregated matrix.
 Two ways to obtain differential aggregation are applied, first is by assessing differences on each individual pairs of matrices then aggregate the differences; second is by aggregating matrices and assess differences on aggregated matrices.
 
 
@@ -1052,14 +1071,14 @@ diffAggreg.mtx <- Aggregation(
 2. If `rm0.bln` is `TRUE` all zeros in matrices list are replace by NA. 
 3. It is possible to filter submatrices list by minimal or maximal distance during the aggregation function.
 4. Since statistical test is highly memory consumming, it is recommended not to apply it each time.
-5. Aggregation() on one sample keeps attributes of the matrices list and add some news:
+5. `Aggregation` on one sample keeps attributes of the matrices list and add some news:
     * totalMatrixNumber: total number of matrices.  
     * filteredMatrixNumber: number of matrices after distance filtering.  
     * minimalDistance: minimal distance between anchor and bait.  
     * maximalDistance: maximal distance between anchor and bait.  
     * aggregationMethod: The function apply to obtain the aggregation.  
     * zeroRemoved: A Boolean that indicate if zeros have been replaced by NA.  
-6. Aggregation() on two samples adds additional attributes:
+6. `Aggregation` on two samples adds additional attributes:
     * correctedFact: The value that is add to the condition to delete some noise. It's compute by the median difference between condition and control in an background area (e.g upper right corner in matrices).
     * matrices:  The list of matrices.  
         - agg: Aggregation of the condition.  
@@ -1109,7 +1128,7 @@ diffAggreg.mtx <- Aggregation(
 ## Plots
 ### Simple aggregation plot:
 #### With no orientation
-ggAPA() function creates a ggplot object (ggplot2::geom_raster)
+`ggAPA` function creates a ggplot object (ggplot2::geom_raster)
 
 ```{r, fig.dim = c(7,7)}
 ggAPA(

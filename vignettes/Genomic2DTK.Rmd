@@ -63,7 +63,7 @@ HiC test dataset: Directly downloaded from the [4DN](https://data.4dnucleome.org
 Genomic coordinates: ChIPseq peaks of Beaf-32 protein in wild type cells ([GSM1278639](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1278639)).
 
 ## Genomic 3D structure
-For a test, download HiC data in .hic format (Juicer).
+For a test, please download HiC data in .hic format (Juicer).
 
 ```{r, eval = TRUE, message = FALSE}
 options(timeout = 3600) 

@@ -31,9 +31,29 @@ PadMtx
 }
 \examples{
 mat.mtx <- matrix(seq_len(25), 5, 5)
-PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("top", "bot", "right", "left"))
-PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = NULL, side.chr = c("top", "bot", "right", "left"))
-PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("right", "left"))
-PadMtx(mat.mtx = mat.mtx, padSize.num = 1, value.num = 0, side.chr = c("top"))
+PadMtx(
+    mat.mtx = mat.mtx,
+    padSize.num = 1,
+    value.num = 0,
+    side.chr = c("top", "bot", "right", "left")
+)
+PadMtx(
+    mat.mtx = mat.mtx,
+    padSize.num = 1,
+    value.num = NULL,
+    side.chr = c("top", "bot", "right", "left")
+)
+PadMtx(
+    mat.mtx = mat.mtx,
+    padSize.num = 1,
+    value.num = 0,
+    side.chr = c("right", "left")
+)
+PadMtx(
+    mat.mtx = mat.mtx,
+    padSize.num = 1,
+    value.num = 0,
+    side.chr = c("top")
+)
 
 }
