@@ -2,37 +2,14 @@ Type: Package
 Package: Genomic2DTK
 Title: Set of genomic interaction analysis tools
 Version: 0.99.0
-Author@R: c(
-    person(given = "Nicolas",
-        family = "Chanard",
-        role = c("aut"),
-        email = "nico.chanard@gmail.com"
-    ),
-    person(given = "David",
-        family = "Depierre",
-        role = c("aut"),
-        email = "dav.depierre@gmail.com"
-    ),
-    person(given = "Pascal",
-        family = "Martin",
-        role = c("ctb"),
-        email = "pascal.martin@inra.fr"
-    ),
-    person(given = "Stephane",
-        family = "Schaak",
-        role = c("ctb"),
-        email = "stephane.schaak@inserm.fr"
-    ),
-    person(given = "Refka",
-        family = "Askri",
-        role = c("ctb"),
-        email = "refka.askri@univ-tlse3.fr"
-    ),
-    person(given = "Olivier",
-        family = "Cuvier",
-        role = c("cre"),
-        email = "olivier.cuvier@univ-tlse3.fr"
-    ))
+Authors@R: c(
+    person("Nicolas", "Chanard", email = "nico.chanard@gmail.com", role = "aut"),
+    person("David", "Depierre", email = "dav.depierre@gmail.com", role = "aut"),
+    person("Pascal", "Martin", email = "pascal.martin@inra.fr", role = "ctb"),
+    person("Stephane", "Schaak", email = "stephane.schaak@inserm.fr", role = "ctb"),
+    person("Refka", "Askri", email = "refka.askri@univ-tlse3.fr", role = "ctb"),
+    person("Olivier", "Cuvier", email = "olivier.cuvier@univ-tlse3.fr", role = "cre")
+    )
 Description:
     This package provides a set of functions useful in the analysis
     of 3D genomic interactions. It includes the import of
