@@ -1,6 +1,7 @@
 #' Resize a matrix
 #'
 #' ResizeMatrix
+#' @keywords internal
 #' @description Resize a numericam matrix in new dimension.
 #' @param matrice.mtx <matrix>: A numerical matrix to resize.
 #' @param newDim.num <integer>: The number of rows and cols in resized matrix.

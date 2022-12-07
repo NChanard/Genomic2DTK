@@ -1,6 +1,7 @@
 #' Convert HSL to RGB.
 #'
 #' Hsl2Rgb
+#' @keywords internal
 #' @description Convert a color in HSl (Hue,Saturation,Light) format to RGB format.
 #' @param hsl.col <charcater>: A vector of the color's HSL code.
 #' @param alpha.bln <logical>: Whether the alpha layer should be returned. (Default FALSE)

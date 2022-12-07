@@ -1,6 +1,7 @@
 #' Apply a function over two RLE
 #'
 #' ReduceRun
+#' @keywords internal
 #' @description Apply a function on the values over two RLE and return one RLE.
 #' @param first.rle <rle or Rle>: First rle.
 #' @param second.rle <rle or Rle>>: Second rle.

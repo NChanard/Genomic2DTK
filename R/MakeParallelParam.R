@@ -1,6 +1,7 @@
 #' Configure parallel parameters.
 #'
 #' MakeParallelParam
+#' @keywords internal
 #' @description Create BiocParallel parameter according to OS.
 #' @param cores.num <numerical> : An integer to specify the number of cores. (Default 1)
 #' @param verbose.bln <logical>: A logical value. If TRUE show the progression in console. (Default TRUE)

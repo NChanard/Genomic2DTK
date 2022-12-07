@@ -1,6 +1,7 @@
 #' Add list as attributes.
 #'
 #' AddAttr
+#' @keywords internal
 #' @description Add list as attributes to any object with or without overwrite.
 #' @param var.any <any>: An object to which attributes are to be added.
 #' @param attribute.lst <list>: A named list of new attributes.

@@ -1,6 +1,7 @@
 #' Cut a vector.
 #'
 #' BreakVector
+#' @keywords internal
 #' @description Compute the n+1 breaks of a vector in a linear or density based way with the possibility to fix minimal, center and maximal values.
 #' @param x.num <numeric>: Numerical vector.
 #' @param min.num <numeric>: Minimal fixed value.

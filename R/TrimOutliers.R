@@ -1,6 +1,7 @@
 #' Remove outliers.
 #'
 #' TrimOutliers
+#' @keywords internal
 #' @description Replace values of a numerical vector that are below a minimal thresholds and/or above maximal thresholds.
 #' @param x.num <numeric>: Numeric vector.
 #' @param tresholds.num <numeric>: Numeric vector of length 2. first value is minimal threshold, second value maximal threshold (Default find threshold based on standarrd deviation. see `SdThreshold` function)

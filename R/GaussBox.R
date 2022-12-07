@@ -1,6 +1,7 @@
 #' One dimension Gaussian kernel.
 #'
 #' GaussBox
+#' @keywords internal
 #' @description One dimension Gaussian kernel.
 #' @param sd.num <numeric>: Standard deviation parameter of the gaussian. (Default 1)
 #' @param boxSize.num <numeric>: Kernel size. If NULL size is 1+4*sd.num (Default NULL)

@@ -1,6 +1,7 @@
 #' Check RGB color format.
 #'
 #' IsRgb
+#' @keywords internal
 #' @description Check if a color is in RGB color format.
 #' @param color.col <character or numeric>: A color.
 #' @return A logical.

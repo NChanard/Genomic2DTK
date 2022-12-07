@@ -1,6 +1,7 @@
 #' Exclusion binary operator.
 #'
 #' NotIn
+#' @keywords internal
 #' @description Binary operator, inverse to \%in\%.
 #' @param lhs <vector or NULL>: Values to be compared against rhs
 #' @param rhs <vector or NULL>: Values to be compared against lhs

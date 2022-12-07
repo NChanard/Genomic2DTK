@@ -1,6 +1,7 @@
 #' Scale values by mean.
 #'
 #' MeanScale
+#' @keywords internal
 #' @description Scale values with mean.
 #' @param x.num <numeric>: Numerical vector.
 #' @return Scaled numeric vector.

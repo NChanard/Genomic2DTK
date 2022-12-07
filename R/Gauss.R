@@ -1,6 +1,7 @@
 #' Gaussian formula.
 #'
 #' Gauss
+#' @keywords internal
 #' @description Gaussian formula in 1 or 2 dimension.
 #' @param x <numeric>: x value.
 #' @param y <numeric>: y value for 2 dimensional gaussian.

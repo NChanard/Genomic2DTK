@@ -1,6 +1,7 @@
 #' Sum by removing NA.
 #'
 #' Plus
+#' @keywords internal
 #' @description Perform sum by removing NA. If all values are NA return NA instead 0.
 #' @param x <numerical>: A numerical vector
 #' @return  The sum of numbers.

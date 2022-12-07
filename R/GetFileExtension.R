@@ -1,6 +1,7 @@
 #' Get file extension
 #'
 #' GetFileExtension
+#' @keywords internal
 #' @description Give the extension of a file from the path.
 #' @param path.pth <character>: The path to the file.
 #' @return A character string

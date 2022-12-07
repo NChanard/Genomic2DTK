@@ -1,6 +1,7 @@
 #' Convert RGB to Hex.
 #'
 #' Rgb2Hex
+#' @keywords internal
 #' @description Convert a color in RGB format to hexadecimal format.
 #' @param rgb.col <integer>: An integer of the color's RGB code.
 #' @param alpha.bln <logical>: Whether the alpha layer should be returned. (Default FALSE)

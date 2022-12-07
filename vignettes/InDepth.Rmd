@@ -160,7 +160,7 @@ binSize.num <- 1000
 ```
 
 ___
-# 1 Import HiC
+# Import HiC
 
 ## Import
 Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool, .h5, .hdf5. The pacakage imports only the raw counts in R. Therefore it is necessary to perform the balancing and observed/expected correction steps.
@@ -834,7 +834,7 @@ knitr::include_graphics("images/Orientation.png")
 ## Information about the orientation
 
 ```{r, eval = TRUE}
-attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions$orientation
+mcols(attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions)$orientation
 ```
 1. The 13th matrice is well oriented, i.e.  the **anchor Beaf is in Y axis** and the **bait   TSS  in X axis**  
 2. The 14th matrice is not well oriented, i.e. the **bait   TSS  is in Y axis** and the **anchor Beaf in X axis**  
@@ -1272,7 +1272,8 @@ ggplot2::labs(
         subtitle = "and subtitle"
 )
 ```
-___
+
+___  
 # SessionInfo
 ```{r, eval = TRUE}
 sessionInfo()

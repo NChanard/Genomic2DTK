@@ -1,6 +1,7 @@
 #' Turns a nested list "inside-out".
 #'
 #' TransposeList
+#' @keywords internal
 #' @description Turns a nested list "inside-out".
 #' @param var.nlst <list[list]>: A nested list to transpose.
 #' @return The tranposed nested list.

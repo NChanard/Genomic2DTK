@@ -1,6 +1,7 @@
 #' Explicit zeros in sparse matrix.
 #'
 #' Rise0
+#' @keywords internal
 #' @description Explicit some implicit zeros in sparse matrix.
 #' @param mat.spm <dgCMatrix or dgCMatrix coercible>: A sparse matrix.
 #' @param which.ndx <numeric>: Vector of positions of the zeros to be explicits (column driven). If NULL and coord.dtf NULL all zeros are explicits. (Default NULL)

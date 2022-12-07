@@ -1,6 +1,6 @@
 Type: Package
 Package: Genomic2DTK
-Title: Set of genomic interaction analysis tools
+Title: Set of 3D genomic interaction analysis tools
 Version: 0.99.0
 Authors@R: c(
     person("Nicolas", "Chanard", email = "nico.chanard@gmail.com", role = "aut"),

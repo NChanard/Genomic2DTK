@@ -1,6 +1,7 @@
 #' Check HSL color format.
 #'
 #' IsHsl
+#' @keywords internal
 #' @description Check if a color is in HSL color format.
 #' @param color.col <character or numeric>: A color.
 #' @return A logical.

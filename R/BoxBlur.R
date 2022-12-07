@@ -1,6 +1,7 @@
 #' Blur a matrix.
 #'
 #' BoxBlur
+#' @keywords internal
 #' @description Blur a matrix with a one dimensional kernel.
 #' @param mat.mtx <matrix>: Numerical matrix.
 #' @param box.num <numeric>: The numerical vector for kernel. If NULL apply a GaussBox (see 'GaussBox' function) (Default NULL)

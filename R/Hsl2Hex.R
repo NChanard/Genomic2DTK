@@ -1,6 +1,7 @@
 #' Convert HSL to Hex.
 #'
 #' Hsl2Hex
+#' @keywords internal
 #' @description Convert a color in HSL (Hue,Saturation,Light) to hexadecimal format.
 #' @param hsl.col <charcater>: A vector of the color's HSL code.
 #' @param alpha.bln <logical>: Whether the alpha layer should be returned. (Default FALSE)

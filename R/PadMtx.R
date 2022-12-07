@@ -1,6 +1,7 @@
 #' Add a value around a matrix.
 #'
 #' PadMtx
+#' @keywords internal
 #' @description Add a value around a matrix.
 #' @param mat.mtx <matrix>: Numerical matrix.
 #' @param padSize.num <numeric>: Number of columns or rows to add. (Default 1)
