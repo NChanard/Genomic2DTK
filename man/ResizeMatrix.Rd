@@ -7,12 +7,12 @@
 ResizeMatrix(matrice.mtx, newDim.num = dim(matrice.mtx))
 }
 \arguments{
-\item{matrice.mtx}{<matrix>: a numerical matrix to resize.}
+\item{matrice.mtx}{<matrix>: A numerical matrix to resize.}
 
-\item{newDim.num}{<integer>: the number of rows and cols in resized matrix.}
+\item{newDim.num}{<integer>: The number of rows and cols in resized matrix.}
 }
 \value{
-resized matrix.
+Resized matrix.
 }
 \description{
 Resize a numericam matrix in new dimension.

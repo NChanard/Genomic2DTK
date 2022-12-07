@@ -7,14 +7,14 @@
 MinMaxScale(x.num, min.num = (0), max.num = 1)
 }
 \arguments{
-\item{x.num}{<numeric>: numerical vector.}
+\item{x.num}{<numeric>: Numerical vector.}
 
-\item{min.num}{<numeric>: minimal value after scaling.}
+\item{min.num}{<numeric>: Minimal value after scaling.}
 
-\item{max.num}{<numeric>: maximal value after scaling.}
+\item{max.num}{<numeric>: Maximal value after scaling.}
 }
 \value{
-scaled numeric vector.
+Scaled numeric vector.
 }
 \description{
 Scale values on min-max range.

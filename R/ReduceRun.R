@@ -2,11 +2,11 @@
 #'
 #' ReduceRun
 #' @description Apply a function on the values over two RLE and return one RLE.
-#' @param first.rle <rle or Rle>: first rle.
-#' @param second.rle <rle or Rle>>: second rle.
-#' @param reduceFun.chr <character>: name of a function to apply e.g paste, sum, mean.
+#' @param first.rle <rle or Rle>: First rle.
+#' @param second.rle <rle or Rle>>: Second rle.
+#' @param reduceFun.chr <character>: Name of a function to apply e.g paste, sum, mean.
 #' @param ... <...>: Other parameter for the reduce function.
-#' @return reduced Rle
+#' @return Reduced Rle
 #' @examples
 #' first.rle <- rle(c("A", "A", "B"))
 #' second.rle <- rle(c("A", "B", "B"))

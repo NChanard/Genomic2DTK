@@ -2,7 +2,7 @@
 #'
 #' TransposeList
 #' @description Turns a nested list "inside-out".
-#' @param var.nlst <list[list]>: a nested list to transpose.
+#' @param var.nlst <list[list]>: A nested list to transpose.
 #' @return The tranposed nested list.
 #' @examples
 #' my_lst <- list(

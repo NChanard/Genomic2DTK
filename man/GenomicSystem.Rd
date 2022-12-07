@@ -7,12 +7,12 @@
 GenomicSystem(x, digits.num = 3)
 }
 \arguments{
-\item{x}{<character or numeric>: the number to convert or string to convert.}
+\item{x}{<character or numeric>: The number to convert or string to convert.}
 
 \item{digits.num}{<integer>: The number of significant digits to be used. See signif() for more informations. (Default 3)}
 }
 \value{
-the converted number or string.
+The converted number or string.
 }
 \description{
 Convert numbers of base into string with order of magnitude (Kbp, Mbp, Gbp) and vice versa.

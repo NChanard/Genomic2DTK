@@ -2,8 +2,8 @@
 #'
 #' NotIn
 #' @description Binary operator, inverse to \%in\%.
-#' @param lhs <vector or NULL>: values to be compared against rhs
-#' @param rhs <vector or NULL>: values to be compared against lhs
+#' @param lhs <vector or NULL>: Values to be compared against rhs
+#' @param rhs <vector or NULL>: Values to be compared against lhs
 #' @return A boolean.
 #' @examples
 #' "A" |> NotIn(c("A", "B", "C"))

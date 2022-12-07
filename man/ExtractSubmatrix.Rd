@@ -22,11 +22,11 @@ ExtractSubmatrix(
 
 \item{referencePoint.chr}{<character>: Type of extracted submatrices. "rf" for "region feature" to extract triangle-shaped matrices around regions or "pf" for "point feature" to extract square-shaped matrices around points. (Default "rf")}
 
-\item{res.num}{<numeric>: the resoulution in used in hic.cmx_lst. If NULL automatically find in resolution attributes of hic.cmx_lst. (Default NULL)}
+\item{res.num}{<numeric>: The resoulution in used in hic.cmx_lst. If NULL automatically find in resolution attributes of hic.cmx_lst. (Default NULL)}
 
 \item{matriceDim.num}{<numeric>: The size of matrices in output. (Default 21).}
 
-\item{shiftFactor.num}{<numeric>: Onlt when "referencePoint.chr" is "rf". Factor defining how much of the distance between anchor and bait is extracted before and after the region (Default 1). Ex: for shiftFactor.num=2, extracted matrices will be 2*regionSize+regionSize+2*regionSize.}
+\item{shiftFactor.num}{<numeric>: Only when "referencePoint.chr" is "rf". Factor defining how much of the distance between anchor and bait is extracted before and after the region (Default 1). Ex: for shiftFactor.num=2, extracted matrices will be 2*regionSize+regionSize+2*regionSize.}
 
 \item{cores.num}{<integer> : An integer to specify the number of cores. (Default 1)}
 

@@ -7,7 +7,7 @@
 TransposeList(var.nlst)
 }
 \arguments{
-\item{var.nlst}{<list[list]>: a nested list to transpose.}
+\item{var.nlst}{<list[list]>: A nested list to transpose.}
 }
 \value{
 The tranposed nested list.

@@ -12,16 +12,16 @@ PadMtx(
 )
 }
 \arguments{
-\item{mat.mtx}{<matrix>: numerical matrix.}
+\item{mat.mtx}{<matrix>: Numerical matrix.}
 
-\item{padSize.num}{<numeric>: number of columns or rows to add. (Default 1)}
+\item{padSize.num}{<numeric>: Number of columns or rows to add. (Default 1)}
 
-\item{value.num}{<numeric>: value to add. If Null create mirror of choosen sides. (Default 0)}
+\item{value.num}{<numeric>: Value to add. If Null create mirror of choosen sides. (Default 0)}
 
-\item{side.chr}{<character>: side to pad, must be one or some of 'top','bot','right' or 'left'. (Default c('top','bot','right','left') )}
+\item{side.chr}{<character>: Side to pad, must be one or some of 'top','bot','right' or 'left'. (Default c('top','bot','right','left') )}
 }
 \value{
-a matrix.
+A matrix.
 }
 \description{
 Add a value around a matrix.

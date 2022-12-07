@@ -2,8 +2,8 @@
 #'
 #' Rgb2Hex
 #' @description Convert a color in RGB format to hexadecimal format.
-#' @param rgb.col <integer>: an integer of the color's RGB code.
-#' @param alpha.bln <logical>: whether the alpha layer should be returned. (Default FALSE)
+#' @param rgb.col <integer>: An integer of the color's RGB code.
+#' @param alpha.bln <logical>: Whether the alpha layer should be returned. (Default FALSE)
 #' @return A character of the color's hexadecimal code.
 #' @examples
 #' Rgb2Hex(c(235, 176, 16, 127), alpha.bln = TRUE)

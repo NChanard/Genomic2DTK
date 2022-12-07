@@ -7,10 +7,10 @@
 MeanScale(x.num)
 }
 \arguments{
-\item{x.num}{<numeric>: numerical vector.}
+\item{x.num}{<numeric>: Numerical vector.}
 }
 \value{
-scaled numeric vector.
+Scaled numeric vector.
 }
 \description{
 Scale values with mean.

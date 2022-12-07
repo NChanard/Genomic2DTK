@@ -4,7 +4,7 @@
 #' @description Search in a GInteraction object which interactions correspond ti a target list and return a list of index or filter a matrices list according to target and a selection function.
 #' @param matrices.lst <List[matrix]>: The matrices list to filter. If is not NULL, the function will return the filtred matrices list, else return a list of index.
 #' @param interarctions.gni <GInteractions>: The GInteraction object on which compute the filter.
-#' @param target.lst <List>: a nammed list that describe the target.
+#' @param target.lst <List>: A nammed list that describe the target.
 #' @param selection.fun <function>: A function that described how the target must be cross. (Defaul intersection of all targets)
 #' @return A list of elements index or a filtred matrices list with attributes updates.
 #' @examples

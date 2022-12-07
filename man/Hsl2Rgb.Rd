@@ -7,9 +7,9 @@
 Hsl2Rgb(hsl.col = NULL, alpha.bln = FALSE)
 }
 \arguments{
-\item{hsl.col}{<charcater>: a vector of the color's HSL code.}
+\item{hsl.col}{<charcater>: A vector of the color's HSL code.}
 
-\item{alpha.bln}{<logical>: whether the alpha layer should be returned. (Default FALSE)}
+\item{alpha.bln}{<logical>: Whether the alpha layer should be returned. (Default FALSE)}
 }
 \value{
 An integer vector of the color's RGB code.

@@ -7,7 +7,7 @@
 MeltSpm(mat.spm = NULL)
 }
 \arguments{
-\item{mat.spm}{<dgCMatrix or dgCMatrix coercible>: a matrix.}
+\item{mat.spm}{<dgCMatrix or dgCMatrix coercible>: A matrix.}
 }
 \value{
 A tibble.

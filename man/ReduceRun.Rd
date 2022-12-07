@@ -7,16 +7,16 @@
 ReduceRun(first.rle, second.rle, reduceFun.chr = "paste", ...)
 }
 \arguments{
-\item{first.rle}{<rle or Rle>: first rle.}
+\item{first.rle}{<rle or Rle>: First rle.}
 
-\item{second.rle}{<rle or Rle>>: second rle.}
+\item{second.rle}{<rle or Rle>>: Second rle.}
 
-\item{reduceFun.chr}{<character>: name of a function to apply e.g paste, sum, mean.}
+\item{reduceFun.chr}{<character>: Name of a function to apply e.g paste, sum, mean.}
 
 \item{...}{<...>: Other parameter for the reduce function.}
 }
 \value{
-reduced Rle
+Reduced Rle
 }
 \description{
 Apply a function on the values over two RLE and return one RLE.

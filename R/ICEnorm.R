@@ -3,7 +3,7 @@
 #' ICEnorm
 #' @description Compute Iterative Correction (Vanilla Count) on hic maps.
 #' @param hic.cmx <contactMatrix>: The HiC maps chunk to normalize.
-#' @param qtlTh.num <numerical>: the threshold quantile below which the bins will be ignored. (Default 0.15)
+#' @param qtlTh.num <numerical>: The threshold quantile below which the bins will be ignored. (Default 0.15)
 #' @param maxIter.num <numerical>: The maximum iteration number.
 #' @return A normalized contactMatrix
 #' @examples

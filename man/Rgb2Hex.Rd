@@ -7,9 +7,9 @@
 Rgb2Hex(rgb.col = NULL, alpha.bln = FALSE)
 }
 \arguments{
-\item{rgb.col}{<integer>: an integer of the color's RGB code.}
+\item{rgb.col}{<integer>: An integer of the color's RGB code.}
 
-\item{alpha.bln}{<logical>: whether the alpha layer should be returned. (Default FALSE)}
+\item{alpha.bln}{<logical>: Whether the alpha layer should be returned. (Default FALSE)}
 }
 \value{
 A character of the color's hexadecimal code.

@@ -7,7 +7,7 @@
 GetFileExtension(path.pth = NULL)
 }
 \arguments{
-\item{path.pth}{<character>: the path to the file.}
+\item{path.pth}{<character>: The path to the file.}
 }
 \value{
 A character string

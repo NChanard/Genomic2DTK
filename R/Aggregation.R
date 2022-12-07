@@ -12,7 +12,7 @@
 #' \item "+" or "sum" apply the sum
 #' \item other (Default) apply the mean
 #' }
-#' @param rm0.bln <logical>: if TURE 0 are replace with NA. (Default FALSE)
+#' @param rm0.bln <logical>: Whether 0 are replace with NA. (Default FALSE)
 #' @param diff.fun <function or chracter>: The function use to compute differential. If the parameter is character so:
 #' \itemize{
 #' \item "-", "substract" or "substraction" apply a substraction

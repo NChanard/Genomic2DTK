@@ -17,21 +17,21 @@ BinGRanges(
 )
 }
 \arguments{
-\item{gRange.gnr}{<GRanges>: a GRanges to bin.}
+\item{gRange.gnr}{<GRanges>: A GRanges to bin.}
 
-\item{chromSize.dtf}{<data.frame>: a data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.}
+\item{chromSize.dtf}{<data.frame>: A data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.}
 
-\item{binSize.num}{<numerical>: width of the bins.}
+\item{binSize.num}{<numerical>: Width of the bins.}
 
-\item{method.chr}{<character>: name of a summary method as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean')}
+\item{method.chr}{<character>: Name of a summary method as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean')}
 
-\item{variablesName.chr_vec}{<character> : a character vector that specify the metadata columns of GRanges on which apply the summary method.}
+\item{variablesName.chr_vec}{<character> : A character vector that specify the metadata columns of GRanges on which apply the summary method.}
 
-\item{na.rm}{<logical> : a logical value indicating whether 'NA' values should be stripped before the computation proceeds. (Default TRUE)}
+\item{na.rm}{<logical> : A logical value indicating whether 'NA' values should be stripped before the computation proceeds. (Default TRUE)}
 
-\item{cores.num}{<numerical> : the number of cores. (Default 1)}
+\item{cores.num}{<numerical> : The number of cores. (Default 1)}
 
-\item{reduce.bln}{<logical> : whether duplicated Bin must been reduced with de summary method. (Default TRUE)}
+\item{reduce.bln}{<logical> : Whether duplicated Bin must been reduced with de summary method. (Default TRUE)}
 
 \item{verbose.bln}{<logical>: If TRUE show the progression in console. (Default FALSE)}
 }

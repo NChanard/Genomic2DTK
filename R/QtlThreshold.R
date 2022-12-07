@@ -2,10 +2,10 @@
 #'
 #' QtlThreshold
 #' @description Find threshold for outliers triming based on quantiles.
-#' @param x.num <numeric>: numeric vector.
-#' @param prct.num <numeric>: percentage (0-100) threshold. (Default 5)
-#' @param bounds.chr <character>: bounds to return, "lower", "upper" or "both". (Default "both")
-#' @return numerical vector of thresholds values for outliers triming.
+#' @param x.num <numeric>: Numeric vector.
+#' @param prct.num <numeric>: Percentage (0-100) threshold. (Default 5)
+#' @param bounds.chr <character>: Bounds to return, "lower", "upper" or "both". (Default "both")
+#' @return Numerical vector of thresholds values for outliers triming.
 #' @examples
 #' set.seed(1111)
 #' x.num <- 0:100

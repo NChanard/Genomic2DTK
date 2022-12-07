@@ -7,10 +7,10 @@
 StrToGRanges(x.chr_vec)
 }
 \arguments{
-\item{x.chr_vec}{<character>: strings to convert on GRanges.}
+\item{x.chr_vec}{<character>: Strings to convert on GRanges.}
 }
 \value{
-a GRanges object.
+A GRanges object.
 }
 \description{
 Convert ranges describe with string (i.e seqname:start-end:strand) in GRanges object.

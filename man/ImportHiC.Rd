@@ -17,9 +17,9 @@ ImportHiC(
 \arguments{
 \item{file.pth}{<GRanges or Pairs[GRanges] or GInteractions>: The genomic feature on which compute the extraction of HiC submatrix. Extension should be .hic, .cool, .mcool, .h5, .hdf5, .HDF5 or .bedpe" assuming .h5 et .hdf5 are only for cool (not mcool).}
 
-\item{res.num}{<numeric>: the HiC resolution.}
+\item{res.num}{<numeric>: The HiC resolution.}
 
-\item{chromSize.dtf}{<data.frame>: a data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.}
+\item{chromSize.dtf}{<data.frame>: A data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.}
 
 \item{chrom_1.chr}{<numeric>: The seqnames of firsts chromosmes (rows in matrix).}
 

@@ -11,9 +11,9 @@ Gauss(x = NULL, y = NULL, sd.num = 1, mu = 0)
 
 \item{y}{<numeric>: y value for 2 dimensional gaussian.}
 
-\item{sd.num}{<numeric>: standard deviation parameter of the gaussian. (Default 1)}
+\item{sd.num}{<numeric>: Standard deviation parameter of the gaussian. (Default 1)}
 
-\item{mu}{<numeric>: mean deviation parameter of the gaussian. (Default 0)}
+\item{mu}{<numeric>: Mean deviation parameter of the gaussian. (Default 0)}
 }
 \value{
 Result of Gaussian formula

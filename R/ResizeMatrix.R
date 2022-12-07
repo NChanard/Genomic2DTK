@@ -2,9 +2,9 @@
 #'
 #' ResizeMatrix
 #' @description Resize a numericam matrix in new dimension.
-#' @param matrice.mtx <matrix>: a numerical matrix to resize.
-#' @param newDim.num <integer>: the number of rows and cols in resized matrix.
-#' @return resized matrix.
+#' @param matrice.mtx <matrix>: A numerical matrix to resize.
+#' @param newDim.num <integer>: The number of rows and cols in resized matrix.
+#' @return Resized matrix.
 #' @examples
 #' matrice.mtx <- matrix(0, 11, 11)
 #' matrice.mtx[which(as.logical(seq_len(11 * 11) %% 2))] <- seq_len(ceiling((11 * 11) / 2))

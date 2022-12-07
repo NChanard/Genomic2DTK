@@ -7,11 +7,11 @@
 MergeGRanges(..., sort.bln = FALSE, reduce.bln = FALSE)
 }
 \arguments{
-\item{...}{<GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList.}
+\item{...}{<GRanges or GRangesList or list[GRanges]>: Some GRanges or a list of GRanges or a GRangesList.}
 
-\item{sort.bln}{<logical>: whether the result should be sorted. (Default FALSE)}
+\item{sort.bln}{<logical>: Whether the result should be sorted. (Default FALSE)}
 
-\item{reduce.bln}{<logical>: whether the result should be reduce. See GenomicRanges::reduce for more details. (Default FALSE)}
+\item{reduce.bln}{<logical>: Whether the result should be reduce. See GenomicRanges::reduce for more details. (Default FALSE)}
 }
 \value{
 a GRange object.

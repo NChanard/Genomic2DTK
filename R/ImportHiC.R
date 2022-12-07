@@ -3,8 +3,8 @@
 #' ImportHiC
 #' @description Import ..hic, .cool, .mcool or .bedpe data
 #' @param file.pth <GRanges or Pairs[GRanges] or GInteractions>: The genomic feature on which compute the extraction of HiC submatrix. Extension should be .hic, .cool, .mcool, .h5, .hdf5, .HDF5 or .bedpe" assuming .h5 et .hdf5 are only for cool (not mcool).
-#' @param res.num <numeric>: the HiC resolution.
-#' @param chromSize.dtf <data.frame>: a data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
+#' @param res.num <numeric>: The HiC resolution.
+#' @param chromSize.dtf <data.frame>: A data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
 #' @param chrom_1.chr <numeric>: The seqnames of firsts chromosmes (rows in matrix).
 #' @param chrom_2.chr <numeric>: The seqnames of second chromosmes (col in matrix). If is NULL is equal to chrom_1.chr (Defalt NULL)
 #' @param cores.num <numerical> : An integer to specify the number of cores. (Default 1)

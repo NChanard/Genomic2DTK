@@ -2,9 +2,9 @@
 #'
 #' Rise0
 #' @description Explicit some implicit zeros in sparse matrix.
-#' @param mat.spm <dgCMatrix or dgCMatrix coercible>: a sparse matrix.
-#' @param which.ndx <numeric> vector of positions of the zeros to be explicits (column driven). If NULL and coord.dtf NULL all zeros are explicits. (Default NULL)
-#' @param coord.dtf <data.frame> a coordinate data frame for zeros to explicit Row index in fisrt column, columns index in second columns. If NULL the which.ndx parameter is used (Default NULL)
+#' @param mat.spm <dgCMatrix or dgCMatrix coercible>: A sparse matrix.
+#' @param which.ndx <numeric>: Vector of positions of the zeros to be explicits (column driven). If NULL and coord.dtf NULL all zeros are explicits. (Default NULL)
+#' @param coord.dtf <data.frame>: A coordinate data frame for zeros to explicit Row index in fisrt column, columns index in second columns. If NULL the which.ndx parameter is used (Default NULL)
 #' @return Sparse matrix with some explicit zeros.
 #' @examples
 #' set.seed(123)

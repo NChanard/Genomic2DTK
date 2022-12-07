@@ -15,9 +15,9 @@ Hue(
 )
 }
 \arguments{
-\item{paletteLength.num}{<numeric>: color number.}
+\item{paletteLength.num}{<numeric>: Color number.}
 
-\item{rotation.num}{<numeric>: if positive, rotates clockwise in the color space, reversing if the number is negative. If is NULL compute rotation according to hueRange.num parameter. (Default NULL)}
+\item{rotation.num}{<numeric>: If positive, rotates clockwise in the color space, reversing if the number is negative. If is NULL compute rotation according to hueRange.num parameter. (Default NULL)}
 
 \item{hueRange.num}{<numeric>: Degree range in color space between 0 and 360. (Default c(0,360))}
 
@@ -27,7 +27,7 @@ Hue(
 
 \item{alpha.num}{<numeric>: Opacity value between 0 and 1. (Default 1)}
 
-\item{alpha.bln}{<logical>: whether the alpha layer should be returned. (Default FALSE)}
+\item{alpha.bln}{<logical>: Whether the alpha layer should be returned. (Default FALSE)}
 }
 \value{
 A vector of color.

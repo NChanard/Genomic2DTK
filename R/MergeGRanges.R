@@ -2,9 +2,9 @@
 #'
 #' MergeGRanges
 #' @description Merge GRanges or a list of GRanges
-#' @param ... <GRanges or GRangesList or list[GRanges]>: some GRanges or a list of GRanges or a GRangesList.
-#' @param sort.bln <logical>: whether the result should be sorted. (Default FALSE)
-#' @param reduce.bln <logical>: whether the result should be reduce. See GenomicRanges::reduce for more details. (Default FALSE)
+#' @param ... <GRanges or GRangesList or list[GRanges]>: Some GRanges or a list of GRanges or a GRangesList.
+#' @param sort.bln <logical>: Whether the result should be sorted. (Default FALSE)
+#' @param reduce.bln <logical>: Whether the result should be reduce. See GenomicRanges::reduce for more details. (Default FALSE)
 #' @return a GRange object.
 #' @examples
 #' GRange_1.grn <- GenomicRanges::GRanges(

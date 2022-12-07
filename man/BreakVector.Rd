@@ -14,17 +14,17 @@ BreakVector(
 )
 }
 \arguments{
-\item{x.num}{<numeric>: numerical vector.}
+\item{x.num}{<numeric>: Numerical vector.}
 
-\item{min.num}{<numeric>: minimal fixed value.}
+\item{min.num}{<numeric>: Minimal fixed value.}
 
-\item{center.num}{<numeric>: center fixed value.}
+\item{center.num}{<numeric>: Center fixed value.}
 
-\item{max.num}{<numeric>: maximal fixed value.}
+\item{max.num}{<numeric>: Maximal fixed value.}
 
-\item{n.num}{<numeric>: number of tile (return n.num+1 breaks).}
+\item{n.num}{<numeric>: Number of tile (return n.num+1 breaks).}
 
-\item{method.chr}{<character>: kind of breaking. "linear" or "density". (Default "linear")}
+\item{method.chr}{<character>: Kind of breaking. "linear" or "density". (Default "linear")}
 }
 \value{
 Numerical vector of breaks.

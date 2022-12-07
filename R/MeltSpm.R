@@ -3,7 +3,7 @@
 #'
 #' MeltSpm
 #' @description Coerce a sparse matrix M in tibble where columns: i is row index, j is column index and x the value M[i,j].
-#' @param mat.spm <dgCMatrix or dgCMatrix coercible>: a matrix.
+#' @param mat.spm <dgCMatrix or dgCMatrix coercible>: A matrix.
 #' @return A tibble.
 #' @examples
 #' i <- c(1, 1, 2, 2, 3, 3, 4, 4, 4, 4)

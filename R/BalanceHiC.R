@@ -4,9 +4,9 @@
 #' @description Apply a matrix-balancing normalization method to a list of contacts matrix.
 #' @param hic.cmx_lst <List[contactMatrix]>: The HiC maps list.
 #' @param method.chr <character> : The kind of normalization method. One of "ICE", "VC" or "VC_SQRT" (Default "ICE")
-#' @param interaction.type <character> : "cis", "trans", c("cis", "trans"), "all". If NULL normalization is apply on cis chunks then trans chunks (equivalent to c("cis", "trans")). If is "all", normalization is apply on all chuncks at once. (Default NULL)
+#' @param interaction.type <character> : "cis", "trans", c("cis", "trans"), "all". If NULL normalization is apply on cis contactMatrix then trans contactMatrix (equivalent to c("cis", "trans")). If is "all", normalization is apply on all contactMatrix at once. (Default NULL)
 #' @param maxIter.num <numerical>: The maximum iteration number.
-#' @param qtlTh.num <numerical>: the threshold quantile below which the bins will be ignored. (Default 0.15)
+#' @param qtlTh.num <numerical>: The threshold quantile below which the bins will be ignored. (Default 0.15)
 #' @param cores.num <numerical> : Number of cores to be used. (Default 1)
 #' @param verbose.bln <logical>: If TRUE show the progression in console. (Default FALSE)
 #' @return A matrices list.

@@ -12,13 +12,13 @@ viridis(
 )
 }
 \arguments{
-\item{paletteLength.num}{<numeric>: color number.}
+\item{paletteLength.num}{<numeric>: Color number.}
 
-\item{space.chr}{<numeric>: a character string; interpolation in RGB or CIE Lab color spaces. See ?grDevices::colorRamp for more details. (Default "rgb")}
+\item{space.chr}{<numeric>: A character string; interpolation in RGB or CIE Lab color spaces. See ?grDevices::colorRamp for more details. (Default "rgb")}
 
-\item{interpolate.chr}{<numeric>: use spline or linear interpolation. See ?grDevices::colorRamp for more details. (Default "linear")}
+\item{interpolate.chr}{<numeric>: Use spline or linear interpolation. See ?grDevices::colorRamp for more details. (Default "linear")}
 
-\item{bias.num}{<numeric>: a positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
+\item{bias.num}{<numeric>: A positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
 }
 \value{
 A vector of color.

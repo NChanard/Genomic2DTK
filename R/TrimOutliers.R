@@ -2,10 +2,10 @@
 #'
 #' TrimOutliers
 #' @description Replace values of a numerical vector that are below a minimal thresholds and/or above maximal thresholds.
-#' @param x.num <numeric>: numeric vector.
-#' @param tresholds.num <numeric>: numeric vector of length 2. first value is minimal threshold, second value maximal threshold (Default find threshold based on standarrd deviation. see `SdThreshold` function)
-#' @param clip.bln <logical>: if TRUE the value out of bounds are replace with threshodls values. If FALSE the Values out of bound are replace with NA (Default FALSE).
-#' @return trimed Numerical vector.
+#' @param x.num <numeric>: Numeric vector.
+#' @param tresholds.num <numeric>: Numeric vector of length 2. first value is minimal threshold, second value maximal threshold (Default find threshold based on standarrd deviation. see `SdThreshold` function)
+#' @param clip.bln <logical>: If TRUE the value out of bounds are replace with threshodls values. If FALSE the Values out of bound are replace with NA (Default FALSE).
+#' @return Trimed Numerical vector.
 #' @examples
 #' set.seed(1111)
 #' x.num <- rnorm(1000)

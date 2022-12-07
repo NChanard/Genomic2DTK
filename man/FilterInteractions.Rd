@@ -18,7 +18,7 @@ FilterInteractions(
 
 \item{interarctions.gni}{<GInteractions>: The GInteraction object on which compute the filter.}
 
-\item{target.lst}{<List>: a nammed list that describe the target.}
+\item{target.lst}{<List>: A nammed list that describe the target.}
 
 \item{selection.fun}{<function>: A function that described how the target must be cross. (Defaul intersection of all targets)}
 }

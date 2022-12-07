@@ -12,7 +12,7 @@ MakeParallelParam(cores.num = 1, verbose.bln = FALSE)
 \item{verbose.bln}{<logical>: A logical value. If TRUE show the progression in console. (Default TRUE)}
 }
 \value{
-return parrallel parameter according number of cores and OS to use with BiocParallel package.
+Parrallel parameter according number of cores and OS to use with BiocParallel package.
 }
 \description{
 Create BiocParallel parameter according to OS.

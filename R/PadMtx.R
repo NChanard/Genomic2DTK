@@ -2,11 +2,11 @@
 #'
 #' PadMtx
 #' @description Add a value around a matrix.
-#' @param mat.mtx <matrix>: numerical matrix.
-#' @param padSize.num <numeric>: number of columns or rows to add. (Default 1)
-#' @param value.num <numeric>: value to add. If Null create mirror of choosen sides. (Default 0)
-#' @param side.chr <character>: side to pad, must be one or some of 'top','bot','right' or 'left'. (Default c('top','bot','right','left') )
-#' @return a matrix.
+#' @param mat.mtx <matrix>: Numerical matrix.
+#' @param padSize.num <numeric>: Number of columns or rows to add. (Default 1)
+#' @param value.num <numeric>: Value to add. If Null create mirror of choosen sides. (Default 0)
+#' @param side.chr <character>: Side to pad, must be one or some of 'top','bot','right' or 'left'. (Default c('top','bot','right','left') )
+#' @return A matrix.
 #' @examples
 #' mat.mtx <- matrix(seq_len(25), 5, 5)
 #' PadMtx(

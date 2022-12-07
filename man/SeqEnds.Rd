@@ -7,10 +7,10 @@
 SeqEnds(x.gnr)
 }
 \arguments{
-\item{x.gnr}{<GRanges>: a GRanges object.}
+\item{x.gnr}{<GRanges>: A GRanges object.}
 }
 \value{
-an integer vector.
+An integer vector.
 }
 \description{
 Get all sequences lengths for each ranges of a GRanges object.

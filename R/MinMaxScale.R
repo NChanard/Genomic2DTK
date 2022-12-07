@@ -2,10 +2,10 @@
 #'
 #' MinMaxScale
 #' @description Scale values on min-max range.
-#' @param x.num <numeric>: numerical vector.
-#' @param min.num <numeric>: minimal value after scaling.
-#' @param max.num <numeric>: maximal value after scaling.
-#' @return scaled numeric vector.
+#' @param x.num <numeric>: Numerical vector.
+#' @param min.num <numeric>: Minimal value after scaling.
+#' @param max.num <numeric>: Maximal value after scaling.
+#' @return Scaled numeric vector.
 #' @examples
 #' set.seed(655213)
 #' x.num <- rnorm(500, 500)

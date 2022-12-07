@@ -7,11 +7,11 @@
 Rise0(mat.spm = NULL, which.ndx = NULL, coord.dtf = NULL)
 }
 \arguments{
-\item{mat.spm}{<dgCMatrix or dgCMatrix coercible>: a sparse matrix.}
+\item{mat.spm}{<dgCMatrix or dgCMatrix coercible>: A sparse matrix.}
 
-\item{which.ndx}{<numeric> vector of positions of the zeros to be explicits (column driven). If NULL and coord.dtf NULL all zeros are explicits. (Default NULL)}
+\item{which.ndx}{<numeric>: Vector of positions of the zeros to be explicits (column driven). If NULL and coord.dtf NULL all zeros are explicits. (Default NULL)}
 
-\item{coord.dtf}{<data.frame> a coordinate data frame for zeros to explicit Row index in fisrt column, columns index in second columns. If NULL the which.ndx parameter is used (Default NULL)}
+\item{coord.dtf}{<data.frame>: A coordinate data frame for zeros to explicit Row index in fisrt column, columns index in second columns. If NULL the which.ndx parameter is used (Default NULL)}
 }
 \value{
 Sparse matrix with some explicit zeros.

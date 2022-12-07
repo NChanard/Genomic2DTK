@@ -7,10 +7,10 @@
 IsRgb(color.col = NULL)
 }
 \arguments{
-\item{color.col}{<character or numeric>: a color.}
+\item{color.col}{<character or numeric>: A color.}
 }
 \value{
-a logical.
+A logical.
 }
 \description{
 Check if a color is in RGB color format.

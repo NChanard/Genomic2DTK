@@ -154,6 +154,10 @@ Beaf_Pairs.gni <- SearchPairs(
 # 3 Submatrices extractions
 Once data have been imported, interactions are extracted out of the pairs of genomic coordinates.
 
+```{r, eval = TRUE, echo = FALSE}
+knitr::include_graphics("images/Extractions_of_LRI.png")
+```
+
 ## Extraction
 ```{r, eval = TRUE, results = FALSE}
 Beaf.mtx_lst <- ExtractSubmatrix(

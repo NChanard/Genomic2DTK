@@ -2,12 +2,12 @@
 #'
 #' BreakVector
 #' @description Compute the n+1 breaks of a vector in a linear or density based way with the possibility to fix minimal, center and maximal values.
-#' @param x.num <numeric>: numerical vector.
-#' @param min.num <numeric>: minimal fixed value.
-#' @param center.num <numeric>: center fixed value.
-#' @param max.num <numeric>: maximal fixed value.
-#' @param n.num <numeric>: number of tile (return n.num+1 breaks).
-#' @param method.chr <character>: kind of breaking. "linear" or "density". (Default "linear")
+#' @param x.num <numeric>: Numerical vector.
+#' @param min.num <numeric>: Minimal fixed value.
+#' @param center.num <numeric>: Center fixed value.
+#' @param max.num <numeric>: Maximal fixed value.
+#' @param n.num <numeric>: Number of tile (return n.num+1 breaks).
+#' @param method.chr <character>: Kind of breaking. "linear" or "density". (Default "linear")
 #' @return Numerical vector of breaks.
 #' @examples
 #' set.seed(31415)

@@ -44,7 +44,7 @@ ggAPA(
 
 \item{blurPass.num}{<numeric> : Number of blur pass. (Default 0)}
 
-\item{blurBox.num}{<numeric> : if null automaticaly compute for 3 Sd. (Default NULL)}
+\item{blurBox.num}{<numeric> : If NULL automaticaly compute for 3 Sd. (Default NULL)}
 
 \item{blurSize.num}{<numeric> : Size of box applied to blurr if null automaticaly compute for 3 Sd. (Default NULL)}
 
@@ -52,13 +52,13 @@ ggAPA(
 
 \item{lowerTri.num}{<numeric> : The value that replace all value in the lower triangle of matrice (Usefull when blur is apply). (Default NULL)}
 
-\item{heatmap.col}{<character> : Heatmap color list. If null automaticaly compute. (Default NULL)}
+\item{heatmap.col}{<character> : Heatmap color list. If NULL automaticaly compute. (Default NULL)}
 
-\item{na.col}{<character> : color of NA values. (Default "#F2F2F2")}
+\item{na.col}{<character> : Color of NA values. (Default "#F2F2F2")}
 
-\item{colorScale.chr}{<character> : shape of color scale on of "linear" or "density" based. (Default "linear")}
+\item{colorScale.chr}{<character> : Shape of color scale on of "linear" or "density" based. (Default "linear")}
 
-\item{bias.num}{<numeric> : a positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
+\item{bias.num}{<numeric> : A positive number. Higher values give more widely spaced colors at the high end. See ?grDevices::colorRamp for more details. (Default 1)}
 
 \item{paletteLength.num}{<numeric> : The number of color in the palette. (Default 51)}
 }

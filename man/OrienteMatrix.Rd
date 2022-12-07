@@ -7,7 +7,7 @@
 OrienteMatrix(matrice.mtx)
 }
 \arguments{
-\item{matrice.mtx}{<matrix or List[matrix]>: matrix or matricies list to oriente}
+\item{matrice.mtx}{<matrix or List[matrix]>: Matrix or matricies list to oriente}
 }
 \value{
 Oriented matrix or matricies list

@@ -7,9 +7,9 @@
 GetFileName(path.pth = NULL, ext.bln = FALSE)
 }
 \arguments{
-\item{path.pth}{<character>: the path to the file.}
+\item{path.pth}{<character>: The path to the file.}
 
-\item{ext.bln}{<logical>: whether the file extension should be returned with the file name. (Default FALSE)}
+\item{ext.bln}{<logical>: Whether the file extension should be returned with the file name. (Default FALSE)}
 }
 \value{
 A character string.

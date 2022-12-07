@@ -2,8 +2,8 @@
 #'
 #' MeanScale
 #' @description Scale values with mean.
-#' @param x.num <numeric>: numerical vector.
-#' @return scaled numeric vector.
+#' @param x.num <numeric>: Numerical vector.
+#' @return Scaled numeric vector.
 #' @examples
 #' set.seed(655213)
 #' x.num <- rnorm(500, 500)

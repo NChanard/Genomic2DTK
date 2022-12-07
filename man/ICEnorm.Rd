@@ -9,7 +9,7 @@ ICEnorm(hic.cmx, qtlTh.num = 0.15, maxIter.num = 50)
 \arguments{
 \item{hic.cmx}{<contactMatrix>: The HiC maps chunk to normalize.}
 
-\item{qtlTh.num}{<numerical>: the threshold quantile below which the bins will be ignored. (Default 0.15)}
+\item{qtlTh.num}{<numerical>: The threshold quantile below which the bins will be ignored. (Default 0.15)}
 
 \item{maxIter.num}{<numerical>: The maximum iteration number.}
 }

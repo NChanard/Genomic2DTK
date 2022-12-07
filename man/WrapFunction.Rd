@@ -7,10 +7,10 @@
 WrapFunction(...)
 }
 \arguments{
-\item{...}{<character>: a String that could be parse and eval as a function.}
+\item{...}{<character>: A string that could be parse and eval as a function.}
 }
 \value{
-the result of the function or a function.
+The result of the function or a function.
 }
 \description{
 Wrap a string into a function.

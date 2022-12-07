@@ -4,8 +4,8 @@
 #' @description Gaussian formula in 1 or 2 dimension.
 #' @param x <numeric>: x value.
 #' @param y <numeric>: y value for 2 dimensional gaussian.
-#' @param sd.num <numeric>: standard deviation parameter of the gaussian. (Default 1)
-#' @param mu <numeric>: mean deviation parameter of the gaussian. (Default 0)
+#' @param sd.num <numeric>: Standard deviation parameter of the gaussian. (Default 1)
+#' @param mu <numeric>: Mean deviation parameter of the gaussian. (Default 0)
 #' @return Result of Gaussian formula
 #' @examples
 #' Gauss(x = 1)

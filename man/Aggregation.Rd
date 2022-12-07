@@ -45,7 +45,7 @@ Aggregation(
 \item other (Default) apply the mean
 }}
 
-\item{rm0.bln}{<logical>: if TURE 0 are replace with NA. (Default FALSE)}
+\item{rm0.bln}{<logical>: Whether 0 are replace with NA. (Default FALSE)}
 
 \item{diff.fun}{<function or chracter>: The function use to compute differential. If the parameter is character so:
 \itemize{

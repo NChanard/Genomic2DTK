@@ -2,8 +2,8 @@
 #'
 #' StrToGRanges
 #' @description Convert ranges describe with string (i.e seqname:start-end:strand) in GRanges object.
-#' @param x.chr_vec <character>: strings to convert on GRanges.
-#' @return a GRanges object.
+#' @param x.chr_vec <character>: Strings to convert on GRanges.
+#' @return A GRanges object.
 #' @examples
 #' StrToGRanges("chr1:1-100:+")
 #' StrToGRanges(c("chr1:1-100:+", "chr2:400-500:-", "chr1:10-50:*"))

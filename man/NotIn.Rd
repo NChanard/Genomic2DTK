@@ -7,9 +7,9 @@
 NotIn(lhs, rhs)
 }
 \arguments{
-\item{lhs}{<vector or NULL>: values to be compared against rhs}
+\item{lhs}{<vector or NULL>: Values to be compared against rhs}
 
-\item{rhs}{<vector or NULL>: values to be compared against lhs}
+\item{rhs}{<vector or NULL>: Values to be compared against lhs}
 }
 \value{
 A boolean.

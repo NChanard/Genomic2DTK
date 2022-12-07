@@ -2,14 +2,14 @@
 #'
 #' BinGRanges
 #' @description Bin a GRanges and allow to apply a summary method (e.g: 'mean', 'median', 'sum', 'max, 'min' ...) to a chossen numericals variables of ranges in a same bin.
-#' @param gRange.gnr <GRanges>: a GRanges to bin.
-#' @param chromSize.dtf <data.frame>: a data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
-#' @param binSize.num <numerical>: width of the bins.
-#' @param method.chr <character>: name of a summary method as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean')
-#' @param variablesName.chr_vec <character> : a character vector that specify the metadata columns of GRanges on which apply the summary method.
-#' @param na.rm <logical> : a logical value indicating whether 'NA' values should be stripped before the computation proceeds. (Default TRUE)
-#' @param cores.num <numerical> : the number of cores. (Default 1)
-#' @param reduce.bln <logical> : whether duplicated Bin must been reduced with de summary method. (Default TRUE)
+#' @param gRange.gnr <GRanges>: A GRanges to bin.
+#' @param chromSize.dtf <data.frame>: A data.frame where first colum correspond to the chromosomes names, and the second column correspond to the chromosomes lengths in base pairs.
+#' @param binSize.num <numerical>: Width of the bins.
+#' @param method.chr <character>: Name of a summary method as 'mean', 'median', 'sum', 'max, 'min'. (Default 'mean')
+#' @param variablesName.chr_vec <character> : A character vector that specify the metadata columns of GRanges on which apply the summary method.
+#' @param na.rm <logical> : A logical value indicating whether 'NA' values should be stripped before the computation proceeds. (Default TRUE)
+#' @param cores.num <numerical> : The number of cores. (Default 1)
+#' @param reduce.bln <logical> : Whether duplicated Bin must been reduced with de summary method. (Default TRUE)
 #' @param verbose.bln <logical>: If TRUE show the progression in console. (Default FALSE)
 #' @return A binned GRanges.
 #' @examples
