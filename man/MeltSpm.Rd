@@ -28,3 +28,4 @@ meltedMat.tbl <- MeltSpm(mat.spm)
 meltedMat.tbl[order(meltedMat.tbl$i), ]
 
 }
+\keyword{internal}

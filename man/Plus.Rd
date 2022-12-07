@@ -30,3 +30,4 @@ sum(c(NA, NA, NA), na.rm = TRUE)
 sum(c(NA, NA, NA))
 
 }
+\keyword{internal}

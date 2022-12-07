@@ -24,3 +24,4 @@ Hsl2Rgb
 Hsl2Rgb(c(43.8, 0.873, 0.492, 0.498), alpha.bln = TRUE)
 
 }
+\keyword{internal}

@@ -29,3 +29,4 @@ matrice.mtx
 ResizeMatrix(matrice.mtx = matrice.mtx, newDim.num = c(7, 7))
 ResizeMatrix(matrice.mtx = matrice.mtx, newDim.num = c(13, 13))
 }
+\keyword{internal}

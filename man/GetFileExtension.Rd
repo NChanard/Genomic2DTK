@@ -22,3 +22,4 @@ GetFileExtension
 filePath.pth ="my/path/to/my/file.txt"
 GetFileExtension(path.pth=filePath.pth)
 }
+\keyword{internal}

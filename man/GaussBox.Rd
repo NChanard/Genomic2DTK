@@ -28,3 +28,4 @@ GaussBox(scale.chr = "1")
 GaussBox(scale.chr = "int")
 
 }
+\keyword{internal}

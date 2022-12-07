@@ -25,3 +25,4 @@ multicoreParam <- MakeParallelParam(2)
 BiocParallel::bplapply(BPPARAM = multicoreParam, seq_len(3), sqrt)
 
 }
+\keyword{internal}

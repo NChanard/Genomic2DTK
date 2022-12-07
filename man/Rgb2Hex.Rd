@@ -24,3 +24,4 @@ Rgb2Hex
 Rgb2Hex(c(235, 176, 16, 127), alpha.bln = TRUE)
 
 }
+\keyword{internal}

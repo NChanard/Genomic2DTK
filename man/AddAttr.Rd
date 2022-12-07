@@ -32,3 +32,4 @@ x <- AddAttr(x, list(dim = c(5, 2)), overwrite.bln = TRUE)
 x
 
 }
+\keyword{internal}

@@ -29,3 +29,4 @@ plot(density(MeanScale(x.num)), col = "red", xlim = c(min(MeanScale(y.num)), max
 lines(density(MeanScale(y.num)), col = "green")
 
 }
+\keyword{internal}

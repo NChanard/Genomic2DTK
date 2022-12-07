@@ -37,3 +37,4 @@ plot(
 lines(density(MinMaxScale(y.num)), col = "green")
 
 }
+\keyword{internal}

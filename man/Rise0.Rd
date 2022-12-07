@@ -31,3 +31,4 @@ Rise0(mat.spm = mat.spm, coord.dtf = data.frame(i = c(1, 5, 3), j = c(1, 2, 3)))
 Rise0(mat.spm = mat.spm)
 
 }
+\keyword{internal}

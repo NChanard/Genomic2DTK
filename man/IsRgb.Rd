@@ -25,3 +25,4 @@ IsRgb(c(125, 125, 125))
 IsRgb(c(43.8, 0.873, 0.492))
 
 }
+\keyword{internal}

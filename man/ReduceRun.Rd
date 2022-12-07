@@ -33,3 +33,4 @@ second.rle <- S4Vectors::Rle(c(5, 5, 5))
 ReduceRun(first.rle = first.rle, second.rle = second.rle, reduceFun.chr = "sum")
 
 }
+\keyword{internal}

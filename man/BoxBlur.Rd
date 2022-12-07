@@ -31,3 +31,4 @@ heatmap(mat.mtx, Rowv = NA, Colv = NA)
 heatmap(BoxBlur(mat.mtx), Rowv = NA, Colv = NA)
 
 }
+\keyword{internal}

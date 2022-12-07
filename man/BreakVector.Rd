@@ -40,3 +40,4 @@ set.seed(31415)
 BreakVector(x.num = rnorm(100, 50, 200), n.num = 9)
 
 }
+\keyword{internal}
