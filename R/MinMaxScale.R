@@ -13,7 +13,11 @@
 #' y.num <- rnorm(500, 100)
 #' plot(density(x.num), col = "red", xlim = c(min(y.num), max(x.num)))
 #' lines(density(y.num), col = "green")
-#' plot(density(MinMaxScale(x.num)), col = "red", xlim = c(min(MinMaxScale(y.num)), max(MinMaxScale(x.num))))
+#' plot(
+#'     density(MinMaxScale(x.num)),
+#'     col = "red",
+#'     xlim = c(min(MinMaxScale(y.num)), max(MinMaxScale(x.num)))
+#' )
 #' lines(density(MinMaxScale(y.num)), col = "green")
 #'
 MinMaxScale <- function(

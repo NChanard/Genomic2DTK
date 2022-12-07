@@ -15,7 +15,11 @@
 #' @examples
 #' GRange.gnr <- GenomicRanges::GRanges(
 #'     seqnames = S4Vectors::Rle(c("chr1", "chr2"), c(3, 1)),
-#'     ranges = IRanges::IRanges(c(1, 201, 251, 1), end = c(200, 250, 330, 100), names = letters[seq_len(4)]),
+#'     ranges = IRanges::IRanges(
+#'         start = c(1, 201, 251, 1),
+#'         end = c(200, 250, 330, 100),
+#'         names = letters[seq_len(4)]
+#'     ),
 #'     strand = S4Vectors::Rle(BiocGenerics::strand(c("*")), 4),
 #'     score = c(50, NA, 100, 30)
 #' )

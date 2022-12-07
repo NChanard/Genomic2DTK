@@ -11,11 +11,11 @@
 #'
 #' # Preprocess HiC
 #' HiC.cmx_lst <- HiC_Ctrl.cmx_lst |>
-#'     NormalizeHiC(
+#'     BalanceHiC(
 #'         interaction.type = "cis",
 #'         method.chr = "ICE"
 #'     ) |>
-#'     ExpectedHiC()
+#'     OverExpectedHiC()
 #'
 #' # Switch values in matrix
 #' HiC_Ctrl_Obs.cmx_lst <- SwitchMatrix(HiC.cmx_lst, matrixKind.chr = "obs")

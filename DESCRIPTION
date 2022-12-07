@@ -5,11 +5,11 @@ Version: 0.99.0
 Author: Nicolas Chanard \<nicolas.chanard@univ-tlse3.fr>
 Maintainer: Nicolas Chanard \<nicolas.chanard@univ-tlse3.fr>
 Description:
-    Genomic2DTK provides a set of functions useful in the analysis
-    of genomic interaction data. This package include the import of
-    classical HiC data formats into R, HiC normalisation. Finally, 
-    the main objective of this package is to facilitate and improve
-    aggregation analysis.
+    This package provides a set of functions useful in the analysis
+    of 3D genomic interactions. It includes the import of
+    standard HiC data formats into R and HiC normalisation procedures.
+    The main objective of this package is to improve the visualization and
+    quantification of the analysis of HiC contacts through aggreagtion.
 biocViews: Software, HiC, DataImport, DataRepresentation, Normalization, Visualization
 License: MIT + file LICENSE
 URL: https://nchanard.github.io/Genomic2DTK/,

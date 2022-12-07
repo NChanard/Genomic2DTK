@@ -36,27 +36,47 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
 ```
 
-# Library
-Genomic2DTK is a package that allows to perform aggregation analyses. In a first step, these analyses consist in extracting 3D conformation data at specific genome loci. Then, in a second step, to aggregate the extracted signal on all the loci to visualize it. In this tutorial you will see how to quickly perform this type of analysis.
-However, we invite you to have a closer look at the documentation and other articles that present in more depth the possibilities of Genomic2DTK which allows for example the exploration and quantification of the signal at a single locus or the performance of differential analysis.
+Quick start from the import of HiC data to the aggregation of HiC contact in 3D. It includes 4 steps:  
 
-## Install libraries
+1. Import HiC
+2. Import genomic coordinates
+3. Submatrices extractions
+4. Plot and visualization
+
+# Requirements
+
+## Installation
 ```{r, eval = FALSE}
 remotes::install_github("NChanard/Genomic2DTK")
 ```
 
-## Load libraries
+## Load library
 ```{r, eval = TRUE, message = FALSE}
 library(Genomic2DTK)
 ```  
 
-
 # Test dataset
-The testing dataset is obtained from *Drosophila melanogaster S2 cells*.
-A first part of this data is provided directly in this package and it consist of genomic location data (ChIP-seq and annotations). An other part of testing dataset is downloaded directly from the [4DN](https://data.4dnucleome.org) platform and it consists of 3D structure data of the genome (HiC maps in two different conditions).
+
+## Description
+Data were obtained from *Drosophila melanogaster S2 cells*.
+HiC test dataset: Directly downloaded from the [4DN](https://data.4dnucleome.org) platform.
+Genomic coordinates: ChIPseq peaks of Beaf-32 protein in wild type cells ([GSM1278639](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1278639)).
+
+## Genomic 3D structure
+For a test, download HiC data in .hic format (Juicer).
+
+```{r, eval = TRUE, message = FALSE}
+options(timeout = 3600) 
+temp.dir <- file.path(tempdir(), "HIC_DATA")
+dir.create(temp.dir)
+
+Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
+HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
+download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
+```
 
 ## Genomic location and annotation data
-Subset of ChIP-seq peaks of Beaf-32 protein in wild type condition in GRanges format (bed). These kind of data could be import in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
+These kind of data can be imported in R with [rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package.
 ```{r, eval = TRUE}
 data("Beaf32_Peaks.gnr")
 ```
@@ -75,22 +95,8 @@ knitr::kable(Beaf_Peaks.dtf[,c(1:4,6,5)],
 ```
 </details>  
 
-## Genomic 3D structure
-The second part of the test data is downloaded directly from the [4DN](https://data.4dnucleome.org) platform. It consists of data from HiC experiments in .hic format (juicer format).
-
-```{r, eval = TRUE, message = FALSE}
-options(timeout = 3600) 
-temp.dir <- file.path(tempdir(), "HIC_DATA")
-dir.create(temp.dir)
-
-Hic.url <- "https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/7386f953-8da9-47b0-acb2-931cba810544/4DNFIOTPSS3L.hic"
-HicOutput.pth <- file.path(temp.dir, "Control_HIC.hic")
-download.file(Hic.url, HicOutput.pth, method = 'curl', extra = '-k')
-```
-
 ## Additional genome informations
-General genomic informations used by the functions all along the process are a data.frame containing chromosomes names and sized and the binSize, corresponding to the HiC matrices resolution.
-We complete the data with 2L and 2R chromosome sizes and HiC map resolution.
+Required genomic informations used by the functions during the entire pipeline are a data.frame containing chromosomes names and sized and the binSize, corresponding to the HiC matrices at the same resolution.
 ```{r, eval = TRUE}
 seqlengths.num <- c('2L'=23513712, '2R'=25286936)
 chromSize.dtf  <- data.frame(
@@ -100,16 +106,11 @@ chromSize.dtf  <- data.frame(
 binSize.num <- 1000
 ```
 
-
-
-
-
-# HiC Preprocess
-The package supports the preprocessing of HiC data and allows you to access the information in a simplified way thanks to the data structure.
+# 1 Import HiC
+The package supports the import and normalization of HiC data.
 
 ## Import
-Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool, .h5, .hdf5.
-
+Genomic2DTK can import HiC data stored in the main formats: .hic, .cool, .mcool, .h5, .hdf5. The pacakage imports only the raw counts in R. Therefore it is necessary to perform the balancing and observed/expected correction steps.
 ```{r, eval = TRUE, results = FALSE}
 hic.cmx_lst <- ImportHiC(
     file.pth      = HicOutput.pth,
@@ -118,68 +119,20 @@ hic.cmx_lst <- ImportHiC(
     )
 ```
 
-
 ## Balancing
-Genomic2TK forces the import in the R environment of the raw counts matrix, it is thus necessary to perform the balancing step (Defaut: Iterative Correction) which makes it possible to correct the biases inherent to the loci by balancing the sums of each line and of each column to make them comparable.
 ```{r, eval = TRUE, results = FALSE}
 hic.cmx_lst <- BalanceHiC(hic.cmx_lst)
 ```
-## Expected
-Once the bias inherent to the loci has been corrected, the bias due to the genomic distance between two loci must be corrected. To do this, the matrix is corrected by the expected values for each genomic distance.
+
+## Observed/Expected Correction
 ```{r, eval = TRUE, results = FALSE}
 hic.cmx_lst <- OverExpectedHiC(hic.cmx_lst)
 ```
 
-## HiC data format: ContactMatrix list (cmx_lst) structure 
-Each element of the list corresponds to a ContactMatrix object (dgCMatrix object, sparse matrix format) storing contact frequencies for one chromosomes (cis-interactions, ex: "2L_2L") or between two chromosomes (trans-interactions, ex: "2L_2R").  
-HiC data format is based on [InteractionSet](https://www.bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html) package, for more details on sparse matrices format, see [Matrix](https://cran.r-project.org/web/packages/Matrix/Matrix.pdf).
-```{r, eval = TRUE}
-str(hic.cmx_lst, max.level = 3, give.attr = FALSE)
-#>
-```
-The list object have some generals attributes. These attributes are accessed via:
-```{r, eval = TRUE}
-str(attributes(hic.cmx_lst))
-#>
-```
-
-1. **names** : the names of list elements (ContactMatrix).
-2. **resolution** : the resolution of the HiC map.  
-3. **chromSize** : the size of the chromosomes in the tibble format.   
-        - *seqnames* : the sequence name (chromosome name).  
-        - *seqlengths* : the sequence length in base pairs.  
-        - *dimension* : the sequence length in base bins  
-4. **matricesKind** : the kind of matrix that composes the list in the tibble format.   
-        - *name* : the matrix name. 
-        - *type* : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.  
-        - *kind* : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square matrices.
-        - *symmetric* : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
-5. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.
-6. **expected** : a tiblle of expected count as a function of genomic distance 
-
-Each contactmatrix in the list have metadata. These are accessed via:
-```{r, eval = TRUE}
-str(S4Vectors::metadata(hic.cmx_lst[["2L_2L"]]))
-#>
-```
-
-1. **name** : the name of the ContactMatrix.
-2. **type** : interaction type. *"Cis"* for interactions on the same chromosome and *"Trans"* for interactions on different chromosomes.
-3. **kind** : the matrix kind. U for upper triangle matrices, L for lower triangle matrices, NA for rectangular or square
-4. **symmetric** : a boolean that indicates whether the matrix is symmetric (lower triangle identical to upper triangle).  
-5. **resolution** : the resolution of the HiC map.  
-6. **removedCounts** : A sparse matrix (dgCMatrix) of all counts that are removed beacause there are on very low count row or very low count columns.
-7. **observed** : the raw observed counts of the sparse matrix.
-8. **normalizer** : the balancer vector to apply on the raw observed counts to obtaine the normalized counts. (observed * normalizer = normalized counts).  
-9. **mtx** : the kind of values in matrix. For exemple observed counts, normalized counts, observed/expected, etc.  
-10. **expected** : the expected vector to apply on the normalized counts to obtaine the observed/expected counts. (normalized counts/expected = observed/expected).
-
-# Genomic locations Preprocess
-This part of the data corresponds to the positioning data on the genome. 
-To integrate them with the HiC data, which are represented by 2D matrices, these data have to be processed in some way.
+# 2 Import genomic coordinates
+Genomic coordinates data (ChIP seq peaks or any other feature) need to be indexed using the same referenced genome as for HiC data. Then the genomic coordinates are paired in GInteraction objects.
 
 ## Features Indexing
-The first step is the indexing of the features on the genome. This step allows the features to be splitted and grouped into bins that correspond to the resolution of the HiC matrix.
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Index.gnr <- IndexFeatures(
     gRange.gnr_lst        = list(Beaf = Beaf32_Peaks.gnr),
@@ -188,8 +141,8 @@ Beaf_Index.gnr <- IndexFeatures(
     )
 ```
 
-## Beaf32 <-> Beaf32 putatives pairs
-The second step is to search for pairs of bins. We put here two distance constraints in order to limit the number of pairs kept. Thus, only the pairs for which the peaks of Beaf32 are at least 25KB and at most 100Kb apart are retained.
+## Beaf32 <-> Beaf32 putatives 
+Constraints for the distance between interaction sites are defined here in order to limit the number of pairs.
 ```{r, eval = TRUE, results = FALSE}
 Beaf_Pairs.gni <- SearchPairs(
     indexAnchor.gnr = Beaf_Index.gnr,
@@ -198,10 +151,10 @@ Beaf_Pairs.gni <- SearchPairs(
     )
 ```
 
-# Aggregation Analysis
-Once the data has been pre-processed, the analysis can be performed to integrate it.
+# 3 Submatrices extractions
+Once data have been imported, interactions are extracted out of the pairs of genomic coordinates.
+
 ## Extraction
-The first step is to extract the HiC data centred on the previously formed loci pairs. The result of the extraction is a list of matrices where each matrix corresponds to a pair.
 ```{r, eval = TRUE, results = FALSE}
 Beaf.mtx_lst <- ExtractSubmatrix(
     feature.gn  = Beaf_Pairs.gni,
@@ -209,14 +162,15 @@ Beaf.mtx_lst <- ExtractSubmatrix(
     )
 ```
 
+# 4 Plot and visualization
+Submatrices are aggregated as sum, average or median. Then, aggregated matrix is plotted as a heatmap of contact frequencies (in the example, contacts surounding Beaf-32 sites).
+
 ## Aggregation
-Then we aggregate all extracted matrices in one unique matrice by performing as default a mean.
 ```{r, eval = TRUE, message = FALSE}
 aggreg.mtx <- Aggregation(Beaf.mtx_lst)
 ```
 
 ## Visulatisation
-Finaly, we can plot the aggregated matrix. Here we can see a red square that correspond to the topological associated domains formed between beaf32 loci.
 ```{r, eval = TRUE, fig.dim = c(7,7), warning=FALSE}
 ggAPA(
     apa.mtx = aggreg.mtx,
@@ -224,7 +178,7 @@ ggAPA(
     )
 ```
 
-# SessionInfo
+# Session Info
 ```{r, eval = TRUE}
 sessionInfo()
 ```

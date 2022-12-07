@@ -12,10 +12,20 @@ chromSize.dtf  <- data.frame(
     seqlengths = seqlengths.num
 )
 
-# Test NormalizeHiC
-BalanceHiC(HiC_Ctrl.cmx_lst, method.chr="VC")
+# Test BalanceHiC
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type=c("cis", "trans"), method.chr="ICE")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type=c("cis", "trans"), method.chr="VC")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type=c("cis", "trans"), method.chr="VC_SQRT")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="ICE")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC")
 BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="trans", method.chr="VC_SQRT")
-BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="all")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="cis", method.chr="ICE")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="cis", method.chr="VC")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="cis", method.chr="VC_SQRT")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="all", method.chr="ICE")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="all", method.chr="VC")
+BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="all", method.chr="VC_SQRT")
+
 HiC_Ctrl.cmx_lst <- BalanceHiC(HiC_Ctrl.cmx_lst, interaction.type="cis")
 HiC_HS.cmx_lst   <- BalanceHiC(HiC_HS.cmx_lst,   interaction.type="cis")
 
@@ -190,6 +200,19 @@ diffAggreg.mtx <- Aggregation(
 )
 
 # Test ggAPA and PlotAPA
+ggAPA(
+    apa.mtx      = diffAggreg.mtx,
+    title.chr    = "APA",
+    colMin.num   = 0,
+    colMax.num   = 10,
+    trimPrct.num = 20,
+    bounds.chr   = "both",
+    blurPass.num = 1,
+    blurSd.num   = 0.5,
+    heatmap.col  = NULL
+)
+
+
 ggAPA(
     apa.mtx      = diffAggreg.mtx,
     title.chr    = "APA",
