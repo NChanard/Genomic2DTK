@@ -14,7 +14,9 @@ This package provides a set of functions useful in the analysis of 3D
 genomic interactions. It includes the import of standard HiC data
 formats into R and HiC normalisation procedures. The main objective of
 this package is to improve the visualization and quantification of the
-analysis of HiC contacts through aggreagtion.
+analysis of HiC contacts through aggregation.
+
+(man/figues/pkgPresentation.png)
 
 ## Installation
 

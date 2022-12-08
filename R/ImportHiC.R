@@ -68,6 +68,14 @@ ImportHiC <- function(
     } else if (length(chrom_1.chr) != length(chrom_2.chr)) {
         stop("chrom_1.chr and chrom_2.chr must have the same length")
     }
+    if ("ALL" %in% toupper(chrom_1.chr)){
+        chrom_1.chr <- chrom_1.chr[-which(toupper(chrom_1.chr) == "ALL")]
+        message("ALL removed from chrom_1.chr")
+    }
+    if ("ALL" %in% toupper(chrom_2.chr)){
+        chrom_2.chr <- chrom_2.chr[-which(toupper(chrom_2.chr) == "ALL")]
+        message("ALL removed from chrom_2.chr")
+    }
     chrom.chr <- c(chrom_1.chr, chrom_2.chr) |>
         unlist() |>
         unique()
@@ -95,7 +103,6 @@ ImportHiC <- function(
         )
         # Get SeqInfo
         chromSize.dtf <- data.frame(rhdf5::h5read(file.pth, name = chr.group))
-        rownames(chromSize.dtf) <- chromSize.dtf$name
     } else if (GetFileExtension(file.pth) == "bedpe" &
         !is.null(chromSize.dtf)
     ) {
@@ -110,6 +117,7 @@ ImportHiC <- function(
     } else {
         stop("file must be .hic, .cool, .mcool, .hdf5, .HDF5 or .bedpe")
     }
+    rownames(chromSize.dtf) <- chromSize.dtf$name
     # Standardize seqlevelsStyle of chromSize.dtf according to
     # chrom.chr
     if (grepl("chr", rownames(chromSize.dtf)[1],fixed = TRUE) &

@@ -33,6 +33,7 @@
 #' @param scaleCorrection.bln <logical>: Whether a correction should be done on the median value take in ane noising area. (Default TRUE)
 #' @param correctionArea.lst <list>: Nested list of indice that define a noising area fore correction. List muste contain in first an element "i" (row indices) then an element called "j" (columns indices). If NULL automatically take in upper left part of aggregated matrices. (Default NULL)
 #' @param statCompare.bln <logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.
+#' @param orientate <logical>: Whether matrices must be orientate before the aggregation.
 #' @return A matrix
 #' @examples
 #' # Data
@@ -76,12 +77,12 @@ Aggregation <- function(
     ctrlMatrices.lst = NULL, matrices.lst = NULL, minDist.num = NULL,
     maxDist.num = NULL, trans.fun = NULL, agg.fun = "mean", rm0.bln = FALSE,
     diff.fun = "substraction", scaleCorrection.bln = FALSE,
-    correctionArea.lst = NULL, statCompare.bln = FALSE
+    correctionArea.lst = NULL, statCompare.bln = FALSE, orientate=TRUE
 ) {
     # subFunctions
     .PrepareMtxList <- function(
         matrices.lst, minDist.num = NULL, maxDist.num = NULL, rm0.bln = FALSE,
-        trans.fun = NULL
+        trans.fun = NULL, orientate=FALSE
     ) {
         interactions.gni <- attributes(matrices.lst)$interactions
         # Filter on distances
@@ -106,6 +107,10 @@ Aggregation <- function(
             ]
         }
         matrices.lst <- matrices.lst[!is.na(names(matrices.lst))]
+        # Orientation
+        if(orientate){
+            matrices.lst  <- OrientateMatrix(matrices.lst)
+        }
         # Convert sparse matrix in dense matrix and convert 0 in NA
         # if rm0.bln is TRUE
         matrices.lst <- lapply(
@@ -285,7 +290,11 @@ Aggregation <- function(
                     WT.vec <- unlist(WT.vec[!is.na(WT.vec)])
                     KD.vec <- unlist(KD.vec[!is.na(KD.vec)])
                     if (length(WT.vec) > 10 & length(KD.vec) > 10) {
-                        return(stats::t.test(WT.vec, KD.vec, var = FALSE)$p.value)
+                        return(stats::t.test(
+                            WT.vec,
+                            KD.vec,
+                            var = FALSE
+                        )$p.value)
                     } else {
                         return(NA)
                     }
@@ -353,8 +362,8 @@ Aggregation <- function(
                 correctedFact = correctionValue.num,
                 correctionArea = correctionArea.lst,
                 matrices = list(list(
-                    agg = agg.mtx, aggCtrl = aggCtrl.mtx, aggDelta = aggDelta.mtx,
-                    aggCorrected = aggCorrected.mtx,
+                    agg = agg.mtx, aggCtrl = aggCtrl.mtx,
+                    aggDelta = aggDelta.mtx, aggCorrected = aggCorrected.mtx,
                     aggCorrectedDelta = aggCorrectedDelta.mtx, pVal = pval.mtx,
                     aggDiffPvalFilt = aggDiffPvalFilt.mtx
                 )),

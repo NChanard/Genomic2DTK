@@ -15,7 +15,8 @@ Aggregation(
   diff.fun = "substraction",
   scaleCorrection.bln = FALSE,
   correctionArea.lst = NULL,
-  statCompare.bln = FALSE
+  statCompare.bln = FALSE,
+  orientate = TRUE
 )
 }
 \arguments{
@@ -60,6 +61,8 @@ Aggregation(
 \item{correctionArea.lst}{<list>: Nested list of indice that define a noising area fore correction. List muste contain in first an element "i" (row indices) then an element called "j" (columns indices). If NULL automatically take in upper left part of aggregated matrices. (Default NULL)}
 
 \item{statCompare.bln}{<logical>: Whether a t.test must be apply to each pxl of the differential aggregated matrix.}
+
+\item{orientate}{<logical>: Whether matrices must be orientate before the aggregation.}
 }
 \value{
 A matrix

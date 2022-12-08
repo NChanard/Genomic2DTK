@@ -8,7 +8,8 @@ Authors@R: c(
     person("Pascal", "Martin", email = "pascal.martin@inra.fr", role = "ctb"),
     person("Stephane", "Schaak", email = "stephane.schaak@inserm.fr", role = "ctb"),
     person("Refka", "Askri", email = "refka.askri@univ-tlse3.fr", role = "ctb"),
-    person("Olivier", "Cuvier", email = "olivier.cuvier@univ-tlse3.fr", role = "cre")
+    person("Robel", "tesfaye", email = "robel.tesfaye@univ-tlse3.fr", role = "ctb"),
+    person("Olivier", "Cuvier", email = "olivier.cuvier@univ-tlse3.fr", role = c("cre","ctb"))
     )
 Description:
     This package provides a set of functions useful in the analysis

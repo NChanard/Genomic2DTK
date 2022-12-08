@@ -350,8 +350,11 @@ GetQuantif <- function(
         AddAttr(
             c(
                 attributes(matrices.lst),
-                interactions = attributes(matrices.lst)$interactions[repeted.ndx],
-                operation = operation.fun, area = area.fun, duplicated = which(duplicated(repeted.ndx))
+                interactions =
+                    attributes(matrices.lst)$interactions[repeted.ndx],
+                operation = operation.fun,
+                area = area.fun,
+                duplicated = which(duplicated(repeted.ndx))
             )
         )
     return(quantif.num)

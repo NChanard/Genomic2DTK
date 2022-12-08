@@ -37,7 +37,7 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 
 This package provides a set of functions useful in the analysis of 3D genomic interactions.
 It includes the import of standard HiC data formats into R and HiC normalisation procedures.
-The main objective of this package is to improve the visualization and quantification of the analysis of HiC contacts through aggreagtion.
+The main objective of this package is to improve the visualization and quantification of the analysis of HiC contacts through aggregation.
 
 # Requirements
 
@@ -825,7 +825,7 @@ ___
 knitr::include_graphics("images/Orientation_extraction.png")
 ```
 
-`OrienteMatrix` function allows to force all matrices to be orientated in a way that anchors will be systematically on Y axis and baits on X axis.
+`OrientateMatrix` function allows to force all matrices to be orientated in a way that anchors will be systematically on Y axis and baits on X axis.
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::include_graphics("images/Orientation.png")
@@ -834,25 +834,25 @@ knitr::include_graphics("images/Orientation.png")
 ## Information about the orientation
 
 ```{r, eval = TRUE}
-mcols(attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions)$orientation
+# mcols(attributes(first100_interactions_RFmatrix_ctrl.lst)$interactions)$orientation
 ```
 1. The 13th matrice is well oriented, i.e.  the **anchor Beaf is in Y axis** and the **bait   TSS  in X axis**  
 2. The 14th matrice is not well oriented, i.e. the **bait   TSS  is in Y axis** and the **anchor Beaf in X axis**  
 
 ## Orientation on matrices list
 ```{r, eval = TRUE}
-oriented_first100_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst)
+oriented_first100_interactions_RFmatrix_ctrl.lst <- OrientateMatrix(first100_interactions_RFmatrix_ctrl.lst)
 ```
 
 ## Orientation of one matrix only.
 **Warning** This procedure force orientation even if not needed.
 ```{r, eval = FALSE}
-orientedMatrix.mtx <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst[[1]])
+orientedMatrix.mtx <- OrientateMatrix(first100_interactions_RFmatrix_ctrl.lst[[1]])
 ```
 
 ___
 # Quantifications
-`GetQuantif` function takes as input a list of submatrices and returns a vector of contact frequencies in a given type of regions where these contacts are computed with a function.
+`GetQuantif` function takes as input a list of submatrices and returns a vector of contact frequencies in a given typeof regions where these contacts are computed with a function.
 
 ## Basic quantifications
 The `GetQuantif` function has some default area and function (see `GetQuantif`).
@@ -899,7 +899,7 @@ head()
 ### Values naming
 
 By default, returned values are named with submatrix ID. 
-If name.chr is set with an element metadata column name from GInteraction attributes, values are returned values are named according to this element.
+If `name.chr` is set with an element metadata column name from GInteraction attributes, values are returned values are named according to this element.
 
 Example: Named quantifications with `anchor.Beaf.name`
 
@@ -912,7 +912,7 @@ namedCenter.num <- GetQuantif(
     )
 ```
 
-Note that changing submatrix ID for other names can create names duplicates:
+Note that changing submatrix ID for other names can create name duplicates:
 
 Example: The 46th matrix is correspond to two Beaf32 peaks, i.e. it has two anchor.Beaf.name
 ```{r, eval = TRUE, echo = FALSE}
@@ -921,7 +921,7 @@ S4Vectors::mcols(attributes(oriented_first100_interactions_RFmatrix_ctrl.lst)$in
     knitr::kable(align = "cc", digits = 1)
 ```
 
-By consequence, the value in center.num is duplicated in namedCenter.num
+As a consequence, the value in center.num is duplicated in namedCenter.num
 ```{r, eval = TRUE}            
 unlist(c(center.num))[45:50]
 unlist(c(namedCenter.num))[45:51]
@@ -953,8 +953,9 @@ GetQuantif(
     ) |>
 head()
 ```
+## Tips
 
-If is null operation.fun return values of the selected area without NA.
+1. If `operation.fun` is NULL then it will return values of the selected region without NA.
 
 ```{r, eval = TRUE}
 GetQuantif(
@@ -965,15 +966,10 @@ GetQuantif(
 head()
 ```
 
-## Tips
-
-1. To print quantifications use `c` function to avoid the attributes printing.  
-2. When you select area if is null `operation.fun` returns values of the selected area without NA.
-
 ___
 # Aggregations
 
-`Aggregation` function takes as input a list of submatrices and returns an aggregated matrix using a user defined aggregation function.
+`Aggregation` function takes as input a list of submatrices and returns an aggregated matrix using the aggregation function defined by the user.
 
 ## One sample aggregation
 
@@ -991,7 +987,7 @@ agg_sum.mtx <- Aggregation(
 
 ### Custom aggregation
 
-Defining a custom aggregation function, example with mean function removing NA:
+Defining a custom aggregation function: example below shows the mean function after removing NA.
 
 ```{r, eval = TRUE}
 agg_mean.mtx <- Aggregation(
@@ -1002,8 +998,8 @@ agg_mean.mtx <- Aggregation(
 
 ## Two samples differential aggregation
 `Aggregation` function can take as input two list of submatrices from two samples or conditions and returns a differential aggregated matrix.
-Two ways to obtain differential aggregation are applied, first is by assessing differences on each individual pairs of matrices then aggregate the differences; second is by aggregating matrices and assess differences on aggregated matrices.
-
+Two ways to obtain differential aggregation are applied, first is by assessing differences on each individual pairs of submatrices then aggregate
+the differences; second is by aggregating matrices and assess differences on the aggregated matrices (see examples below).
 
 ### Preparation of matrices list
 
@@ -1021,7 +1017,7 @@ first100_interactions_RFmatrix_ctrl.lst <- FilterInteractions(
 ```
 **Orientation**
 ```{r, eval = FALSE}
-oriented_first100_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(first100_interactions_RFmatrix_ctrl.lst)
+oriented_first100_interactions_RFmatrix_ctrl.lst <- OrientateMatrix(first100_interactions_RFmatrix_ctrl.lst)
 ```
 
 2. Preparation of second matrices list in Beaf depleted condition.
@@ -1044,7 +1040,7 @@ first100_interactions_RFmatrix.lst <- FilterInteractions(
 ```
 **Orientation**  
 ```{r, eval = TRUE}
-oriented_first100_interactions_RFmatrix.lst <- OrienteMatrix(first100_interactions_RFmatrix.lst)
+oriented_first100_interactions_RFmatrix.lst <- OrientateMatrix(first100_interactions_RFmatrix.lst)
 ```
 
 ### Aggregate
@@ -1067,19 +1063,20 @@ diffAggreg.mtx <- Aggregation(
 
 ## Tips
 
-1. When you perform a one sample aggregation, you could use any of `matrices.lst` or `ctrlMatrices.lst` parameters
-2. If `rm0.bln` is `TRUE` all zeros in matrices list are replace by NA. 
+1. When aggregation is performed using one sample only, use either `matrices.lst` or `ctrlMatrices.lst` parameters
+2. If `rm0.bln` is `TRUE` all zeros in matrices list will be replaced by NA. 
 3. It is possible to filter submatrices list by minimal or maximal distance during the aggregation function.
-4. Since statistical test is highly memory consumming, it is recommended not to apply it each time.
-5. `Aggregation` on one sample keeps attributes of the matrices list and add some news:
+4. It is possible to orientate submatrices during the aggregation function.
+5. The `statCompare.bln` may not be set `TRUE` every time (due to memory requirement).
+6. `Aggregation` on one sample keeps former attributes of the matrices list and add new ones:
     * totalMatrixNumber: total number of matrices.  
     * filteredMatrixNumber: number of matrices after distance filtering.  
     * minimalDistance: minimal distance between anchor and bait.  
     * maximalDistance: maximal distance between anchor and bait.  
-    * aggregationMethod: The function apply to obtain the aggregation.  
-    * zeroRemoved: A Boolean that indicate if zeros have been replaced by NA.  
-6. `Aggregation` on two samples adds additional attributes:
-    * correctedFact: The value that is add to the condition to delete some noise. It's compute by the median difference between condition and control in an background area (e.g upper right corner in matrices).
+    * aggregationMethod: The function applied to obtain the aggregation.  
+    * zeroRemoved: A Boolean that indicates if zeros have been replaced by NA.  
+7. `Aggregation` on two samples adds additional attributes:
+    * correctedFact: The value that is added to the condition to reduce noise. It's computed as the median difference between condition and control in an background area (e.g upper right corner in matrices).
     * matrices:  The list of matrices.  
         - agg: Aggregation of the condition.  
         - aggCtrl: Aggregation of the control.  
@@ -1101,7 +1098,7 @@ aggreg.mtx <- Aggregation(
 ```
 2. Control aggregation with orientation
 ```{r}
-oriented_interactions_RFmatrix_ctrl.lst <- OrienteMatrix(interactions_RFmatrix_ctrl.lst)
+oriented_interactions_RFmatrix_ctrl.lst <- OrientateMatrix(interactions_RFmatrix_ctrl.lst)
 orientedAggreg.mtx <- Aggregation(
         ctrlMatrices.lst=oriented_interactions_RFmatrix_ctrl.lst,
         agg.fun="mean",
@@ -1110,7 +1107,7 @@ orientedAggreg.mtx <- Aggregation(
 ```
 3. Differential aggregation
 ```{r}
-oriented_interactions_RFmatrix.lst <- OrienteMatrix(interactions_RFmatrix.lst)
+oriented_interactions_RFmatrix.lst <- OrientateMatrix(interactions_RFmatrix.lst)
 diffAggreg.mtx <- Aggregation(
         ctrlMatrices.lst    = oriented_interactions_RFmatrix_ctrl.lst,
         matrices.lst        = oriented_interactions_RFmatrix.lst,
@@ -1146,8 +1143,7 @@ ggAPA(
 ### Further visualisation parameters:
 
 #### Trimming aggregated values for visualisation:
-
-You could remove a percentage of value choose in upper tail, lower tail or both tails of the distribution.
+It is possible to set a specific range of values of the scale, for this remove a percentage of values using upper tail, lower tail or both tails of the distribution.
 ```{r, fig.dim = c(7,7)}
 ggAPA(
         apa.mtx      = aggreg.mtx,
@@ -1183,7 +1179,7 @@ ggAPA(
 ```
 
 ##### Center color scale
-Example of user-define color scale center
+Example of user-defined color scale center
 
 ```{r, fig.dim = c(7,7)}
 ggAPA(
@@ -1195,7 +1191,7 @@ ggAPA(
 
 ##### Change color breaks
 
-Exmaples of user-defined color breaks
+Examples of user-defined color breaks
 ```{r, fig.dim = c(7,7)}
 ggAPA(
         apa.mtx       = aggreg.mtx,
@@ -1215,7 +1211,7 @@ ggAPA(
 ```
 
 ##### Change color scale bias
-Examples of different color scale biais.
+Examples of different color scaled bias.
 ```{r, fig.dim = c(7,7)}
 ggAPA(
         apa.mtx    = aggreg.mtx,
@@ -1234,9 +1230,9 @@ ggAPA(
 )
 ```
 
-##### Changed color  
+##### Change color  
 
-here is an option to change the color of heatmap and color of NA values.
+Here is an option to change the color of heatmap and color of NA values.
 ```{r, fig.dim = c(7,7)}
 ggAPA(
         apa.mtx     = aggreg.mtx,
@@ -1246,9 +1242,9 @@ ggAPA(
 )
 ```
 
-#### Blurred visualisation
+#### Blurred visualization
 
-There is an option to apply a blurr on the heatmap that could remove some noise. 
+Option to apply a blurr on the heatmap to reduce noise. 
 ```{r, fig.dim = c(7,7)}
 ggAPA(
         apa.mtx           = aggreg.mtx,
@@ -1274,7 +1270,7 @@ ggplot2::labs(
 ```
 
 ___  
-# SessionInfo
+# Session Info
 ```{r, eval = TRUE}
 sessionInfo()
 ```

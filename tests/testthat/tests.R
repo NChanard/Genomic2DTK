@@ -173,8 +173,8 @@ GetQuantif(
     operation.fun = "mean"
 )
 
-# Test OrienteMatrix
-OrienteMatrix(submatrixPF_Ctrl.mtx_lst)
+# Test OrientateMatrix
+OrientateMatrix(submatrixPF_Ctrl.mtx_lst)
 
 # Test Aggregation
 Aggregation(

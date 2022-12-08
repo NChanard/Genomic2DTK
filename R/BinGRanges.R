@@ -138,6 +138,8 @@ BinGRanges <- function(
         binnedGRanges.gnr <- methods::as(binnedGRange.tbl, "GRanges")
     }
     binnedGRanges.gnr <- sort(binnedGRanges.gnr)
-    GenomeInfoDb::seqinfo(binnedGRanges.gnr) <- GenomeInfoDb::seqinfo(gRange.gnr)
+    GenomeInfoDb::seqinfo(binnedGRanges.gnr) <- GenomeInfoDb::seqinfo(
+        gRange.gnr
+    )
     return(binnedGRanges.gnr)
 }
