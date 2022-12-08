@@ -16,7 +16,7 @@ formats into R and HiC normalisation procedures. The main objective of
 this package is to improve the visualization and quantification of the
 analysis of HiC contacts through aggregation.
 
-<img src="man/figues/pkgPresentation.png"/>
+![](man/figues/pkgPresentation.png)
 
 ## Installation
 
